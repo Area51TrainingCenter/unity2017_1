@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 
     public bool direccion = true;
-    public float speed = 0.1f;
+    public float speedx = 0.1f;
+    public float speedy = 0.1f;
+    public bool MensajeA = true;
     int contador = 1;
 
-	// Esta funcion se ejecuta UNA vez al inicio
-	void Start () {
+    // Esta funcion se ejecuta UNA vez al inicio
+    void Start()
+    {
         Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
@@ -23,7 +27,7 @@ public class PlayerMovement : MonoBehaviour {
         //se pone "f" al final del numero
         float numeroDecimal = -5.6f;
 
-        Debug.Log("numeroDecimal: "+numeroDecimal);
+        Debug.Log("numeroDecimal: " + numeroDecimal);
 
         //el tipo "bool" solo admite los valores true y false
         bool booleano = false;
@@ -34,7 +38,8 @@ public class PlayerMovement : MonoBehaviour {
         {
             Debug.Log("entrò el if");
         }//el "else" se ejecuta si la condicion NO se cumple
-        else {
+        else
+        {
             Debug.Log("NO entrò el if");
         }
         //tambien se pueden hacer comparaciones de valores
@@ -63,22 +68,68 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Update se ejecuta una vez cada frame
-    void Update () {
+    void Update()
+    {
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
         contador = contador + 1;
-       
-        Debug.Log("contador:" + contador);
+        /*
+         Debug.Log("contador:" + contador);
 
-        if (contador % 2 == 0)
+         if (contador % 2 == 0)
+         {
+             Debug.Log("es par");
+         }else
+         {
+             Debug.Log("es impar");
+         }
+         */
+        Moviminento();
+        CambiarColor();
+
+    }
+    void Moviminento()
+    {
+        bool mousePressed = Input.GetMouseButtonDown(0);
+
+
+        if (mousePressed)
         {
-            Debug.Log("es par");
-        }else
-        {
-            Debug.Log("es impar");
+            speedx = speedx * -1;
+
         }
 
-        transform.Translate(speed, 0, 0);
+        bool mousePressed1 = Input.GetMouseButtonDown(1);
+        if (mousePressed1)
+        {
+            speedy = speedy * -1;
+        }
+        transform.Translate(speedx, speedy, 0);
+    }
+
+    void CambiarColor()
+    { bool keyEPressed = Input.GetKeyDown(KeyCode.E);
+        
+
+
+
+       
+        if (keyEPressed)
+        {
+            if (MensajeA)
+            {
+                Debug.Log("Mensaje A");
+                MensajeA = false;
+                GetComponent<Renderer>().material.color = Color.red;
+            }
+            else
+            {
+                Debug.Log("Mensaje B");
+                GetComponent<Renderer>().material.color = Color.white;
+                MensajeA = true;
+            }
+        }
 
     }
 }
+
