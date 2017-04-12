@@ -2,14 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
+    public float speed = 0.01f;
+    public float speedX = 0.05f;
+    public float speedY = 0.05f;
+    public bool PressE = true;
+    public Color colorStart = Color.red;
+    public Color colorEnd = Color.green;
+    public float duration = 1.0F;
+    public Renderer rend;
+    /*public bool direccion = true;
+    int contador = 1;*/
 
-    public bool direccion = true;
-    public float speed = 0.1f;
-    int contador = 1;
-
-	// Esta funcion se ejecuta UNA vez al inicio
-	void Start () {
+    // Esta funcion se ejecuta UNA vez al inicio
+    void Start()
+    {
+        #region Clase 1
+        /*
         Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
@@ -60,25 +70,97 @@ public class PlayerMovement : MonoBehaviour {
         {
 
         }
+        */
+        #endregion
     }
 
     // Update se ejecuta una vez cada frame
-    void Update () {
+    void Update()
+    {
+        #region Clase 1
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
+        /*
         contador = contador + 1;
-       
+
         Debug.Log("contador:" + contador);
 
         if (contador % 2 == 0)
         {
             Debug.Log("es par");
-        }else
+        }
+        else
         {
             Debug.Log("es impar");
         }
+        */
+        #endregion
 
-        transform.Translate(speed, 0, 0);
+        #region Clase 2
+        //rend = GetComponent<Renderer>();
+        Movimiento();
+        CambiarColor();
+        #endregion
+
+        #region movimiendo wasd
+        /*
+        //Direccionales para el cubo
+        if (Input.GetKey(KeyCode.D))
+            transform.Translate(speed, 0, 0);
+        if (Input.GetKey(KeyCode.W))
+            transform.Translate(0, speed, 0);
+        if (Input.GetKey(KeyCode.A))
+            transform.Translate(-speed, 0, 0);
+        if (Input.GetKey(KeyCode.S))
+            transform.Translate(0, -speed, 0);
+        if (Input.GetKey(KeyCode.Space))
+            transform.Rotate(1, 1, 1);
+       */
+        #endregion
+    }
+
+    #region Clase 2
+    void Movimiento()
+    {
+        //Si el boton izquierdo del mouse esta presioado (0: izq, 1: der, 2: centro)
+        //Debug.Log("Presionando el botón izquierdo del mouse");
+        bool LeftPressed = Input.GetMouseButtonDown(0);
+        if (LeftPressed)
+            speedX *= -1;
+
+
+
+        bool RightPressed = Input.GetMouseButtonDown(1);
+        if (RightPressed)
+            speedY *= -1;
+        //transform.Translate(speedX, speedY, 0);
+        //Para manejar metros por segundo m/s se multiplica la velocidad por "Time.deltaTime"
+        transform.Translate(speedX*Time.deltaTime, speedY * Time.deltaTime, 0);
 
     }
+
+    void CambiarColor()
+    {
+        bool KeyPressedE = Input.GetKeyDown(KeyCode.E);
+        
+        if (KeyPressedE && PressE)
+        {
+            Debug.Log("Mensaje A");
+            PressE = false;
+            GetComponent<Renderer>().material.color = Color.red;
+            //float lerp = Mathf.PingPong(Time.time, duration) / duration;
+            //rend.material.color = Color.Lerp(colorStart, colorEnd, lerp);
+            //rend.material.color = Color.red;
+        }
+        else if( KeyPressedE && !PressE)
+        {
+            Debug.Log("Mensaje B");
+            GetComponent<Renderer>().material.color = Color.green;
+            PressE = true;
+
+        }
+            
+        
+    }
+    #endregion
 }
