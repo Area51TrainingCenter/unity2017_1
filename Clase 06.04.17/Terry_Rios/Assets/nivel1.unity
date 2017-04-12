@@ -228,7 +228,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direccion: 1
-  speed: 0.1
+  speed: 5
+  speed2: 5
+  tecla1: 1
 --- !u!23 &2095224188
 MeshRenderer:
   m_ObjectHideFlags: 0

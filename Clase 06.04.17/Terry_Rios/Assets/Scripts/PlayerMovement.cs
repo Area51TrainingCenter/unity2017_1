@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public bool direccion = true;
-    public float speed = 0.1f;
+    public float speed = 5;
+    public float speed2 = 5;
     int contador = 1;
 
 	// Esta funcion se ejecuta UNA vez al inicio
@@ -67,7 +68,7 @@ public class PlayerMovement : MonoBehaviour {
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
         contador = contador + 1;
-       
+        /*
         Debug.Log("contador:" + contador);
 
         if (contador % 2 == 0)
@@ -77,8 +78,61 @@ public class PlayerMovement : MonoBehaviour {
         {
             Debug.Log("es impar");
         }
+        */
 
-        transform.Translate(speed, 0, 0);
+        Movimiento();
+        Cambiarcolor();
 
     }
+
+    void Movimiento()
+    {
+        bool mousepressed = Input.GetMouseButtonDown(0);
+        bool rmousepressed = Input.GetMouseButtonDown(1);
+
+        if (mousepressed)
+        {
+            Debug.Log("presionastes el boton del mouse");
+        }
+
+        if (mousepressed)
+        {
+            Debug.Log(speed = -speed);
+        }
+
+        if (rmousepressed)
+        {
+            Debug.Log(speed2 = -speed2);
+        }
+
+        transform.Translate(speed*Time.deltaTime, speed2*Time.deltaTime, 0);
+    }
+
+    public bool tecla1 = true;
+
+    void Cambiarcolor()
+        
+    {
+        GetComponent<Renderer>().material.color = Color.red;
+        
+        
+        bool KeyPressed = Input.GetKeyDown(KeyCode.E);
+        if (KeyPressed)
+        {
+            if (tecla1)
+            {
+                Debug.Log(GetComponent<Renderer>().material.color = Color.red);
+                tecla1 = false;
+            }
+            else
+            {
+                Debug.Log(GetComponent<Renderer>().material.color = Color.white);
+                tecla1 = true;
+            }
+        }
+       
+    }
+    
+
+    
 }
