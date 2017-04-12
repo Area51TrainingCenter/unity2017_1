@@ -5,8 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public bool direccion = true;
-    public float speed = 0.1f;
+    public float speedX = 0.1f;
+    public float speedY = 0.1f;
     int contador = 1;
+    bool intercalador = true;
+    public GameObject bala;
 
 	// Esta funcion se ejecuta UNA vez al inicio
 	void Start () {
@@ -67,18 +70,104 @@ public class PlayerMovement : MonoBehaviour {
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
         contador = contador + 1;
-       
-        Debug.Log("contador:" + contador);
 
-        if (contador % 2 == 0)
-        {
-            Debug.Log("es par");
-        }else
-        {
-            Debug.Log("es impar");
-        }
+        //Debug.Log("contador:" + contador);
 
-        transform.Translate(speed, 0, 0);
+        //if (contador % 2 == 0)
+        //{
+        //    Debug.Log("es par");
+        //}else
+        //{
+        //    Debug.Log("es impar");
+        //}
+
+      
+        Movimiento();
+        cambiarColor();
+        disparo();
 
     }
+
+    void Movimiento()
+    {
+        bool leftMousePressed = Input.GetMouseButtonDown(0);
+        bool rightMousePressed = Input.GetMouseButtonDown(1);
+        bool mousePressed3 = Input.GetMouseButtonDown(2);
+
+
+        //0 izq, 1 derecho, 2central
+        if (leftMousePressed)
+        {
+            Debug.Log("presionaste el boton del mouse, speedX=" + speedX);
+
+
+            speedX *= -1;
+
+
+        }
+        //acelerar
+        if (rightMousePressed)
+        {
+            Debug.Log("presionaste el boton del mouse, speedY=" + speedY);
+
+
+            speedY *= -1;
+
+
+        }
+        //freno
+        if (mousePressed3)
+        {
+            Debug.Log("presionaste el boton del mouse, speedX=" + speedX + " speedY=" + speedY);
+
+
+            speedX -= 00.1f;
+            speedY -= 00.1f;
+        }
+
+        transform.Translate(speedX*Time.deltaTime, speedY* Time.deltaTime, 0);
+    }
+
+    void cambiarColor()
+    {
+        
+        bool keyEPressed = Input.GetKeyDown(KeyCode.E);
+        
+        if (keyEPressed)
+        {
+            
+            if (intercalador)
+            {
+                Debug.Log("Mensaje1");
+                GetComponent<Renderer>().material.color = Color.red;
+
+            }
+            else
+            {
+                Debug.Log("Mensaje2");
+                GetComponent<Renderer>().material.color = Color.magenta;
+
+            }
+            intercalador = !intercalador;
+        }
+
+    }
+
+    void disparo()
+    {
+        int dis = 0;
+        bool keySpacePressed = Input.GetKeyDown(KeyCode.Space);
+        if (keySpacePressed)
+        {
+            for(int i = 0; i < 10; i++)
+            {
+                bala.transform.Translate(i, 0, 0);
+            }
+            
+
+        }
+
+    }
+        
+    
 }
