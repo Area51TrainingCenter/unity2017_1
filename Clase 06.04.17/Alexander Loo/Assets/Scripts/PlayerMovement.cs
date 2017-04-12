@@ -5,22 +5,24 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public bool direccion = true;
-    public float speed = 0.1f;
+    public float speedx = 1f;
+    public float speedy = 1f;
     int contador = 1;
+    bool contadorMsj = true;
 
-	// Esta funcion se ejecuta UNA vez al inicio
+	// Esta función se ejecuta UNA vez al inicio
 	void Start () {
         Debug.Log("hola");
-        //declaramos una variable del tipo int (numero entero)
+        //declaramos una variable del tipo int (número entero)
         //la variable se llama "numero"
         // y le asignamos el valor cero
         int numero = 6;
-        //aqui hacemos la declaracion y asignacion de la variable por separado
+        //aqui hacemos la declaración y asignación de la variable por separado
         int numero2;
         numero2 = 78;
-        //float es para numeros decimales
+        //float es para números decimales
         //siempre que le das un valor a una variable float
-        //se pone "f" al final del numero
+        //se pone "f" al final del número
         float numeroDecimal = -5.6f;
 
         Debug.Log("numeroDecimal: "+numeroDecimal);
@@ -28,16 +30,16 @@ public class PlayerMovement : MonoBehaviour {
         //el tipo "bool" solo admite los valores true y false
         bool booleano = false;
         //el if o condicional sirve para que 
-        //solo si el valor dentro de los parentesis es 
-        //verdadero ... se ejecuta el codigo adentro
+        //solo si el valor dentro de los paréntesis es 
+        //verdadero ... se ejecuta el código adentro
         if (booleano)
         {
-            Debug.Log("entrò el if");
-        }//el "else" se ejecuta si la condicion NO se cumple
+            Debug.Log("entró el if");
+        }//el "else" se ejecuta si la condición NO se cumple
         else {
-            Debug.Log("NO entrò el if");
+            Debug.Log("NO entró el if");
         }
-        //tambien se pueden hacer comparaciones de valores
+        //también se pueden hacer comparaciones de valores
         // == se usa para comparar si son iguales
         // <= para comparar si el valor es menor o igual a
         // >= para comparar si el valor es mayor o igual a
@@ -51,7 +53,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
         // el operador % sirve para obtener el residuo despues
-        // de dividir los dos numeros.
+        // de dividir los dos números.
         int num1 = 5;
         int num2 = 2;
         int resultado = num1 % num2;
@@ -65,20 +67,62 @@ public class PlayerMovement : MonoBehaviour {
     // Update se ejecuta una vez cada frame
     void Update () {
         //contador es una variable global
-        //esta variable NO se destruye cuando termina la funcion Update
+        //esta variable NO se destruye cuando termina la función Update
         contador = contador + 1;
-       
-        Debug.Log("contador:" + contador);
+        /*Debug.Log("contador:" + contador);
 
-        if (contador % 2 == 0)
+         if (contador % 2 == 0)
+         {
+             Debug.Log("es par");
+         }else
+         {
+             Debug.Log("es impar");
+         }*/
+         //Para llamar a una función solo se pone el nombre de la función();
+        Movimiento();
+        CambiarColor();
+    }
+
+    void Movimiento()
+    {
+        // Input.GetMouseButtonDown(0) es click izquierdo
+        // Input.GetMouseButtonDown(1) es click derecho
+        bool mouseLongitud = Input.GetMouseButtonDown(0);
+        bool mouseAltura = Input.GetMouseButtonDown(1);
+        //si se presiona el botón del mouse la variable se vuelve true, si NO se presiona es false
+        if (mouseLongitud)
         {
-            Debug.Log("es par");
-        }else
-        {
-            Debug.Log("es impar");
+            Debug.Log("Presionaste el botón izquierdo del mouse");
+            speedx = -speedx;
         }
-
-        transform.Translate(speed, 0, 0);
+        if (mouseAltura)
+        {
+            Debug.Log("Presionaste el botón derecho del mouse");
+            speedy = -speedy;
+        }
+        transform.Translate(speedx*Time.deltaTime, speedy*Time.deltaTime, 0);
+        //Time.deltaTime sirve para convertir la velocidad a algo mas humano(m/s)
 
     }
+
+    void CambiarColor()
+    {
+        bool KeyEPressed = Input.GetKeyDown(KeyCode.E);
+        if (KeyEPressed)
+        {
+            if (contadorMsj)
+            {
+                //código para cambiar de color
+                GetComponent<Renderer>().material.color = Color.black;
+                Debug.Log("Se presionó el botón");
+                contadorMsj = false;
+            }else
+            {
+                GetComponent<Renderer>().material.color = Color.green;
+                Debug.Log("Volviste a presionar el botón");
+                contadorMsj = true;
+            }
+        }
+    }
+   
 }
