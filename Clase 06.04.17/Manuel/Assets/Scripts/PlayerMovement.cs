@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public bool direccion = true;
-    public float speed = 0.1f;
+    public float speedx = 0.1f;
+    public float speedy = 0.1f;
     int contador = 1;
+    bool botonECambio = true;
 
 	// Esta funcion se ejecuta UNA vez al inicio
 	void Start () {
@@ -67,18 +69,80 @@ public class PlayerMovement : MonoBehaviour {
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
         contador = contador + 1;
-       
-        Debug.Log("contador:" + contador);
+        /*
+         Debug.Log("contador:" + contador);
 
-        if (contador % 2 == 0)
+         if (contador % 2 == 0)
+         {
+             Debug.Log("es par");
+         }else
+         {
+             Debug.Log("es impar");
+         }
+         */
+
+        Movimiento ();
+        CambiarColor();
+
+    }
+    //aquí creamos nuestra función llamada movimiento
+    void Movimiento ()
+    {
+        //0=boton izquierdo, 1=boton derecho, 2=boton central
+        //Input.GetMouseButtonDown(0) detecta cuando presionas
+        //el boton izquierdo del mouse
+        bool leftmousePressed = Input.GetMouseButtonDown(0);
+        if (leftmousePressed)
         {
-            Debug.Log("es par");
-        }else
-        {
-            Debug.Log("es impar");
+            Debug.Log("presionaste el boton izquierdo del mouse");
+            speedx = speedx * -1;
+
+
         }
+        //Input.GetMouseButtonDown(1) detecta cuando presionas
+        //el boton derecho del mouse
+        bool rightmousePressed = Input.GetMouseButtonDown(1);
+        if (rightmousePressed)
+        {
+            Debug.Log("presionaste el boton derecho del mouse");
+            speedy = speedy * -1;
 
-        transform.Translate(speed, 0, 0);
+        }
+        //Time.deltaTime convierte la velocidad a que
+        //sea por segundo y ya no por frame
+        transform.Translate(speedx* Time.deltaTime, speedy* Time.deltaTime, 0);
+    }
 
+    void CambiarColor ()
+    {
+
+        //esta linea cambia el color del cubo a rojo
+        //GetComponent<Renderer>().material.color = Color.red;
+        //detectamos que hemos presionado la tecla E
+        bool keyEPressed = Input.GetKeyDown(KeyCode.E);
+        if (keyEPressed)
+        {
+
+            //usamos una variable bool para saber si debemos
+            //cambiar a color rojo o blanco
+            //cada vez que cambiamos de color
+            //cambiamso el valor del booleano
+            if (botonECambio)
+            {
+                Debug.Log("mensaje A");
+                GetComponent<Renderer>().material.color = Color.red;
+                botonECambio = false;
+
+            }
+            else
+            {
+                Debug.Log("mensaje B");
+                GetComponent<Renderer>().material.color = Color.blue;
+                botonECambio = true;
+            }
+            
+            
+
+        }
     }
 }
