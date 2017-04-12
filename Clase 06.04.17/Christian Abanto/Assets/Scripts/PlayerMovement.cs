@@ -5,12 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public bool direccion = true;
-    public float speed = 0.1f;
+    public float speedX = 0.1f;
+    public float speedY = 0.1f;
     int contador = 1;
 
-	// Esta funcion se ejecuta UNA vez al inicio
-	void Start () {
-        Debug.Log("hola");
+    // Esta funcion se ejecuta UNA vez al inicio
+    void Start() {
+        // Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
         // y le asignamos el valor cero
@@ -23,7 +24,7 @@ public class PlayerMovement : MonoBehaviour {
         //se pone "f" al final del numero
         float numeroDecimal = -5.6f;
 
-        Debug.Log("numeroDecimal: "+numeroDecimal);
+        // Debug.Log("numeroDecimal: " + numeroDecimal);
 
         //el tipo "bool" solo admite los valores true y false
         bool booleano = false;
@@ -63,22 +64,57 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Update se ejecuta una vez cada frame
-    void Update () {
+    void Update() {
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
         contador = contador + 1;
-       
-        Debug.Log("contador:" + contador);
 
+        // Debug.Log("contador:" + contador);
+        /*
         if (contador % 2 == 0)
         {
             Debug.Log("es par");
-        }else
+        } else
         {
             Debug.Log("es impar");
         }
+        */
 
-        transform.Translate(speed, 0, 0);
+        Movimiento();
+        CambiarColor();
 
+    }
+
+    void Movimiento()
+    {
+        /////////////////////////////////////////////////////
+
+        bool mousePressedLeft = Input.GetMouseButtonDown(0);
+        bool mousePressedRight = Input.GetMouseButtonDown(1);
+
+        if (mousePressedLeft)  speedX *= -1;
+        if (mousePressedRight) speedY *= -1;
+
+        // transform.Translate(speedX, speedY, 0);
+    }
+
+    bool statusMSG = true;
+
+    void CambiarColor()
+    {
+        bool keyPressedE = Input.GetKeyDown(KeyCode.E);
+
+        if ( keyPressedE )
+        {
+            if (statusMSG)
+            {
+                GetComponent<Renderer>().material.color = Color.red;
+                Debug.Log("Color Rojo");
+            } else {
+                GetComponent<Renderer>().material.color = Color.green;
+                Debug.Log("Color Verde");
+            }
+            statusMSG = !statusMSG;
+        }
     }
 }
