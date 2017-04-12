@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public bool direccion = true;
-    public float speed = 0.1f;
+    public float speedX = 0.1f;
+    public float speedY = 0.1f;
     int contador = 1;
+    public bool botonCambio = true;
+    public int estado = 1;
 
-	// Esta funcion se ejecuta UNA vez al inicio
-	void Start () {
+    // Esta funcion se ejecuta UNA vez al inicio
+    void Start () {
         Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
@@ -63,22 +66,73 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Update se ejecuta una vez cada frame
-    void Update () {
+    void Update() {
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
         contador = contador + 1;
-       
+        /*
         Debug.Log("contador:" + contador);
 
         if (contador % 2 == 0)
         {
             Debug.Log("es par");
-        }else
+        } else
         {
             Debug.Log("es impar");
+        }*/
+
+        Movimiento();
+        CambiarColor();
+    }// end update
+
+    // creamos nuestra funcion movimiento
+    void Movimiento() {
+
+        bool mousePressedLeft = Input.GetMouseButtonDown(0);
+        if (mousePressedLeft)
+        {
+            speedX = speedX * -1f;
         }
 
-        transform.Translate(speed, 0, 0);
 
-    }
+        bool mousePressedRigth = Input.GetMouseButtonDown(1);
+        if (mousePressedRigth)
+        {
+            speedY = speedY * -1f;
+        }
+
+
+        transform.Translate(speedX*Time.deltaTime, speedY*Time.deltaTime, 0);
+
+    }// end movimiento
+
+    void CambiarColor() {
+        bool KeyEPressed = Input.GetKeyDown(KeyCode.E);
+        if (KeyEPressed)
+        {
+            
+            if (estado == 1){
+                estado = 0;
+            }else {
+                estado = 1;
+            }// ELSE
+
+
+            if (estado == 1){
+                Debug.Log("Mensaje A");
+                GetComponent<Renderer>().material.color = Color.red;
+                botonCambio = false;
+            }else {
+                Debug.Log("Mensaje B");
+                GetComponent<Renderer>().material.color = Color.yellow;
+                botonCambio = true;
+            } // ELSE
+
+
+        }// IF
+
+    }// end cambiar color
+
+
+  
 }
