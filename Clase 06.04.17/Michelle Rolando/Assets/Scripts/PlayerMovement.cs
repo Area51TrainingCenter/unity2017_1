@@ -5,8 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public bool direccion = true;
-    public float speed = 0.1f;
+    public float speedX = 0.1f;
+    public float speedY = 0.1f;
+    public bool botonECambio = true;
     int contador = 1;
+  
 
 	// Esta funcion se ejecuta UNA vez al inicio
 	void Start () {
@@ -32,10 +35,10 @@ public class PlayerMovement : MonoBehaviour {
         //verdadero ... se ejecuta el codigo adentro
         if (booleano)
         {
-            Debug.Log("entrò el if");
+            Debug.Log("entró el if");
         }//el "else" se ejecuta si la condicion NO se cumple
         else {
-            Debug.Log("NO entrò el if");
+            Debug.Log("NO entró el if");
         }
         //tambien se pueden hacer comparaciones de valores
         // == se usa para comparar si son iguales
@@ -67,7 +70,8 @@ public class PlayerMovement : MonoBehaviour {
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
         contador = contador + 1;
-       
+
+        /*
         Debug.Log("contador:" + contador);
 
         if (contador % 2 == 0)
@@ -77,8 +81,55 @@ public class PlayerMovement : MonoBehaviour {
         {
             Debug.Log("es impar");
         }
+        */
 
-        transform.Translate(speed, 0, 0);
-
+        //aquí llamamos a nuestras funciones
+        //para llamar a la función solo se pone el 
+        Movimiento();
+        CambiarColor();
     }
+
+    void Movimiento (){
+        bool leftMousePressed = Input.GetMouseButtonDown(0);
+
+        if (leftMousePressed)
+        {
+            Debug.Log("Presionaste el botón del mouse");
+            speedX = speedX * -1;
+        }
+
+        bool rightMousePressed2 = Input.GetMouseButtonDown(1);
+
+        if (rightMousePressed2)
+        {
+            speedY = speedY * -1;
+        }
+
+        transform.Translate(speedX*Time.deltaTime, speedY*Time.deltaTime, 0);
+    }
+
+    void CambiarColor()
+    {
+        
+        bool keyEPressed = Input.GetKeyDown(KeyCode.E);
+
+
+        if (keyEPressed)
+        {            
+            if (botonECambio)
+            {
+                Debug.Log("No está.");
+                GetComponent<Renderer>().material.color = Color.blue;
+                botonECambio = false;
+            }
+            else
+            {
+                Debug.Log("Sí está.");
+                GetComponent<Renderer>().material.color = Color.green;
+                botonECambio = true;
+            }
+        }
+       
+    }
+
 }
