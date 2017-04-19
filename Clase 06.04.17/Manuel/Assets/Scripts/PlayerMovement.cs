@@ -88,41 +88,105 @@ public class PlayerMovement : MonoBehaviour {
     //aquí creamos nuestra función llamada movimiento
     void Movimiento ()
     {
-        //0=boton izquierdo, 1=boton derecho, 2=boton central
-        //Input.GetMouseButtonDown(0) detecta cuando presionas
-        //el boton izquierdo del mouse
-        bool leftmousePressed = Input.GetMouseButtonDown(0);
-        if (leftmousePressed)
-        {
-            Debug.Log("presionaste el boton izquierdo del mouse");
-            speedx = speedx * -1;
+        float moveX = 0;
+        float moveY = 0;
 
+        //arriba
+        bool keyWPressed = Input.GetKey(KeyCode.W);
+        if (keyWPressed)
+        {
+            moveY = speedy;
+        }
+
+        //abajo
+        bool keySPressed = Input.GetKey(KeyCode.S);
+        if (keySPressed)
+        {
+            moveY = speedy * -1;
+        }
+
+
+        //derecha
+        bool keyDPressed = Input.GetKey(KeyCode.D);
+        if (keyDPressed)
+        {
+            moveX = speedx;
+        }
+
+
+        //izquierda
+        bool keyAPressed = Input.GetKey(KeyCode.A);
+        if (keyAPressed)
+        {
+            moveX = speedx * -1;
+        }
+       
+        //detectamos que hemos presionado la tecla Shift
+        bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
+        if (shiftPressed)
+        {
+            moveX = moveX * 2;
+            moveY = moveY * 2;
 
         }
-        //Input.GetMouseButtonDown(1) detecta cuando presionas
-        //el boton derecho del mouse
-        bool rightmousePressed = Input.GetMouseButtonDown(1);
-        if (rightmousePressed)
-        {
-            Debug.Log("presionaste el boton derecho del mouse");
-            speedy = speedy * -1;
 
-        }
-        //Time.deltaTime convierte la velocidad a que
-        //sea por segundo y ya no por frame
-        transform.Translate(speedx* Time.deltaTime, speedy* Time.deltaTime, 0);
+             //Time.deltaTime convierte la velocidad a que
+            //sea por segundo y ya no por frame
+            transform.Translate(moveX* Time.deltaTime, moveY* Time.deltaTime, 0);
+
+        /*0=boton izquierdo, 1=boton derecho, 2=boton central
+       //Input.GetMouseButtonDown(0) detecta cuando presionas
+       //el boton izquierdo del mouse
+       bool leftmousePressed = Input.GetMouseButtonDown(0);
+       if (leftmousePressed)
+       {
+           Debug.Log("presionaste el boton izquierdo del mouse");
+           speedx = speedx * -1;
+
+
+       }
+       //Input.GetMouseButtonDown(1) detecta cuando presionas
+       //el boton derecho del mouse
+       bool rightmousePressed = Input.GetMouseButtonDown(1);
+       if (rightmousePressed)
+       {
+           Debug.Log("presionaste el boton derecho del mouse");
+           speedy = speedy * -1;
+
+       }
+       */
+
+
     }
 
     void CambiarColor ()
     {
+        //detectamos que hemos presionado la tecla Shift
+        bool shiftDown = Input.GetKeyDown(KeyCode.LeftShift);
+        if (shiftDown)
+        {
+           GetComponent<Renderer>().material.color = Color.blue;
+        }
+
+        //GetKeyUp detecta el instante en el que se suelta la tecla shift
+        bool shiftUp = Input.GetKeyUp(KeyCode.LeftShift);
+        if (shiftUp)
+        {
+           GetComponent<Renderer>().material.color = Color.red;
+        }
+        if (Time.timeScale < 1)
+        {
+            GetComponent<Renderer>().material.color = Color.yellow;
+        }
+
 
         //esta linea cambia el color del cubo a rojo
         //GetComponent<Renderer>().material.color = Color.red;
         //detectamos que hemos presionado la tecla E
-        bool keyEPressed = Input.GetKeyDown(KeyCode.E);
+        /*bool keyEPressed = Input.GetKeyDown(KeyCode.E);
         if (keyEPressed)
         {
-
+           
             //usamos una variable bool para saber si debemos
             //cambiar a color rojo o blanco
             //cada vez que cambiamos de color
@@ -141,8 +205,8 @@ public class PlayerMovement : MonoBehaviour {
                 botonECambio = true;
             }
             
-            
-
+        
         }
+        */
     }
 }
