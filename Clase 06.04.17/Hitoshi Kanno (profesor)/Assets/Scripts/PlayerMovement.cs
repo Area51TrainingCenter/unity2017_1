@@ -133,14 +133,26 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void CambiarColor() {
-        bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
-        if (shiftPressed)
+
+        bool shiftDown = Input.GetKeyDown(KeyCode.LeftShift);
+        if (shiftDown)
         {
             GetComponent<Renderer>().material.color = Color.blue;
         }
-        else {
+        //GetKeyUp detecta el instante en el que sueltas la tecla shift
+        bool shiftUp = Input.GetKeyUp(KeyCode.LeftShift);
+        if (shiftUp) {
             GetComponent<Renderer>().material.color = Color.red;
         }
+
+        if (Time.timeScale < 1)
+        {
+            GetComponent<Renderer>().material.color = Color.green;
+
+        }
+
+
+
         /*
         //detectamos que hemos presionado la tecla E
         bool keyEPressed = Input.GetKeyDown(KeyCode.E);
