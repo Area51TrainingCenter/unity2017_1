@@ -125,6 +125,7 @@ public class PlayerMovement : MonoBehaviour {
             speedY -= 00.1f;
         }
 
+        //convierte la velocidad de pixeles por frames a que sea pixeles por segundo
         transform.Translate(speedX*Time.deltaTime, speedY* Time.deltaTime, 0);
     }
 
@@ -135,7 +136,12 @@ public class PlayerMovement : MonoBehaviour {
         
         if (keyEPressed)
         {
-            
+            speedX *= 2;
+            speedY *= 2;
+            transform.Translate(speedX * Time.deltaTime, speedY * Time.deltaTime, 0);
+            Debug.Log("Velocidad duplicada speedX="+ speedX);
+            Debug.Log("Velocidad duplicada speedY=" + speedY);
+
             if (intercalador)
             {
                 Debug.Log("Mensaje1");
