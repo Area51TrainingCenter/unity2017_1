@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     public float speedY = 0.1f;
     int contador = 1;
     bool intercalador = true;
-    public GameObject bala;
+   
 
 	// Esta funcion se ejecuta UNA vez al inicio
 	void Start () {
@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour {
       
         Movimiento();
         cambiarColor();
-        disparo();
+       
 
     }
 
@@ -153,21 +153,7 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
-    void disparo()
-    {
-        int dis = 0;
-        bool keySpacePressed = Input.GetKeyDown(KeyCode.Space);
-        if (keySpacePressed)
-        {
-            for(int i = 0; i < 10; i++)
-            {
-                bala.transform.Translate(i, 0, 0);
-            }
-            
-
-        }
-
-    }
+    
         
     
 }
