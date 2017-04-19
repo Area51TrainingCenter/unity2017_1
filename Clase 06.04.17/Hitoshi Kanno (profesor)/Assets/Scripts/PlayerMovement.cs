@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     bool direccion = true;
     public float speedX = 0.1f;
     public float speedY = 0.1f;
-    bool botonECambio = true;
+    bool botomCambio = true;
     int contador = 1;
 
 
@@ -91,53 +91,80 @@ public class PlayerMovement : MonoBehaviour {
 
     //aquí creamos nuestra funcion llamada Movimiento
     void Movimiento() {
-        //Input.GetMouseButtonDown(0) detecta cuando presionas
-        //el boton izquierdo del mouse
-        bool leftMousePressed = Input.GetMouseButtonDown(0);
-        if (leftMousePressed)
+
+        float moveX = 0;
+        float moveY = 0;
+        //arriba
+        bool keyWPressed = Input.GetKey(KeyCode.W);
+        if (keyWPressed)
         {
-            Debug.Log("presionaste el boton del mouse");
-            //cambiamos el signo de la velocidad para que se
-            //vaya en sentido opuesto
-            speedX = -speedX;
+            moveY = speedY;
         }
-        //Input.GetMouseButtonDown(1) detecta cuando presionas
-        //el boton derecho del mouse
-        bool rightMousePressed = Input.GetMouseButtonDown(1);
-        if (rightMousePressed)
+        //abajo
+        bool keySPressed = Input.GetKey(KeyCode.S);
+        if (keySPressed)
         {
-            speedY = -speedY;
+            moveY = -speedY;
+        }
+        //izquierda
+        bool keyAPressed = Input.GetKey(KeyCode.A);
+        if (keyAPressed)
+        {
+            moveX = -speedX;
+        }
+        //derecha
+        bool keyDPressed = Input.GetKey(KeyCode.D);
+        if (keyDPressed)
+        {
+            moveX = speedX;
+        }
+
+        //detectamos que hemos presionado la tecla Shift
+        bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
+        if (shiftPressed)
+        {
+            moveX = moveX * 2;
+            moveY = moveY * 2;
         }
 
         //Time.deltaTime es un float convierte la velocidad a que
         //sea por segundo y ya no por frame
-        transform.Translate(speedX*Time.deltaTime, speedY*Time.deltaTime, 0);
+        transform.Translate(moveX*Time.deltaTime, moveY*Time.deltaTime, 0);
     }
 
     void CambiarColor() {
-        
-        
-        
+        bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
+        if (shiftPressed)
+        {
+            GetComponent<Renderer>().material.color = Color.blue;
+        }
+        else {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        /*
         //detectamos que hemos presionado la tecla E
         bool keyEPressed = Input.GetKeyDown(KeyCode.E);
         if (keyEPressed)
         {
+
             //usamos una variable bool para saber si debemos
             //cambiar a color rojo o blanco
             //cada vez que cambiamos de color
             //cambiamos  el valor del booleano
-            if (botonECambio)
+            if (botomCambio)
             {
                 //esta linea cambia el color del cubo a rojo
                 GetComponent<Renderer>().material.color = Color.red;
-                botonECambio = false;
+                botomCambio = false;
             }
             else {
                 //esta linea cambia el color del cubo a rojo
                 GetComponent<Renderer>().material.color = Color.blue;
-                botonECambio = true;
+                botomCambio = true;
             }
         }
+        */
+
     }
 
 }

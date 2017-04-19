@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-    public bool direccion = true;
+    bool direccion = true;
     public float speedX = 0.1f;
     public float speedY = 0.1f;
-    public bool botonECambio = true;
+    bool botomCambio = true;
     int contador = 1;
-  
+
 
 	// Esta funcion se ejecuta UNA vez al inicio
 	void Start () {
@@ -35,10 +35,10 @@ public class PlayerMovement : MonoBehaviour {
         //verdadero ... se ejecuta el codigo adentro
         if (booleano)
         {
-            Debug.Log("entró el if");
+            Debug.Log("entrò el if");
         }//el "else" se ejecuta si la condicion NO se cumple
         else {
-            Debug.Log("NO entró el if");
+            Debug.Log("NO entrò el if");
         }
         //tambien se pueden hacer comparaciones de valores
         // == se usa para comparar si son iguales
@@ -70,7 +70,6 @@ public class PlayerMovement : MonoBehaviour {
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
         contador = contador + 1;
-
         /*
         Debug.Log("contador:" + contador);
 
@@ -84,52 +83,88 @@ public class PlayerMovement : MonoBehaviour {
         */
 
         //aquí llamamos a nuestras funciones
-        //para llamar a la función solo se pone el 
+        //para llamar a la funcion solo se pone el 
+        // nombre de la funcion y abres y cierras parentesis
         Movimiento();
         CambiarColor();
     }
 
-    void Movimiento (){
-        bool leftMousePressed = Input.GetMouseButtonDown(0);
+    //aquí creamos nuestra funcion llamada Movimiento
+    void Movimiento() {
 
-        if (leftMousePressed)
+        float moveX = 0;
+        float moveY = 0;
+        //arriba
+        bool keyWPressed = Input.GetKey(KeyCode.W);
+        if (keyWPressed)
         {
-            Debug.Log("Presionaste el botón del mouse");
-            speedX = speedX * -1;
+            moveY = speedY;
+        }
+        //abajo
+        bool keySPressed = Input.GetKey(KeyCode.S);
+        if (keySPressed)
+        {
+            moveY = -speedY;
+        }
+        //izquierda
+        bool keyAPressed = Input.GetKey(KeyCode.A);
+        if (keyAPressed)
+        {
+            moveX = -speedX;
+        }
+        //derecha
+        bool keyDPressed = Input.GetKey(KeyCode.D);
+        if (keyDPressed)
+        {
+            moveX = speedX;
         }
 
-        bool rightMousePressed2 = Input.GetMouseButtonDown(1);
-
-        if (rightMousePressed2)
+        //detectamos que hemos presionado la tecla Shift
+        bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
+        if (shiftPressed)
         {
-            speedY = speedY * -1;
+            moveX = moveX * 2;
+            moveY = moveY * 2;
         }
 
-        transform.Translate(speedX*Time.deltaTime, speedY*Time.deltaTime, 0);
+        //Time.deltaTime es un float convierte la velocidad a que
+        //sea por segundo y ya no por frame
+        transform.Translate(moveX*Time.deltaTime, moveY*Time.deltaTime, 0);
     }
 
-    void CambiarColor()
-    {
-        
+    void CambiarColor() {
+        bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
+        if (shiftPressed)
+        {
+            GetComponent<Renderer>().material.color = Color.blue;
+        }
+        else {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        /*
+        //detectamos que hemos presionado la tecla E
         bool keyEPressed = Input.GetKeyDown(KeyCode.E);
-
-
         if (keyEPressed)
-        {            
-            if (botonECambio)
+        {
+
+            //usamos una variable bool para saber si debemos
+            //cambiar a color rojo o blanco
+            //cada vez que cambiamos de color
+            //cambiamos  el valor del booleano
+            if (botomCambio)
             {
-                Debug.Log("No está.");
-                GetComponent<Renderer>().material.color = Color.blue;
-                botonECambio = false;
+                //esta linea cambia el color del cubo a rojo
+                GetComponent<Renderer>().material.color = Color.red;
+                botomCambio = false;
             }
-            else
-            {
-                Debug.Log("Sí está.");
-                GetComponent<Renderer>().material.color = Color.green;
-                botonECambio = true;
+            else {
+                //esta linea cambia el color del cubo a rojo
+                GetComponent<Renderer>().material.color = Color.blue;
+                botomCambio = true;
             }
         }
-       
+        */
+
     }
 
 }
