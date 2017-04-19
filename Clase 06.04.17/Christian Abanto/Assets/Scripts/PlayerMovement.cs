@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public bool direccion = true;
-    public float speedX = 0.1f;
-    public float speedY = 0.1f;
+    public float speedX = 1f;
+    public float speedY = 1f;
     int contador = 1;
 
     // Esta funcion se ejecuta UNA vez al inicio
@@ -88,22 +88,52 @@ public class PlayerMovement : MonoBehaviour {
     void Movimiento()
     {
         /////////////////////////////////////////////////////
-
+        /*
         bool mousePressedLeft = Input.GetMouseButtonDown(0);
         bool mousePressedRight = Input.GetMouseButtonDown(1);
 
         if (mousePressedLeft)  speedX *= -1;
         if (mousePressedRight) speedY *= -1;
+        */
+        /////////////////////////////////////////////////////
 
-        // transform.Translate(speedX, speedY, 0);
+        float moveX = 0;
+        float moveY = 0;
+
+        // detectar teclas
+
+            // ARRIBA
+            bool keyPressedW = Input.GetKey(KeyCode.W);
+            if (keyPressedW) moveY = speedY;
+            // ABAJO
+            bool keyPressedS = Input.GetKey(KeyCode.S);
+            if (keyPressedS) moveY = -speedY;
+            // IZQUIERDA
+            bool keyPressedA = Input.GetKey(KeyCode.A);
+            if (keyPressedA) moveX = -speedX;
+            // DERECHA
+            bool keyPressedD = Input.GetKey(KeyCode.D);
+            if (keyPressedD) moveX = speedX;
+
+        // detectar tecla SHIFT
+        bool keyPressedLS = Input.GetKey(KeyCode.LeftShift);
+        if ( keyPressedLS )
+        {
+            // duplicar la velocidad ( ojo: speed es una variable global )
+            moveX = moveX * 3;
+            moveY = moveY * 3;
+        }
+
+        transform.Translate(moveX*Time.deltaTime, moveY*Time.deltaTime, 0);
     }
 
     bool statusMSG = true;
 
     void CambiarColor()
     {
+        // detectamos qyue hemos presionado tecla E
+        /*
         bool keyPressedE = Input.GetKeyDown(KeyCode.E);
-
         if ( keyPressedE )
         {
             if (statusMSG)
@@ -114,7 +144,45 @@ public class PlayerMovement : MonoBehaviour {
                 GetComponent<Renderer>().material.color = Color.green;
                 Debug.Log("Color Verde");
             }
+
+            // cambiar
             statusMSG = !statusMSG;
         }
+        */
+
+
+
+        // ( nota: esto consume recurso constantemente  )
+        // COLOR VERDE
+        // GetComponent<Renderer>().material.color = Color.green;
+        // detectar tecla SHIFT 
+        /*
+        bool keyPressedLS = Input.GetKey(KeyCode.LeftShift);
+        if (keyPressedLS)
+        {
+            // COLOR ROJO
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        */
+
+
+        // ( nota: aqui mejoramos el consumo )
+        bool shiftDown = Input.GetKeyDown(KeyCode.LeftShift);
+        if ( shiftDown )
+        {
+            GetComponent<Renderer>().material.color = Color.green;
+        }
+
+        bool shiftUp = Input.GetKeyUp(KeyCode.LeftShift);
+        if ( shiftUp )
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+
+        if ( Time.timeScale < 1 )
+        {
+            GetComponent<Renderer>().material.color = Color.yellow;
+        }
+
     }
 }
