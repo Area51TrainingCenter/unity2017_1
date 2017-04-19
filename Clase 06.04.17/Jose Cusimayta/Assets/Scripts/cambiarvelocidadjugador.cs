@@ -22,4 +22,5 @@ public class cambiarvelocidadjugador : MonoBehaviour {
     {
         Time.timeScale = 1f;
     }
+    //Cusimayta
 }
