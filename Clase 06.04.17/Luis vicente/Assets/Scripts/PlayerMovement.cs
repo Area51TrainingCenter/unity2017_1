@@ -6,14 +6,13 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public bool direccion = true;
-    public float speedx = 0.1f;
-    public float speedy = 0.1f;
+    public float speedx = 5f;
+    public float speedy = 5f;
     public bool CambioBoton = true;
     int contador = 1;
 
     // Esta funcion se ejecuta UNA vez al inicio
-    void Start()
-    {
+    void Start(){
         Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
@@ -109,48 +108,63 @@ public class PlayerMovement : MonoBehaviour
         CambiarColor();
     }
 
-    void Movimiento()
-    {
-        bool leftmousePressed = Input.GetMouseButtonDown(0);
+    void Movimiento(){
 
-        if (leftmousePressed)
+        float moveX = 0;
+        float moveY = 0;
+        bool keyWPressed = Input.GetKey(KeyCode.W);
+        if (keyWPressed)
         {
-            Debug.Log("Presionaste el boton mouse");
-            speedx = speedx * -1f;
+            moveY = speedy;
+        }
+        bool keySPressed = Input.GetKey(KeyCode.S);
+        if (keySPressed)
+        {
+            moveY = -speedy;
+        }
+        bool keyAPressed = Input.GetKey(KeyCode.A);
+        if (keyAPressed)
+        {
+            moveX = -speedx;
+        }
+        bool keyDPressed = Input.GetKey(KeyCode.D);
+        if (keyDPressed)
+        {
+            moveX = speedx;
         }
 
-        bool rightmousePressed = Input.GetMouseButtonDown(1);
 
-        if (rightmousePressed)
+        bool ShiftPressed = Input.GetKey(KeyCode.LeftShift);
+
+        if (ShiftPressed)
         {
-            Debug.Log("Presionaste el boton mouse");
-            speedy = speedy * -1f;
+   
+            moveX = moveX * 2;
+            moveY = moveY * 2;
         }
+       
 
-        transform.Translate(speedx * Time.deltaTime, speedy * Time.deltaTime, 0);
+            transform.Translate(moveX * Time.deltaTime, moveY * Time.deltaTime, 0);
     }
     void CambiarColor(){
-        
-        bool keyEPressed = Input.GetKeyDown(KeyCode.E);
 
-        if (keyEPressed)
+        bool ShiftDown = Input.GetKeyDown(KeyCode.LeftShift);     
+        if (ShiftDown)
         {
-
-
-            if (CambioBoton)
-            {
-                Debug.Log("Mensaje A");
-                GetComponent<Renderer>().material.color = Color.red;
-                CambioBoton = false;
-                
-            }
-            else
-            {
-                Debug.Log("Mensaje B");
-                GetComponent<Renderer>().material.color = Color.yellow;
-                CambioBoton = true;
-            }
+            GetComponent<Renderer>().material.color = Color.blue;          
         }
+        bool ShiftUp = Input.GetKeyUp(KeyCode.LeftShift);
+        if (ShiftUp)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        if (Time.timeScale > 1)
+        {
+            GetComponent<Renderer>().material.color = Color.green;
+        }
+        
+        
+
     }
 }
 
