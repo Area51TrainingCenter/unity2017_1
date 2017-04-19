@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 0.01f;
-    public float speedX = 0.05f;
-    public float speedY = 0.05f;
+    public float speedX = 4f;
+    public float speedY = 4f;
     public bool PressE = true;
     public Color colorStart = Color.red;
     public Color colorEnd = Color.green;
@@ -98,8 +98,19 @@ public class PlayerMovement : MonoBehaviour
 
         #region Clase 2
         //rend = GetComponent<Renderer>();
-        Movimiento();
-        CambiarColor();
+        //Movimiento();
+        //CambiarColor();
+        #endregion
+        ///àl presionar  E se duplica la velocidad
+        
+        
+        #region Clase 3
+        
+        //copia solo esta seccion
+        MovimientoContinuo();
+        ColorEstado();
+        //hasta aca
+        //pausa el juego, dale clic al cubo, y cambiale la velocidad, 
         #endregion
 
         #region movimiendo wasd
@@ -124,25 +135,28 @@ public class PlayerMovement : MonoBehaviour
     {
         //Si el boton izquierdo del mouse esta presioado (0: izq, 1: der, 2: centro)
         //Debug.Log("Presionando el botón izquierdo del mouse");
+        
         bool LeftPressed = Input.GetMouseButtonDown(0);
         if (LeftPressed)
             speedX *= -1;
 
 
-
         bool RightPressed = Input.GetMouseButtonDown(1);
         if (RightPressed)
             speedY *= -1;
+        
+        transform.Translate(speedX*Time.deltaTime, speedY * Time.deltaTime, 0);
+        
         //transform.Translate(speedX, speedY, 0);
         //Para manejar metros por segundo m/s se multiplica la velocidad por "Time.deltaTime"
-        transform.Translate(speedX*Time.deltaTime, speedY * Time.deltaTime, 0);
+        
 
     }
 
     void CambiarColor()
     {
         bool KeyPressedE = Input.GetKeyDown(KeyCode.E);
-        
+
         if (KeyPressedE && PressE)
         {
             Debug.Log("Mensaje A");
@@ -152,15 +166,84 @@ public class PlayerMovement : MonoBehaviour
             //rend.material.color = Color.Lerp(colorStart, colorEnd, lerp);
             //rend.material.color = Color.red;
         }
-        else if( KeyPressedE && !PressE)
+        else if (KeyPressedE && !PressE)
         {
             Debug.Log("Mensaje B");
             GetComponent<Renderer>().material.color = Color.green;
             PressE = true;
 
         }
-            
-        
+
+
     }
+    #endregion
+
+    #region Clase 3
+    void MovimientoContinuo()
+    {
+        //las variables 
+        float moveX = 0, moveY = 0;
+
+        //Las variables para detectar si la tecla està presionada
+        bool KeyWPressed = Input.GetKey(KeyCode.W);
+        bool KeyDPressed = Input.GetKey(KeyCode.D);
+        bool KeyAPressed = Input.GetKey(KeyCode.A);
+        bool KeySPressed = Input.GetKey(KeyCode.S);
+        //Variable para Acelerar
+        bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
+        
+        //Si la tecla està presionada, generar un movimiento continuo hacia la derecha, izquierda, arriba y abajo
+        if (KeyWPressed)
+        {
+            moveY = speedY;
+        }
+        if (KeyDPressed)
+        {
+            moveX = speedX;
+        }
+        if (KeyAPressed)
+        {
+            moveX = -speedX;
+        }
+        if (KeySPressed)
+        {
+            moveY = -speedY;
+        }
+        //Acelerar
+        if (shiftPressed)
+        {
+            moveX = moveX * 2;
+            moveY = moveY * 2;            
+        }
+        transform.Translate(moveX * Time.deltaTime, moveY * Time.deltaTime, 0);
+
+    }
+
+    void ColorEstado()
+    {
+        //Cambia color al acelerar
+        //Al presionar Shift
+        bool shiftPressed = Input.GetKeyDown(KeyCode.LeftShift);
+        //Al soltar shift
+        bool shiftUP = Input.GetKeyUp(KeyCode.LeftShift);
+        if (Time.timeScale < 1)
+        {
+            GetComponent<Renderer>().material.color = Color.yellow;
+        }
+        else
+        {
+            if (shiftPressed)
+            {
+                //Cambiar a color Azul
+                GetComponent<Renderer>().material.color = Color.blue;
+            }
+            if (shiftUP)
+            {
+                //Cambiar a color Rojo
+                GetComponent<Renderer>().material.color = Color.red;
+            }
+        }
+    }
+    
     #endregion
 }
