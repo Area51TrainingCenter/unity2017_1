@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour {
 
     // Esta funcion se ejecuta UNA vez al inicio
     void Start () {
-        Debug.Log("hola");
+      //  Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
         // y le asignamos el valor cero
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour {
         //se pone "f" al final del numero
         float numeroDecimal = -5.6f;
 
-        Debug.Log("numeroDecimal: "+numeroDecimal);
+       // Debug.Log("numeroDecimal: "+numeroDecimal);
 
         //el tipo "bool" solo admite los valores true y false
         bool booleano = false;
@@ -35,10 +35,10 @@ public class PlayerMovement : MonoBehaviour {
         //verdadero ... se ejecuta el codigo adentro
         if (booleano)
         {
-            Debug.Log("entrò el if");
+            //Debug.Log("entrò el if");
         }//el "else" se ejecuta si la condicion NO se cumple
         else {
-            Debug.Log("NO entrò el if");
+            //Debug.Log("NO entrò el if");
         }
         //tambien se pueden hacer comparaciones de valores
         // == se usa para comparar si son iguales
@@ -83,56 +83,86 @@ public class PlayerMovement : MonoBehaviour {
 
         Movimiento();
         CambiarColor();
+
     }// end update
 
     // creamos nuestra funcion movimiento
     void Movimiento() {
+        float moveX = 0;
+        float moveY = 0;
+        
+        // TECLA W
+        bool kewWPressed = Input.GetKey(KeyCode.W);
+        if (kewWPressed) {
+            moveY = speedY;
+           
 
-        bool mousePressedLeft = Input.GetMouseButtonDown(0);
-        if (mousePressedLeft)
-        {
-            speedX = speedX * -1f;
         }
 
-
-        bool mousePressedRigth = Input.GetMouseButtonDown(1);
-        if (mousePressedRigth)
+        // TECLA A
+        bool kewAPressed = Input.GetKey(KeyCode.A);
+        if (kewAPressed)
         {
-            speedY = speedY * -1f;
+            moveX = -speedX;
         }
 
+        // TECLA S
+        bool kewSPressed = Input.GetKey(KeyCode.S);
+        if (kewSPressed)
+        {
+            moveY = -speedY;
+        }
+        // TECLA D
+        bool kewDPressed = Input.GetKey(KeyCode.D);
+        if (kewDPressed)
+        {
+            moveX = speedX;
+        }
 
-        transform.Translate(speedX*Time.deltaTime, speedY*Time.deltaTime, 0);
+      
+        bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
+        if (shiftPressed)
+        {
+
+            moveX = moveX * 2;
+            moveY = moveY * 2;
+            GetComponent<Renderer>().material.color = Color.red;
+                
+        }
+
+        transform.Translate(moveX*Time.deltaTime, moveY*Time.deltaTime, 0);
 
     }// end movimiento
 
-    void CambiarColor() {
-        bool KeyEPressed = Input.GetKeyDown(KeyCode.E);
-        if (KeyEPressed)
+    void CambiarColor()
+    {
+
+        // SHIFT
+
+        bool shiftDown = Input.GetKeyDown(KeyCode.LeftShift);
+        if (shiftDown)
         {
-            
-            if (estado == 1){
-                estado = 0;
-            }else {
-                estado = 1;
-            }// ELSE
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        // GetKeyUp detecta el instante en el que sueltas la tecla shift
+        bool shiftUp = Input.GetKeyUp(KeyCode.LeftShift);
+        if (shiftUp)
+        {
+            GetComponent<Renderer>().material.color = Color.yellow;
+        }
+
+        if (Time.timeScale == 0.3f)
+        {
+            GetComponent<Renderer>().material.color = Color.blue;
+        }
+        else if (Time.timeScale == 2) { GetComponent<Renderer>().material.color = Color.gray; }
 
 
-            if (estado == 1){
-                Debug.Log("Mensaje A");
-                GetComponent<Renderer>().material.color = Color.red;
-                botonCambio = false;
-            }else {
-                Debug.Log("Mensaje B");
-                GetComponent<Renderer>().material.color = Color.yellow;
-                botonCambio = true;
-            } // ELSE
+
+    }
+
+ 
 
 
-        }// IF
 
-    }// end cambiar color
-
-
-  
-}
+    }
