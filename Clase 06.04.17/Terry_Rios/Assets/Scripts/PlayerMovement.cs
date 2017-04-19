@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public bool direccion = true;
-    public float speed = 5;
-    public float speed2 = 5;
+    public float speedX = 5;
+    public float speedY = 5;
     int contador = 1;
 
 	// Esta funcion se ejecuta UNA vez al inicio
@@ -87,38 +87,97 @@ public class PlayerMovement : MonoBehaviour {
 
     void Movimiento()
     {
-        bool mousepressed = Input.GetMouseButtonDown(0);
-        bool rmousepressed = Input.GetMouseButtonDown(1);
+        float moveX = 0;
+        float moveY = 0;
 
-        if (mousepressed)
+        //W
+
+        bool KeywPressed = Input.GetKey(KeyCode.W);
+
+        if (KeywPressed)
         {
-            Debug.Log("presionastes el boton del mouse");
+            moveY = speedY;
         }
 
-        if (mousepressed)
+        //S
+
+        bool KeysPressed = Input.GetKey(KeyCode.S);
+
+        if (KeysPressed)
         {
-            Debug.Log(speed = -speed);
+            moveY = -speedY;
         }
 
-        if (rmousepressed)
+        //A
+
+        bool KeyaPressed = Input.GetKey(KeyCode.A);
+
+        if (KeyaPressed)
         {
-            Debug.Log(speed2 = -speed2);
+            moveX = -speedX;
         }
 
-        transform.Translate(speed*Time.deltaTime, speed2*Time.deltaTime, 0);
+        //D
+
+        bool KeydPressed = Input.GetKey(KeyCode.D);
+
+        if (KeydPressed)
+        {
+            moveX = speedX;
+        }
+
+        
+
+        bool KeyshiftPressed = Input.GetKey(KeyCode.LeftShift);
+
+        if (KeyshiftPressed)
+        {
+            moveX = moveX * 2;
+            moveY = moveY * 2;
+
+        }
+
+        transform.Translate(moveX * Time.deltaTime, moveY * Time.deltaTime, 0);
+
     }
 
     public bool tecla1 = true;
 
-    void Cambiarcolor()
-        
+    void Cambiarcolor()    
     {
-        GetComponent<Renderer>().material.color = Color.red;
+        //cambio de color con el shift
+
+        bool KeyshiftDown = Input.GetKeyDown(KeyCode.LeftShift);
+
+        if (KeyshiftDown)
+        {
+            Debug.Log(GetComponent<Renderer>().material.color = Color.red);
+        }
+
+        bool Keyshiftup = Input.GetKeyUp(KeyCode.LeftShift);
+
+        if (Keyshiftup)
+        {
+            Debug.Log(GetComponent<Renderer>().material.color = Color.blue);
+        }
+
+
+        if (Time.timeScale == 0.3f)
+        {
+            Debug.Log(GetComponent<Renderer>().material.color = Color.green);
+        }
         
+
+      
+       
         
-        bool KeyPressed = Input.GetKeyDown(KeyCode.E);
+
+
+        bool KeyPressed = Input.GetKey(KeyCode.E);
         if (KeyPressed)
         {
+            
+        
             if (tecla1)
             {
                 Debug.Log(GetComponent<Renderer>().material.color = Color.red);
@@ -126,9 +185,11 @@ public class PlayerMovement : MonoBehaviour {
             }
             else
             {
-                Debug.Log(GetComponent<Renderer>().material.color = Color.white);
+                Debug.Log(GetComponent<Renderer>().material.color = Color.blue);
                 tecla1 = true;
             }
+
+            
         }
        
     }

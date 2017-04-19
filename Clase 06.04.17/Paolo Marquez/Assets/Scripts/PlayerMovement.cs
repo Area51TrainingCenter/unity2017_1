@@ -8,11 +8,12 @@ public class PlayerMovement : MonoBehaviour {
     public float speedX = 0.1f;
     public float speedY = 0.1f;
     int contador = 1;
-    bool intercalador = true;
-    public GameObject bala;
+    
+   
 
 	// Esta funcion se ejecuta UNA vez al inicio
 	void Start () {
+        GetComponent<Renderer>().material.color = Color.blue;
         Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
@@ -84,90 +85,90 @@ public class PlayerMovement : MonoBehaviour {
       
         Movimiento();
         cambiarColor();
-        disparo();
+       
 
     }
 
     void Movimiento()
     {
-        bool leftMousePressed = Input.GetMouseButtonDown(0);
-        bool rightMousePressed = Input.GetMouseButtonDown(1);
-        bool mousePressed3 = Input.GetMouseButtonDown(2);
+        float moveX=0;
+        float moveY=0;
 
+        //movimiento WASD
 
-        //0 izq, 1 derecho, 2central
-        if (leftMousePressed)
+        bool keyWPressed = Input.GetKey(KeyCode.W);
+        if (keyWPressed)
         {
-            Debug.Log("presionaste el boton del mouse, speedX=" + speedX);
-
-
-            speedX *= -1;
-
-
-        }
-        //acelerar
-        if (rightMousePressed)
-        {
-            Debug.Log("presionaste el boton del mouse, speedY=" + speedY);
-
-
-            speedY *= -1;
-
-
-        }
-        //freno
-        if (mousePressed3)
-        {
-            Debug.Log("presionaste el boton del mouse, speedX=" + speedX + " speedY=" + speedY);
-
-
-            speedX -= 00.1f;
-            speedY -= 00.1f;
+            moveY = speedY;
         }
 
-        transform.Translate(speedX*Time.deltaTime, speedY* Time.deltaTime, 0);
+        bool keyAPressed = Input.GetKey(KeyCode.A);
+        if (keyAPressed)
+        {
+            moveX = -speedX;
+         }
+
+        bool keyDPressed = Input.GetKey(KeyCode.D);
+        if (keyDPressed)
+        {
+            moveX = speedX;
+        }
+
+        bool keySPressed = Input.GetKey(KeyCode.S);
+        if (keySPressed)
+        {
+           moveY = -speedY;
+            
+        }
+
+       
+
+        //al presionar E se duplicara la velocidad
+        bool keyLeftShiftPressed = Input.GetKey(KeyCode.LeftShift);
+
+        if (keyLeftShiftPressed)
+        {
+            moveX *= 2;
+            moveY *=2;
+        }
+
+            //convierte la velocidad por frames a velocidad por segundo
+            transform.Translate(moveX * Time.deltaTime, moveY * Time.deltaTime, 0);
     }
 
     void cambiarColor()
     {
         
-        bool keyEPressed = Input.GetKeyDown(KeyCode.E);
+        //down y up seran verdaderos una vez por frame, getKey para mantenerse verdadero tiene que presionar
         
-        if (keyEPressed)
+
+        if(Time.timeScale < 1)
         {
-            
-            if (intercalador)
+            GetComponent<Renderer>().material.color = Color.yellow;
+        }
+        else
+        {
+            //GetComponent<Renderer>().material.color = Color.blue;
+
+            bool keyLeftShiftPressed = Input.GetKeyDown(KeyCode.LeftShift);
+            if (keyLeftShiftPressed)
             {
-                Debug.Log("Mensaje1");
                 GetComponent<Renderer>().material.color = Color.red;
-
             }
-            else
+
+            keyLeftShiftPressed = Input.GetKeyUp(KeyCode.LeftShift);
+
+            if (keyLeftShiftPressed)
             {
-                Debug.Log("Mensaje2");
-                GetComponent<Renderer>().material.color = Color.magenta;
-
+                GetComponent<Renderer>().material.color = Color.blue;
             }
-            intercalador = !intercalador;
         }
 
+       
+       
     }
 
-    void disparo()
-    {
-        int dis = 0;
-        bool keySpacePressed = Input.GetKeyDown(KeyCode.Space);
-        if (keySpacePressed)
-        {
-            for(int i = 0; i < 10; i++)
-            {
-                bala.transform.Translate(i, 0, 0);
-            }
-            
-
-        }
-
-    }
+    
         
     
 }
