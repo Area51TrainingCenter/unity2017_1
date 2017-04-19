@@ -8,10 +8,11 @@ public class PlayerMovement : MonoBehaviour {
     public float speedx = 1f;
     public float speedy = 1f;
     int contador = 1;
-    bool contadorMsj = true;
+    bool contadorColor = true;
+    
 
-	// Esta función se ejecuta UNA vez al inicio
-	void Start () {
+    // Esta función se ejecuta UNA vez al inicio
+    void Start () {
         Debug.Log("hola");
         //declaramos una variable del tipo int (número entero)
         //la variable se llama "numero"
@@ -85,8 +86,8 @@ public class PlayerMovement : MonoBehaviour {
 
     void Movimiento()
     {
-        // Input.GetMouseButtonDown(0) es click izquierdo
-        // Input.GetMouseButtonDown(1) es click derecho
+        /* //Input.GetMouseButtonDown(0) es click izquierdo
+           //Input.GetMouseButtonDown(1) es click derecho
         bool mouseLongitud = Input.GetMouseButtonDown(0);
         bool mouseAltura = Input.GetMouseButtonDown(1);
         //si se presiona el botón del mouse la variable se vuelve true, si NO se presiona es false
@@ -99,30 +100,74 @@ public class PlayerMovement : MonoBehaviour {
         {
             Debug.Log("Presionaste el botón derecho del mouse");
             speedy = -speedy;
+        }*/
+        bool KeyWPressed = Input.GetKey(KeyCode.W);
+        //Mientras mantengas la tecla W presionada el booleano va ser verdadero
+        bool KeySPressed = Input.GetKey(KeyCode.S);
+        bool KeyAPressed = Input.GetKey(KeyCode.A);
+        bool KeyDPressed = Input.GetKey(KeyCode.D);
+        bool KeyShiftPressed = Input.GetKey(KeyCode.LeftShift);
+        //las variables locales se destruyen y se crean de nuevo despues de una iteración
+        float moveX = 0;
+        float moveY = 0;
+        
+        if (KeyWPressed)
+        {
+            moveY = speedy;
         }
-        transform.Translate(speedx*Time.deltaTime, speedy*Time.deltaTime, 0);
+        if (KeySPressed)
+        {
+            moveY = -speedy;
+        }
+        if (KeyAPressed)
+        {
+            moveX = -speedx;
+        }
+        if (KeyDPressed)
+        {
+            moveX = speedx;
+        }
+        if (KeyShiftPressed)
+        {
+            moveX *= 10;
+            moveY *= 10;
+            
+        }
+        transform.Translate(moveX * Time.deltaTime, moveY * Time.deltaTime, 0);
         //Time.deltaTime sirve para convertir la velocidad a algo mas humano(m/s)
-
     }
-
     void CambiarColor()
     {
-        bool KeyEPressed = Input.GetKeyDown(KeyCode.E);
-        if (KeyEPressed)
+        bool KeyShiftDown = Input.GetKeyDown(KeyCode.LeftShift);
+        bool KeyShiftUp = Input.GetKeyUp(KeyCode.LeftShift);
+        
+        if (KeyShiftDown)
         {
-            if (contadorMsj)
+            GetComponent<Renderer>().material.color = Color.blue;
+        }
+        if(KeyShiftUp)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        if (Time.timeScale < 1)
+        {
+            GetComponent<Renderer>().material.color = Color.green; 
+        }
+            /*
+            if (contadorColor)
             {
                 //código para cambiar de color
                 GetComponent<Renderer>().material.color = Color.black;
                 Debug.Log("Se presionó el botón");
-                contadorMsj = false;
+                contadorColor = false;
+                
             }else
             {
                 GetComponent<Renderer>().material.color = Color.green;
                 Debug.Log("Volviste a presionar el botón");
-                contadorMsj = true;
-            }
-        }
+                contadorColor = true;
+            }*/
+        
     }
    
 }

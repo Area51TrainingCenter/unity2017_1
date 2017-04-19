@@ -1,0 +1,36 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CambiarVelocidadJugador : MonoBehaviour
+{
+
+
+    void Start()
+    {
+
+    }
+
+
+    void Update()
+    {
+
+    }
+    //detecta cuando algo entra en colisión 
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.name + " Entró");
+        //Time.timeScale controla el flujo del tiempo(float)
+        //el tiempo fluye normal = 1  
+        //el tiempo corre mas lento = 0.3f
+        //el tiempo se para por completo = 0
+        Time.timeScale = 0.3f;
+    }
+    //detecta cuando algo sale de la colisión
+    void OnTriggerExit(Collider other)
+    {
+        Debug.Log(other.name + " Salió");
+        //el flujo de tiempo regresa a la normalidad
+        Time.timeScale = 1;
+    }
+}
