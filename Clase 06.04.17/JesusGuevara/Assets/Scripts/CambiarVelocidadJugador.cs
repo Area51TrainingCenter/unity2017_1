@@ -24,13 +24,26 @@ public class CambiarVelocidadJugador : MonoBehaviour {
             Time.timeScale controla el flujo del tiempo dentro del juego. Cuando este vale 1 el tiempo fluye  normal
             normal  y en 0 esta 
          */
-        Time.timeScale = 0.3f;// velocidad lento
+
+        if (other.CompareTag("jugador"))
+        {
+            Time.timeScale = 0.3f;// velocidad lento
+           
+        }
 
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Time.timeScale = 2;// velocidad rapita
+       
+        if (other.CompareTag("jugador"))
+        {
+            Time.timeScale = 2;// velocidad rapita
+
+        }
     }
+
+
+   
 
 }

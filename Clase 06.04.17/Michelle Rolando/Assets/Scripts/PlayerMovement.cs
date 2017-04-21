@@ -11,8 +11,8 @@ public class PlayerMovement : MonoBehaviour {
     int contador = 1;
 
 
-	// Esta funcion se ejecuta UNA vez al inicio
-	void Start () {
+    // Esta funcion se ejecuta UNA vez al inicio
+    void Start() {
         Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour {
         //se pone "f" al final del numero
         float numeroDecimal = -5.6f;
 
-        Debug.Log("numeroDecimal: "+numeroDecimal);
+        Debug.Log("numeroDecimal: " + numeroDecimal);
 
         //el tipo "bool" solo admite los valores true y false
         bool booleano = false;
@@ -66,10 +66,12 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Update se ejecuta una vez cada frame
-    void Update () {
+    void Update() {
+
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
-        contador = contador + 1;
+        //contador = contador + 1;
+
         /*
         Debug.Log("contador:" + contador);
 
@@ -85,9 +87,17 @@ public class PlayerMovement : MonoBehaviour {
         //aquí llamamos a nuestras funciones
         //para llamar a la funcion solo se pone el 
         // nombre de la funcion y abres y cierras parentesis
-        Movimiento();
-        CambiarColor();
+
+        #region Clase 3
+        MovimientoContinuo();
+        colorEstado();
+        //Movimiento();
+        //CambiarColor();
+#endregion
+
     }
+
+
 
     //aquí creamos nuestra funcion llamada Movimiento
     void Movimiento() {
@@ -129,14 +139,20 @@ public class PlayerMovement : MonoBehaviour {
 
         //Time.deltaTime es un float convierte la velocidad a que
         //sea por segundo y ya no por frame
-        transform.Translate(moveX*Time.deltaTime, moveY*Time.deltaTime, 0);
+        transform.Translate(moveX * Time.deltaTime, moveY * Time.deltaTime, 0);
     }
 
     void CambiarColor() {
-        bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
-        if (shiftPressed)
+        bool shiftDown = Input.GetKey(KeyCode.LeftShift);
+        if (shiftDown)
         {
             GetComponent<Renderer>().material.color = Color.blue;
+        }
+        //GetKeyUp detecta el instante en el que sueltas la tecla shift
+        bool shiftUp = Input.GetKeyUp(KeyCode.LeftShift);
+        if (shiftUp)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
         }
         else {
             GetComponent<Renderer>().material.color = Color.red;
@@ -165,6 +181,76 @@ public class PlayerMovement : MonoBehaviour {
         }
         */
 
+
+
     }
+
+    //Clase 3
+    void MovimientoContinuo()
+    {
+        //Las variables
+        float moveX = 0, moveY = 0;
+
+        //Las variables para detectar si la tecla está presionada
+        bool KeyWPressed = Input.GetKey(KeyCode.W);
+        bool KeyDPressed = Input.GetKey(KeyCode.D);
+        bool KeyAPressed = Input.GetKey(KeyCode.A);
+        bool KeySPressed = Input.GetKey(KeyCode.S);
+        // variable para acelerar
+        bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
+        // Si la tecla está presionada, generar un movimiento continuo hacia la derecha,
+        //izquierda, arriba, abajo
+        if (KeyWPressed)
+        {
+            moveY = speedY;
+        }
+        if (KeyDPressed)
+        {
+            moveX = speedX;
+        }
+        if (KeySPressed)
+        {
+            moveY = -speedY;
+        }
+        if (KeyAPressed)
+        {
+            moveX = -speedX;
+        }
+        if (shiftPressed)
+        {
+            moveX = moveX* 2;
+            moveY = moveY * 2;
+        }
+        transform.Translate(moveX * Time.deltaTime, moveY * Time.deltaTime, 0);
+    }
+
+    //GetComponent<Renderer>().material.color = Color.blue;
+    
+    void colorEstado()
+    {
+        //cambia color al acelerar
+        //al presionar Shift
+        bool shiftPressed = Input.GetKeyDown(KeyCode.LeftShift);
+        //al soltar shift 
+        bool shiftUp = Input.GetKeyUp(KeyCode.LeftShift);
+       if (shiftPressed)
+             {
+            //cambiar color azul
+            GetComponent<Renderer>().material.color = Color.blue;
+             }
+        if (shiftUp)
+        {
+            //cambiar color rojo
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+
+        if (Time.timeScale <1)
+        {
+            GetComponent<Renderer>().material.color = Color.magenta;
+        }
+    }
+
+   
+
 
 }
