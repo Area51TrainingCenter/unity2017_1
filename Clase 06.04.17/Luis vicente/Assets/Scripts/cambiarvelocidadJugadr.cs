@@ -15,13 +15,21 @@ public class cambiarvelocidadJugadr : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider other)
     {
-        Time.timeScale = 0.3f;
-        Debug.Log(other.name);
-      
+        if (other.CompareTag("Player"))
+        {
+            Time.timeScale = 0.3f;
+            Debug.Log(other.name);
+        }
+       
+       
     }
     void OnTriggerExit(Collider other)
     {
-        Time.timeScale = 1f;
+        if (other.CompareTag("Player"))
+        {
+            Time.timeScale = 1f;
+            Debug.Log(other.name);
+        }
 
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public GameObject _morir;
     public bool direccion = true;
     public float speedx = 5f;
     public float speedy = 5f;
@@ -158,13 +158,22 @@ public class PlayerMovement : MonoBehaviour
         {
             GetComponent<Renderer>().material.color = Color.red;
         }
-        if (Time.timeScale > 1)
+        if (Time.timeScale < 1)
         {
             GetComponent<Renderer>().material.color = Color.green;
         }
         
         
 
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemigo"))
+        {
+            Instantiate(_morir, other.transform.position, other.transform.rotation);
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
     }
 }
 
