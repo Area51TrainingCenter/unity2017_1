@@ -17,13 +17,21 @@ public class CambiarVelocidadJugador : MonoBehaviour {
     //tiene que poseer colision y rigid body
     void OnTriggerEnter(Collider other)
     {
-        Time.timeScale = 0.4f;
-        Debug.Log("Entro a la zona: "+other.name);
+        if (other.CompareTag("Player"))
+        {
+            Time.timeScale = 0.4f;
+            Debug.Log("Entro a la zona: " + other.name);
+        }
+        
     }
 
     void OnTriggerExit(Collider other)
     {
-        Time.timeScale = 1;
-        Debug.Log("Salio a la zona: " + other.name);
+        if (other.CompareTag("Player"))
+        {
+            Time.timeScale = 1;
+            Debug.Log("Salio a la zona: " + other.name);
+        }
+            
     }
 }
