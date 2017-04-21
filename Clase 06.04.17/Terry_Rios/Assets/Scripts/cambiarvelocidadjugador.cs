@@ -18,15 +18,27 @@ public class cambiarvelocidadjugador : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         //Time.timeScale 1=velocidad normal 0=tiempo detenido valores intermedios relentizan el tiempo
-        Time.timeScale = 0.3F;
-        Debug.Log(other.name);
+        if (other.CompareTag("Player"))
+        {
+
+            Time.timeScale = 0.3F;
+            
+
+        }
+        
     }
 
     //detecta cuando un objeto con colision sale de la zona de trigger
 
     void OnTriggerExit(Collider other)
     {
-        Time.timeScale = 1;
-        Debug.Log(other.name);
+        if (other.CompareTag("Player"))
+        {
+
+            Time.timeScale = 1;
+            
+
+        }
+            
     }
 }
