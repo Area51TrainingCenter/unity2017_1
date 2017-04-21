@@ -119,6 +119,7 @@ public class PlayerMovement : MonoBehaviour {
             moveX = speedX;
         }
 
+
         //detectamos que hemos presionado la tecla Shift
         bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
         if (shiftPressed)
