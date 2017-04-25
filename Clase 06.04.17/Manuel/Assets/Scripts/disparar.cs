@@ -10,8 +10,8 @@ public class disparar : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //Instantiate crea un clon del prefab que le damos
-        Instantiate(_prefab);
+        /*Instantiate crea un clon del prefab que le damos
+        Instantiate(_prefab);*/
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class disparar : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             //Instantiate crea un clon del prefab que le damos
-            Instantiate(_prefab);
+            Instantiate(_prefab,transform.position,transform.rotation);
         }
         
 

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class capsula : MonoBehaviour {
+public class proyectil : MonoBehaviour {
     public float speedx = 1;
+    public GameObject _explosion;
 
 	// Use this for initialization
 	void Start () {
@@ -27,14 +28,20 @@ public class capsula : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+       
         if (other.CompareTag("enemigo"))
         {
             //destruimos el objeto que toca este trigger
             Destroy(other.gameObject);
             //auto destruimos el objeto
             Destroy(gameObject);
+
+            
+            Instantiate(_explosion, other.transform.position, transform.rotation);
+
+            
         }
-        
+
     }
 
 }
