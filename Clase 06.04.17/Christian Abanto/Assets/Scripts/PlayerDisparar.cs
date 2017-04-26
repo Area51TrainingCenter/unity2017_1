@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Disparar : MonoBehaviour {
+public class PlayerDisparar : MonoBehaviour {
 
     // Llamar a objeto ( esto aparece en Inspect, donde luego asignaremos el objeto que queramos)
     public GameObject _prefab;
