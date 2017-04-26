@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class segundocubo : MonoBehaviour {
+public class AreaCongela : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
