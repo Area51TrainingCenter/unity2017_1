@@ -166,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
         
 
     }
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemigo"))
         {
@@ -174,6 +174,6 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
-    }
+    }*/
 }
 
