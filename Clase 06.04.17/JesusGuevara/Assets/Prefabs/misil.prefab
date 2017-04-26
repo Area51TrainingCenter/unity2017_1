@@ -111,6 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   _prefab2: {fileID: 100004, guid: 2857e183f4cd3df4e9096e5b578bd32f, type: 2}
+  targetag: enemigo
 --- !u!136 &136627991973284168
 CapsuleCollider:
   m_ObjectHideFlags: 1
