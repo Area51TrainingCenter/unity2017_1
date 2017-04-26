@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bala : MonoBehaviour {
+public class Proyectil : MonoBehaviour {
 
     public float speed = 1;
     public GameObject _prefab;
+    public string targetTag;
 	void Start () {
 		
 	}
@@ -15,7 +16,7 @@ public class Bala : MonoBehaviour {
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemigo"))
+        if (other.CompareTag(targetTag))
         {                
             //destruimos el objeto que toca este trigger
             Destroy(other.gameObject);
