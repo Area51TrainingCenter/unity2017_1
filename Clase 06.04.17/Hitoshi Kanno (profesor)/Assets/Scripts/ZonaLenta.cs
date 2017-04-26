@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CambiarVelocidadJugador : MonoBehaviour {
+public class ZonaLenta : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

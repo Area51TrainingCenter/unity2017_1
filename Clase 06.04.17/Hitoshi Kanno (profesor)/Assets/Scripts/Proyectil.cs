@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProyectilEnemigo : MonoBehaviour {
-
+public class Proyectil : MonoBehaviour {
+    public float speed = 5;
+    //este representa cuál es el tag del objeto que buscamos destruir
+    public string targetTag;
     public GameObject _explosion;
 	// Use this for initialization
 	void Start () {
@@ -12,12 +14,12 @@ public class ProyectilEnemigo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-    }
+        transform.Translate(speed * Time.deltaTime, 0, 0);
+	}
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(targetTag))
         {
             //destruimos el objeto que toca este trigger
             Destroy(other.gameObject);
