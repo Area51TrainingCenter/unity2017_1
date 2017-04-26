@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-    //  Script para mover el Player
-    public bool direccion = true;
+
+    bool direccion = true;
     public float speedX = 0.1f;
     public float speedY = 0.1f;
+    bool botomCambio = true;
     int contador = 1;
-    public bool botonCambio = true;
-    public int estado = 1;
 
-    // Esta funcion se ejecuta UNA vez al inicio
-    void Start () {
-      //  Debug.Log("hola");
+
+	// Esta funcion se ejecuta UNA vez al inicio
+	void Start () {
+        Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
         // y le asignamos el valor cero
@@ -24,9 +24,9 @@ public class PlayerMovement : MonoBehaviour {
         //float es para numeros decimales
         //siempre que le das un valor a una variable float
         //se pone "f" al final del numero
-        float numeroDecimal = 5.6f;
+        float numeroDecimal = -5.6f;
 
-       // Debug.Log("numeroDecimal: "+numeroDecimal);
+        Debug.Log("numeroDecimal: "+numeroDecimal);
 
         //el tipo "bool" solo admite los valores true y false
         bool booleano = false;
@@ -35,10 +35,10 @@ public class PlayerMovement : MonoBehaviour {
         //verdadero ... se ejecuta el codigo adentro
         if (booleano)
         {
-            //Debug.Log("entrò el if");
+            Debug.Log("entrò el if");
         }//el "else" se ejecuta si la condicion NO se cumple
         else {
-            //Debug.Log("NO entrò el if");
+            Debug.Log("NO entrò el if");
         }
         //tambien se pueden hacer comparaciones de valores
         // == se usa para comparar si son iguales
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Update se ejecuta una vez cada frame
-    void Update() {
+    void Update () {
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
         contador = contador + 1;
@@ -76,93 +76,107 @@ public class PlayerMovement : MonoBehaviour {
         if (contador % 2 == 0)
         {
             Debug.Log("es par");
-        } else
+        }else
         {
             Debug.Log("es impar");
-        }*/
+        }
+        */
 
+        //aquí llamamos a nuestras funciones
+        //para llamar a la funcion solo se pone el 
+        // nombre de la funcion y abres y cierras parentesis
         Movimiento();
         CambiarColor();
+    }
 
-    }// end update
-
-    // creamos nuestra funcion movimiento
+    //aquí creamos nuestra funcion llamada Movimiento
     void Movimiento() {
+
         float moveX = 0;
         float moveY = 0;
-        
-        // TECLA W
-        bool kewWPressed = Input.GetKey(KeyCode.W);
-        if (kewWPressed) {
-            moveY = speedY;
-           
-
-        }
-
-        // TECLA A
-        bool kewAPressed = Input.GetKey(KeyCode.A);
-        if (kewAPressed)
+        //arriba
+        bool keyWPressed = Input.GetKey(KeyCode.W);
+        if (keyWPressed)
         {
-            moveX = -speedX;
+            moveY = speedY;
         }
-
-        // TECLA S
-        bool kewSPressed = Input.GetKey(KeyCode.S);
-        if (kewSPressed)
+        //abajo
+        bool keySPressed = Input.GetKey(KeyCode.S);
+        if (keySPressed)
         {
             moveY = -speedY;
         }
-        // TECLA D
-        bool kewDPressed = Input.GetKey(KeyCode.D);
-        if (kewDPressed)
+        //izquierda
+        bool keyAPressed = Input.GetKey(KeyCode.A);
+        if (keyAPressed)
+        {
+            moveX = -speedX;
+        }
+        //derecha
+        bool keyDPressed = Input.GetKey(KeyCode.D);
+        if (keyDPressed)
         {
             moveX = speedX;
         }
 
-      
+        //detectamos que hemos presionado la tecla Shift
         bool shiftPressed = Input.GetKey(KeyCode.LeftShift);
         if (shiftPressed)
         {
-
             moveX = moveX * 2;
             moveY = moveY * 2;
-            GetComponent<Renderer>().material.color = Color.red;
-                
         }
 
+        //Time.deltaTime es un float convierte la velocidad a que
+        //sea por segundo y ya no por frame
         transform.Translate(moveX*Time.deltaTime, moveY*Time.deltaTime, 0);
+    }
 
-    }// end movimiento
-
-    void CambiarColor()
-    {
-
-        // SHIFT
+    void CambiarColor() {
 
         bool shiftDown = Input.GetKeyDown(KeyCode.LeftShift);
         if (shiftDown)
         {
-            GetComponent<Renderer>().material.color = Color.red;
-        }
-        // GetKeyUp detecta el instante en el que sueltas la tecla shift
-        bool shiftUp = Input.GetKeyUp(KeyCode.LeftShift);
-        if (shiftUp)
-        {
-            GetComponent<Renderer>().material.color = Color.yellow;
-        }
-
-        if (Time.timeScale == 0.3f)
-        {
             GetComponent<Renderer>().material.color = Color.blue;
         }
-        else if (Time.timeScale == 2) { GetComponent<Renderer>().material.color = Color.gray; }
+        //GetKeyUp detecta el instante en el que sueltas la tecla shift
+        bool shiftUp = Input.GetKeyUp(KeyCode.LeftShift);
+        if (shiftUp) {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+
+        if (Time.timeScale < 1)
+        {
+            GetComponent<Renderer>().material.color = Color.green;
+
+        }
 
 
+
+        /*
+        //detectamos que hemos presionado la tecla E
+        bool keyEPressed = Input.GetKeyDown(KeyCode.E);
+        if (keyEPressed)
+        {
+
+            //usamos una variable bool para saber si debemos
+            //cambiar a color rojo o blanco
+            //cada vez que cambiamos de color
+            //cambiamos  el valor del booleano
+            if (botomCambio)
+            {
+                //esta linea cambia el color del cubo a rojo
+                GetComponent<Renderer>().material.color = Color.red;
+                botomCambio = false;
+            }
+            else {
+                //esta linea cambia el color del cubo a rojo
+                GetComponent<Renderer>().material.color = Color.blue;
+                botomCambio = true;
+            }
+        }
+        */
 
     }
 
- 
-
-
-
-    }
+}
