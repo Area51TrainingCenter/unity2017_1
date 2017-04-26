@@ -17,16 +17,21 @@ public class CambiarVelocidadJugador : MonoBehaviour {
     //entra en la zona del Trigger
     void OnTriggerEnter(Collider other)
     {
-        //Time.timeScale controla el flujo del tiempo
-        //dentro del juego. Cuando este vale 
-        // 1 el tiempo fluye normal y en 0 esta detenido
-        //en 0.3 el tiempo correria mas lento
-        Time.timeScale = 0.3f;
+        if (other.CompareTag("Player"))
+        {
+            //Time.timeScale controla el flujo del tiempo
+            //dentro del juego. Cuando este vale 
+            // 1 el tiempo fluye normal y en 0 esta detenido
+            //en 0.3 el tiempo correria mas lento
+            Time.timeScale = 0.3f;
+        }
     }
     //esta funcion se ejecuta cuando un objeto sale
     //de la zona del trigger
     void OnTriggerExit(Collider other)
     {
-        Time.timeScale = 1;
-    }
+        if (other.CompareTag("Player"))
+        {
+            Time.timeScale = 1;
+        }    }
 }
