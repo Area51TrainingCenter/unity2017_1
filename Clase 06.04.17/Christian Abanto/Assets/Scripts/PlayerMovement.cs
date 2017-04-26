@@ -196,7 +196,7 @@ public class PlayerMovement : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         // other, representa el objeto que ha tocado este elemento ( Zona Lenta )
-        Debug.Log(other.name);
+        Debug.Log(other.name); 
 
         if (other.CompareTag("enemigo"))
         {
