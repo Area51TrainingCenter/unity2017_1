@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-
+    //  Script para mover el Player
     public bool direccion = true;
     public float speedX = 0.1f;
     public float speedY = 0.1f;
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour {
         //float es para numeros decimales
         //siempre que le das un valor a una variable float
         //se pone "f" al final del numero
-        float numeroDecimal = -5.6f;
+        float numeroDecimal = 5.6f;
 
        // Debug.Log("numeroDecimal: "+numeroDecimal);
 

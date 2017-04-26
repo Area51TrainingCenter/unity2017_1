@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Disparar : MonoBehaviour {
 
+    // Script para disparar las balas del Player
+
     public GameObject _prefab;
 
 
