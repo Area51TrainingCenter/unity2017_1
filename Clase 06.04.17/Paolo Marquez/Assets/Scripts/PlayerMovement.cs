@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 
     public bool direccion = true;
     public float speedX = 0.1f;
     public float speedY = 0.1f;
     int contador = 1;
-    
-   
 
-	// Esta funcion se ejecuta UNA vez al inicio
-	void Start () {
+
+
+    // Esta funcion se ejecuta UNA vez al inicio
+    void Start()
+    {
         GetComponent<Renderer>().material.color = Color.blue;
         Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
@@ -27,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
         //se pone "f" al final del numero
         float numeroDecimal = -5.6f;
 
-        Debug.Log("numeroDecimal: "+numeroDecimal);
+        Debug.Log("numeroDecimal: " + numeroDecimal);
 
         //el tipo "bool" solo admite los valores true y false
         bool booleano = false;
@@ -38,7 +40,8 @@ public class PlayerMovement : MonoBehaviour {
         {
             Debug.Log("entrò el if");
         }//el "else" se ejecuta si la condicion NO se cumple
-        else {
+        else
+        {
             Debug.Log("NO entrò el if");
         }
         //tambien se pueden hacer comparaciones de valores
@@ -67,7 +70,8 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // Update se ejecuta una vez cada frame
-    void Update () {
+    void Update()
+    {
         //contador es una variable global
         //esta variable NO se destruye cuando termina la funcion Update
         contador = contador + 1;
@@ -82,17 +86,17 @@ public class PlayerMovement : MonoBehaviour {
         //    Debug.Log("es impar");
         //}
 
-      
+
         Movimiento();
         cambiarColor();
-       
+
 
     }
 
     void Movimiento()
     {
-        float moveX=0;
-        float moveY=0;
+        float moveX = 0;
+        float moveY = 0;
 
         //movimiento WASD
 
@@ -106,7 +110,7 @@ public class PlayerMovement : MonoBehaviour {
         if (keyAPressed)
         {
             moveX = -speedX;
-         }
+        }
 
         bool keyDPressed = Input.GetKey(KeyCode.D);
         if (keyDPressed)
@@ -117,11 +121,11 @@ public class PlayerMovement : MonoBehaviour {
         bool keySPressed = Input.GetKey(KeyCode.S);
         if (keySPressed)
         {
-           moveY = -speedY;
-            
+            moveY = -speedY;
+
         }
 
-       
+
 
         //al presionar E se duplicara la velocidad
         bool keyLeftShiftPressed = Input.GetKey(KeyCode.LeftShift);
@@ -129,20 +133,20 @@ public class PlayerMovement : MonoBehaviour {
         if (keyLeftShiftPressed)
         {
             moveX *= 2;
-            moveY *=2;
+            moveY *= 2;
         }
 
-            //convierte la velocidad por frames a velocidad por segundo
-            transform.Translate(moveX * Time.deltaTime, moveY * Time.deltaTime, 0);
+        //convierte la velocidad por frames a velocidad por segundo
+        transform.Translate(moveX * Time.deltaTime, moveY * Time.deltaTime, 0);
     }
 
     void cambiarColor()
     {
-        
-        //down y up seran verdaderos una vez por frame, getKey para mantenerse verdadero tiene que presionar
-        
 
-        if(Time.timeScale < 1)
+        //down y up seran verdaderos una vez por frame, getKey para mantenerse verdadero tiene que presionar
+
+
+        if (Time.timeScale < 1)
         {
             GetComponent<Renderer>().material.color = Color.yellow;
         }
@@ -164,11 +168,11 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
 
-       
-       
+
+
     }
 
-    
-        
-    
+
+
+
 }

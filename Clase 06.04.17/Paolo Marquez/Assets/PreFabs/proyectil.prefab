@@ -109,8 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cdc72f233faa234f9f01ac3b28b8462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedX: 0.1
-  speedY: 0.1
+  speedX: 10
+  targetTag: enemigo
   _prefab: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
 --- !u!135 &135357651638383652
 SphereCollider:
