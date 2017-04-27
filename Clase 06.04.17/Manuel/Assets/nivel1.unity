@@ -202,7 +202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7fbf201a7378d4abbcfb2b8296f3ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balaEnemigo: {fileID: 0}
+  balaEnemigo: {fileID: 1891636807638524, guid: 65768eee3b958374286964ef5fd368c4,
+    type: 2}
   speedy: 1
   frecDisparo: 0.5
 --- !u!1 &1108817789
