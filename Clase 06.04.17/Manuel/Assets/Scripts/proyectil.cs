@@ -29,6 +29,7 @@ public class proyectil : MonoBehaviour {
             //auto destruimos el objeto
             Destroy(gameObject);
             Instantiate(_explosion, other.transform.position, transform.rotation);
+
         }
 
     }
