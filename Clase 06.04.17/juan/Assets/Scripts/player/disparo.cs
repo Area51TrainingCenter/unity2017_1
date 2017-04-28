@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class disparo : MonoBehaviour {
     public GameObject _prefab;
-	// Use this for initialization
-	void Start () {
-        
+    public float freedisparo = 1.0f;
+    // Use this for initialization
+    void Start () {
+        InvokeRepeating("disparo", 0, freedisparo);
     }
 	
 	// Update is called once per frame
