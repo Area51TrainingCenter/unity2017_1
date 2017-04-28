@@ -24,9 +24,10 @@ GameObject:
   - component: {fileID: 23559922788298890}
   - component: {fileID: 114066056262541728}
   - component: {fileID: 54607746928431396}
+  - component: {fileID: 114390866492096596}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: jugador
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1663081943389560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.91, y: 0.94, z: 0}
-  m_LocalScale: {x: 0.875797, y: 0.875797, z: 0.875797}
+  m_LocalPosition: {x: -11.1, y: 0.28, z: 0}
+  m_LocalScale: {x: 1.668777, y: 1.5101804, z: 0.875797}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -126,3 +127,15 @@ MonoBehaviour:
   speedY: 5
   botonCambio: 1
   estado: 1
+--- !u!114 &114390866492096596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1663081943389560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bab2d75e113f26448a8665a893e90e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 1016773139258754, guid: 78db539ec0f28344fbb1db6772473527, type: 2}

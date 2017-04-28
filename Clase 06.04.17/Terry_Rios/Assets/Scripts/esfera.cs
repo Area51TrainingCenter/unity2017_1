@@ -7,6 +7,8 @@ public class esfera : MonoBehaviour {
     
     public float speedX = 6;
     public GameObject _prefab2;
+    public string targettag;
+
    
 
 	// Use this for initialization
@@ -17,15 +19,15 @@ public class esfera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        Movimiento();
+        transform.Translate(speedX * Time.deltaTime, 0, 0);
 
-        
-		
-	}
+
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("enemigo"))
+        if (other.CompareTag(targettag))
         {
             Destroy(other.gameObject);
             Destroy(gameObject);
@@ -34,10 +36,5 @@ public class esfera : MonoBehaviour {
         
     }
 
-    void Movimiento()
-    {
-
-        transform.Translate(speedX * Time.deltaTime, 0, 0);
-
-    }
+    
 }
