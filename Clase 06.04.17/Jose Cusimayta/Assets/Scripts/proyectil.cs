@@ -29,6 +29,8 @@ public class proyectil : MonoBehaviour {
     }
     private void OnBecameInvisible()
     {
+        //Destruye el objeto cuando sale de la camara
         Destroy(gameObject);
     }
+
 }
