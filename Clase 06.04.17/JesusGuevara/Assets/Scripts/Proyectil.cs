@@ -9,9 +9,10 @@ public class Proyectil : MonoBehaviour {
 
     public float speed = 0.5f;
     public GameObject _prefab2;
+ 
     // este representa cual es el tag del objeto que buscamos destruir
     public string targetag;
-
+   
     // Use this for initialization
     void Start () {
 		
@@ -19,6 +20,7 @@ public class Proyectil : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
         transform.Translate(speed*Time.deltaTime, 0, 0);
     }
 
@@ -35,6 +37,8 @@ public class Proyectil : MonoBehaviour {
               
         }
 
-        
+       
+
+
     }
 }

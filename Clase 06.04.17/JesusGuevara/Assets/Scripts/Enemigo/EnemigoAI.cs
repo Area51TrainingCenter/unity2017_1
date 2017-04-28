@@ -7,7 +7,10 @@ public class EnemigoAI : MonoBehaviour {
     // Script del Enemigo para disparar sus balas
 
     public GameObject balaEnemigo;
-     float numero = 5;
+    
+    public Transform spwan;
+    //
+    public Transform[] _spawns;
     // Use this for initialization
     void Start () {
         
@@ -17,23 +20,21 @@ public class EnemigoAI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
   
-        if (transform.position.y >= 4.5f)
-        {
-            numero = -numero;
-        }
-        
-        if (transform.position.y <= -4.5f) {
-            numero = -numero ;
-        }
-
-        transform.Translate(0, numero*Time.deltaTime, 0);
+       
     }
 
 
     void Disparo()
     {
         Quaternion rotacion = Quaternion.Euler(0, 0, 180);
-        Instantiate(balaEnemigo, transform.position, rotacion);
+        //Instantiate(balaEnemigo, transform.position, rotacion);
+
+       
+        // al final del for... se incrementa en uno
+        for (int i = 0; i < _spawns.Length; i++)
+        {
+            Instantiate(balaEnemigo, _spawns[i].position, _spawns[i].rotation);
+        }
 
     }
 }
