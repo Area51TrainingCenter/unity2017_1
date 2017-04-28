@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 400004}
   - component: {fileID: 19800004}
   - component: {fileID: 19900004}
+  - component: {fileID: 114939902012289558}
   m_Layer: 0
   m_Name: explosion_asteroid
   m_TagString: Untagged
@@ -598,13 +599,13 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     type: 0
-    radius: 1
+    radius: 0.01
     angle: 25
     length: 5
     boxX: 1
     boxY: 1
     boxZ: 1
-    arc: 360
+    arc: NaN
     placementMode: 0
     m_Mesh: {fileID: 0}
     m_MeshRenderer: {fileID: 0}
@@ -3175,13 +3176,13 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 0
     type: 0
-    radius: 1
+    radius: 0.01
     angle: 25
     length: 5
     boxX: 1
     boxY: 1
     boxZ: 1
-    arc: 360
+    arc: NaN
     placementMode: 0
     m_Mesh: {fileID: 0}
     m_MeshRenderer: {fileID: 0}
@@ -5644,13 +5645,13 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     type: 1
-    radius: 1
+    radius: 0.01
     angle: 25
     length: 5
     boxX: 1
     boxY: 1
     boxZ: 1
-    arc: 360
+    arc: NaN
     placementMode: 0
     m_Mesh: {fileID: 0}
     m_MeshRenderer: {fileID: 0}
@@ -8287,13 +8288,13 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 0
     type: 0
-    radius: 1
+    radius: 0.01
     angle: 25
     length: 5
     boxX: 1
     boxY: 1
     boxZ: 1
-    arc: 360
+    arc: NaN
     placementMode: 0
     m_Mesh: {fileID: 0}
     m_MeshRenderer: {fileID: 0}
@@ -10612,3 +10613,14 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100004}
   m_IsPrefabParent: 1
+--- !u!114 &114939902012289558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a4c336d630a495aae0bfe3c7db36c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
