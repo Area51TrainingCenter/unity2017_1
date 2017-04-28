@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Proyectil : MonoBehaviour {
-    float speedx = 5f;
-    float speedy = 0f;
+    public float speed = 5;
     public GameObject _explota;
     // String representa el tag del objeto que queremos destruir
     public string targetTag;
@@ -14,7 +13,7 @@ public class Proyectil : MonoBehaviour {
 	}    
 	// Update is called once per frame
 	void Update () {
-        transform.Translate(speedx * Time.deltaTime, speedy * Time.deltaTime, 0);      
+        transform.Translate(speed * Time.deltaTime, 0 * Time.deltaTime, 0);      
     }
     private void OnTriggerEnter(Collider other)
     {
