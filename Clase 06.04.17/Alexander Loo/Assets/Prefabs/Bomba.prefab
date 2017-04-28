@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 136583996246154598}
   - component: {fileID: 23403709966245538}
   - component: {fileID: 114990825208789730}
+  - component: {fileID: 114786064198021208}
   m_Layer: 0
   m_Name: Bomba
   m_TagString: Finish
@@ -82,6 +83,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214252385961794}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114786064198021208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214252385961794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b5130d9b296c045a59752f8f2530f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destruir: 5
 --- !u!114 &114990825208789730
 MonoBehaviour:
   m_ObjectHideFlags: 1
