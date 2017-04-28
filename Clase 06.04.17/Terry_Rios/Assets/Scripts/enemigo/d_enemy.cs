@@ -5,8 +5,10 @@ using UnityEngine;
 public class d_enemy : MonoBehaviour {
 
     public GameObject _balaenemigo;
+    public Transform _spawn;
     public float frecuencia = 0.5f;
-    public float speedy = 5;
+    public Transform[] _spawns;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -18,23 +20,20 @@ public class d_enemy : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
-        transform.Translate(0, speedy * Time.deltaTime, 0);
-
-        if (transform.position.y >= 3.2f)
-        {
-            speedy = -speedy;
-        }
-        if (transform.position.y <= -3.5f)
-        {
-            speedy = -speedy;
        
-        }
 
     }
 
     void Disparo()
     {
-        Quaternion rotacion = Quaternion.Euler(0, 0, 180);
-        Instantiate(_balaenemigo, transform.position, rotacion);
+        //Quaternion rotacion = Quaternion.Euler(0, 0, 180);
+        //Instantiate(_balaenemigo, transform.position, rotacion);
+        Instantiate(_balaenemigo, _spawn.position, _spawn.rotation);
+
+        for(int i = 0;i < _spawns.Length; i++)
+        {
+            Instantiate(_balaenemigo, _spawns[i].position, _spawns[i].rotation);
+        }
+
     }
 }

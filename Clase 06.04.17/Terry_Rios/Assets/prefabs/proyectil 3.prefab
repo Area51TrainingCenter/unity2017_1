@@ -24,9 +24,9 @@ GameObject:
   - component: {fileID: 23303552264983428}
   - component: {fileID: 54189904663437352}
   - component: {fileID: 114449642002604948}
-  - component: {fileID: 114899031314775408}
+  - component: {fileID: 114771756895235602}
   m_Layer: 0
-  m_Name: proyectil 2
+  m_Name: proyectil 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1719377817174834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.189355, y: 2.5436902, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -58,7 +58,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 03962c3f5227b614ca05eab9bfa36b1e, type: 2}
+  - {fileID: 2100000, guid: 3faad4205fda6bf4c86edfaf4637430f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,10 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cad7b6b564712e46a95c3e31311f80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedX: 5
+  speedX: 3
   _prefab2: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
   targettag: Player
---- !u!114 &114899031314775408
+--- !u!114 &114771756895235602
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f882dc640260db4458d59f8be067e457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempo: 5
+  tiempo: 7
 --- !u!135 &135998251883456042
 SphereCollider:
   m_ObjectHideFlags: 1
