@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class disparar : MonoBehaviour {
+public class disparoPlayer : MonoBehaviour {
 
 
     public GameObject _prefab;

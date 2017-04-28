@@ -5,9 +5,12 @@ using UnityEngine;
 public class EnemigoAI : MonoBehaviour {
 
     public GameObject BalaEnemigo;
+    //transform _ spawn me da acceso a otro objeto dentro de la escena.
+    //esta variable nos da acceso al componente Transform del objeto vacío
+    public Transform _spawn;
+    public Transform[] _spawns;
     public float FrecuenciaDisparo = 1f;
-    public float speedX = 0f;
-    public float speedY = 10f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -20,32 +23,25 @@ public class EnemigoAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        CambioPosicion ();
+
+       
 	}
 
     void Disparo() {
         //Quaternion es el tipo de variable para almacenar rotaciones
-        Quaternion rotacion = Quaternion.Euler(0, 0, 180);
+        //Quaternion rotacion = Quaternion.Euler(0, 0, 180);
         //como la bala se mueve en dirección a su eje local X, rotamos la bala para que se vaya hacia la izquierda
-        Instantiate(BalaEnemigo, transform.position, rotacion);
-    }
+        //Instantiate(BalaEnemigo, transform.position, rotacion);
 
-    void CambioPosicion ()
-    {
-        //el "transform.Translate(speedX * Time.deltaTime, speedY * Time.deltaTime, 0);" se declara una vez 
-        transform.Translate(speedX * Time.deltaTime, speedY * Time.deltaTime, 0);
+        //ahora creamos la bala en la posición
+        Instantiate(BalaEnemigo, _spawn.position, _spawn.rotation);
 
-        if (transform.position.y >= 2.5)
+        for (int i = 0; i < _spawns.Length; i++)
         {
-            speedY = speedY * -1;
-            //speedY = -2;(otra forma de hacerlo)
-        }
-        if (transform.position.y <= -3)
-        {
-            speedY = speedY * -1;
-            //speedY = 2;
+            Instantiate(BalaEnemigo, _spawns[i].position, _spawns[i].rotation);
         }
 
     }
 
+    
 }
