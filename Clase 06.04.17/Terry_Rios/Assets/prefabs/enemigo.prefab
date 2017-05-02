@@ -107,5 +107,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _balaenemigo: {fileID: 1719377817174834, guid: 8790f3021b72da14ca3076c2a0ffe50d,
     type: 2}
+  _spawn: {fileID: 4256397701342374, guid: 0f46c841ad4ea2641b37fe4cf0c2f555, type: 2}
   frecuencia: 0.5
-  speedy: 5
+  _spawns: []

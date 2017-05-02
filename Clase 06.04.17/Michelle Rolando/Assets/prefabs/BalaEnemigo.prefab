@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 136878449105887244}
   - component: {fileID: 23095385821829168}
   - component: {fileID: 114599918956849836}
+  - component: {fileID: 114170072764338004}
   m_Layer: 0
   m_Name: BalaEnemigo
   m_TagString: Untagged
@@ -82,6 +83,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1626796678240866}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114170072764338004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1626796678240866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5dc845773cd04744a4e7bd8ada1c49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  "tiempoDeDestrucci\xF3n": 5
 --- !u!114 &114599918956849836
 MonoBehaviour:
   m_ObjectHideFlags: 1

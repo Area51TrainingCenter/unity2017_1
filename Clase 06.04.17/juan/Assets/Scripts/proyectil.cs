@@ -24,7 +24,7 @@ public class proyectil : MonoBehaviour {
 
             Destroy(gameObject);
 
-            
+            Instantiate(destroi, transform.position, transform.rotation);
         }
     }
 }

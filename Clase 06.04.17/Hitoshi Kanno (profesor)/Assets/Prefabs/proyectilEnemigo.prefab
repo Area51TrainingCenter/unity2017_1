@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23985065795301690}
   - component: {fileID: 54990030322096964}
   - component: {fileID: 114184950752813464}
+  - component: {fileID: 114517904316056410}
   m_Layer: 0
   m_Name: proyectilEnemigo
   m_TagString: Untagged
@@ -112,6 +113,17 @@ MonoBehaviour:
   speed: 5
   targetTag: Player
   _explosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
+--- !u!114 &114517904316056410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452893281255222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7225b3ee73e7741b93e65beb40a373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135000822832978872
 SphereCollider:
   m_ObjectHideFlags: 1
