@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemigoAI : MonoBehaviour {
     
     public GameObject _prefab;
+    public GameObject[] balasEnemigo;
     //esta variable nos da acceso al componente Transform del objeto vacio.
     //public Transform _spawn;
     public int sizeBalas=4;
@@ -42,7 +43,11 @@ public class EnemigoAI : MonoBehaviour {
         //var rota = _spawn.rotation;
         for (int i = 0; i < _spawns.Length; i++)
         {
-            Instantiate(_prefab, _spawns[i].position, _spawns[i].rotation);
+            for(int j = 0; j < balasEnemigo.Length; j++)
+            {
+                Instantiate(balasEnemigo[j], _spawns[i].position, _spawns[i].rotation);
+            }
+           
         }
        
     }

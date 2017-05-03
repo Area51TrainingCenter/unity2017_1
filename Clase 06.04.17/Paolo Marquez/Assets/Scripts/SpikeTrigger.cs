@@ -8,7 +8,8 @@ public class SpikeTrigger : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        Renderer _renderer = GetComponent<Renderer>();
+        _renderer.material.color = Color.red;
 	}
 	
 	// Update is called once per frame

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Proyectil : MonoBehaviour
 {
-    public float speedX = 10;
+    
     public string targetTag;
     public GameObject _prefab;
+    public float damage = 10;
 
     // Use this for initialization
     void Start()
@@ -18,7 +19,7 @@ public class Proyectil : MonoBehaviour
     void Update()
     {
         //convierte la velocidad por frames a velocidad por segundo
-        transform.Translate(speedX * Time.deltaTime, 0, 0);
+        
 
     }
 
@@ -27,8 +28,10 @@ public class Proyectil : MonoBehaviour
         if (other.CompareTag(targetTag))
         {
 
-            Debug.Log("Se destruyo: " + other.name);
-            Destroy(other.gameObject);
+            Debug.Log("Se hizo dano: " + other.name);
+            Vida vidaOtro=other.GetComponent<Vida>();
+            vidaOtro.ModificarDanio(damage);
+            //Destroy(other.gameObject);
             //destruimos el objeto
             Destroy(gameObject);
             Instantiate(_prefab, other.transform.position, other.transform.rotation);
