@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 54320312101498628}
   - component: {fileID: 114940363325067626}
   - component: {fileID: 114466756216106918}
+  - component: {fileID: 114769012119109656}
   m_Layer: 0
   m_Name: proyectilEnemigo 2
   m_TagString: Untagged
@@ -110,6 +111,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d7225b3ee73e7741b93e65beb40a373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114769012119109656
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167995883939650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4995493a40c526b4a88042db0fd981ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2.5
 --- !u!114 &114940363325067626
 MonoBehaviour:
   m_ObjectHideFlags: 1

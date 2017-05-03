@@ -23,7 +23,12 @@ public class ZonaLenta : MonoBehaviour {
             //dentro del juego. Cuando este vale 
             // 1 el tiempo fluye normal y en 0 esta detenido
             //en 0.3 el tiempo correria mas lento
-            Time.timeScale = 0.3f;
+            //        Time.timeScale = 0.3f;
+
+            PlayerMovement playerScript = other.GetComponent<PlayerMovement>();
+            playerScript.speedX = playerScript.speedX / 2;
+            playerScript.speedY = playerScript.speedY / 2;
+
         }
     }
     //esta funcion se ejecuta cuando un objeto sale
@@ -32,6 +37,11 @@ public class ZonaLenta : MonoBehaviour {
     {
         if (other.CompareTag("Player"))
         {
-            Time.timeScale = 1;
-        }    }
+            //        Time.timeScale = 1;
+            PlayerMovement playerScript = other.GetComponent<PlayerMovement>();
+            playerScript.speedX = playerScript.speedX * 2;
+            playerScript.speedY = playerScript.speedY * 2;
+
+        }
+    }
 }

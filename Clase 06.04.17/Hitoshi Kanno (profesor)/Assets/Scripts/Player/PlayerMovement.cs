@@ -10,9 +10,11 @@ public class PlayerMovement : MonoBehaviour {
     bool botomCambio = true;
     int contador = 1;
 
+    public GameObject explosionMuerte;
 
-	// Esta funcion se ejecuta UNA vez al inicio
-	void Start () {
+
+    // Esta funcion se ejecuta UNA vez al inicio
+    void Start () {
         Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
@@ -87,6 +89,14 @@ public class PlayerMovement : MonoBehaviour {
         // nombre de la funcion y abres y cierras parentesis
         Movimiento();
         CambiarColor();
+
+
+        float playerHealth = GetComponent<Health>().health;
+        if (playerHealth <= 0)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionMuerte, transform.position, transform.rotation);
+        }
     }
 
     //aquí creamos nuestra funcion llamada Movimiento

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemigoAI : MonoBehaviour {
-    public GameObject balaEnemigo;
+    public GameObject[] balasEnemigo;
     //esta variable nos da acceso al componente Transform del objeto vacio
 //    public Transform _spawn;
     //cuando colocamos [] delante del tipo de variable... estamos creando
@@ -22,10 +22,8 @@ public class EnemigoAI : MonoBehaviour {
 
     void Disparo() {
         
-
         //Ahora creamos la bala en la posicion y rotacion del objeto vacio
         //Instantiate(balaEnemigo, _spawn.position, _spawn.rotation);
-
 
         //el for repite una seccion de codigo una cantidad N de vueltas
         //mientras el contador i sea menor que _spawns.Length (el tamaño del arreglo)
@@ -34,7 +32,10 @@ public class EnemigoAI : MonoBehaviour {
         //al final del for... i se incrementa en uno
         for (int i = 0; i < _spawns.Length; i++)
         {
-            Instantiate(balaEnemigo, _spawns[i].position, _spawns[i].rotation);
+            for (int j = 0; j < balasEnemigo.Length; j++)
+            {
+                Instantiate(balasEnemigo[j], _spawns[i].position, _spawns[i].rotation);
+            }
         }
     }
 

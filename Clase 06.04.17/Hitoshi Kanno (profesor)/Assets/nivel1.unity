@@ -196,13 +196,18 @@ Prefab:
       propertyPath: _spawns.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114604774129808552, guid: 5141c098dd2c0514882d2573b16915ea,
+        type: 2}
+      propertyPath: balasEnemigo.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4667155264087942, guid: 5141c098dd2c0514882d2573b16915ea, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.66
       objectReference: {fileID: 0}
     - target: {fileID: 4667155264087942, guid: 5141c098dd2c0514882d2573b16915ea, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.38
+      value: -3.11
       objectReference: {fileID: 0}
     - target: {fileID: 4667155264087942, guid: 5141c098dd2c0514882d2573b16915ea, type: 2}
       propertyPath: m_LocalPosition.z
@@ -268,7 +273,7 @@ Prefab:
     - target: {fileID: 114604774129808552, guid: 5141c098dd2c0514882d2573b16915ea,
         type: 2}
       propertyPath: frecDisparo
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 114604774129808552, guid: 5141c098dd2c0514882d2573b16915ea,
         type: 2}
@@ -292,8 +297,20 @@ Prefab:
       objectReference: {fileID: 402051169}
     - target: {fileID: 1356870446316512, guid: 5141c098dd2c0514882d2573b16915ea, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114604774129808552, guid: 5141c098dd2c0514882d2573b16915ea,
+        type: 2}
+      propertyPath: balasEnemigo.Array.data[0]
+      value: 
+      objectReference: {fileID: 1452893281255222, guid: 8938af8d2809e804eab02a12150b33db,
+        type: 2}
+    - target: {fileID: 114604774129808552, guid: 5141c098dd2c0514882d2573b16915ea,
+        type: 2}
+      propertyPath: balasEnemigo.Array.data[1]
+      value: 
+      objectReference: {fileID: 1167995883939650, guid: 2bd4ed92df6a3f844985a3d51ba6ad17,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5141c098dd2c0514882d2573b16915ea, type: 2}
   m_IsPrefabParent: 0
@@ -319,6 +336,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 180
+--- !u!114 &540811306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 540811299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7e9adc1fd50d74ab1e0dc59972d435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
 --- !u!1 &726862356
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +571,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 1452893281255222, guid: 336891ee5503167419b7ed893da48f6d, type: 2}
+--- !u!114 &984037307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 984037300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7e9adc1fd50d74ab1e0dc59972d435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
 --- !u!1 &1029599253
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,9 +630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb144bd2bdf6d5438d579307b88970a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
   targetTag: Player
   _explosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
+  damage: 30
 --- !u!23 &1029599256
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -901,6 +944,11 @@ Prefab:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 114341670312560786, guid: f14594e142e560146a89e5bd29d4b800,
+        type: 2}
+      propertyPath: explosionMuerte
+      value: 
+      objectReference: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f14594e142e560146a89e5bd29d4b800, type: 2}
   m_IsPrefabParent: 0
