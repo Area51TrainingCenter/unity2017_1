@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Trampa : MonoBehaviour {
-
+    // permite instanciar un Rigibody
     public Rigidbody _preb;
     // Use this for initialization
     void Start () {
