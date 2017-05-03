@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class esfera : MonoBehaviour {
-
-    
-    public float speedX = 6;
+        
     public GameObject _prefab2;
     public string targettag;
-
+    public float damage = 30;
    
 
 	// Use this for initialization
@@ -19,7 +17,7 @@ public class esfera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        transform.Translate(speedX * Time.deltaTime, 0, 0);
+        
 
 
 
@@ -29,7 +27,13 @@ public class esfera : MonoBehaviour {
     {
         if (other.CompareTag(targettag))
         {
-            Destroy(other.gameObject);
+            other.GetComponent<health>().ModificarVida(damage);  
+
+
+
+            
+            
+            
             Destroy(gameObject);
             Instantiate(_prefab2, other.transform.position, other.transform.rotation);
         }

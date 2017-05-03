@@ -21,8 +21,9 @@ public class cambiarvelocidadjugador : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
 
-            Time.timeScale = 0.3F;
-            
+            PlayerMovement playerscript = other.GetComponent<PlayerMovement>();
+            playerscript.speedX = playerscript.speedX / 2;
+            playerscript.speedY = playerscript.speedY / 2;
 
         }
         
@@ -35,10 +36,11 @@ public class cambiarvelocidadjugador : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
 
-            Time.timeScale = 1;
-            
+            PlayerMovement playerscript = other.GetComponent<PlayerMovement>();
+            playerscript.speedX = playerscript.speedX * 2;
+            playerscript.speedY = playerscript.speedY * 2;
 
         }
-            
+
     }
 }

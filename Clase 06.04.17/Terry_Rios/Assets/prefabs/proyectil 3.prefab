@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 54189904663437352}
   - component: {fileID: 114449642002604948}
   - component: {fileID: 114771756895235602}
+  - component: {fileID: 114345179183646910}
   m_Layer: 0
   m_Name: proyectil 3
   m_TagString: Untagged
@@ -99,6 +100,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114345179183646910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1719377817174834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9e91fa3dbcb5c46bac09541f4680e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 4
 --- !u!114 &114449642002604948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -110,7 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cad7b6b564712e46a95c3e31311f80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedX: 3
   _prefab2: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
   targettag: Player
 --- !u!114 &114771756895235602

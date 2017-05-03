@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class d_enemy : MonoBehaviour {
 
-    public GameObject _balaenemigo;
-    public Transform _spawn;
+    public GameObject[] _balasenemigo;
     public float frecuencia = 0.5f;
     public Transform[] _spawns;
     
@@ -28,11 +27,15 @@ public class d_enemy : MonoBehaviour {
     {
         //Quaternion rotacion = Quaternion.Euler(0, 0, 180);
         //Instantiate(_balaenemigo, transform.position, rotacion);
-        Instantiate(_balaenemigo, _spawn.position, _spawn.rotation);
+        
 
         for(int i = 0;i < _spawns.Length; i++)
         {
-            Instantiate(_balaenemigo, _spawns[i].position, _spawns[i].rotation);
+            for (int J = 0; J < _balasenemigo.Length; J++)
+            {
+                Instantiate(_balasenemigo[J], _spawns[i].position, _spawns[i].rotation);
+            }
+           
         }
 
     }

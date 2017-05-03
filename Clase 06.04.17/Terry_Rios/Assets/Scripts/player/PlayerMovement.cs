@@ -82,6 +82,15 @@ public class PlayerMovement : MonoBehaviour {
 
         Movimiento();
         Cambiarcolor();
+        float playerHealth = GetComponent<health>().Health;
+        if (playerHealth == 0)
+        {
+            Destroy(gameObject);
+        }
+        
+
+
+
 
     }
 
