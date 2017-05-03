@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     public float speedy = 1f;
     int contador = 1;
     bool contadorColor = true;
+    public GameObject prefab;
     
 
     // Esta función se ejecuta UNA vez al inicio
@@ -82,6 +83,12 @@ public class PlayerMovement : MonoBehaviour {
          //Para llamar a una función solo se pone el nombre de la función();
         Movimiento();
         CambiarColor();
+        float playerHealth = GetComponent<Health>().health;
+        if(playerHealth == 0)
+        {
+            Destroy(gameObject);
+            Instantiate(prefab, transform.position, transform.rotation);
+        }
     }
 
     void Movimiento()

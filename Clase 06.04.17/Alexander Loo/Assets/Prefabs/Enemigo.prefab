@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114767290676148820}
   - component: {fileID: 114569033414748248}
   - component: {fileID: 114985849294120608}
+  - component: {fileID: 114602885530838636}
   m_Layer: 0
   m_Name: Enemigo
   m_TagString: Enemigo
@@ -224,6 +225,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movimientoY: 0
+--- !u!114 &114602885530838636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1393470044581868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ab1cb64af509d4b895a0230bc6898a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxhealth: 100
 --- !u!114 &114767290676148820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -236,12 +250,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frecuencia: 0.3
-  proyectil: {fileID: 1214252385961794, guid: c4bac77f33c069948bbf51d93c4e2f4c, type: 2}
+  balas: []
   _spawns:
   - {fileID: 4183783969755326}
   - {fileID: 4819679164508026}
   - {fileID: 4240869921314194}
   - {fileID: 4811485647516486}
+  prefab: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
 --- !u!114 &114985849294120608
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 23470248787663356}
   - component: {fileID: 114151833751143912}
   - component: {fileID: 114318077381626672}
+  - component: {fileID: 114050932563386050}
   m_Layer: 0
   m_Name: Enemigo2
   m_TagString: Enemigo
@@ -124,6 +125,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114050932563386050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1486035954022988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ab1cb64af509d4b895a0230bc6898a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxhealth: 100
 --- !u!114 &114151833751143912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,9 +150,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frecuencia: 10
-  proyectil: {fileID: 1563003041462138, guid: 75b2de217567b5a499d3dc6e633f3993, type: 2}
+  balas: []
   _spawns:
-  - {fileID: 0}
+  - {fileID: 4319262937874158, guid: 75b2de217567b5a499d3dc6e633f3993, type: 2}
+  prefab: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
 --- !u!114 &114318077381626672
 MonoBehaviour:
   m_ObjectHideFlags: 1

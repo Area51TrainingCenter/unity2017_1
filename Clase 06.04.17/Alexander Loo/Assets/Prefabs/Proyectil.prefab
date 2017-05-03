@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114135879888234076}
   - component: {fileID: 54410110629514786}
   - component: {fileID: 114766268402045288}
+  - component: {fileID: 114975146135367552}
   m_Layer: 0
   m_Name: Proyectil
   m_TagString: Untagged
@@ -110,9 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01c737b5bc119b4d9d2b3408e77a3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   _prefab: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
   targetTag: Enemigo
+  damage: 30
 --- !u!114 &114766268402045288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,6 +126,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destruir: 5
+--- !u!114 &114975146135367552
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1351157369597860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e248b90789e514e498eae20a1274c2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!135 &135787807282183264
 SphereCollider:
   m_ObjectHideFlags: 1

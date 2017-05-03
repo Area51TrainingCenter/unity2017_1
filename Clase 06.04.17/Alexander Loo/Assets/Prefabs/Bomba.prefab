@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23403709966245538}
   - component: {fileID: 114990825208789730}
   - component: {fileID: 114786064198021208}
+  - component: {fileID: 114360074632625084}
   m_Layer: 0
   m_Name: Bomba
   m_TagString: Finish
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214252385961794}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114360074632625084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214252385961794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e248b90789e514e498eae20a1274c2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
 --- !u!114 &114786064198021208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,9 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01c737b5bc119b4d9d2b3408e77a3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   _prefab: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
   targetTag: Player
+  damage: 30
 --- !u!136 &136583996246154598
 CapsuleCollider:
   m_ObjectHideFlags: 1

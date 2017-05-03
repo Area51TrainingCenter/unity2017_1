@@ -152,6 +152,11 @@ Prefab:
       propertyPath: _spawns.Array.data[0]
       value: 
       objectReference: {fileID: 596083928}
+    - target: {fileID: 114151833751143912, guid: 778028c19d3ed124f921a529e58ffbbc,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 778028c19d3ed124f921a529e58ffbbc, type: 2}
   m_IsPrefabParent: 0
@@ -201,9 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01c737b5bc119b4d9d2b3408e77a3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  _prefab: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
   targetTag: Player
+  damage: 30
 --- !u!23 &155917358
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -625,6 +629,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114767290676148820, guid: 45179993bb379524386b4af58af49ebf,
+        type: 2}
+      propertyPath: balas.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4857745015322412, guid: 45179993bb379524386b4af58af49ebf, type: 2}
       propertyPath: m_LocalPosition.x
       value: -2.09
@@ -656,6 +665,28 @@ Prefab:
     - target: {fileID: 4857745015322412, guid: 45179993bb379524386b4af58af49ebf, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114767290676148820, guid: 45179993bb379524386b4af58af49ebf,
+        type: 2}
+      propertyPath: balas.Array.data[0]
+      value: 
+      objectReference: {fileID: 1214252385961794, guid: c4bac77f33c069948bbf51d93c4e2f4c,
+        type: 2}
+    - target: {fileID: 114767290676148820, guid: 45179993bb379524386b4af58af49ebf,
+        type: 2}
+      propertyPath: balas.Array.data[1]
+      value: 
+      objectReference: {fileID: 1563003041462138, guid: 75b2de217567b5a499d3dc6e633f3993,
+        type: 2}
+    - target: {fileID: 114767290676148820, guid: 45179993bb379524386b4af58af49ebf,
+        type: 2}
+      propertyPath: frecuencia
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114767290676148820, guid: 45179993bb379524386b4af58af49ebf,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 45179993bb379524386b4af58af49ebf, type: 2}
