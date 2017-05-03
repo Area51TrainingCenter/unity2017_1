@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23001860307208822}
   - component: {fileID: 114918269398084576}
   - component: {fileID: 54376766833325704}
+  - component: {fileID: 114797835079240046}
   m_Layer: 0
   m_Name: BalaPlayer
   m_TagString: Untagged
@@ -98,6 +99,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114797835079240046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1128974381946932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99f16bf57dbef64b81a5c8455236062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 5
+  speedY: 0
 --- !u!114 &114918269398084576
 MonoBehaviour:
   m_ObjectHideFlags: 1

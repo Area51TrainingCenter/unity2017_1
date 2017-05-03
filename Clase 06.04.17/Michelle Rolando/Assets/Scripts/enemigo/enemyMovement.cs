@@ -17,6 +17,13 @@ public class enemyMovement : MonoBehaviour {
 	void Update () {
         CambioPosicion ();
         CambioPosicion2 ();
+
+        float PlayerHealth = GetComponent<Health>().health;
+
+        if (PlayerHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void CambioPosicion()

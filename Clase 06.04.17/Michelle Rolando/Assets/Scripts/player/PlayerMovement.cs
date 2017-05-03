@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     int contador = 1;
 
 
+
     // Esta funcion se ejecuta UNA vez al inicio
     void Start() {
         Debug.Log("hola");
@@ -93,9 +94,16 @@ public class PlayerMovement : MonoBehaviour {
         colorEstado();
         //Movimiento();
         //CambiarColor();
-#endregion
+        #endregion
 
-    }
+        float PlayerHealth = GetComponent<Health>().health;
+
+        if (PlayerHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+     }
 
 
 

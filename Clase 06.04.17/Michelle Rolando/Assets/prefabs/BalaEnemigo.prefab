@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23095385821829168}
   - component: {fileID: 114599918956849836}
   - component: {fileID: 114170072764338004}
+  - component: {fileID: 114504759334535110}
   m_Layer: 0
   m_Name: BalaEnemigo
   m_TagString: Untagged
@@ -94,7 +95,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5dc845773cd04744a4e7bd8ada1c49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "tiempoDeDestrucci\xF3n": 5
+  "tiempoDeDestrucci\xF3n": 10
+--- !u!114 &114504759334535110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1626796678240866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99f16bf57dbef64b81a5c8455236062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 5
+  speedY: 0
 --- !u!114 &114599918956849836
 MonoBehaviour:
   m_ObjectHideFlags: 1

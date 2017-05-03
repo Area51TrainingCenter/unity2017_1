@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemigoAI : MonoBehaviour {
 
-    public GameObject BalaEnemigo;
+    public GameObject[] BalasEnemigo;
     //transform _ spawn me da acceso a otro objeto dentro de la escena.
     //esta variable nos da acceso al componente Transform del objeto vacío
     public Transform _spawn;
@@ -34,11 +34,17 @@ public class EnemigoAI : MonoBehaviour {
         //Instantiate(BalaEnemigo, transform.position, rotacion);
 
         //ahora creamos la bala en la posición
-        Instantiate(BalaEnemigo, _spawn.position, _spawn.rotation);
+        //Instantiate(BalaEnemigo, _spawn.position, _spawn.rotation);
 
         for (int i = 0; i < _spawns.Length; i++)
         {
-            Instantiate(BalaEnemigo, _spawns[i].position, _spawns[i].rotation);
+            //for anidado
+            for (int j = 0; j < BalasEnemigo.Length; j++)
+            {
+                Instantiate(BalasEnemigo[j], _spawns[i].position, _spawns[i].rotation);
+            }
+
+            
         }
 
     }

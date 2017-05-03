@@ -7,7 +7,7 @@ public class SpikeTrigger : MonoBehaviour {
     public Rigidbody cilindro;
     // Use this for initialization
     void Start () {
-		
+        GetComponent<Renderer>().material.color = Color.red;
 	}
 	
 	// Update is called once per frame

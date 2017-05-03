@@ -14,7 +14,7 @@ public class AreaCongela : MonoBehaviour {
 		
 	}
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         //Time.timeScale controla el flujo del tiempo dentro del juego
         //cuando este vale 1, el tiempo fluye normal y en 0 esta detenido
@@ -22,17 +22,24 @@ public class AreaCongela : MonoBehaviour {
 
         if (other.CompareTag("Player"))
         {
-            Time.timeScale = 0.3f;
+            //Time.timeScale = 0.3f;
+            PlayerMovement playerScript = other.GetComponent<PlayerMovement>();
+            playerScript.speedX = playerScript.speedX / 2;
+            playerScript.speedY = playerScript.speedY / 2;
+            
         }
     }
 
     //esta función se ejecuta cuando un objeto sale de la zona del trigger
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         
         if (other.CompareTag("Player"))
         {
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
+            PlayerMovement playerScript = other.GetComponent<PlayerMovement>();
+            playerScript.speedX = playerScript.speedX * 2;
+            playerScript.speedY = playerScript.speedY * 2;
         }
     }
 
