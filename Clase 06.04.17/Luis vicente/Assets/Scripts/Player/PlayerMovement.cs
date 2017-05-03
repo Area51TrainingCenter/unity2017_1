@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GameObject _morir;
+    //public GameObject _morir;
+    public GameObject _explota;
     public bool direccion = true;
     public float speedx = 5f;
     public float speedy = 5f;
     public bool CambioBoton = true;
     int contador = 1;
+
 
     // Esta funcion se ejecuta UNA vez al inicio
     void Start(){
@@ -106,6 +108,13 @@ public class PlayerMovement : MonoBehaviour
 
         Movimiento();
         CambiarColor();
+
+        float PlayerVida = GetComponent<Health>().vida;
+        if (PlayerVida <=0)
+        {
+            Destroy(gameObject);
+            Instantiate(_explota, transform.position, transform.rotation);
+        }
     }
 
     void Movimiento(){

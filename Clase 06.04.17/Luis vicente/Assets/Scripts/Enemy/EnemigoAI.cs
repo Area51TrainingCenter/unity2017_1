@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemigoAI : MonoBehaviour {
-    public GameObject balaEnemigo; //public GameObject es para abrir ventana para enlazar algo
-    public Transform spawn;
+    public GameObject[] balasEnemigo; //public GameObject es para abrir ventana para enlazar algo
     public Transform[] spawns;
     public float FTiempo = 0.3f;
    
@@ -28,7 +27,11 @@ public class EnemigoAI : MonoBehaviour {
 
         for (int i = 0; i < spawns.Length ; i++)
         {
-            Instantiate(balaEnemigo, spawns[i].position, spawns[i].rotation);
+            for (int j = 0; j < balasEnemigo.Length; j++)
+            {
+                Instantiate(balasEnemigo[j], spawns[i].position, spawns[i].rotation);
+            }
+          
         }
     }
     

@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 54232691264152050}
   - component: {fileID: 114160492619055676}
   - component: {fileID: 114444124016884646}
+  - component: {fileID: 114550100221944776}
   m_Layer: 0
   m_Name: ProyectilPlayer
   m_TagString: Untagged
@@ -110,9 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b4ab30cb7deae4b97bfca79c4b4ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   _explota: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
   targetTag: Enemigo
+  dano: 30
 --- !u!114 &114444124016884646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,6 +125,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a2b568509eb384a9ff91f6ba59b732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114550100221944776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1925839765527160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b076904c4982a4f989ea095fef4b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!135 &135314598133522896
 SphereCollider:
   m_ObjectHideFlags: 1
