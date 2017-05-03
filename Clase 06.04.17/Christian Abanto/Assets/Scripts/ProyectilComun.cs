@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ProyectilComun : MonoBehaviour
 {
-    public float speedX = 5f;
+    
     public GameObject _explosion;
     // este representara el tag que buscamos destruir
-    public string targetTag; 
+    public string targetTag;
+    // determina el daño de modo publico
+    public float daniar = 30;
 
     // Use this for initialization
     void Start()
@@ -15,11 +17,7 @@ public class ProyectilComun : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Translate(speedX * Time.deltaTime, 0, 0);
-    }
+
 
     
     // esta funcion va detectar cualquier cosa que entre en su volumen
@@ -33,8 +31,14 @@ public class ProyectilComun : MonoBehaviour
 
         if (other.CompareTag(targetTag))
         {
-            Instantiate(_explosion, transform.position, transform.rotation);
-            Destroy(other.gameObject); // destruimos el objeto que toca ( cuadrado grande )
+            // INSTANCIAR
+            //Instantiate(_explosion, transform.position, transform.rotation);
+
+            // DESMINUIR VIDA
+            other.GetComponent<PuntosVida>().ModificarVida(daniar);
+
+            // DESTRUIR
+            //Destroy(other.gameObject); // destruimos el objeto que toca ( cuadrado grande )
             Destroy(gameObject); // destruimos este objeto ( esta esfera )
         }
 

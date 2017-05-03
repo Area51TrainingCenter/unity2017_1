@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23465612248779410}
   - component: {fileID: 114058075949671462}
   - component: {fileID: 114593632551276388}
+  - component: {fileID: 114276411178718784}
   m_Layer: 0
   m_Name: proyectilEnemigo
   m_TagString: Untagged
@@ -94,9 +95,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50790238939ccd647aee7b2cd724569d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedX: 5
   _explosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
   targetTag: Player
+  daniar: 30
+--- !u!114 &114276411178718784
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1093114079036392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b24ee1712709df4cbc75c3b5f085d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 10
 --- !u!114 &114593632551276388
 MonoBehaviour:
   m_ObjectHideFlags: 1

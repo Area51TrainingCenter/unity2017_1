@@ -21,20 +21,29 @@ public class CambiarVelocidadJugador : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         // other, representa el objeto que ha tocado este elemento ( Zona Lenta )
-
-
+        
         if (other.CompareTag("Player"))
         {
+            /*
             Time.timeScale = 0.3f;  // timeScale 0 ( juego movimiento detenido ) 
                                     // timeScale 0.1 a 0.9 ( definimos la lentitud )
                                     // timeScale 1 ( juego movimiento normal  )
-        }
+            */
 
+            other.GetComponent<Player>().speedX /= 2;
+            other.GetComponent<Player>().speedY /= 2;
+        }
 
     }
 
     void OnTriggerExit(Collider other)
     {
-        Time.timeScale = 1f;            
+        //Time.timeScale = 1f;
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<Player>().speedX *= 2;
+            other.GetComponent<Player>().speedY *= 2;
+        }
+
     }
 }

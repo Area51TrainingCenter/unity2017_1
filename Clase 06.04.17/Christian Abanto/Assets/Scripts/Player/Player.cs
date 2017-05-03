@@ -9,6 +9,8 @@ public class Player : MonoBehaviour {
     public float speedY = 1f;
     int contador = 1;
 
+    public GameObject _explosion;
+
     // Esta funcion se ejecuta UNA vez al inicio
     void Start() {
         // Debug.Log("hola");
@@ -82,6 +84,17 @@ public class Player : MonoBehaviour {
 
         Movimiento();
         CambiarColor();
+
+        float playerVida = GetComponent<PuntosVida>().health;
+
+        if ( playerVida <= 0 )
+        {
+            // INSTANCIAR
+            Instantiate(_explosion, transform.position, transform.rotation);
+
+            // DESTRUIR
+            Destroy(gameObject); // destruimos este objeto ( esta esfera )
+        }
 
     }
 

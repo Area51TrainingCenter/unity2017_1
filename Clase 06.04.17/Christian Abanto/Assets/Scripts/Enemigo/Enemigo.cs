@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemigo : MonoBehaviour {
-
+    public GameObject[] balasEnemigo;
     public float frecDisparo = 1;
     public float speedY = 2;
     // vamos a obtener componentes especificos de otros 
@@ -37,7 +37,11 @@ public class Enemigo : MonoBehaviour {
 
         for (int i = 0; i < _spawns.Length; i++)
         {
-            Instantiate(_proyectilEnemigo, _spawns[i].position, _spawns[i].rotation);
+            // Instantiate(_proyectilEnemigo, _spawns[i].position, _spawns[i].rotation);
+            for (int j = 0; j < balasEnemigo.Length; j++)
+            {
+                Instantiate(balasEnemigo[j], _spawns[i].position, _spawns[i].rotation);
+            }            
         }
 
     }
