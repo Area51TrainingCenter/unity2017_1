@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 65722280450618286}
   - component: {fileID: 23852729487248248}
   - component: {fileID: 114208315053036726}
+  - component: {fileID: 114397959552040912}
   m_Layer: 0
   m_Name: Enemigo 1
   m_TagString: enemigo
@@ -134,8 +135,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4f6cb8a766ee24e8b23b1a44d558c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balaEnemigo: {fileID: 1591398390034284, guid: 66ea3473796276147ab58b1fe8e5e626,
-    type: 2}
-  _spawn: {fileID: 4949491897013342}
+  balaEnemigo: []
+  _spawns: []
   frecDisparo: 0.5
-  speedY: 10
+--- !u!114 &114397959552040912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1043013586046594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9310965cac83cf43b24fe99780daa76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100

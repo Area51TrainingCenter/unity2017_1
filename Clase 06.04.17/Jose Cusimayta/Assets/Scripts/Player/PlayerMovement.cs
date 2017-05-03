@@ -128,6 +128,8 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(1, 1, 1);
        */
         #endregion
+
+        Morir();
     }
 
     #region Clase 2
@@ -247,5 +249,12 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-    
+    void Morir()
+    {
+        float _health = GetComponent<Health>().health;
+        if (_health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
