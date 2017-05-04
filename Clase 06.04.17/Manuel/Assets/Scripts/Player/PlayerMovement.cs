@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour {
     public float speedy = 0.1f;
     int contador = 1;
     bool botonECambio = true;
+    //se hace publica para jalar el prefab de explosion
+    public GameObject explosionMuerte;
 
 	// Esta funcion se ejecuta UNA vez al inicio
 	void Start () {
@@ -84,6 +86,12 @@ public class PlayerMovement : MonoBehaviour {
         Movimiento ();
         CambiarColor();
 
+        float playerhealth = GetComponent<Health>().health;
+        if (playerhealth <=0)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionMuerte, transform.position, transform.rotation);
+        }
     }
     //aquí creamos nuestra función llamada movimiento
     void Movimiento ()

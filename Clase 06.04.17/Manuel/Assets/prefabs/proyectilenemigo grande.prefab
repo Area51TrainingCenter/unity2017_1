@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114607091693066488}
   - component: {fileID: 54505317781732036}
   - component: {fileID: 114147438147227170}
+  - component: {fileID: 114455168213763428}
   m_Layer: 0
   m_Name: proyectilenemigo grande
   m_TagString: Untagged
@@ -39,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1241811113402768}
   m_LocalRotation: {x: -0, y: -0, z: -0.00005610939, w: 1}
-  m_LocalPosition: {x: -6.64, y: -2.65, z: 0}
+  m_LocalPosition: {x: 1.1071075, y: -3.321321, z: 0}
   m_LocalScale: {x: 1.7876605, y: 0.39033228, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,7 +59,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1ddda0f09f453d940b46675167e8bc61, type: 2}
+  - {fileID: 2100000, guid: 769d44fb2258b2944bcfedde97cd5eee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,6 +111,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31792803859247d42893c2836c9a8ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114455168213763428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241811113402768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39f2ce0134e6f943bb3775ad5208ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedx: 5
 --- !u!114 &114607091693066488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,9 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190ab13630128a541ad6b7a5a64cd31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedx: 5
   targetTag: Player
   _explosion: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
+  damage: 30
 --- !u!136 &136280723146344970
 CapsuleCollider:
   m_ObjectHideFlags: 1

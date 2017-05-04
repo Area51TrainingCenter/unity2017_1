@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemigoAl : MonoBehaviour {
-    public GameObject balaEnemigo;
-    public Transform _spawn;
+    public GameObject[] balasEnemigo;
+    // esta variable nos da acceso al componente Transform del objeto vacio
+//     public Transform _spawn;
     //cuando colocamos [] delante del tipo de variable ... estamos creando
     //un arreglo que contendra elementos de este tipo
     public Transform[] _spawns;
     public float frecDisparo= 0.5f;
-    
-	// Use this for initialization
+   	// Use this for initialization
 	void Start () {
         InvokeRepeating("Disparo", 0, frecDisparo);
 	}
@@ -38,7 +38,10 @@ public class EnemigoAl : MonoBehaviour {
         //al final del for ... i se incrementa en uno
         for (int i = 0; i < _spawns.Length; i++)
         {
-            Instantiate(balaEnemigo, _spawns[i].position, _spawns[i].rotation);
+            for (int j = 0; j < balasEnemigo.Length; j++)
+            {
+                Instantiate(balasEnemigo[j], _spawns[i].position, _spawns[i].rotation);
+            }
         }
     }
 }
