@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour {
     public bool botonCambio = true;
     public int estado = 1;
 
+
+    public GameObject explosionMuerte;
+
     // Esta funcion se ejecuta UNA vez al inicio
     void Start () {
       //  Debug.Log("hola");
@@ -84,6 +87,12 @@ public class PlayerMovement : MonoBehaviour {
         Movimiento();
         CambiarColor();
 
+        float playerHealth = GetComponent<Health>().health;
+        if (playerHealth<=0) {
+            Destroy(gameObject);
+            Instantiate(explosionMuerte, transform.position, transform.rotation);
+
+        }
     }// end update
 
     // creamos nuestra funcion movimiento

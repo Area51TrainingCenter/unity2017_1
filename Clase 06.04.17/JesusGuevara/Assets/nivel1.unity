@@ -182,9 +182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7edfd2588eb009a4bb1a6c80601b9d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  _prefab2: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
+  _explosion: {fileID: 0}
   targetag: jugador
+  damage: 30
 --- !u!23 &592652151
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -262,6 +262,11 @@ Prefab:
       propertyPath: _spawns.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114569590798402988, guid: 105a7c31a839e3f4696e3b22ae6d9877,
+        type: 2}
+      propertyPath: balasEnemigo.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4374284433879320, guid: 105a7c31a839e3f4696e3b22ae6d9877, type: 2}
       propertyPath: m_LocalPosition.x
       value: 11.25
@@ -317,6 +322,24 @@ Prefab:
       propertyPath: _spawns.Array.data[2]
       value: 
       objectReference: {fileID: 1690756071}
+    - target: {fileID: 114569590798402988, guid: 105a7c31a839e3f4696e3b22ae6d9877,
+        type: 2}
+      propertyPath: balasEnemigo.Array.data[0]
+      value: 
+      objectReference: {fileID: 1406767801712354, guid: 4a9d775f4424a324386f3cbb6ebd11e3,
+        type: 2}
+    - target: {fileID: 114569590798402988, guid: 105a7c31a839e3f4696e3b22ae6d9877,
+        type: 2}
+      propertyPath: balasEnemigo.Array.data[1]
+      value: 
+      objectReference: {fileID: 1551883069422434, guid: 3bbf545160b3135499476c536bdb1be3,
+        type: 2}
+    - target: {fileID: 114569590798402988, guid: 105a7c31a839e3f4696e3b22ae6d9877,
+        type: 2}
+      propertyPath: balasEnemigo.Array.data[2]
+      value: 
+      objectReference: {fileID: 1551883069422434, guid: 3bbf545160b3135499476c536bdb1be3,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 105a7c31a839e3f4696e3b22ae6d9877, type: 2}
   m_IsPrefabParent: 0
@@ -546,6 +569,7 @@ GameObject:
   - component: {fileID: 1212595290}
   - component: {fileID: 1212595289}
   - component: {fileID: 1212595294}
+  - component: {fileID: 1212595295}
   m_Layer: 0
   m_Name: segundoEnemigo
   m_TagString: enemigo
@@ -564,9 +588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d649265c3fc014e95780a999f90078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balaEnemigo: {fileID: 1406767801712354, guid: 4a9d775f4424a324386f3cbb6ebd11e3,
-    type: 2}
-  spwan: {fileID: 105966183}
+  balasEnemigo:
+  - {fileID: 1406767801712354, guid: 4a9d775f4424a324386f3cbb6ebd11e3, type: 2}
   _spawns:
   - {fileID: 105966183}
 --- !u!23 &1212595290
@@ -647,6 +670,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 100
+--- !u!114 &1212595295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1212595288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48205806c3c80ed42b352ee611ad5ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
 --- !u!1001 &1471610948
 Prefab:
   m_ObjectHideFlags: 0
@@ -698,9 +734,32 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.84020025
       objectReference: {fileID: 0}
+    - target: {fileID: 114066056262541728, guid: 6661e29af9c20f949a5acb14a6c32d6f,
+        type: 2}
+      propertyPath: explosionMuerte
+      value: 
+      objectReference: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6661e29af9c20f949a5acb14a6c32d6f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1588666461 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1663081943389560, guid: 6661e29af9c20f949a5acb14a6c32d6f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1471610948}
+--- !u!114 &1588666469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1588666461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48205806c3c80ed42b352ee611ad5ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
 --- !u!1 &1690756070
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,4 +814,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7baf51805d2e5748b1b0ddaa1a1da9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpeedY: 5
+  SpeedY: 0
+--- !u!114 &1777073026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1777073019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48205806c3c80ed42b352ee611ad5ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100

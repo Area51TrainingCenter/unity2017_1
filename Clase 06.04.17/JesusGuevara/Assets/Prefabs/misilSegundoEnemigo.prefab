@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23026416094123308}
   - component: {fileID: 114552463428420522}
   - component: {fileID: 114838136855300360}
+  - component: {fileID: 114699002385306930}
   m_Layer: 0
   m_Name: misilSegundoEnemigo
   m_TagString: Untagged
@@ -94,9 +95,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7edfd2588eb009a4bb1a6c80601b9d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  _prefab2: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
+  _explosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
   targetag: jugador
+--- !u!114 &114699002385306930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1406767801712354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1674012685bb90549b7dec3e3403638a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!114 &114838136855300360
 MonoBehaviour:
   m_ObjectHideFlags: 1
