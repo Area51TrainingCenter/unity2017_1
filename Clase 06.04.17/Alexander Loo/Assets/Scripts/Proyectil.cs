@@ -7,6 +7,8 @@ public class Proyectil : MonoBehaviour {
     
     public string targetTag;
     public float damage = 30;
+    public GameObject explosion;
+
 	void Start () {
 		
 	}
@@ -20,8 +22,12 @@ public class Proyectil : MonoBehaviour {
         if (other.CompareTag(targetTag))
         {
             other.GetComponent<Health>().ModificarVida(damage);
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(gameObject);
+            
         }
         
     }
+   
 
 }
