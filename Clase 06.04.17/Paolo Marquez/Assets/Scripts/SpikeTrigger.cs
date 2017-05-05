@@ -24,7 +24,7 @@ public class SpikeTrigger : MonoBehaviour {
 
             Debug.Log("Entro: " + other.name);
             _prefab.isKinematic = false;
-            //Destroy(other.gameObject);
+            Destroy(this.gameObject);
             //destruimos el objeto
             //Destroy(gameObject);
            // Instantiate(explo, other.transform.position, other.transform.rotation);

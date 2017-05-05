@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 400012}
   - component: {fileID: 19800012}
   - component: {fileID: 19900012}
-  - component: {fileID: 114795802852101592}
+  - component: {fileID: 114157306754005882}
   m_Layer: 0
   m_Name: explosion_enemy
   m_TagString: Untagged
@@ -18214,7 +18214,7 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100012}
   m_IsPrefabParent: 1
---- !u!114 &114795802852101592
+--- !u!114 &114157306754005882
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

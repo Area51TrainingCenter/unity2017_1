@@ -33,8 +33,9 @@ public class Proyectil : MonoBehaviour
             vidaOtro.ModificarDanio(damage);
             //Destroy(other.gameObject);
             //destruimos el objeto
+            Instantiate(_prefab, transform.position, transform.rotation);
             Destroy(gameObject);
-            Instantiate(_prefab, other.transform.position, other.transform.rotation);
+           
         }
 
        
