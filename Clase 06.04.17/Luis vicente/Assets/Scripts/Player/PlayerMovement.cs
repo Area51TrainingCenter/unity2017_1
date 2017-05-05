@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         CambiarColor();
 
         float PlayerVida = GetComponent<Health>().vida;
-        if (PlayerVida <=0)
+        if (PlayerVida <= 0)
         {
             Destroy(gameObject);
             Instantiate(_explota, transform.position, transform.rotation);
