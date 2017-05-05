@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 23190940946389390}
   - component: {fileID: 114729878726627166}
   - component: {fileID: 54215314632678056}
+  - component: {fileID: 114723654975350496}
+  - component: {fileID: 114705743883626956}
   m_Layer: 0
   m_Name: proyectil
   m_TagString: Untagged
@@ -98,6 +100,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114705743883626956
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1943522507560128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9e91fa3dbcb5c46bac09541f4680e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 6
+--- !u!114 &114723654975350496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1943522507560128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f882dc640260db4458d59f8be067e457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiempo: 5
 --- !u!114 &114729878726627166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,9 +135,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cad7b6b564712e46a95c3e31311f80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedX: 6
   _prefab2: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
   targettag: enemigo
+  damage: 30
 --- !u!135 &135474235576426326
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -8,7 +8,7 @@ public class cambiarvelocidadjugador : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -19,13 +19,24 @@ public class cambiarvelocidadjugador : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
         if (other.gameObject.tag == "Player")
-            Time.timeScale = 0.3f;
+        {
+            playerMovement.speedX = playerMovement.speedX / 2;
+            playerMovement.speedY = playerMovement.speedY / 2;
+            // Time.timeScale = 0.3f;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
+        PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
         if (other.gameObject.tag == "Player")
-            Time.timeScale = 1f;
+        {
+            playerMovement.speedX = playerMovement.speedX * 2;
+            playerMovement.speedY = playerMovement.speedY * 2;
+            //Time.timeScale = 1f;
+        }
+        
     }
     //Cusimayta
 }

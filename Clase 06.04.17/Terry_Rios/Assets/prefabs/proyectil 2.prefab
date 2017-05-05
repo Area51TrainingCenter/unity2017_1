@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 23303552264983428}
   - component: {fileID: 54189904663437352}
   - component: {fileID: 114449642002604948}
+  - component: {fileID: 114899031314775408}
+  - component: {fileID: 114825650558446230}
   m_Layer: 0
   m_Name: proyectil 2
   m_TagString: Untagged
@@ -109,9 +111,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cad7b6b564712e46a95c3e31311f80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedX: 6
   _prefab2: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
   targettag: Player
+  damage: 30
+--- !u!114 &114825650558446230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1719377817174834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9e91fa3dbcb5c46bac09541f4680e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 6
+--- !u!114 &114899031314775408
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1719377817174834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f882dc640260db4458d59f8be067e457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiempo: 5
 --- !u!135 &135998251883456042
 SphereCollider:
   m_ObjectHideFlags: 1

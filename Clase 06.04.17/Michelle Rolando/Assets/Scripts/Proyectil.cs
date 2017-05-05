@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Proyectil : MonoBehaviour {
 
-    public float speedX = 3f;
-    public float speedY = 0f;
+   
     public GameObject explosion;
     //targetTag representa cuál es el tag el objeto que buscamos destruir
     public string targetTag;
+    public float damage = 30;
 
     // Use this for initialization
     void Start () {
@@ -17,13 +17,9 @@ public class Proyectil : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        MovimientoContinuo();
         
 	}
-    void MovimientoContinuo()
-    {
-        transform.Translate(speedX * Time.deltaTime, speedY * Time.deltaTime, 0);
-    }
+    
 
     private void OnTriggerEnter(Collider other)
         //el "other" representa el objeto con el cual el trigger colisiona
@@ -31,7 +27,12 @@ public class Proyectil : MonoBehaviour {
         if (other.CompareTag(targetTag))
         {
             //destruimos el objeto que toca el trigger
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
+
+            Health VidaEnemigo = other.GetComponent<Health> ();
+            VidaEnemigo.ModificarVida(damage);
+            
+
             //el objeto se autodestruye
             Destroy(gameObject);
             //other.transform.position hace que la animación aparezca desde el enemigo

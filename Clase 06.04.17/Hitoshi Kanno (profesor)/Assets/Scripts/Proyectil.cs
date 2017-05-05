@@ -3,26 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Proyectil : MonoBehaviour {
-    public float speed = 5;
     //este representa cuál es el tag del objeto que buscamos destruir
     public string targetTag;
     public GameObject _explosion;
+    public float damage = 30;
 	// Use this for initialization
 	void Start () {
 		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        transform.Translate(speed * Time.deltaTime, 0, 0);
 	}
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(targetTag))
         {
-            //destruimos el objeto que toca este trigger
-            Destroy(other.gameObject);
+            other.GetComponent<Health>().ModificarVida(damage);
             //auto destruimos el objeto
             Destroy(gameObject);
             Instantiate(_explosion, other.transform.position, transform.rotation);

@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 23985065795301690}
   - component: {fileID: 54990030322096964}
   - component: {fileID: 114184950752813464}
+  - component: {fileID: 114517904316056410}
+  - component: {fileID: 114794591436904876}
   m_Layer: 0
   m_Name: proyectilEnemigo
   m_TagString: Untagged
@@ -109,9 +111,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb144bd2bdf6d5438d579307b88970a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   targetTag: Player
   _explosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
+  damage: 30
+--- !u!114 &114517904316056410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452893281255222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7225b3ee73e7741b93e65beb40a373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114794591436904876
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1452893281255222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4995493a40c526b4a88042db0fd981ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
 --- !u!135 &135000822832978872
 SphereCollider:
   m_ObjectHideFlags: 1

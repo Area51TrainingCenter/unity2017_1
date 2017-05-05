@@ -22,11 +22,16 @@ public class CambiarVelocidadJugador : MonoBehaviour
         Debug.Log(other.name + " Entró");
         if (other.CompareTag("Player"))
         {
-            Time.timeScale = 0.3f;
+            //Time.timeScale = 0.3f;
             //Time.timeScale controla el flujo del tiempo(float)
             //el tiempo fluye normal = 1  
             //el tiempo corre mas lento = 0.3f
             //el tiempo se para por completo = 0
+            PlayerMovement playerScript = other.GetComponent<PlayerMovement>();
+            playerScript.speedx /= 2;
+            playerScript.speedy /= 2;
+
+       
         }
 
     }
@@ -37,7 +42,10 @@ public class CambiarVelocidadJugador : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //el flujo de tiempo regresa a la normalidad
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
+            PlayerMovement playerScript = other.GetComponent<PlayerMovement>();
+            playerScript.speedx *= 2;
+            playerScript.speedy *= 2;
         }
     }
 }
