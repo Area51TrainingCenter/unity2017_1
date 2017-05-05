@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestruirDespuesdeSegundos : MonoBehaviour {
+public class DestruirDespuesDeSegundos : MonoBehaviour {
 
-    public float destruir = 5;
+	// Use this for initialization
 	void Start () {
-        //Invoke ejecutará la función "Destruir" después de 5 segundos
-        //Invoke se utiliza una sola vez...
-        Invoke("Destruir", destruir);
+        //Invoke ejecutará la funcion "Destruir" despues de 5 segundos
+        Invoke("Destruir", 5);
 	}
-	
-	
+	//esta funcion destruye el GameObject
 	void Destruir () {
         Destroy(gameObject);
 	}

@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class Health : MonoBehaviour {
     public float health = 100;
-
     public float maxHealth = 100;
-    // Use this for initialization
-    void Start() {
+	// Use this for initialization
+	void Start () {
 
     }
-    public void ModificarVida (float dano) { 
+
+    //esta funcion sirve tanto para aplicar dano como 
+    //para recuperar vida
+    public void ModificarVida(float dano) {
         health = health - dano;
         if (health < 0)
         {
             health = 0;
-                 }
-        if (health > maxHealth)
-        { health = maxHealth;
-            }
         }
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+    }
 }
