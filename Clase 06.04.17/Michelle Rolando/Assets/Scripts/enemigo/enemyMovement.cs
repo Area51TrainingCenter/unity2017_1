@@ -7,7 +7,7 @@ public class enemyMovement : MonoBehaviour {
     public float speedX = 2f;
     public float speedY = 0f;
 
-
+    
     // Use this for initialization
     void Start () {
 		
@@ -18,12 +18,6 @@ public class enemyMovement : MonoBehaviour {
         CambioPosicion ();
         CambioPosicion2 ();
 
-        float PlayerHealth = GetComponent<Health>().health;
-
-        if (PlayerHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     void CambioPosicion()

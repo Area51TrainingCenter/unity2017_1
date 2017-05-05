@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour {
     bool botomCambio = true;
     int contador = 1;
 
+    public GameObject explosionMuerte;
 
 
     // Esta funcion se ejecuta UNA vez al inicio
@@ -101,6 +102,7 @@ public class PlayerMovement : MonoBehaviour {
         if (PlayerHealth <= 0)
         {
             Destroy(gameObject);
+            Instantiate(explosionMuerte, transform.position, transform.rotation);
         }
 
      }

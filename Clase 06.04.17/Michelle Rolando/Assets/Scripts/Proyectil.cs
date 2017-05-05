@@ -36,7 +36,7 @@ public class Proyectil : MonoBehaviour {
             //el objeto se autodestruye
             Destroy(gameObject);
             //other.transform.position hace que la animación aparezca desde el enemigo
-            Instantiate(explosion, other.transform.position, transform.rotation);
+            Instantiate(explosion, transform.position, transform.rotation);
             
         }
 
