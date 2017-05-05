@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class rotate : MonoBehaviour {
-
+public class Rotate : MonoBehaviour {
+    public float rotateSpeed = 50;
 	// Use this for initialization
 	void Start () {
 		
@@ -11,6 +11,6 @@ public class rotate : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Rotate(0, 0, 4);
+        transform.Rotate(0, 0, rotateSpeed*Time.deltaTime);
 	}
 }

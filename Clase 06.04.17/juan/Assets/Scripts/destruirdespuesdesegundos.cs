@@ -2,15 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class destruirdespuesdesegundos : MonoBehaviour {
-    
+public class DestruirDespuesDeSegundos : MonoBehaviour {
+
 	// Use this for initialization
 	void Start () {
-        Invoke("destruir", 5);
+    
+        
+        
+        //Invoke ejecutará la funcion "Destruir" despues de 5 segundos
+        Invoke("Destruir", 5);
 	}
-	
-	// Update is called once per frame
-	void Update () {
+    //esta funcion destruye el GameObject
+
+
+
+
+    void Destruir () {
         Destroy(gameObject);
 	}
 }

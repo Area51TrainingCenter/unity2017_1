@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class proyecstiles : MonoBehaviour {
-    public float speed = 1000.10f;
-    public GameObject _explosion;
+public class SpikeTrigger : MonoBehaviour {
+    public Rigidbody _spike;
 	// Use this for initialization
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        transform.Translate(-speed * Time.deltaTime, 0, 0);
-
+	void OnTriggerEnter (Collider other) {
+        if (other.CompareTag("Player"))
         {
-
-
+            _spike.isKinematic = false;
         }
+
 	}
 }
