@@ -637,6 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a24e0858a5592458df0759be9eb03a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
   balasEnemigo: []
   frecDisparo: 5
   speedY: 3
@@ -946,6 +947,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1093114079036392, guid: 67d121ffe4258f34a8a9ae3d0e726d19,
         type: 2}
+    - target: {fileID: 114306328317367072, guid: 2087a9f95b4c67941a12ac0485d5f0c7,
+        type: 2}
+      propertyPath: _explosion
+      value: 
+      objectReference: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2087a9f95b4c67941a12ac0485d5f0c7, type: 2}
   m_IsPrefabParent: 0

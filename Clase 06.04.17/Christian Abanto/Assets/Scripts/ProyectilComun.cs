@@ -41,6 +41,5 @@ public class ProyectilComun : MonoBehaviour
             //Destroy(other.gameObject); // destruimos el objeto que toca ( cuadrado grande )
             Destroy(gameObject); // destruimos este objeto ( esta esfera )
         }
-
     }
 }

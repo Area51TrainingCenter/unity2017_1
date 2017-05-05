@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemigo : MonoBehaviour {
+    public GameObject _explosion;
     public GameObject[] balasEnemigo;
     public float frecDisparo = 1;
     public float speedY = 2;
@@ -17,10 +18,19 @@ public class Enemigo : MonoBehaviour {
     void Start () {
         InvokeRepeating("Disparo", 0, frecDisparo); // todo lo maneja en segundos
     }
-	
-	// Update is called once per frame
-	void Update () {
 
+    // Update is called once per frame
+    void Update () {
+        float playerVida = GetComponent<PuntosVida>().health;
+
+        if (playerVida <= 0)
+        {
+            // INSTANCIAR
+            Instantiate(_explosion, transform.position, transform.rotation);
+
+            // DESTRUIR
+            Destroy(gameObject); // destruimos este objeto ( esta esfera )
+        }
 
     }
 
