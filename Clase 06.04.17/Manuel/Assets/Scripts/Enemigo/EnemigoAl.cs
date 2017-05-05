@@ -6,8 +6,13 @@ public class EnemigoAl : MonoBehaviour {
     public GameObject[] balasEnemigo;
     public GameObject explosionMuerte;
 
+    //creamos una variable global que almacena la referencia al
+    //componente Health... de esta forma no tenemos que hacer GetComponent
+    //cada vez que queramos acceder a la vida del enemigo
     Health healthScript;
-
+    Renderer _renderer;
+    //esta variable nos da cuanta vida tenia el enemigo en el frame anterior
+    float previousHealth;
     // esta variable nos da acceso al componente Transform del objeto vacio
 //     public Transform _spawn;
     //cuando colocamos [] delante del tipo de variable ... estamos creando
@@ -17,7 +22,10 @@ public class EnemigoAl : MonoBehaviour {
    	// Use this for initialization
 	void Start () {
         InvokeRepeating("Disparo", 0, frecDisparo);
+        //asignamos la referencia del componente aqui
         healthScript = GetComponent<Health>();
+        _renderer = GetComponent<Renderer>();
+        previousHealth = healthScript.health;
     }
 	
 	// Update is called once per frame
@@ -28,9 +36,19 @@ public class EnemigoAl : MonoBehaviour {
             Destroy(gameObject);
             Instantiate(explosionMuerte, transform.position, transform.rotation);
         }
-
+        //preguntamos si la vida en el frame anterior es diferente a la vida actual
+        if (previousHealth != healthScript.health)
+        {
+            _renderer.material.color = Color.white;
+            Invoke("RestaurarColor", 0.2f);
+        }
+        //actualizamos el valor de la variable a la vida actual
+        previousHealth = healthScript.health;
     }
-
+    void RestaurarColor()
+    {
+        _renderer.material.color = Color.black;
+    }
     void Disparo() {
         //Quaternion es el tipo de variable para almacenar rotaciones
         //Quaternion rotacion = Quaternion.Euler(0, 0, 180);

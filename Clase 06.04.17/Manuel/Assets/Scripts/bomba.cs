@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class bomba : MonoBehaviour {
     public GameObject _bomba;
-
+    public string targetTag;
 	// Use this for initialization
 	void Start () {
 		
@@ -19,7 +19,7 @@ public class bomba : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(targetTag))
 
         {
             //destruimos el objeto que toca este trigger
