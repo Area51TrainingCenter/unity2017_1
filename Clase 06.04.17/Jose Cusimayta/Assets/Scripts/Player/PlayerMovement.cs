@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Color colorEnd = Color.green;
     public float duration = 1.0F;
     public Renderer rend;
+    public GameObject _explosion;
     /*public bool direccion = true;
     int contador = 1;*/
 
@@ -254,6 +255,7 @@ public class PlayerMovement : MonoBehaviour
         float _health = GetComponent<Health>().health;
         if (_health <= 0)
         {
+            Instantiate(_explosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

@@ -130,6 +130,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedY: 5
+--- !u!1 &330648666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 330648671}
+  - component: {fileID: 330648670}
+  - component: {fileID: 330648669}
+  - component: {fileID: 330648668}
+  - component: {fileID: 330648667}
+  m_Layer: 0
+  m_Name: Cura
+  m_TagString: cura
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &330648667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 330648666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37979060eb61be546b43fcd30deb29e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  _explosion: {fileID: 100004, guid: 2857e183f4cd3df4e9096e5b578bd32f, type: 2}
+  damage: -100
+--- !u!23 &330648668
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 330648666}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!65 &330648669
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 330648666}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &330648670
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 330648666}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &330648671
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 330648666}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.27, y: -1.78, z: 0}
+  m_LocalScale: {x: 0.3499998, y: 0.18750033, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &764892078
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +270,11 @@ Prefab:
     - target: {fileID: 114208315053036726, guid: 6c17dcadf2a82f1498c8f023feec48d2,
         type: 2}
       propertyPath: _spawns.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114208315053036726, guid: 6c17dcadf2a82f1498c8f023feec48d2,
+        type: 2}
+      propertyPath: balaEnemigo.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4965015633819552, guid: 6c17dcadf2a82f1498c8f023feec48d2, type: 2}
@@ -273,6 +375,12 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114208315053036726, guid: 6c17dcadf2a82f1498c8f023feec48d2,
+        type: 2}
+      propertyPath: balaEnemigo.Array.data[0]
+      value: 
+      objectReference: {fileID: 1591398390034284, guid: 66ea3473796276147ab58b1fe8e5e626,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c17dcadf2a82f1498c8f023feec48d2, type: 2}
   m_IsPrefabParent: 0
@@ -316,12 +424,12 @@ Prefab:
     - target: {fileID: 114208315053036726, guid: 6c17dcadf2a82f1498c8f023feec48d2,
         type: 2}
       propertyPath: _spawns.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114208315053036726, guid: 6c17dcadf2a82f1498c8f023feec48d2,
         type: 2}
       propertyPath: balaEnemigo.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4965015633819552, guid: 6c17dcadf2a82f1498c8f023feec48d2, type: 2}
       propertyPath: m_LocalPosition.x
@@ -981,6 +1089,7 @@ MonoBehaviour:
   colorEnd: {r: 0, g: 1, b: 0, a: 1}
   duration: 1
   rend: {fileID: 0}
+  _explosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
 --- !u!23 &2095224188
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1117,10 +1226,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4f6cb8a766ee24e8b23b1a44d558c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balaEnemigo: []
+  balaEnemigo:
+  - {fileID: 1591398390034284, guid: 1afc38fdf00b059419ba8fb6af3ef9e4, type: 2}
   _spawns:
   - {fileID: 764892079}
   frecDisparo: 0.5
+  _explosion: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
 --- !u!23 &2096091875
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1205,7 +1316,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2096091873}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 988c5f97f0d96a24386f7c511b07d6f7, type: 3}
   m_Name: 

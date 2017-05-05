@@ -22,19 +22,9 @@ public class proyectil : MonoBehaviour {
         if (other.CompareTag(targetTag))
         {
             Health _health = other.GetComponent<Health>();
-            _health.ModificarVida(damage);           
-            Destroy(gameObject);
-            Instantiate(_explosion, other.transform.position, transform.rotation);
-
-            #region Destruye al objetivo al contacto
-            /*
-            //destruimos el objeto que toca este trigger
-            Destroy(other.gameObject);
-            //auto destruimos el objeto
-            Destroy(gameObject);
-            Instantiate(_explosion, other.transform.position, transform.rotation);
-            */
-            #endregion
+            _health.ModificarVida(damage);
+            Instantiate(_explosion, transform.position, transform.rotation);
+            Destroy(gameObject);        
         }
 
     }

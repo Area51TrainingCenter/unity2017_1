@@ -8,6 +8,11 @@ public class enemigoAI : MonoBehaviour
     public GameObject[] balaEnemigo;
     public Transform[] _spawns;
     public float frecDisparo = 1f;
+    public GameObject _explosion;
+    Health HealthScript;
+    float PreviousHealth;
+    Renderer _renderer;
+    Color Color_Original;
     #endregion
 
     #region Funciones Nativas
@@ -15,20 +20,30 @@ public class enemigoAI : MonoBehaviour
     void Start()
     {
         InvokeRepeating("Disparo", 0, frecDisparo);
+        HealthScript = GetComponent<Health>();
+        _renderer = GetComponent<Renderer>();
+        Color_Original = _renderer.material.color;
+        PreviousHealth = HealthScript.health;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         Morir();
-
+        if (PreviousHealth != HealthScript.health)
+        {
+            _renderer.material.color = Color.white;
+            Invoke("ColorNegro", 0.1f);
+        }
+        PreviousHealth = HealthScript.health;
     }
     #endregion
 
     #region Funciones
     void Disparo()
     {
-        #region Comentarios
+        #region Comentarios y Quaternion
         //Quaternion es el tipo de variable para almacenar rotaciones
         //Quaternion rotacion = Quaternion.Euler(0, 0, 180);
         //como la bala siempre se mueve en direccion a su
@@ -49,11 +64,16 @@ public class enemigoAI : MonoBehaviour
     }
     void Morir()
     {
-        float _health = GetComponent<Health>().health;
+        float _health = HealthScript.health;
         if (_health <= 0)
         {
+            Instantiate(_explosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }
+    }
+    void ColorNegro()
+    {
+        _renderer.material.color = Color_Original;
     }
     #endregion
 }

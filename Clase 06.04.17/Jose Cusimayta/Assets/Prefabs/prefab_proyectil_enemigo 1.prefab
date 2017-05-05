@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
-  _explosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
+  _explosion: {fileID: 1778154015045756, guid: 95976eb3f5c1d154aad6c2eaff78c507, type: 2}
   damage: 30
 --- !u!135 &135631822156517698
 SphereCollider:
