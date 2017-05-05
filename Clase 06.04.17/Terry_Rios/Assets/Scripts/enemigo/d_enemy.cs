@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class d_enemy : MonoBehaviour {
 
+    public GameObject emuerte;
+    health healthscript;
+    Renderer _renderer;
+    //esta variable nos da cuanta vida tenial el enemigo en el frame anterior
+    float previoushealth;
     public GameObject[] _balasenemigo;
     public float frecuencia = 0.5f;
     public Transform[] _spawns;
@@ -11,7 +16,9 @@ public class d_enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        healthscript = GetComponent<health>();
+        previoushealth = healthscript.Health;
+        _renderer = GetComponent<Renderer>();
         InvokeRepeating("Disparo", 0, frecuencia);
 
     }
@@ -19,8 +26,27 @@ public class d_enemy : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
-       
 
+        float enemyHealth = healthscript.Health;
+        if (enemyHealth == 0)
+        {
+            Destroy(gameObject);
+            Instantiate(emuerte, transform.position, transform.rotation);
+        }
+
+        if (previoushealth != healthscript.Health)
+        {
+            _renderer.material.color = Color.white;
+            Invoke("restaurarcolor", 0.1f);
+        }
+
+        previoushealth = healthscript.Health;
+
+    }
+
+    void restaurarcolor()
+    {
+        _renderer.material.color = Color.red;
     }
 
     void Disparo()
@@ -28,8 +54,7 @@ public class d_enemy : MonoBehaviour {
         //Quaternion rotacion = Quaternion.Euler(0, 0, 180);
         //Instantiate(_balaenemigo, transform.position, rotacion);
         
-
-        for(int i = 0;i < _spawns.Length; i++)
+       for(int i = 0;i < _spawns.Length; i++)
         {
             for (int J = 0; J < _balasenemigo.Length; J++)
             {

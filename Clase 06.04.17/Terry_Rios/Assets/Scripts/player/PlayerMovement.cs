@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+    public GameObject explosion;
     public bool direccion = true;
     public float speedX = 5;
     public float speedY = 5;
     int contador = 1;
+    health healthscript2;
 
-	// Esta funcion se ejecuta UNA vez al inicio
-	void Start () {
+    // Esta funcion se ejecuta UNA vez al inicio
+    void Start () {
+        healthscript2 = GetComponent<health>();
         Debug.Log("hola");
         //declaramos una variable del tipo int (numero entero)
         //la variable se llama "numero"
@@ -82,15 +85,12 @@ public class PlayerMovement : MonoBehaviour {
 
         Movimiento();
         Cambiarcolor();
-        float playerHealth = GetComponent<health>().Health;
+        float playerHealth = healthscript2.Health;
         if (playerHealth == 0)
         {
             Destroy(gameObject);
+            Instantiate(explosion, transform.position, transform.rotation);
         }
-        
-
-
-
 
     }
 
@@ -178,10 +178,6 @@ public class PlayerMovement : MonoBehaviour {
         
 
       
-       
-        
-
-
         bool KeyPressed = Input.GetKey(KeyCode.E);
         if (KeyPressed)
         {

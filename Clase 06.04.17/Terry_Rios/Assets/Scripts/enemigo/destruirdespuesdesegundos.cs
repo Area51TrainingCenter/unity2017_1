@@ -8,6 +8,7 @@ public class destruirdespuesdesegundos : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Invoke("destruir", tiempo);
+
 		
 	}
 

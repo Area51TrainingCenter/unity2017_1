@@ -27,17 +27,16 @@ public class esfera : MonoBehaviour {
     {
         if (other.CompareTag(targettag))
         {
-            other.GetComponent<health>().ModificarVida(damage);  
+            other.GetComponent<health>().ModificarVida(damage);
 
-
-
-            
-            
-            
             Destroy(gameObject);
-            Instantiate(_prefab2, other.transform.position, other.transform.rotation);
+            Instantiate(_prefab2, transform.position,transform.rotation);
         }
+
         
+           
+
+
     }
 
     
