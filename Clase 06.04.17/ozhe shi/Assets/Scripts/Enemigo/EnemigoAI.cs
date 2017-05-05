@@ -10,16 +10,40 @@ public class EnemigoAI : MonoBehaviour {
     //un arreglo que contendra elementos de ese tipo
     public Transform[] _spawns;
     public float frecDisparo = 0.5f;
-	// Use this for initialization
-	void Start () {
+    public GameObject explosionMuerte;
+
+    Health healthScript;
+    Renderer _renderer;
+    float previusHealth;
+    // Use this for initialization
+    void Start () {
         InvokeRepeating("Disparo", 0, frecDisparo);
-	}
+        healthScript = GetComponent<Health>();
+        _renderer = GetComponent<Renderer>();
+        previusHealth = healthScript.health;
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        float enemyHealth = healthScript.health;
+        if (enemyHealth <= 0)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionMuerte, transform.position, transform.rotation);
+        }
+        if (previusHealth != healthScript.health)
+        {
+            _renderer.material.color = Color.white;
+            Invoke("Cambiar", 0.1f);
+        }
+        previusHealth = healthScript.health;
 
-	}
 
+    }
+    void Cambiar()
+    {
+        _renderer.material.color = Color.green;
+    }
     void Disparo() {
         
         //Ahora creamos la bala en la posicion y rotacion del objeto vacio

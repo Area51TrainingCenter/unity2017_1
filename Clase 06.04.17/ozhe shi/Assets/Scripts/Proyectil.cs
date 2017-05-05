@@ -19,7 +19,7 @@ public class Proyectil : MonoBehaviour {
             other.GetComponent<Health>().ModificarVida(damage);
             //auto destruimos el objeto
             Destroy(gameObject);
-            Instantiate(_explosion, other.transform.position, transform.rotation);
+            Instantiate(_explosion, transform.position, transform.rotation);
         }
         
     }
