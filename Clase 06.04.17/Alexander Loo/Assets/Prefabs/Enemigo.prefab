@@ -256,7 +256,7 @@ MonoBehaviour:
   - {fileID: 4819679164508026}
   - {fileID: 4240869921314194}
   - {fileID: 4811485647516486}
-  prefab: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
+  explosionMuerte: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
 --- !u!114 &114985849294120608
 MonoBehaviour:
   m_ObjectHideFlags: 1
