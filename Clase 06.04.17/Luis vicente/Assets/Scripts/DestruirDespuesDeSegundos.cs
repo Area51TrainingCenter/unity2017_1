@@ -6,7 +6,7 @@ public class DestruirDespuesDeSegundos : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Invoke("Destruir",4);
+        Invoke("Destruir",5);
 	}
 	
 	

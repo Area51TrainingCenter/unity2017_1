@@ -24,7 +24,7 @@ public class Proyectil : MonoBehaviour {
             Health playerVida = other.GetComponent<Health>();
             playerVida.ModificarVida(dano);
             Destroy(gameObject);
-            Instantiate(_explota, other.transform.position, other.transform.rotation);
+            Instantiate(_explota, transform.position, transform.rotation);
         }   
     }
 }
