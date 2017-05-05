@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class EnemigoAl : MonoBehaviour {
     public GameObject[] balasEnemigo;
+    public GameObject explosionMuerte;
+
+    Health healthScript;
+
     // esta variable nos da acceso al componente Transform del objeto vacio
 //     public Transform _spawn;
     //cuando colocamos [] delante del tipo de variable ... estamos creando
@@ -13,12 +17,19 @@ public class EnemigoAl : MonoBehaviour {
    	// Use this for initialization
 	void Start () {
         InvokeRepeating("Disparo", 0, frecDisparo);
-	}
+        healthScript = GetComponent<Health>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-  
-	}
+        float playerhealth = healthScript.health;
+        if (playerhealth <= 0)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionMuerte, transform.position, transform.rotation);
+        }
+
+    }
 
     void Disparo() {
         //Quaternion es el tipo de variable para almacenar rotaciones

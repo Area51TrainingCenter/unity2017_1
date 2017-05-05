@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
-  _explosion: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 2}
+  _explosion: {fileID: 1778154015045756, guid: 95976eb3f5c1d154aad6c2eaff78c507, type: 2}
   damage: 30
 --- !u!114 &114658476178905252
 MonoBehaviour:
