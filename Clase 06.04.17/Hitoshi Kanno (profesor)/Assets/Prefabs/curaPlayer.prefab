@@ -22,12 +22,10 @@ GameObject:
   - component: {fileID: 33266365002210420}
   - component: {fileID: 135000822832978872}
   - component: {fileID: 23985065795301690}
-  - component: {fileID: 114533067068794728}
+  - component: {fileID: 114184950752813464}
   - component: {fileID: 54990030322096964}
-  - component: {fileID: 114872774578578600}
-  - component: {fileID: 114477199902507708}
   m_Layer: 0
-  m_Name: proyectilPlayer
+  m_Name: curaPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1452893281255222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.3, y: 1.27, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: -2.49, y: 0.53989685, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -59,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e3479ef824b439e499fcaaabc4174c2b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,24 +93,12 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114477199902507708
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1452893281255222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4995493a40c526b4a88042db0fd981ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 15
---- !u!114 &114533067068794728
+--- !u!114 &114184950752813464
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -123,20 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb144bd2bdf6d5438d579307b88970a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTag: enemigo
+  targetTag: Player
   _explosion: {fileID: 1778154015045756, guid: 95976eb3f5c1d154aad6c2eaff78c507, type: 2}
-  damage: 30
---- !u!114 &114872774578578600
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1452893281255222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d7225b3ee73e7741b93e65beb40a373, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  damage: -30
 --- !u!135 &135000822832978872
 SphereCollider:
   m_ObjectHideFlags: 1
