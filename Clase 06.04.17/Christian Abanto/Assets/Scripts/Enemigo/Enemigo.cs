@@ -14,16 +14,26 @@ public class Enemigo : MonoBehaviour {
     // lo mismo que el anterio pero de recogiendo un Arreglo (Array)
     public Transform[] _spawns;
 
+    PuntosVida healthScript;
+    Renderer _renderer;
+    // esta variable nos da cuanta vida tenia el enemigo en el frame anterior
+    float previousHealth;
+
     // Use this for initialization
     void Start () {
         InvokeRepeating("Disparo", 0, frecDisparo); // todo lo maneja en segundos
+        // asignamos la referencia del componente aqui
+        healthScript = GetComponent<PuntosVida>();
+        _renderer = GetComponent<Renderer>();
+        // actualizamod el valor de la variable a la vida actual
+        previousHealth = healthScript.health;
     }
 
     // Update is called once per frame
     void Update () {
-        float playerVida = GetComponent<PuntosVida>().health;
+        float playerHealth = GetComponent<PuntosVida>().health;
 
-        if (playerVida <= 0)
+        if (playerHealth <= 0)
         {
             // INSTANCIAR
             Instantiate(_explosion, transform.position, transform.rotation);
@@ -32,6 +42,20 @@ public class Enemigo : MonoBehaviour {
             Destroy(gameObject); // destruimos este objeto ( esta esfera )
         }
 
+        if (previousHealth != healthScript.health)
+        {
+            _renderer.material.color = Color.red;
+            Invoke("restaurarColor", .1f);
+        }
+
+        // actualizamos el valor de la variable a la vida actual
+        previousHealth = healthScript.health;
+
+    }
+
+    void restaurarColor()
+    {
+        _renderer.material.color = Color.white;
     }
 
     void Disparo()

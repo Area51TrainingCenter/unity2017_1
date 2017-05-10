@@ -32,7 +32,7 @@ public class ProyectilComun : MonoBehaviour
         if (other.CompareTag(targetTag))
         {
             // INSTANCIAR
-            //Instantiate(_explosion, transform.position, transform.rotation);
+            Instantiate(_explosion, transform.position, transform.rotation);
 
             // DESMINUIR VIDA
             other.GetComponent<PuntosVida>().ModificarVida(daniar);
