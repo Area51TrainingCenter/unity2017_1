@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour {
 
 		float h = Input.GetAxis ("Horizontal");
 		moveVector.x = h*speedX;
-		Debug.Log (h);
 		/*
 		if (Input.GetKey(KeyCode.A)) {
 			moveVector.x = -speedX;
