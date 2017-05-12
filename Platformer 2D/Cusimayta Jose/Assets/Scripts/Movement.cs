@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour {
 	public float speedX = 10f;
+	public float gravity = -10;
+	private Rigidbody _rigidbody;
+	private float VerticalSpeed;
+	public float RayLenght=0.6f;
+	bool PoderSaltar = false;
+	bool Jump=false;
 	// Use this for initialization
 	void Start () {
-		
+		_rigidbody = GetComponent<Rigidbody> ();
 	}
 	
 	// Update is called once per frame
@@ -17,26 +23,28 @@ public class Movement : MonoBehaviour {
 	void MovimientoLateral(){
 		Vector3 moveVector = new Vector3 (0, 0, 0);
 		float h = Input.GetAxis ("Horizontal");
+
 		moveVector.x = h * speedX;
-		transform.Translate (moveVector * Time.deltaTime);
 
+		bool isGrounded = Physics.Raycast (transform.position, new Vector3 (0, -1, 0), RayLenght);
 
-
-		#region Movimiento con vectores
-		/*
-		Vector3 moveVector = new Vector3 (0, 0, 0);
-		bool PressA = Input.GetKey (KeyCode.A);
-		bool PressD = Input.GetKey (KeyCode.D);
-		if (PressD)
-		{
-			moveVector.x = speedX;
+		if (isGrounded) {
+			VerticalSpeed = -0.1f;
+			PoderSaltar = true;
+		} else {
+			VerticalSpeed += gravity * Time.deltaTime;
 		}
-		if (PressA)
-		{
-			moveVector.x = -speedX;
+
+		Jump = Input.GetKeyDown (KeyCode.Space);
+
+		if (Jump && PoderSaltar) {
+			VerticalSpeed = 5;
+			VerticalSpeed -= gravity * Time.deltaTime;
+			PoderSaltar = false;
 		}
-		transform.Translate (moveVector * Time.deltaTime);
-		*/
-		#endregion
+
+		moveVector += new Vector3 (0, VerticalSpeed);
+
+		_rigidbody.velocity = moveVector;
 	}		
 }
