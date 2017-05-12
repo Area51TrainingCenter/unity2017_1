@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Pelota : MonoBehaviour {
+
 	// Destruir Enemigo
 	void Start () {
 		
@@ -14,9 +15,12 @@ public class Pelota : MonoBehaviour {
 
 		if (other.CompareTag("Player"))
 		{
+			Debug.Log ("destruir");
 			Destroy(other.gameObject);
 			Destroy (gameObject);
 		}
 	}
+
+
 
 }

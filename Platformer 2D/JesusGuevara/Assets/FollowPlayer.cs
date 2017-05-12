@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour {
-
+	// persigue al player
 	public Transform player;
-	public float speed = 10f;
+	public float speed = 5;
+
 	// Use this for initialization
 	void Start () {
 		// buscamos en la escena el Gameobject que tenga el tag play
@@ -15,6 +16,8 @@ public class FollowPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+//		Debug.Log (speed);
+
 		// Objeto Destino - objeto inicial
 		// calculamos el vector entre la bala y el player
 		Vector3 direccion = player.position - transform.position;
