@@ -17,10 +17,9 @@ public class DeadPoint : MonoBehaviour {
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag ("Player")) {
-			FollowPlayer followPlayer = GetComponent<FollowPlayer> ();
-			followPlayer.velocidad_bolita *= -1;
-			//Destroy (other.gameObject);
-			//Destroy(gameObject);
+			
+			Destroy (other.gameObject);
+			Destroy(gameObject);
 		}
 
 	}

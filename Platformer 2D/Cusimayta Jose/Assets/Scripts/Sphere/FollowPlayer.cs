@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour {
 	Transform Player;
-	public float velocidad_bolita=5;
+	public float velocidad_bolita=0;
 	// Use this for initialization
 	void Start ()
-	{		
+	{
 		//Player = GameObject.FindGameObjectWithTag ("Player").transform;
-		Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform>();
+		Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
 	}
 
 	
@@ -17,7 +17,6 @@ public class FollowPlayer : MonoBehaviour {
 	void Update () {
 		PerseguirJugador ();
 	}
-
 	void PerseguirJugador(){
 		if (Vector3.Distance (Player.position, transform.position) < 10) {
 			Vector3 direccion = Player.position - transform.position;
