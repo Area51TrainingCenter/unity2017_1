@@ -7,6 +7,7 @@ public class FollowPlayer : MonoBehaviour {
 	public float speed = 0.1f;
 
 
+
 	// Use this for initialization
 	void Start () {
 		//buscamos en la escena el GameObject que tenga el tag player
