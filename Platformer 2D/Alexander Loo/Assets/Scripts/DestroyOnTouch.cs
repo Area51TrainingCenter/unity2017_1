@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DestroyOnTouch : MonoBehaviour {
 
-
 	void Start () {
 		
 	}

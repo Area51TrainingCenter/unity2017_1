@@ -5,11 +5,15 @@ using UnityEngine;
 public class control : MonoBehaviour {
 
     public float speedX = 5;
-	public float speedY = 5;	
+	private float gravity = -10;
+	private Rigidbody _rigidbody; 
+	private float verticalspeed;
+	public float raylength = 0.6f;
 
 	// Use this for initialization
-	void Start () {
-		
+	void Start () 
+	{
+		_rigidbody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -21,7 +25,34 @@ public class control : MonoBehaviour {
 
 		movevector.x = h * speedX;
 
+		Vector3 down = new Vector3 (0, -1, 0);
 
+		//Physics.Raycast genera un rayo invisible que te devuelve true si el rayo toca algo y false si es que no 
+
+		bool isgrounded = Physics.Raycast (transform.position, down, raylength);
+
+		if (isgrounded == true) 
+		{
+			//si estoy e3n el piso el verical speed es un valor negativo pequeño para asegurarnos de
+			//que toque el suelo y podamos movernos
+			verticalspeed = -0.1f;
+
+		} 
+		else 
+		{
+			verticalspeed += gravity*Time.deltaTime;
+		
+		
+		}
+
+
+
+
+		//la gravedad se va aplicando al verticalspeed
+
+
+
+		movevector += new Vector3 (0, verticalspeed, 0);
 
 		/*
 		//A
@@ -43,11 +74,10 @@ public class control : MonoBehaviour {
 		}
 
 		*/
-		transform.Translate(movevector*Time.deltaTime);
+		//transform.Translate(movevector*Time.deltaTime);
+		_rigidbody.velocity = movevector;
 
-
-		
-	}
+		}
 
 
 }
