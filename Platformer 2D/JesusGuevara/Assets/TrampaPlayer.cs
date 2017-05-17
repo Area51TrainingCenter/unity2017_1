@@ -12,7 +12,7 @@ public class TrampaPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -21,8 +21,8 @@ public class TrampaPlayer : MonoBehaviour {
 
 		if (other.CompareTag("Player"))
 		{	
-			//Debug.Log ("Entro en la Trampa"+ objeto.GetComponent<FollowPlayer> ().speed);
-			objeto.GetComponent<FollowPlayer> ().speed = 10;
+			//Debug.Log ("Entro en la Trampa: "+ objeto.GetComponent<FollowPlayer> ().speed);
+			objeto.GetComponent<FollowPlayer> ().speed = 9;
 	
 		}
 	}

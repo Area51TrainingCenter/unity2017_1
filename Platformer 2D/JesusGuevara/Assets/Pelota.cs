@@ -15,7 +15,7 @@ public class Pelota : MonoBehaviour {
 
 		if (other.CompareTag("Player"))
 		{
-			Debug.Log ("destruir");
+			//Debug.Log ("destruir");
 			Destroy(other.gameObject);
 			Destroy (gameObject);
 		}
