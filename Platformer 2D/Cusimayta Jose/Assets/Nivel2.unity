@@ -117,11 +117,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4672661933043232, guid: 8685cd2b8a35637498008318863b5213, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.31
+      value: 3.13
       objectReference: {fileID: 0}
     - target: {fileID: 4672661933043232, guid: 8685cd2b8a35637498008318863b5213, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.39
+      value: 1.15
       objectReference: {fileID: 0}
     - target: {fileID: 4672661933043232, guid: 8685cd2b8a35637498008318863b5213, type: 2}
       propertyPath: m_LocalPosition.z
@@ -268,7 +268,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1302876386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.64, y: -2.3, z: 0}
+  m_LocalPosition: {x: -2.57, y: -4.27, z: 0}
   m_LocalScale: {x: 7.838022, y: 0.62293875, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -350,7 +350,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1460134259}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.31, y: 1.48, z: 0}
+  m_LocalPosition: {x: -6.24, y: -0.49, z: 0}
   m_LocalScale: {x: 0.49843597, y: 6.951152, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 1467214681}
   - component: {fileID: 1467214680}
   - component: {fileID: 1467214679}
+  - component: {fileID: 1467214684}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -445,6 +446,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1467214684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1467214678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782d1b20f4c5c8e4ca20122b2e7c1f67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1859374762}
 --- !u!1 &1859374762
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +491,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedX: 20
   gravity: -10
-  RayLenght: 0.6
+  JumpForce: 5
+  RayLenght: 0.01
+  camara: {fileID: 1467214682}
 --- !u!23 &1859374764
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -537,7 +552,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1859374762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.07, y: 1.67, z: 0}
+  m_LocalPosition: {x: -4.2, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
