@@ -436,7 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedX: 5
   gravity: -10
-  rayLength: 0.6
+  rayLength: 0.03
 --- !u!23 &1227050596
 MeshRenderer:
   m_ObjectHideFlags: 0
