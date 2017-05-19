@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour {
 	public float gravity = -10;
 	public float rayleght = 1.1f;
 	private bool isGrounded;
+	private bool isCrash;
+	private bool isleftCrash;
+	private bool isrightCrash;
 	public float jumpForce;
 	private float h;
 	private bool jump;
@@ -26,11 +29,16 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 	}
-
+	//FixedUpdate se ejecuta cada 0.02 segundos
+	//Es útil para usar física
 	void FixedUpdate(){
 		//Creamos un Vector3 que comienza en cero
 		Vector3 moveVector = new Vector3 (0, 0, 0);
 		Vector3 down = new Vector3 (0, -1, 0);
+		Vector3 up = new Vector3 (0, 1, 0);
+		Vector3 left = new Vector3 (-1, 0, 0);
+		Vector3 right = new Vector3 (1, 0, 0);
+
 		moveVector.x = h * speedX;
 		//Physics.Raycast genera un rayo invisible
 		//que te devuelve true si el rayo toca algo
@@ -39,6 +47,23 @@ public class PlayerMovement : MonoBehaviour {
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		boxSize *= 0.99f;
 		isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, rayleght);
+		isCrash = Physics.BoxCast (transform.position, boxSize/2, up, Quaternion.identity, rayleght);
+		isleftCrash = Physics.BoxCast (transform.position, boxSize/2, left, Quaternion.identity, rayleght);
+		isrightCrash = Physics.BoxCast (transform.position, boxSize/2, right, Quaternion.identity, rayleght);
+
+		if (isCrash) {
+			verticalSpeed = 0;
+		}
+		if (isleftCrash) {
+			if (moveVector.x < 0) {
+				moveVector.x = 0;
+			}
+		}
+		if (isrightCrash) {
+			if (moveVector.x > 0) {
+				moveVector.x = 0;
+			}
+		}
 		if (isGrounded) {
 			/*si estoy en el piso el verticalspeed es un valor negativo pequeño...esto es para asegurarnos que el
 			 player toque el piso y no impida el movernos de lado a lado*/
@@ -47,7 +72,7 @@ public class PlayerMovement : MonoBehaviour {
 				verticalSpeed = jumpForce;
 				jump = false;
 			}
-		} else {
+		}else {
 			//la gravedad se va aplicando al verticaSpeed
 			verticalSpeed += gravity * Time.deltaTime;
 		}
