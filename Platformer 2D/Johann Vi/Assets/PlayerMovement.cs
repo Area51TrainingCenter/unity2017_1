@@ -6,7 +6,10 @@ public class PlayerMovement : MonoBehaviour {
 	public float speedX = 5;
 	public float gravity = -10;
 	private bool isGrounded;
-						public float rayLength = 0.6f;
+	private bool isGroundedLeft;
+	private bool isCrashed;
+	private bool isGroundedRight;
+	public float rayLength = 0.6f;
 	public float jumpForce = 0.9f;
 	private Rigidbody _rigidbody;
 	private float verticalSpeed;
@@ -36,15 +39,34 @@ public class PlayerMovement : MonoBehaviour {
 
 
 		Vector3 down = new Vector3 (0, -1, 0);
+		Vector3 up = new Vector3 (0, 1, 0);
+		Vector3 left = new Vector3 (-1, 0, 0);
+		Vector3 right = new Vector3 (1, 0, 0);
 		//Physics.Raycast genera un rayo invisible
 		//que te devuelve true si el rayo toca algo
 		//y false si el rayo no toca nada
 		//bool isGrounded = Physics.Raycast (transform.position, down, rayLength);
 
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z); 
+		//Crear una variable de boxsize para poder editarla en el editor
 		boxSize = boxSize * 0.99f;		
 		isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, rayLength);
+		isCrashed = Physics.BoxCast (transform.position, boxSize/2, up, Quaternion.identity, rayLength);
+		isGroundedLeft = Physics.BoxCast (transform.position, boxSize/2, left , Quaternion.identity, rayLength);
+		isGroundedRight = Physics.BoxCast (transform.position, boxSize/2, right , Quaternion.identity, rayLength);
 
+		if (isGroundedLeft &&  h < 0  ) {  
+
+			moveVector.x = 0;}
+
+		if (isGroundedRight &&  h > 0) {
+
+			moveVector.x = 0;}
+
+		if (isCrashed) {
+
+			verticalSpeed = 0;
+		}
 		if (isGrounded) {
 			//si estoy en el piso el verticalSpeed es 
 			//un valor negativo pequeño... esto es para 
@@ -57,7 +79,7 @@ public class PlayerMovement : MonoBehaviour {
 			}
 
 		} 
-
+			
 
 		else {
 			//la gravedad se va aplicando al verticalSpeed
