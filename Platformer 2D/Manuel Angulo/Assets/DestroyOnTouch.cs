@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DestroyOnTouch : MonoBehaviour {
-	public string targetTag;
+
 	// Use this for initialization
 	void Start () {
 		
 	}
 	
 
-	void OnTriggerEnter (Collider other) 
-	{
-		if (other.CompareTag(targetTag)) 
-		{
+	void OnTriggerEnter (Collider other) {
+		if (other.CompareTag("Player")) {
 			Destroy (other.gameObject);
 			Destroy (gameObject);
 		}
