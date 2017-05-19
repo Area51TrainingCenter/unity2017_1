@@ -12,7 +12,10 @@ public class Movimiento : MonoBehaviour {
 
 	private Rigidbody _rigibody;
 	private float verticalSpeed;
-	private bool isGrounded;
+	private bool isGrounded; // abajo
+	private bool isGrounded2; // arriba
+	private bool isGrounded3;// izquierda
+	private bool isGrounded4;// derecha
 
 	private float h;
 	private bool KeySpacePressed;
@@ -28,22 +31,26 @@ public class Movimiento : MonoBehaviour {
 	void Update () {
 		h = Input.GetAxis ("Horizontal");
 
-		//
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			KeySpacePressed = true;
-		}
-
-
+			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
+				KeySpacePressed = true;
+			}
+		
 	}
 
 
-	// creamos nuestra funcion movimiento
+
+	// creamos nuestra funcion movimiento
 	void FixedUpdate() {
 		
 		Vector3 moveVector = new Vector3(0,0,0);
 		moveVector.x = h * speedX;	
 
-		Vector3 down = new Vector3(0,-1,0);// direccion hacia abajo
+		Vector3 down   = new Vector3(0,-1,0);// direccion hacia abajo
+		Vector3 up     = new Vector3(0,1,0);// direccion hacia arriba
+		Vector3 left   = new Vector3(-1,0,0);// izquierda
+		Vector3 right   = new Vector3(1,0,0);// Derecha
+
+
 
 		// hacemos raycast  genera un rayo invisible 
 		// que te devuelve  true si el rayo toca algo 
@@ -55,6 +62,22 @@ public class Movimiento : MonoBehaviour {
 
 		//BoxCast = devuelve un boleano: true o false
 		isGrounded = Physics.BoxCast(transform.position,boxSize/2,down,Quaternion.identity,raylength); //Quaternion.identity => rotacion= 0,0,0 
+		isGrounded2 = Physics.BoxCast(transform.position,boxSize/2,up,Quaternion.identity,raylength);   // Arriba
+		isGrounded3 = Physics.BoxCast(transform.position,boxSize/2,left,Quaternion.identity,raylength);  // Izquierda
+		isGrounded4 = Physics.BoxCast(transform.position,boxSize/2,right,Quaternion.identity,raylength);  // Derecha
+
+		if (isGrounded4 && h>0) {
+			moveVector.x = 0;
+		} 
+
+		if (isGrounded3 && h<0) {
+			moveVector.x = 0;
+		} 
+
+		// Para que no se quede pegado en el techo
+		if (isGrounded2) {
+			verticalSpeed = 0;
+		} 
 
 
 		if (isGrounded) {
@@ -67,6 +90,7 @@ public class Movimiento : MonoBehaviour {
 			// Para saltar
 			if (KeySpacePressed) {
 				verticalSpeed = speedJump;
+				KeySpacePressed = false;
 			}
 				
 		} else {
@@ -78,15 +102,14 @@ public class Movimiento : MonoBehaviour {
 
 		moveVector += new Vector3 (0, verticalSpeed, 0);	
 
-
 		// En lugar de pasarle los 3 numeros por separado
 		// le pasamo a la funcion translate el Vector3
 		//transform.Translate (moveVector*Time.deltaTime);
 		_rigibody.velocity = moveVector;
 
 
-
 	}// end movimiento
+
 	void OnDrawGizmos(){
 		
 		if (isGrounded) {
@@ -105,4 +128,6 @@ public class Movimiento : MonoBehaviour {
 
 
 	}
+
+
 }
