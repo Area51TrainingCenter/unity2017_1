@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 	private float verticalSpeed;
 	private bool isGrounded;
 
+
 	private float h;
 	private bool pressedJump;
 	// Use this for initialization
@@ -30,8 +31,10 @@ public class PlayerMovement : MonoBehaviour {
 
 		//si presionas espacio pressedJump permanecera en true
 		//hasta que se aplique el salto dentro de FixedUpdate
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			pressedJump = true;	
+		if (isGrounded) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				pressedJump = true;	
+			}
 		}
 
 	}
@@ -53,6 +56,30 @@ public class PlayerMovement : MonoBehaviour {
 
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		boxSize = boxSize * 0.99f;
+
+		Vector3 up = new Vector3 (0, 1, 0);
+		bool hitup = Physics.BoxCast (transform.position, boxSize/2, up, Quaternion.identity, rayLength);
+		if (hitup) {
+			verticalSpeed = 0;
+		}
+
+		Vector3 left = new Vector3 (-1, 0, 0);
+		bool hitleft = Physics.BoxCast (transform.position, boxSize/2, left, Quaternion.identity, rayLength);
+		if (hitleft) {
+			if (h < 0) {
+				moveVector.x = 0;
+			}
+		}
+
+		Vector3 right = new Vector3 (1, 0, 0);
+		bool hitright = Physics.BoxCast (transform.position, boxSize/2, right, Quaternion.identity, rayLength);
+		if (hitright) {
+			if (h > 0) {
+				moveVector.x = 0;
+			}
+		}
+
+
 		isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, rayLength);
 		if (isGrounded) {
 			//si estoy en el piso el verticalSpeed es 
@@ -71,6 +98,8 @@ public class PlayerMovement : MonoBehaviour {
 			//la gravedad se va aplicando al verticalSpeed
 			verticalSpeed += gravity * Time.deltaTime;
 		}
+
+
 
 
 		moveVector += new Vector3 (0, verticalSpeed, 0);
