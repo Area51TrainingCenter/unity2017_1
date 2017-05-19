@@ -16,6 +16,8 @@ public class Movement : MonoBehaviour {
 	public float jumpForce;
 
 	private bool isGrounded;
+	private bool tocaTecho;
+	private bool tocaParedIzq;
 
 	// Use this for initialization
 	void Start () {
@@ -44,6 +46,8 @@ public class Movement : MonoBehaviour {
 		moveVector.x = h * speedX;
 
 		Vector3 down = new Vector3(0,-1,0);
+		Vector3 up = new Vector3(0,1,0);
+		Vector3 left = new Vector3(-1,0,0);
 
 		// Physics.Raycast genera un rayo invisible
 		// que te devuelve true si el rayo toca algo
@@ -53,6 +57,18 @@ public class Movement : MonoBehaviour {
 
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z) * 0.99f;
 			// multiplocarlo por 0.99f, es solo para corregir efimeramente el BoxCast;
+			
+		tocaTecho = Physics.BoxCast (transform.position, boxSize/2, up, Quaternion.identity, RayLenght);
+			// Quaternion.identity es lo mismo que decir rotacion (0,0,0)
+
+		if (tocaTecho) {
+			// si estoy en el piso el verticalSpeed es
+			// un valor negativo pequelo... esto es para
+			// asegurarno que el player toque el piso
+			// y no impída movernos de lado a lado.		
+			VerticalSpeed = 0f;
+		} 
+
 		isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, RayLenght); 
 			// Quaternion.identity es lo mismo que decir rotacion (0,0,0)
 
@@ -78,7 +94,21 @@ public class Movement : MonoBehaviour {
 		}
 
 
+		tocaParedIzq = Physics.BoxCast (transform.position, boxSize/2, left, Quaternion.identity, RayLenght);
+
+		if (tocaParedIzq) {
+			if ( h < 0  ){
+				moveVector.x = 0;
+			}
+		}
+			
+
+
 		moveVector += new Vector3 (0, VerticalSpeed);
+
+
+
+
 
 		// en lugar de pasarle los 3 numero por separado
 		// le pasamo a la funcion Transale el Vector3
@@ -101,7 +131,11 @@ public class Movement : MonoBehaviour {
 		Gizmos.DrawWireCube (transform.position, boxSize); // dibuja el borde la caja
 
 		Vector3 down = new Vector3(0,-1,0);
-		Vector3 pos = transform.position + down * RayLenght;
-		Gizmos.DrawWireCube(pos, boxSize);
+		Vector3 posDown = transform.position + down * RayLenght;
+		Gizmos.DrawWireCube(posDown, boxSize);
+
+		Vector3 up = new Vector3(0,-1,0);
+		Vector3 posUp = transform.position + down * RayLenght;
+		Gizmos.DrawWireCube(posDown, boxSize);
 	}
 }

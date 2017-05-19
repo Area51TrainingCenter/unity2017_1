@@ -54,6 +54,29 @@ public class PlayerMovement : MonoBehaviour {
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		boxSize = boxSize * 0.99f;
 		isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, rayLength);
+
+		Vector3 up = new Vector3 (0, 1, 0);
+		bool hitUp = Physics.BoxCast (transform.position, boxSize/2, up, Quaternion.identity, rayLength);
+		if (hitUp) {
+			verticalSpeed = -1;
+		}
+
+		Vector3 left = new Vector3 (-1, 0, 0);
+		bool hitLeft = Physics.BoxCast (transform.position, boxSize/2, left, Quaternion.identity, rayLength);
+		if (hitLeft) {
+			if (h < 0) {
+				moveVector.x = 0;
+			}
+		}
+
+		Vector3 right = new Vector3 (1, 0, 0);
+		bool hitRight = Physics.BoxCast (transform.position, boxSize/2, right, Quaternion.identity, rayLength);
+		if (hitRight) {
+			if (h > 0) {
+				moveVector.x = 0;
+			}
+		}
+
 		if (isGrounded) {
 			//si estoy en el piso el verticalSpeed es 
 			//un valor negativo pequeño... esto es para 

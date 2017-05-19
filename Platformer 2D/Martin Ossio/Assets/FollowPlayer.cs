@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour {
 	public Transform player;
-	public float speed = 0;
-
+	public float speed = 5;
 	// Use this for initialization
 	void Start () {
 		//buscamos en la escena el GameObject que tenga el tag player
