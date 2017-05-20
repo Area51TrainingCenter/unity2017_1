@@ -5,6 +5,7 @@ using UnityEngine;
 public class enemigiai : MonoBehaviour {
 	private Rigidbody _rigidbody;
 	public float rayLength = 0.6f;
+	private float move = -3;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +21,17 @@ public class enemigiai : MonoBehaviour {
 
 		boxSize = boxSize * 0.99f;
 		RaycastHit hitinfo;
+
+		transform.Translate (move*Time.deltaTime, 0, 0);
+		bool hitLM = Physics.BoxCast (transform.position, boxSize/2,Vector3.left, Quaternion.identity, rayLength);
+		if (hitLM) {
+			move =-move;
+		}
+		bool hitRM = Physics.BoxCast (transform.position, boxSize/2,Vector3.right,Quaternion.identity,rayLength);
+		if (hitRM) {
+			move = -3;
+		}
+
 		bool hitup = Physics.BoxCast (transform.position, boxSize/2,Vector3.up,out hitinfo, Quaternion.identity, rayLength);
 
 
@@ -42,11 +54,8 @@ public class enemigiai : MonoBehaviour {
 			}
 		}
 
-		float move = -3;
-		transform.Translate (move*Time.deltaTime, 0, 0);
-		if (hitL) {move = move*-move;
-		}
-	
+
+
 
 
 	}
