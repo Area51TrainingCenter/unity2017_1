@@ -14,7 +14,7 @@ public class EnemigoAI : MonoBehaviour {
 	}
 
 	void Update(){
-		transform.Translate (speedX = 1, 0, 0);
+		
 	}
 	
 	// Update is called once per frame
@@ -42,7 +42,6 @@ public class EnemigoAI : MonoBehaviour {
 				Destroy (hitInfo.collider.gameObject);
 			}
 
-
 		}
 		// COLISION POR IZQUIERDA
 		bool hitLeft = Physics.BoxCast (transform.position, boxSize/2, Vector3.left, out hitInfo, Quaternion.identity, RayLenght);
@@ -55,19 +54,6 @@ public class EnemigoAI : MonoBehaviour {
 		}
 
 
-		///////////////////////////////////////////////
-		/// no va
-		bool paredLeft = Physics.BoxCast (transform.position, boxSize/2, Vector3.left, out hitInfo, Quaternion.identity, RayLenght);
-
-		if (paredLeft && !hitInfo.collider.gameObject.CompareTag ("Player")) {
-			speedX = -speedX;
-		}
-
-		bool paredRight = Physics.BoxCast (transform.position, boxSize/2, Vector3.right, out hitInfo, Quaternion.identity, RayLenght);
-
-		if (paredRight && !hitInfo.collider.gameObject.CompareTag ("Player")) {
-			speedX = speedX;
-		}
 
 
 	}
