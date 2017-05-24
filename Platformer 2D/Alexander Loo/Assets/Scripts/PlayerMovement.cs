@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
 	public float speedX = 5;
-	private Rigidbody _rigidbody;
+	private Rigidbody2D _rigidbody;
 	private float verticalSpeed;
 	public float gravity = -10;
 	public float rayleght = 1.1f;
@@ -16,9 +16,14 @@ public class PlayerMovement : MonoBehaviour {
 	public float jumpForce;
 	private float h;
 	private bool jump;
+	public LayerMask _mask;
+	private Animator _animator;
+	private SpriteRenderer _spriteRenderer;
 
 	void Start () {
-		_rigidbody = GetComponent<Rigidbody> ();
+		_rigidbody = GetComponent<Rigidbody2D> ();
+		_animator = GetComponent<Animator> ();
+		_spriteRenderer = GetComponent<SpriteRenderer> ();
 	}
 
 	void Update () {
@@ -28,6 +33,14 @@ public class PlayerMovement : MonoBehaviour {
 				jump = true;
 			}
 		}
+		if (h < 0) {
+			_spriteRenderer.flipX = true;
+		}
+		if(h > 0){
+			_spriteRenderer.flipX = false;
+		}
+		_animator.SetFloat ("speed", Mathf.Abs (h));
+		
 	}
 	//FixedUpdate se ejecuta cada 0.02 segundos
 	//Es útil para usar física
@@ -46,23 +59,47 @@ public class PlayerMovement : MonoBehaviour {
 		//bool isGrounded = Physics.Raycast (transform.position, down, rayleght);
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		boxSize *= 0.99f;
-		isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, rayleght);
-		isCrash = Physics.BoxCast (transform.position, boxSize/2, up, Quaternion.identity, rayleght);
-		isleftCrash = Physics.BoxCast (transform.position, boxSize/2, left, Quaternion.identity, rayleght);
-		isrightCrash = Physics.BoxCast (transform.position, boxSize/2, right, Quaternion.identity, rayleght);
+		RaycastHit2D hitInfo;
 
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, up, rayleght,_mask.value);
+		if (hitInfo.collider != null) {
+			isCrash = true;
+		} else {
+			isCrash = false;
+		}
 		if (isCrash) {
 			verticalSpeed = 0;
+		}
+
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, left, rayleght,_mask.value);
+		if (hitInfo.collider != null) {
+			isleftCrash = true;
+		} else {
+			isleftCrash = false;
 		}
 		if (isleftCrash) {
 			if (moveVector.x < 0) {
 				moveVector.x = 0;
 			}
 		}
+
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, right, rayleght,_mask.value);
+		if (hitInfo.collider != null) {
+			isrightCrash = true;
+		} else {
+			isrightCrash = false;
+		}
 		if (isrightCrash) {
 			if (moveVector.x > 0) {
 				moveVector.x = 0;
 			}
+		}
+
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, down, rayleght,_mask.value);
+		if (hitInfo.collider != null) {
+			isGrounded = true;
+		} else {
+			isGrounded = false;
 		}
 		if (isGrounded) {
 			/*si estoy en el piso el verticalspeed es un valor negativo pequeño...esto es para asegurarnos que el
