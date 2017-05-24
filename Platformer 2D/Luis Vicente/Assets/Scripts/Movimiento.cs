@@ -6,23 +6,37 @@ public class Movimiento : MonoBehaviour {
 	public float SpeddX = 5;
 	public float Gravity = -10;
 	public float rayLength = 0.6f;
-	private Rigidbody _rigibody;
+	public LayerMask Mascara;
+	private Rigidbody2D _rigibody;
+	private Animator _Animacion;
+	private SpriteRenderer _SpriteRenderer;
 	private float VerticalSpeed = 0;
 	private bool isGrounded;
-	private bool isTocar;
+	private bool isHitup;
 	private bool isRight;
 	private bool isLeft;
 	bool Salto = false;
 	float h = 0;
 	// Use this for initialization
 	void Start () {
-		_rigibody = GetComponent <Rigidbody>();
+		_rigibody = GetComponent <Rigidbody2D>();
+		_Animacion = GetComponent <Animator>();
+		_SpriteRenderer = GetComponent <SpriteRenderer>();
 	}
 	void Update (){
 		h = Input.GetAxis ("Horizontal");
 		if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
 			Salto = true;
 		}	
+
+		if (h < 0) {
+			_SpriteRenderer.flipX = true;
+		}
+		if (h > 0) {
+			_SpriteRenderer.flipX = false;
+		}
+		float absH = Mathf.Abs (h);
+		_Animacion.SetFloat ("Speed", absH);
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -34,25 +48,53 @@ public class Movimiento : MonoBehaviour {
 		Vector3 left = new Vector3 (-1, 0, 0);
 		MoveVector.x = h * SpeddX;
 
-
+		RaycastHit2D hitInfo;
 		//bool isGrounded = Physics.Raycast (transform.position,down,rayLength);
 		Vector3 boxSize = new Vector3 (transform.localScale.x,transform.localScale.y,transform.localScale.z)*0.99f;
-		isGrounded = Physics.BoxCast (transform.position,boxSize/2,down,Quaternion.identity,rayLength);
-		isTocar = Physics.BoxCast (transform.position,boxSize/2,up,Quaternion.identity,rayLength);
-		isRight = Physics.BoxCast (transform.position,boxSize/2,right,Quaternion.identity,rayLength);
-		isLeft = Physics.BoxCast (transform.position,boxSize/2,left,Quaternion.identity,rayLength);
+		//isGrounded = Physics.BoxCast (transform.position,boxSize/2,down,Quaternion.identity,rayLength);
+		//isTocar = Physics.BoxCast (transform.position,boxSize/2,up,Quaternion.identity,rayLength);
+		//isRight = Physics.BoxCast (transform.position,boxSize/2,right,Quaternion.identity,rayLength);
+		//isLeft = Physics.BoxCast (transform.position,boxSize/2,left,Quaternion.identity,rayLength);
+		hitInfo = Physics2D.BoxCast (transform.position,boxSize,0,down,rayLength,Mascara.value);
+		if (hitInfo.collider != null) {
+			isGrounded = true;
+		} else {
+			isGrounded = false;
+		}
+		hitInfo = Physics2D.BoxCast (transform.position,boxSize,0,up,rayLength,Mascara.value);
+		if (hitInfo.collider != null) {
+			isHitup = true;
+		} else {
+			isHitup = false;
+		}
+		hitInfo = Physics2D.BoxCast (transform.position,boxSize,0,right,rayLength,Mascara.value);
+		if (hitInfo.collider != null) {
+			isRight = true;
+		} else {
+			isRight = false;	
+		}				
+
+		hitInfo = Physics2D.BoxCast (transform.position,boxSize,0,left,rayLength,Mascara.value);
+		if (hitInfo.collider != null) {
+			isLeft = true;
+		} else {
+			isLeft = false;
+		}
+	
 
 		if (isRight) {
 			if (h >= 0) {
 				MoveVector.x = 0;
 			} 
 		}
+
 		if (isLeft) {
 			if (h <= 0) {
 				MoveVector.x = 0;
 			} 
 		}
-		if (isTocar) {
+
+		if (isHitup) {
 			VerticalSpeed = -0.1f;
 		}
 
