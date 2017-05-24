@@ -24,6 +24,7 @@ public class EnemigoAI : MonoBehaviour {
 		bool hitUp = Physics.BoxCast (transform.position, boxSize / 2, Vector3.up, out hitinfoUP, Quaternion.identity, rayLength);
 		bool hitLeft = Physics.BoxCast (transform.position, boxSize / 2, Vector3.left, out hitinfoLEFT, Quaternion.identity, rayLength);
 		bool hitRigth = Physics.BoxCast (transform.position, boxSize / 2, Vector3.right, out hitinfoRIGHT, Quaternion.identity, rayLength);
+
 		if (hitUp) {
 			if (hitinfoUP.collider.gameObject.CompareTag ("Player")) {
 				Destroy (gameObject);

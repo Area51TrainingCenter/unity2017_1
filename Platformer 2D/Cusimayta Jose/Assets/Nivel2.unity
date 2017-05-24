@@ -117,8 +117,8 @@ GameObject:
   m_Component:
   - component: {fileID: 693293963}
   - component: {fileID: 693293962}
-  - component: {fileID: 693293961}
   - component: {fileID: 693293960}
+  - component: {fileID: 693293961}
   m_Layer: 0
   m_Name: Suelo (2)
   m_TagString: Untagged
@@ -158,18 +158,31 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &693293961
-BoxCollider:
+--- !u!61 &693293961
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 693293959}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.99999994, y: 0.99999994}
+  m_EdgeRadius: 0
 --- !u!33 &693293962
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -199,11 +212,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4672661933043232, guid: 8685cd2b8a35637498008318863b5213, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 6.66
+      value: 8.75
       objectReference: {fileID: 0}
     - target: {fileID: 4672661933043232, guid: 8685cd2b8a35637498008318863b5213, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.35
+      value: -1.38
       objectReference: {fileID: 0}
     - target: {fileID: 4672661933043232, guid: 8685cd2b8a35637498008318863b5213, type: 2}
       propertyPath: m_LocalPosition.z
@@ -283,8 +296,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1302876390}
   - component: {fileID: 1302876389}
-  - component: {fileID: 1302876388}
   - component: {fileID: 1302876387}
+  - component: {fileID: 1302876388}
   m_Layer: 0
   m_Name: Muro
   m_TagString: Untagged
@@ -324,18 +337,31 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1302876388
-BoxCollider:
+--- !u!61 &1302876388
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1302876386}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0000001, y: 1}
+  m_EdgeRadius: 0
 --- !u!33 &1302876389
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -365,11 +391,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1307263648}
   - component: {fileID: 1307263647}
-  - component: {fileID: 1307263646}
   - component: {fileID: 1307263645}
   - component: {fileID: 1307263650}
+  - component: {fileID: 1307263646}
   - component: {fileID: 1307263649}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemigoC
   m_TagString: enemigo
   m_Icon: {fileID: 0}
@@ -463,10 +489,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &1460134259
 GameObject:
@@ -477,8 +503,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1460134263}
   - component: {fileID: 1460134262}
-  - component: {fileID: 1460134261}
   - component: {fileID: 1460134260}
+  - component: {fileID: 1460134261}
   m_Layer: 0
   m_Name: Suelo
   m_TagString: Untagged
@@ -518,18 +544,31 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1460134261
-BoxCollider:
+--- !u!61 &1460134261
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1460134259}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.99999994, y: 0.99999994}
+  m_EdgeRadius: 0
 --- !u!33 &1460134262
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -559,8 +598,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1462994303}
   - component: {fileID: 1462994302}
-  - component: {fileID: 1462994301}
   - component: {fileID: 1462994300}
+  - component: {fileID: 1462994301}
   m_Layer: 0
   m_Name: Muro (1)
   m_TagString: Untagged
@@ -600,18 +639,31 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1462994301
-BoxCollider:
+--- !u!61 &1462994301
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1462994299}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.99999994, y: 0.99999994}
+  m_EdgeRadius: 0
 --- !u!33 &1462994302
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -626,7 +678,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1462994299}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.31, y: -1.89, z: 0}
+  m_LocalPosition: {x: -4.31, y: -2.41, z: 0}
   m_LocalScale: {x: 3.474269, y: 0.697533, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -693,7 +745,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -716,8 +768,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1467214678}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -3.52, y: 0.83, z: -10}
+  m_LocalScale: {x: 0.6436334, y: 0.6436334, z: 0.6436334}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -808,8 +860,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1725542390}
   - component: {fileID: 1725542389}
-  - component: {fileID: 1725542388}
   - component: {fileID: 1725542387}
+  - component: {fileID: 1725542388}
   m_Layer: 0
   m_Name: Suelo (1)
   m_TagString: Untagged
@@ -849,18 +901,31 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1725542388
-BoxCollider:
+--- !u!61 &1725542388
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1725542386}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.99999994, y: 1.0000001}
+  m_EdgeRadius: 0
 --- !u!33 &1725542389
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -875,8 +940,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1725542386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.46, y: -3.38, z: 0}
-  m_LocalScale: {x: 0.49843597, y: 1.3938937, z: 1}
+  m_LocalPosition: {x: -0.46, y: -3.52, z: 0}
+  m_LocalScale: {x: 0.49843597, y: 1.1081581, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -889,12 +954,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1859374767}
-  - component: {fileID: 1859374766}
-  - component: {fileID: 1859374765}
-  - component: {fileID: 1859374764}
   - component: {fileID: 1859374768}
+  - component: {fileID: 1859374765}
+  - component: {fileID: 1859374766}
+  - component: {fileID: 1859374764}
   - component: {fileID: 1859374763}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -915,22 +980,67 @@ MonoBehaviour:
   speedX: 5
   gravity: -10
   JumpForce: 5
-  RayLenght: 0.01
+  RayLenght: 0.03
   camara: {fileID: 1467214682}
---- !u!23 &1859374764
-MeshRenderer:
+  _mask:
+    serializedVersion: 2
+    m_Bits: 4294967039
+--- !u!95 &1859374764
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1859374762}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f958d6b69914b084298e4fbbe312431d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!61 &1859374765
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1859374762}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.86, y: 0.94}
+    newSize: {x: 0.43, y: 0.47}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!212 &1859374766
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1859374762}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -938,10 +1048,10 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
+  m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -949,25 +1059,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1859374765
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1859374762}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1859374766
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1859374762}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Sprite: {fileID: 21300028, guid: a77a9a3e8e005214cacebeca88b84d32, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.43, y: 0.47}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
 --- !u!4 &1859374767
 Transform:
   m_ObjectHideFlags: 0
@@ -981,21 +1080,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &1859374768
-Rigidbody:
+--- !u!50 &1859374768
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1859374762}
-  serializedVersion: 2
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
   m_Mass: 1
-  m_Drag: 0
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_Constraints: 112
+  m_SleepingMode: 1
   m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1951054494 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1684933522629038, guid: 8685cd2b8a35637498008318863b5213,
