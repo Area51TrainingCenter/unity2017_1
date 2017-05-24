@@ -8,7 +8,12 @@ public class PlayerMovement : MonoBehaviour {
 	public float gravity = -10;
 
 	public float rayLength = 0.6f;
-	private Rigidbody _rigidbody;
+
+	public LayerMask _mask;
+	private Rigidbody2D _rigidbody;
+	private Animator _animator;
+	private SpriteRenderer _spriteRenderer;
+
 	private float verticalSpeed;
 	private bool isGrounded;
 
@@ -18,7 +23,9 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		//guardamos la referencia la componente Rigidbody 
 		//en nuestra variable
-		_rigidbody = GetComponent<Rigidbody>();
+		_rigidbody = GetComponent<Rigidbody2D>();
+		_animator = GetComponent<Animator> ();
+		_spriteRenderer = GetComponent<SpriteRenderer> ();
 	}
 	// Update is called once per frame
 	void Update(){
@@ -34,6 +41,19 @@ public class PlayerMovement : MonoBehaviour {
 			pressedJump = true;	
 		}
 
+
+		if (h<0) {
+			_spriteRenderer.flipX = true;
+		}
+		if (h>0) {
+			_spriteRenderer.flipX = false;	
+		}
+
+		//le pasamos el valor absoluto de h porque cuando presionas
+		//hacia la izquierda h se vuelve negativo
+		float absH = Mathf.Abs (h);
+		_animator.SetFloat ("speed", absH);
+
 	}
 
 	//FixedUpdate se ejecuta cada 0.02 segundos
@@ -44,39 +64,63 @@ public class PlayerMovement : MonoBehaviour {
 
 		moveVector.x = h*speedX;
 
+		RaycastHit2D hitInfo;
+
+
 		Vector3 down = new Vector3 (0, -1, 0);
-		//Physics.Raycast genera un rayo invisible
-		//que te devuelve true si el rayo toca algo
-		//y false si el rayo no toca nada
-	
-		//bool isGrounded = Physics.Raycast (transform.position, down, rayLength);
+
 
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		boxSize = boxSize * 0.99f;
-		isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, rayLength);
+
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, down, rayLength,_mask.value);
+		if (hitInfo.collider == null) {
+			isGrounded = false;
+		} else {
+			isGrounded = true;
+		}
+
 
 		Vector3 up = new Vector3 (0, 1, 0);
-		bool hitUp = Physics.BoxCast (transform.position, boxSize/2, up, Quaternion.identity, rayLength);
+		bool hitUp = false;
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, up, rayLength,_mask.value);
+		if (hitInfo.collider != null) {
+			hitUp = true;
+		}
 		if (hitUp) {
 			verticalSpeed = -1;
 		}
 
+
 		Vector3 left = new Vector3 (-1, 0, 0);
-		bool hitLeft = Physics.BoxCast (transform.position, boxSize/2, left, Quaternion.identity, rayLength);
+		bool hitLeft = false;
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, left, rayLength,_mask.value);
+		if (hitInfo.collider !=null) {
+			hitLeft = true;
+		}
+		/*****************/
 		if (hitLeft) {
 			if (h < 0) {
 				moveVector.x = 0;
 			}
 		}
+		/*****************/
+
+
 
 		Vector3 right = new Vector3 (1, 0, 0);
-		bool hitRight = Physics.BoxCast (transform.position, boxSize/2, right, Quaternion.identity, rayLength);
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, right, rayLength,_mask.value);
+		bool hitRight = false;
+		if (hitInfo.collider != null) {
+			hitRight = true;
+		}
+		/*****************/
 		if (hitRight) {
 			if (h > 0) {
 				moveVector.x = 0;
 			}
 		}
-
+		/*****************/
 		if (isGrounded) {
 			//si estoy en el piso el verticalSpeed es 
 			//un valor negativo pequeño... esto es para 
