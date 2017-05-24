@@ -10,8 +10,11 @@ public class PlayerMovement : MonoBehaviour {
 	private bool isCrashed;
 	private bool isGroundedRight;
 	public float rayLength = 0.6f;
+	private Animator _animator; 
+	private SpriteRenderer _spriterenderer;
 	public float jumpForce = 0.9f;
-	private Rigidbody _rigidbody;
+	private Rigidbody2D _rigidbody;
+	public LayerMask _mask ;
 	private float verticalSpeed;
 	private float h;
 	public bool jump;
@@ -19,7 +22,9 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		//guardamos la referencia la componente Rigidbody 
 		//en nuestra variable
-		_rigidbody = GetComponent<Rigidbody>();
+		_rigidbody = GetComponent<Rigidbody2D>();
+		_animator = GetComponent<Animator> ();
+		_spriterenderer = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -30,13 +35,30 @@ public class PlayerMovement : MonoBehaviour {
 			jump = true;
 		}
 		}
+
+
+		if(h<0){
+			_spriterenderer.flipX = true;
+		}
+		if(h>0){
+			_spriterenderer.flipX = false;
+		}
+		float absH = Mathf.Abs (h);
+		_animator.SetFloat ("speed", absH); 
 	}
+
+
+
+
+
+
 	void FixedUpdate () {
 		//creamos un Vector3 que comienza en zero
 		Vector3 moveVector = new Vector3(0,0,0);
 
 		moveVector.x = h*speedX;
 
+		RaycastHit2D hitInfo;
 
 		Vector3 down = new Vector3 (0, -1, 0);
 		Vector3 up = new Vector3 (0, 1, 0);
@@ -50,10 +72,36 @@ public class PlayerMovement : MonoBehaviour {
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z); 
 		//Crear una variable de boxsize para poder editarla en el editor
 		boxSize = boxSize * 0.99f;		
-		isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, rayLength);
-		isCrashed = Physics.BoxCast (transform.position, boxSize/2, up, Quaternion.identity, rayLength);
-		isGroundedLeft = Physics.BoxCast (transform.position, boxSize/2, left , Quaternion.identity, rayLength);
-		isGroundedRight = Physics.BoxCast (transform.position, boxSize/2, right , Quaternion.identity, rayLength);
+		//isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, rayLength);
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, down, rayLength,_mask);
+
+	
+		if(hitInfo.collider ==null) {  
+			isGrounded = false;
+		} else { 
+			isGrounded = true;
+		}
+
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0,up, rayLength, _mask);
+		if(hitInfo.collider ==null) {  
+			isCrashed = false;
+		} else { 
+			isCrashed = true;
+		}
+
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize,0, left ,  rayLength,_mask);
+		if(hitInfo.collider ==null) {  
+			isGroundedLeft = false;
+		} else { 
+			isGroundedLeft= true;
+		}
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize,0, right , rayLength,_mask);
+		if(hitInfo.collider ==null) {  
+			isGroundedRight = false;
+		} else { 
+			isGroundedRight = true;
+		}
+
 
 		if (isGroundedLeft &&  h < 0  ) {  
 

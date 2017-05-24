@@ -30,6 +30,8 @@ public class EnemyAI : MonoBehaviour {
 		if (hitLeft) {
 			if (hitInfo.collider.gameObject.CompareTag(targetTag)) {
 				Destroy (hitInfo.collider.gameObject);
+			} else {
+				speedx = -speedx;
 			}
 		}
 
@@ -37,6 +39,8 @@ public class EnemyAI : MonoBehaviour {
 		if (hitRight) {
 			if (hitInfo.collider.gameObject.CompareTag(targetTag)) {
 				Destroy (hitInfo.collider.gameObject);
+			} else {
+				speedx = -speedx;
 			}
 		}
 

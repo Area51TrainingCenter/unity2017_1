@@ -5,6 +5,7 @@ using UnityEngine;
 public class enemyAI : MonoBehaviour {
 	private Rigidbody _rigidbody;
 	public float rayLength = 0.3f;
+	public float speed =  5;
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent <Rigidbody> ();
@@ -26,15 +27,22 @@ public class enemyAI : MonoBehaviour {
 		if (hitLeft) { 
 			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
 				Destroy (hitInfo.collider.gameObject);
-				}
+			} else {
+				speed = speed * -1;
+			}
+
+
 		}
 		bool hitRight = Physics.BoxCast (transform.position, boxSize/2, Vector3.right,out hitInfo, Quaternion.identity, rayLength);
 		if (hitRight) { 
 			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
 				Destroy (hitInfo.collider.gameObject);
 					}	
+			else {
+				speed = speed * -1;
 			}
-
+		}
+		_rigidbody.velocity = new Vector3 (speed, 0, 0);
 
 				}
 }
