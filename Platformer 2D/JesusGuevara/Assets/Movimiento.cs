@@ -10,10 +10,7 @@ public class Movimiento : MonoBehaviour {
 	public float raylength = 0.6f;
 	public float speedJump = 10;
 
-	private Rigidbody2D _rigibody;
-	private Animator _animator;
-	private SpriteRenderer _spriteRenderer;
-
+	private Rigidbody _rigibody;
 	private float verticalSpeed;
 	private bool isGrounded; // abajo
 	private bool isGrounded2; // arriba
@@ -22,15 +19,11 @@ public class Movimiento : MonoBehaviour {
 
 	private float h;
 	private bool KeySpacePressed;
-
-	public LayerMask _mask;
 	
 	// Use this for initialization
 	void Start () {
 		// Guardamos la referencia la componente RigiBody
-		_rigibody = GetComponent<Rigidbody2D> ();
-		_animator = GetComponent<Animator> ();
-		_spriteRenderer = GetComponent<SpriteRenderer> ();
+		_rigibody = GetComponent<Rigidbody> ();
 
 	}
 	
@@ -41,17 +34,6 @@ public class Movimiento : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
 				KeySpacePressed = true;
 			}
-
-		// para volter al personaje
-		if (h < 0) {
-			_spriteRenderer.flipX = true;
-		} 
-		if(h>0) {
-			_spriteRenderer.flipX = false;
-		}
-
-		float absH = Mathf.Abs (h);
-		_animator.SetFloat ("speed",absH);
 		
 	}
 
@@ -68,6 +50,8 @@ public class Movimiento : MonoBehaviour {
 		Vector3 left   = new Vector3(-1,0,0);// izquierda
 		Vector3 right   = new Vector3(1,0,0);// Derecha
 
+
+
 		// hacemos raycast  genera un rayo invisible 
 		// que te devuelve  true si el rayo toca algo 
 		// y false si el rayo no toca nada
@@ -76,60 +60,26 @@ public class Movimiento : MonoBehaviour {
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y,transform.localScale.z);// tamaño de la caja
 		boxSize = boxSize*0.99f;
 
-		RaycastHit2D hitInfo;
+		//BoxCast = devuelve un boleano: true o false
+		isGrounded = Physics.BoxCast(transform.position,boxSize/2,down,Quaternion.identity,raylength); //Quaternion.identity => rotacion= 0,0,0 
+		isGrounded2 = Physics.BoxCast(transform.position,boxSize/2,up,Quaternion.identity,raylength);   // Arriba
+		isGrounded3 = Physics.BoxCast(transform.position,boxSize/2,left,Quaternion.identity,raylength);  // Izquierda
+		isGrounded4 = Physics.BoxCast(transform.position,boxSize/2,right,Quaternion.identity,raylength);  // Derecha
 
-		//------ ABAJO DOWN -----//
-		//isGrounded = Physics.BoxCast(transform.position,boxSize/2,down,Quaternion.identity,raylength); //Quaternion.identity => rotacion= 0,0,0 
-		hitInfo = Physics2D.BoxCast(transform.position,boxSize,0,down,raylength,_mask.value);
-		if (hitInfo.collider == null) {
-			isGrounded = false;
-		} else {
-			isGrounded = true;
-		}
-
-		//// ARRIBA UP ////
-		//isGrounded2 = Physics.BoxCast(transform.position,boxSize/2,up,Quaternion.identity,raylength);   
-		hitInfo = Physics2D.BoxCast(transform.position,boxSize,0,up,raylength,_mask.value);
-		if (hitInfo.collider == null) {
-			isGrounded2 = false;
-		} else {
-			isGrounded2 = true;
-		}
-
-		//// IZQUIERDA - LEFT ///
-		//isGrounded3 = Physics.BoxCast(transform.position,boxSize/2,left,Quaternion.identity,raylength);  
-		hitInfo = Physics2D.BoxCast(transform.position,boxSize,0,left,raylength,_mask.value);
-		if (hitInfo.collider == null) {
-			isGrounded3 = false;
-		} else {
-			isGrounded3 = true;
-		}
-
-		//// DERECHA - RIGHT ////
-		//isGrounded4 = Physics.BoxCast(transform.position,boxSize/2,right,Quaternion.identity,raylength); 
-		hitInfo = Physics2D.BoxCast(transform.position,boxSize,0,right,raylength,_mask.value);
-		if (hitInfo.collider == null) {
-			isGrounded4 = false;
-		} else {
-			isGrounded4 = true;
-		}
-
-		// DERECHA //
 		if (isGrounded4 && h>0) {
 			moveVector.x = 0;
 		} 
 
-		// IZQUIERDA //
 		if (isGrounded3 && h<0) {
 			moveVector.x = 0;
 		} 
 
-		// ARRIBA  [Para que no se quede pegado en el techo]
+		// Para que no se quede pegado en el techo
 		if (isGrounded2) {
 			verticalSpeed = 0;
 		} 
 
-		// ABAJO [Piso] //
+
 		if (isGrounded) {
 			//si estoy en el piso el verticalspeed es 
 			//un valor negativo pequeño--- esto es para
@@ -147,6 +97,7 @@ public class Movimiento : MonoBehaviour {
 			// la gravedad se va aplicando al verticalspeed
 			verticalSpeed += gravity * Time.deltaTime;
 		}
+
 
 
 		moveVector += new Vector3 (0, verticalSpeed, 0);	

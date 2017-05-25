@@ -5,10 +5,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour {
 
 	private Rigidbody _rigibody;
-	public float speed;
-
 	public float raylength = 0.6f;
-	private bool _goToTheRight;
 
 	// Use this for initialization
 	void Start () {
@@ -36,8 +33,6 @@ public class EnemyAI : MonoBehaviour {
 
 			if (hitinfo.collider.gameObject.CompareTag("Player")) {
 				Destroy(hitinfo.collider.gameObject);
-			} else {
-				speed = -speed;
 			}
 		}
 
@@ -47,13 +42,9 @@ public class EnemyAI : MonoBehaviour {
 		
 			if (hitinfo.collider.gameObject.CompareTag("Player")) {
 				Destroy(hitinfo.collider.gameObject);
-			}else {
-				speed = -speed;
 			}
 		}
 
-
-		_rigibody.velocity = new Vector3 (speed, 0, 0);
 
 
 	}
