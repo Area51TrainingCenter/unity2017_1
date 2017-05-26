@@ -25,8 +25,8 @@ public class PlayerMovement : MonoBehaviour {
 		//guardamos la referencia la componente Rigidbody 
 		//en nuestra variable
 		_rigidbody = GetComponent<Rigidbody2D>();
-		_animator = GetComponent<Animator> ();
-		_spriteRenderer = GetComponent <SpriteRenderer> ();
+		_animator = GetComponentInChildren<Animator> ();
+		_spriteRenderer = GetComponentInChildren <SpriteRenderer> ();
 	}
 	// Update is called once per frame
 	void Update(){
@@ -55,6 +55,16 @@ public class PlayerMovement : MonoBehaviour {
 		//hacia la izquierda h se vuelve negativo
 		float absH = Mathf.Abs (h);
 		_animator.SetFloat ("speed", absH); 
+		_animator.SetFloat ("verticalSpeed", verticalSpeed);
+		_animator.SetBool ("isGrounded", isGrounded);
+
+		if (Input.GetMouseButtonDown (0)) {
+			if (isGrounded) {
+				_animator.SetTrigger ("atack");		
+			}
+
+		}
+
 	}
 
 	//FixedUpdate se ejecuta cada 0.02 segundos
