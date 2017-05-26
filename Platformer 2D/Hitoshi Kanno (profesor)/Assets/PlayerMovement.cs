@@ -53,7 +53,8 @@ public class PlayerMovement : MonoBehaviour {
 		//hacia la izquierda h se vuelve negativo
 		float absH = Mathf.Abs (h);
 		_animator.SetFloat ("speed", absH);
-
+		_animator.SetFloat ("verticalSpeed", verticalSpeed);
+		_animator.SetBool ("isGrounded", isGrounded);
 	}
 
 	//FixedUpdate se ejecuta cada 0.02 segundos
