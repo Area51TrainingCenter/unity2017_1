@@ -2,23 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyOnTouch : MonoBehaviour {
-
+public class Sensor : MonoBehaviour {
+	public GameObject bullet;
 	// Use this for initialization
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	void OnTriggerEnter (Collider other) {
+	void OnTriggerEnter(Collider other) {
 		if (other.CompareTag("Player")) {
-			Destroy (other.gameObject);
-			Destroy (gameObject);
+			bullet.GetComponent<FollowPlayer> ().speed = 5;
 		}
 	}
-
 }

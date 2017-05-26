@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovimiento : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour {
 	public float speedX = 5;
 	public float jumpForce = 8;
 	public float gravity = -10;
@@ -24,22 +24,12 @@ public class PlayerMovimiento : MonoBehaviour {
 		//guardamos la referencia la componente Rigidbody 
 		//en nuestra variable
 		_rigidbody = GetComponent<Rigidbody2D>();
-		_animator = GetComponent<Animator> ();
-		_spriteRenderer = GetComponent<SpriteRenderer> ();
+		_animator = GetComponentInChildren<Animator> ();
+		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
+
 	}
 	// Update is called once per frame
 	void Update(){
-		Movimiento ();
-
-		//le pasamos el valor absoluto de h porque cuando presionas
-		//hacia la izquierda h se vuelve negativo
-		float absH = Mathf.Abs (h);
-		_animator.SetFloat ("speed", absH);
-		_animator.SetFloat ("verticalSpeed", verticalSpeed);
-		_animator.SetBool ("isGrounded", isGrounded);
-	}
-
-	void Movimiento(){
 		//necesitamos leer los inputs en cada frame
 		//por eso es que lo colocamos en Update
 		//y guardamos el resultado en variables globales que 
@@ -59,6 +49,14 @@ public class PlayerMovimiento : MonoBehaviour {
 		if (h>0) {
 			_spriteRenderer.flipX = false;	
 		}
+
+		//le pasamos el valor absoluto de h porque cuando presionas
+		//hacia la izquierda h se vuelve negativo
+		float absH = Mathf.Abs (h);
+		_animator.SetFloat ("speed", absH);
+		_animator.SetFloat ("verticalSpeed", verticalSpeed);
+		_animator.SetBool ("isGrounded", isGrounded);
+		Ataque ();
 	}
 
 	//FixedUpdate se ejecuta cada 0.02 segundos
@@ -85,6 +83,7 @@ public class PlayerMovimiento : MonoBehaviour {
 			isGrounded = true;
 		}
 
+	
 
 		Vector3 up = new Vector3 (0, 1, 0);
 		bool hitUp = false;
@@ -155,6 +154,14 @@ public class PlayerMovimiento : MonoBehaviour {
 		//transform.Translate (moveVector*Time.deltaTime);
 		//transform.Translate (moveX * Time.deltaTime, 0, 0);
 	}
+
+	void Ataque(){
+
+		if (Input.GetKeyDown (KeyCode.F)) {
+			_animator.SetTrigger ("atack");	
+		}
+	}
+
 
 	void OnDrawGizmos(){
 		if (isGrounded) {
