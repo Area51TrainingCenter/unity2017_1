@@ -19,9 +19,8 @@ public class Movement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
-		_animator = GetComponent<Animator> ();
-		_spriteRenderer = GetComponent<SpriteRenderer> ();
-
+		_animator = GetComponentInChildren<Animator> ();
+		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
 	}
 	
 
@@ -41,6 +40,16 @@ public class Movement : MonoBehaviour {
 
 		float absH = Mathf.Abs (h);  //Aplicamos el valor absoluto a la variable "h"
 		_animator.SetFloat ("speed", absH); //En el animator modificamos la variable de "speed" y darle el valor de H en valor absoluto
+
+		_animator.SetFloat ("verticalSpeed", VerticalSpeed); //Se le pasa la variable VerticalSpeed, ya sea negativo o positivo, para saber si esta saltando o cayendo
+		_animator.SetBool ("isGrounded", isGrounded); //Se le pasa el bool isGrounded, para saber si esta en tierra o no
+
+		 
+		if (Input.GetMouseButtonDown (0) && isGrounded) //Detectamos el clic izquierdo del mouse
+		{
+			_animator.SetTrigger ("Attack"); //El trigger se activa al llamarlo, se pone en verdadero, y al frame siguiente, se convierte en falso automaticamente
+
+		}
 
 	}
 	void FixedUpdate () { // UpdateFixed es llamada cada que el motor de fisica se actualiza
@@ -86,10 +95,7 @@ public class Movement : MonoBehaviour {
 		}else{
 			isLeft = false;
 		}
-
-
-
-
+			
 		if(isTop) {
 			VerticalSpeed = -0.1f;
 		}
@@ -104,9 +110,6 @@ public class Movement : MonoBehaviour {
 			}
 		}
 
-
-
-
 		if (isGrounded) {
 			VerticalSpeed = -0.1f;
 			if (Jump) {				
@@ -116,11 +119,9 @@ public class Movement : MonoBehaviour {
 		} else {
 			VerticalSpeed += gravity * Time.deltaTime;
 		}
-
-
+			
 		moveVector += new Vector3 (0, VerticalSpeed,0);
-		_rigidbody.velocity = moveVector;
-		_animator.speed = 1;
+		_rigidbody.velocity = moveVector;		
 	}		
 	void OnDrawGizmos(){
 		if (isGrounded)
