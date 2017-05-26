@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
 	private bool isGroundedRight;
 	public float rayLength = 0.6f;
 	private Animator _animator; 
+
 	private SpriteRenderer _spriterenderer;
 	public float jumpForce = 0.9f;
 	private Rigidbody2D _rigidbody;
@@ -23,12 +24,16 @@ public class PlayerMovement : MonoBehaviour {
 		//guardamos la referencia la componente Rigidbody 
 		//en nuestra variable
 		_rigidbody = GetComponent<Rigidbody2D>();
-		_animator = GetComponent<Animator> ();
-		_spriterenderer = GetComponent<SpriteRenderer>();
+		_animator = GetComponentInChildren<Animator> ();
+		_spriterenderer = GetComponentInChildren<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
 	void Update() {
+		if (isGrounded){ if(Input.GetKeyDown (KeyCode.Space)){
+			_animator.SetTrigger ("attack");
+		}
+		}
 		h = Input.GetAxis ("Horizontal");
 		if (isGrounded){ 
 		if(Input.GetKeyDown (KeyCode.UpArrow)) {
@@ -45,10 +50,12 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		float absH = Mathf.Abs (h);
 		_animator.SetFloat ("speed", absH); 
+	
+		_animator.SetFloat ("verticalSpeed",verticalSpeed ); 
+		_animator.SetBool ("isGrounded", isGrounded ); 
+		 
+	
 	}
-
-
-
 
 
 
