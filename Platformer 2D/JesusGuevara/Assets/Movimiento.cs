@@ -29,8 +29,8 @@ public class Movimiento : MonoBehaviour {
 	void Start () {
 		// Guardamos la referencia la componente RigiBody
 		_rigibody = GetComponent<Rigidbody2D> ();
-		_animator = GetComponent<Animator> ();
-		_spriteRenderer = GetComponent<SpriteRenderer> ();
+		_animator = GetComponentInChildren<Animator> ();
+		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
 
 	}
 	
@@ -51,7 +51,19 @@ public class Movimiento : MonoBehaviour {
 		}
 
 		float absH = Mathf.Abs (h);
+
+		// Animator
 		_animator.SetFloat ("speed",absH);
+		_animator.SetFloat ("verticalspeed",verticalSpeed);
+		_animator.SetBool ("isGrounded", isGrounded);
+
+		// para atacar
+		// if(tecladp  y isground 
+		//_animator.SetTrigger("isat..")
+		if (Input.GetMouseButtonDown (0) && isGrounded) {
+			_animator.SetTrigger ("isAttack");
+		}
+
 		
 	}
 
