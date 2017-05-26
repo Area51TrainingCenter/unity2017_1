@@ -20,8 +20,8 @@ public class Movimiento : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_rigibody = GetComponent <Rigidbody2D>();
-		_Animacion = GetComponent <Animator>();
-		_SpriteRenderer = GetComponent <SpriteRenderer>();
+		_Animacion = GetComponentInChildren <Animator>();
+		_SpriteRenderer = GetComponentInChildren <SpriteRenderer>();
 	}
 	void Update (){
 		h = Input.GetAxis ("Horizontal");
@@ -37,6 +37,13 @@ public class Movimiento : MonoBehaviour {
 		}
 		float absH = Mathf.Abs (h);
 		_Animacion.SetFloat ("Speed", absH);
+		_Animacion.SetFloat ("VerticalSpeed", VerticalSpeed);
+		_Animacion.SetBool ("isGrounded", isGrounded);
+		if (Input.GetKeyDown (KeyCode.Z)) {
+			_Animacion.SetTrigger ("Atacar");
+
+		}	
+
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
