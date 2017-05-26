@@ -24,8 +24,8 @@ public class PlayerMovement : MonoBehaviour {
 		//guardamos la referencia la componente Rigidbody 
 		//en nuestra variable
 		_rigidbody = GetComponent<Rigidbody2D>();
-		_animator = GetComponent<Animator> ();
-		_spriteRenderer = GetComponent<SpriteRenderer> ();
+		_animator = GetComponentInChildren<Animator> ();
+		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
 	}
 	// Update is called once per frame
 	void Update(){
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		//si presionas espacio pressedJump permanecera en true
 		//hasta que se aplique el salto dentro de FixedUpdate
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
 			pressedJump = true;	
 		}
 
@@ -55,6 +55,10 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("speed", absH);
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
+
+		if (Input.GetMouseButtonDown(0) && isGrounded) {
+			_animator.SetTrigger ("attack");
+		}
 	}
 
 	//FixedUpdate se ejecuta cada 0.02 segundos
