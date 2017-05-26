@@ -22,8 +22,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
-		_animator = GetComponent<Animator> ();
-		_spriteRenderer = GetComponent<SpriteRenderer> ();
+		_animator = GetComponentInChildren<Animator> ();
+		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
 	}
 
 	void Update () {
@@ -39,7 +39,16 @@ public class PlayerMovement : MonoBehaviour {
 		if(h > 0){
 			_spriteRenderer.flipX = false;
 		}
+		if (Input.GetMouseButtonDown (0)) {
+			if (isGrounded) {
+				//Trigger en el animator es como un boleano con la diferencia que se desactiva sola
+				_animator.SetTrigger ("attack");
+			}
+		}
 		_animator.SetFloat ("speed", Mathf.Abs (h));
+		_animator.SetFloat ("verticalSpeed", verticalSpeed);
+		_animator.SetBool ("isGrounded", isGrounded);
+
 		
 	}
 	//FixedUpdate se ejecuta cada 0.02 segundos
