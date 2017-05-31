@@ -4,35 +4,39 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour {
 
-	private Rigidbody _rigibody;
+	private Rigidbody2D _rigibody;
 	public float speed;
 
 	public float raylength = 0.6f;
 	private bool _goToTheRight;
 
+	public LayerMask _mask;
 	// Use this for initialization
 	void Start () {
-		_rigibody = GetComponent<Rigidbody> ();		
+		_rigibody = GetComponent<Rigidbody2D> ();		
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y,transform.localScale.z);// tamaño de la caja
+
 		boxSize = boxSize * 0.99f;
-		RaycastHit hitinfo;
+		RaycastHit2D hitinfo;
 
-		bool hitUp = Physics.BoxCast(transform.position,boxSize/2,Vector3.up,out hitinfo ,Quaternion.identity,raylength); 
+		//bool hitUp = Physics2D.BoxCast(transform.position,boxSize,0,Vector3.up,out hitinfo ,Quaternion.identity,raylength); 
+		 hitinfo = Physics2D.BoxCast(transform.position,boxSize,0,Vector3.up,raylength,_mask.value);  
 
-		if(hitUp){
+		if(hitinfo.collider != null){			
 			if (hitinfo.collider.gameObject.CompareTag("Player")) {
-				Destroy(gameObject);
+				Destroy(hitinfo.collider.gameObject);
 			}
 		}
 
 	
-		bool hitLeft = Physics.BoxCast(transform.position,boxSize/2,Vector3.left,out hitinfo ,Quaternion.identity,raylength); 
-		if(hitLeft){
+		//bool hitLeft = Physics.BoxCast(transform.position,boxSize/2,Vector3.left,out hitinfo ,Quaternion.identity,raylength); 
+		hitinfo = Physics2D.BoxCast(transform.position,boxSize,0,Vector3.left,raylength,_mask.value);  
+		if(hitinfo.collider != null ){
 
 			if (hitinfo.collider.gameObject.CompareTag("Player")) {
 				Destroy(hitinfo.collider.gameObject);
@@ -41,8 +45,9 @@ public class EnemyAI : MonoBehaviour {
 			}
 		}
 
-		bool hitRight = Physics.BoxCast(transform.position,boxSize/2,Vector3.right,out hitinfo ,Quaternion.identity,raylength); 
-		if(hitRight){
+		//bool hitRight = Physics.BoxCast(transform.position,boxSize/2,Vector3.right,out hitinfo ,Quaternion.identity,raylength); 
+		hitinfo =  Physics2D.BoxCast(transform.position,boxSize,0,Vector3.right,raylength,_mask.value);
+		if(hitinfo.collider != null ){
 				
 		
 			if (hitinfo.collider.gameObject.CompareTag("Player")) {
