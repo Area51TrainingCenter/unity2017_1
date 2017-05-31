@@ -17,6 +17,10 @@ public class Movement : MonoBehaviour {
 
 	private bool isGrounded = false;
 
+	public bool canControl;
+
+
+
 	// crear un filtro tipo Mascara, como parametro lo pasamos al final de Phishics2D.BoxCast
 	// esto es necesario ya que se usa fisica 2D ( detecta su boxcast dentro de su propio collider ), en fisica 3D esto ya esta por default
 	public LayerMask _mask;
@@ -35,14 +39,20 @@ public class Movement : MonoBehaviour {
 	}
 
 	void Update(){
-		// update, usarlo mas para capturar entradas de input
-		// se ejecuta cada frame
 
-		h = Input.GetAxis ("Horizontal");
-		if ( Input.GetKeyDown (KeyCode.Space) && isGrounded ){
-			// si detecta entrada de input, le asignamos true permanentemente
-			pressedJump = true; 
-			// luego en FixedUpdate aplicamos el salto y resetamos ( ir a code: $RESET pressedJump)
+		// verificar si puede 
+		if (canControl) {
+			// update, usarlo mas para capturar entradas de input
+			// se ejecuta cada frame
+
+			h = Input.GetAxis ("Horizontal");
+			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
+				// si detecta entrada de input, le asignamos true permanentemente
+				pressedJump = true; 
+				// luego en FixedUpdate aplicamos el salto y resetamos ( ir a code: $RESET pressedJump)
+			}
+		} else {
+			h = 0;
 		}
 
 
@@ -63,9 +73,9 @@ public class Movement : MonoBehaviour {
 			_animator.SetFloat ("verticalSpeed", VerticalSpeed);
 			_animator.SetBool ("isGrounded", isGrounded);
 
-		if (Input.GetKeyDown (KeyCode.E) && isGrounded == true ) {
-			_animator.SetTrigger ("isAttack");
-		}
+			if (Input.GetKeyDown (KeyCode.E) && isGrounded == true ) {
+				_animator.SetTrigger ("isAttack");
+			}
 
 
 
