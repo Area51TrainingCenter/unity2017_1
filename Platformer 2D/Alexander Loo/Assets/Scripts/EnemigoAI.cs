@@ -4,30 +4,31 @@ using UnityEngine;
 
 public class EnemigoAI : MonoBehaviour {
 
-	private Rigidbody _rigidbody;
+	private Rigidbody2D _rigidbody;
 	public float rayLenght = 0.03f;
 	public float speed;
+	public LayerMask _mask;
 
 	void Start(){
 
-		_rigidbody = GetComponent<Rigidbody> ();
+		_rigidbody = GetComponent<Rigidbody2D> ();
 	}
 
 	void FixedUpdate(){
 
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		boxSize = boxSize * 0.99f;
-		RaycastHit hitInfo;
+		RaycastHit2D hitInfo;
 
 		//Vector3.up es un atajo por default
-		bool hitUp = Physics.BoxCast (transform.position, boxSize / 2, Vector3.up, out hitInfo,Quaternion.identity, rayLenght);
-		if(hitUp){
+		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, Vector3.up, rayLenght,_mask.value);
+		if(hitInfo.collider != null){
 			if (hitInfo.collider.CompareTag ("Player")) {
-				Destroy (gameObject);
+				Destroy (hitInfo.collider.gameObject);
 			}
 		}
-		bool hitLeft = Physics.BoxCast (transform.position, boxSize / 2, Vector3.left, out hitInfo, Quaternion.identity, rayLenght);
-		if (hitLeft) {
+		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, Vector3.left, rayLenght,_mask.value);
+		if (hitInfo.collider != null) {
 			
 			if (hitInfo.collider.CompareTag ("Player")) {
 				Destroy (hitInfo.collider.gameObject);
@@ -35,8 +36,8 @@ public class EnemigoAI : MonoBehaviour {
 				speed = -speed;
 			}
 		}
-		bool hitRight = Physics.BoxCast (transform.position, boxSize / 2, Vector3.right, out hitInfo, Quaternion.identity, rayLenght);
-		if (hitRight) {
+		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, Vector3.right, rayLenght,_mask.value);
+		if (hitInfo.collider != null) {
 			
 			if (hitInfo.collider.CompareTag ("Player")) {
 				Destroy (hitInfo.collider.gameObject);
