@@ -5,12 +5,13 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour {
 	public float rayLength = 0.03f;
 	public float speed = 5;
-	private Rigidbody _rigibody;
+	private Rigidbody2D _rigibody;
 	GameObject player;
 	float h  = 0;
+	public LayerMask Mascara;
 	// Use this for initialization
 	void Start () {
-		_rigibody = GetComponent<Rigidbody> ();
+		_rigibody = GetComponent<Rigidbody2D> ();
 		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	
@@ -19,24 +20,26 @@ public class EnemyAI : MonoBehaviour {
 		Vector3 MoveVector = new Vector3 (0,0,0);
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z) * 0.99f;
 		MoveVector.x = h * speed;
-		RaycastHit hitInfo;
-		RaycastHit hitInfo2;
-		RaycastHit hitInfo3;
-		bool isTocar = Physics.BoxCast (transform.position, boxSize / 2, Vector3.up, out hitInfo, Quaternion.identity, rayLength);
-		if (isTocar) {
+		RaycastHit2D hitInfo;
+		RaycastHit2D hitInfo2;
+		RaycastHit2D hitInfo3;
+
+		 
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.up, rayLength, Mascara.value);
+		if (hitInfo.collider != null) {
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
-				Destroy (gameObject);
+				Destroy (player.gameObject);
 			}
 		}
-		bool isRight = Physics.BoxCast (transform.position, boxSize / 2, Vector3.right, out hitInfo2, Quaternion.identity, rayLength);
-		if (isRight) {
+		hitInfo2 = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.right, rayLength, Mascara.value);
+		if (hitInfo.collider != null) {
 			if (hitInfo2.collider.gameObject.CompareTag ("Player")) {
 				Destroy (player.gameObject);
 
 			}
 		}
-		bool isLeft = Physics.BoxCast (transform.position, boxSize / 2, Vector3.left, out hitInfo3, Quaternion.identity, rayLength);
-		if (isLeft) {
+		hitInfo3 = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.left, rayLength, Mascara.value);
+		if (hitInfo3.collider != null) {
 			if (hitInfo3.collider.gameObject.CompareTag ("Player")) {
 				Destroy (player.gameObject);
 			}

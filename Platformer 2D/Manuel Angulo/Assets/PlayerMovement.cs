@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float jumpForce = 8;
 	public float gravity = -10;
 	public float rayLength = 0.6f;
-
+	public bool cancontrol;
 	public LayerMask _mask;
 
 	private Rigidbody2D _rigidbody;
@@ -30,20 +30,24 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update(){
+
+		if (cancontrol) {
 		//necesitamos leer los inputs en cada frame
 		//por eso es que lo colocamos en Update
 		//y guardamos el resultado en variables globales que 
 		//se usaran en FixedUpdate
-		h = Input.GetAxis ("Horizontal");
+			h = Input.GetAxis ("Horizontal");
 
 		//si presionas espacio pressedJump permanecera en true
 		//hasta que se aplique el salto dentro de FixedUpdate
-		if (isGrounded) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
+			if (isGrounded) {
+				if (Input.GetKeyDown (KeyCode.Space)) {
 				pressedJump = true;	
+				}
 			}
+		} else{
+			h = 0;
 		}
-
 		if (h<0) {
 			_spriteRenderer.flipX = true;
 		}

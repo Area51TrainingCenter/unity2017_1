@@ -14,11 +14,12 @@ public class PlayerMovement : MonoBehaviour {
 	private bool isleftCrash;
 	private bool isrightCrash;
 	public float jumpForce;
+	public bool controlPlayer;
 	private float h;
 	private bool jump;
 	public LayerMask _mask;
 	private Animator _animator;
-	private SpriteRenderer _spriteRenderer;
+	public SpriteRenderer _spriteRenderer;
 
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
@@ -27,11 +28,16 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update () {
-		h = Input.GetAxis ("Horizontal");
-		if (isGrounded) {
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				jump = true;
+
+		if (controlPlayer) {
+			h = Input.GetAxis ("Horizontal");
+			if (isGrounded) {
+				if (Input.GetKeyDown (KeyCode.Space)) {
+					jump = true;
+				}
 			}
+		} else {
+			h = 0;
 		}
 		if (h < 0) {
 			_spriteRenderer.flipX = true;

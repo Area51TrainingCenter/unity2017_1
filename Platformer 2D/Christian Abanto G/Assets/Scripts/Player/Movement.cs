@@ -30,8 +30,8 @@ public class Movement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
-		_animator = GetComponent<Animator> ();
-		_spriterender = GetComponent<SpriteRenderer> ();
+		_animator = GetComponentInChildren<Animator> ();
+		_spriterender = GetComponentInChildren<SpriteRenderer> ();
 	}
 
 	void Update(){
@@ -47,15 +47,30 @@ public class Movement : MonoBehaviour {
 
 
 		// manipular cambio de estado -> animator
-		float absH = Mathf.Abs(h); // sacamos el valor absoluto, osea siempre positivo
-		_animator.SetFloat( "speed", absH );
+			// para caminar ( walk )
+			float absH = Mathf.Abs(h); // sacamos el valor absoluto, osea siempre positivo
+			_animator.SetFloat( "speed", absH );
 
-		if ( h < 0) {
-			_spriterender.flipX = true;
-		} 
-		if (h > 0) {
-			_spriterender.flipX = false;
-		} 
+			if ( h < 0) {
+				_spriterender.flipX = true;
+			} 
+			if (h > 0) {
+				_spriterender.flipX = false;
+			}
+
+
+			// para saltar y caer
+			_animator.SetFloat ("verticalSpeed", VerticalSpeed);
+			_animator.SetBool ("isGrounded", isGrounded);
+
+		if (Input.GetKeyDown (KeyCode.E) && isGrounded == true ) {
+			_animator.SetTrigger ("isAttack");
+		}
+
+
+
+			
+
 	}
 
 	void FixedUpdate () {

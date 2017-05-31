@@ -17,6 +17,8 @@ public class Movimiento : MonoBehaviour {
 	private bool isLeft;
 	bool Salto = false;
 	float h = 0;
+	public bool canCondicion = true;
+	private int Contador = 0; 
 	// Use this for initialization
 	void Start () {
 		_rigibody = GetComponent <Rigidbody2D>();
@@ -24,10 +26,15 @@ public class Movimiento : MonoBehaviour {
 		_SpriteRenderer = GetComponentInChildren <SpriteRenderer>();
 	}
 	void Update (){
-		h = Input.GetAxis ("Horizontal");
-		if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
-			Salto = true;
-		}	
+		if (canCondicion) {
+			h = Input.GetAxis ("Horizontal");
+			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
+				Salto = true;
+			} 
+		} else {
+			h = 0;
+		}
+			
 
 		if (h < 0) {
 			_SpriteRenderer.flipX = true;
@@ -39,7 +46,7 @@ public class Movimiento : MonoBehaviour {
 		_Animacion.SetFloat ("Speed", absH);
 		_Animacion.SetFloat ("VerticalSpeed", VerticalSpeed);
 		_Animacion.SetBool ("isGrounded", isGrounded);
-		if (Input.GetKeyDown (KeyCode.Z)) {
+		if (Input.GetKeyDown (KeyCode.Z) && isGrounded) {
 			_Animacion.SetTrigger ("Atacar");
 
 		}	

@@ -12,7 +12,7 @@ public class Movimiento : MonoBehaviour {
 
 	private Rigidbody2D _rigibody;
 	private Animator _animator;
-	private SpriteRenderer _spriteRenderer;
+	public SpriteRenderer _spriteRenderer;
 
 	private float verticalSpeed;
 	private bool isGrounded; // abajo
@@ -20,11 +20,12 @@ public class Movimiento : MonoBehaviour {
 	private bool isGrounded3;// izquierda
 	private bool isGrounded4;// derecha
 
-	private float h;
+	public float h;
 	private bool KeySpacePressed;
 
 	public LayerMask _mask;
-	
+
+	public bool controlPlayer = true;
 	// Use this for initialization
 	void Start () {
 		// Guardamos la referencia la componente RigiBody
@@ -36,11 +37,19 @@ public class Movimiento : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		h = Input.GetAxis ("Horizontal");
+
+		if (controlPlayer) {
+			
+			h = Input.GetAxis ("Horizontal");
 
 			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
 				KeySpacePressed = true;
 			}
+
+		} else {
+			h = 0;
+		}
+
 
 		// para volter al personaje
 		if (h < 0) {
@@ -57,9 +66,7 @@ public class Movimiento : MonoBehaviour {
 		_animator.SetFloat ("verticalspeed",verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
 
-		// para atacar
-		// if(tecladp  y isground 
-		//_animator.SetTrigger("isat..")
+	
 		if (Input.GetMouseButtonDown (0) && isGrounded) {
 			_animator.SetTrigger ("isAttack");
 		}
