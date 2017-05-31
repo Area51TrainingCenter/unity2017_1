@@ -7,7 +7,10 @@ public class control : MonoBehaviour {
     public float speedX = 5;
 	private float gravity = -10;
 	public float jumpForce = 8;
-	private Rigidbody _rigidbody; 
+	private Rigidbody2D _rigidbody;
+	public LayerMask _mask;
+	private Animator _animator;
+	private SpriteRenderer _spriterenderer;
 	private float verticalSpeed;
 	public float rayLength = 0.6f;
 	private bool isGrounded;
@@ -19,7 +22,9 @@ public class control : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		_rigidbody = GetComponent<Rigidbody>();
+		_rigidbody = GetComponent<Rigidbody2D>();
+		_animator = GetComponentInChildren<Animator> ();
+		_spriterenderer = GetComponentInChildren<SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
@@ -33,6 +38,32 @@ public class control : MonoBehaviour {
 				pressedJump = true;
 			}	
 		}
+
+		if (h < 0) {
+			_spriterenderer.flipX = true;
+		}
+		if (h > 0) {
+			_spriterenderer.flipX = false;
+		}
+
+		//
+		float absh = Mathf.Abs(h);
+		_animator.SetFloat ("speed", absh);
+
+		_animator.SetFloat ("verticalspeed",verticalSpeed);
+
+		_animator.SetBool ("isGrounded",isGrounded);
+
+		if(Input.GetKeyDown(KeyCode.F)){
+			if (isGrounded) {
+				_animator.SetTrigger("attack1");
+
+			}
+			
+		}
+
+
+
 	}
 
 	void FixedUpdate (){
@@ -40,6 +71,8 @@ public class control : MonoBehaviour {
 		Vector3 moveVector = new Vector3(0,0,0);
 
 		moveVector.x = h*speedX;
+		RaycastHit2D hitinfo;
+
 		Vector3 up = new Vector3 (0, 1, 0);
 		Vector3 left = new Vector3 (-1, 0, 0);
 		Vector3 rigth = new Vector3 (1, 0, 0);
@@ -48,18 +81,59 @@ public class control : MonoBehaviour {
 		//que te devuelve true si el rayo toca algo
 		//y false si el rayo no toca nada
 
-		//bool isGrounded = Physics.Raycast (transform.position, down, rayLength);
+
 
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		boxSize = boxSize * 0.99f;
-		isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, rayLength);
-		isStoped = Physics.BoxCast (transform.position, boxSize/2, up, Quaternion.identity, rayLength);
-		bool isStopedL = Physics.BoxCast (transform.position, boxSize/2, left, Quaternion.identity, rayLength);
-		bool isStopedR = Physics.BoxCast (transform.position, boxSize/2, rigth, Quaternion.identity, rayLength);
+
+		hitinfo = Physics2D.BoxCast(transform.position,boxSize,0,down,rayLength,_mask.value);
+
+		if (hitinfo.collider == null) {
+			isGrounded = false;
+		} 
+		else {
+			isGrounded = true;
+		}
+
+		//isStoped = Physics.BoxCast (transform.position, boxSize/2, up, Quaternion.identity, rayLength);
+
+
+		hitinfo = Physics2D.BoxCast(transform.position,boxSize,0,up,rayLength,_mask.value);
+		if (hitinfo.collider == null) {
+			isStoped = false;
+		} 
+		else {
+			isStoped = true;
+		}
+
+
+
+
+
+		bool isStopedR = false;
+
+		hitinfo = Physics2D.BoxCast (transform.position, boxSize,0, rigth, rayLength,_mask.value);
+
+		if (hitinfo.collider == null) {
+			isStopedR = false;
+		} 
+		else {
+			isStopedR = true;
+		}
+
 		if (isStopedR) {
 			if (h>0) {
 				moveVector.x = 0;
 			}
+		}
+
+		bool isStopedL = false;
+		hitinfo = Physics2D.BoxCast (transform.position, boxSize,0, left, rayLength,_mask.value);
+		if (hitinfo.collider == null) {
+			isStopedL = false;
+		} 
+		else {
+			isStopedL = true;
 		}
 
 		if (isStopedL) {
