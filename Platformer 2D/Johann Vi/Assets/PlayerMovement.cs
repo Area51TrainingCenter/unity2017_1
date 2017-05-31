@@ -10,7 +10,10 @@ public class PlayerMovement : MonoBehaviour {
 	private bool isCrashed;
 	private bool isGroundedRight;
 	public float rayLength = 0.6f;
-	private Animator _animator; 
+	private Animator _animator;
+	public bool NoControl = true;
+	public int NumberJumps = 0; 
+
 
 	private SpriteRenderer _spriterenderer;
 	public float jumpForce = 0.9f;
@@ -30,15 +33,22 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
+		
 		if (isGrounded){ if(Input.GetKeyDown (KeyCode.Space)){
 			_animator.SetTrigger ("attack");
 		}
 		}
-		h = Input.GetAxis ("Horizontal");
-		if (isGrounded){ 
-		if(Input.GetKeyDown (KeyCode.UpArrow)) {
-			jump = true;
-		}
+
+		if (NoControl) {
+			h = Input.GetAxis ("Horizontal");
+			if (isGrounded){ 
+				if(Input.GetKeyDown (KeyCode.UpArrow)) {
+				jump = true;
+					}
+			} 		 
+
+		} else {
+			h = 0;
 		}
 
 
@@ -54,12 +64,16 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("verticalSpeed",verticalSpeed ); 
 		_animator.SetBool ("isGrounded", isGrounded ); 
 		 
+		if (true) {
+			
+		}
 	
 	}
 
 
 
 	void FixedUpdate () {
+		//CUANDO MANIPULAS FISICA O BOX AND RAYCAST
 		//creamos un Vector3 que comienza en zero
 		Vector3 moveVector = new Vector3(0,0,0);
 
@@ -80,7 +94,7 @@ public class PlayerMovement : MonoBehaviour {
 		//Crear una variable de boxsize para poder editarla en el editor
 		boxSize = boxSize * 0.99f;		
 		//isGrounded = Physics.BoxCast (transform.position, boxSize/2, down, Quaternion.identity, rayLength);
-		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, down, rayLength,_mask);
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, down, rayLength,_mask.value);
 
 	
 		if(hitInfo.collider ==null) {  
@@ -89,20 +103,20 @@ public class PlayerMovement : MonoBehaviour {
 			isGrounded = true;
 		}
 
-		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0,up, rayLength, _mask);
-		if(hitInfo.collider ==null) {  
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0,up, rayLength, _mask.value);
+		if(hitInfo.collider == null) {  
 			isCrashed = false;
 		} else { 
 			isCrashed = true;
 		}
 
-		hitInfo = Physics2D.BoxCast (transform.position, boxSize,0, left ,  rayLength,_mask);
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize,0, left ,  rayLength,_mask.value);
 		if(hitInfo.collider ==null) {  
 			isGroundedLeft = false;
 		} else { 
 			isGroundedLeft= true;
 		}
-		hitInfo = Physics2D.BoxCast (transform.position, boxSize,0, right , rayLength,_mask);
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize,0, right , rayLength,_mask.value);
 		if(hitInfo.collider ==null) {  
 			isGroundedRight = false;
 		} else { 

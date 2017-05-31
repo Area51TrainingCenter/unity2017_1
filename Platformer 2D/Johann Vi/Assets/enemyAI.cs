@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class enemyAI : MonoBehaviour {
-	private Rigidbody _rigidbody;
+	private Rigidbody2D _rigidbody;
 	public float rayLength = 0.3f;
+	public LayerMask _mask ;
 	public float speed =  5;
 	// Use this for initialization
 	void Start () {
-		_rigidbody = GetComponent <Rigidbody> ();
+		_rigidbody = GetComponent <Rigidbody2D> ();
 	}
 
 	// Update is called once per frame
@@ -16,15 +17,17 @@ public class enemyAI : MonoBehaviour {
 
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z); 
 		boxSize = boxSize * 0.99f;
-		RaycastHit hitInfo;
-		bool hitUp = Physics.BoxCast (transform.position, boxSize/2, Vector3.up,out hitInfo, Quaternion.identity, rayLength);
-		if (hitUp) { 
+		RaycastHit2D hitInfo;
+		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0,Vector3.up, rayLength,_mask.value);
+		if (hitInfo.collider != null) { 
 			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
 				Destroy (gameObject);
 			}
 		}
-		bool hitLeft = Physics.BoxCast (transform.position, boxSize/2, Vector3.left,out hitInfo, Quaternion.identity, rayLength);
-		if (hitLeft) { 
+
+		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0,Vector3.left, rayLength,_mask.value);
+		if (hitInfo.collider != null) { 
+			Debug.Log (hitInfo.collider.name);
 			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
 				Destroy (hitInfo.collider.gameObject);
 			} else {
@@ -33,8 +36,8 @@ public class enemyAI : MonoBehaviour {
 
 
 		}
-		bool hitRight = Physics.BoxCast (transform.position, boxSize/2, Vector3.right,out hitInfo, Quaternion.identity, rayLength);
-		if (hitRight) { 
+		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0,Vector3.right, rayLength,_mask.value);
+		if (hitInfo.collider != null) { 
 			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
 				Destroy (hitInfo.collider.gameObject);
 					}	
@@ -44,5 +47,5 @@ public class enemyAI : MonoBehaviour {
 		}
 		_rigidbody.velocity = new Vector3 (speed, 0, 0);
 
-				}
+	}
 }
