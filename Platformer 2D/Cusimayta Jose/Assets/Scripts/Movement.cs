@@ -16,6 +16,9 @@ public class Movement : MonoBehaviour {
 	public LayerMask _mask;
 	private Animator _animator;
 	private SpriteRenderer _spriteRenderer;
+    public bool canControl = true;
+    public int DoubleJumps=0;
+    public bool isDoubleJump;
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
@@ -25,12 +28,25 @@ public class Movement : MonoBehaviour {
 	
 
 	void Update(){ // Update es llamada en cada frame 
-		
-		//Les pasamos los inputs a esta función
-		h = Input.GetAxis ("Horizontal"); //Detectamos las teclas para el movimiento horizontal
+        if (canControl)
+        {
+            //necesitamos leer los inputs en cada frame
+            //por eso es que lo colocamos en Update
+            //y guardamos el resultado en variables globales que 
+            //se usaran en FixedUpdate
+            //Les pasamos los inputs a esta función
+            h = Input.GetAxis("Horizontal"); //Detectamos las teclas para el movimiento horizontal
 
-		if (Input.GetKeyDown (KeyCode.Space) && isGrounded) // Detectamos la tecla de salto cuando el personaje esta en el piso
-			Jump = true; //Cambiamos el bool Jump a true, para que el personaje este apto para saltar, si no se le pone esto, el personaje saltara por si solo
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded ||  Input.GetKeyDown(KeyCode.Space) && DoubleJumps <= 1) // Detectamos la tecla de salto cuando el personaje esta en el piso
+            {
+                Jump = true; //Cambiamos el bool Jump a true, para que el personaje este apto para saltar, si no se le pone esto, el personaje saltara por si solo
+                _animator.SetTrigger("isDoubleJump"); //Activamos esta opción para saber si esta haciendo el doble salto o no 
+            }
+        }
+        else
+        {
+            h = 0;
+        }
 		//Para girar al personaje, para ello, se cambio la gravedad y sensibilidad a 10 en el input manager y en el animator se redujo al demora a 0, en al transición, para evitar el patinaje 
 		if (h < 0)	//Para saber si se mueve hacia la izquierda
 			_spriteRenderer.flipX = true;	//Cambiamos el girar en el eje X a verdadero
@@ -43,7 +59,7 @@ public class Movement : MonoBehaviour {
 
 		_animator.SetFloat ("verticalSpeed", VerticalSpeed); //Se le pasa la variable VerticalSpeed, ya sea negativo o positivo, para saber si esta saltando o cayendo
 		_animator.SetBool ("isGrounded", isGrounded); //Se le pasa el bool isGrounded, para saber si esta en tierra o no
-
+        
 		 
 		if (Input.GetMouseButtonDown (0) && isGrounded) //Detectamos el clic izquierdo del mouse
 		{
@@ -112,11 +128,21 @@ public class Movement : MonoBehaviour {
 
 		if (isGrounded) {
 			VerticalSpeed = -0.1f;
-			if (Jump) {				
+            DoubleJumps = 0;
+            isDoubleJump = false;
+			if (Jump) {
+                DoubleJumps++;
 				VerticalSpeed = JumpForce;
 				Jump = false;
 			}
 		} else {
+            if (Jump)
+            {
+                DoubleJumps++;
+                VerticalSpeed = JumpForce;
+                isDoubleJump = true;
+                Jump = false;
+            }
 			VerticalSpeed += gravity * Time.deltaTime;
 		}
 			

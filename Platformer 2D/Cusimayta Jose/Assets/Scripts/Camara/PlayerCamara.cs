@@ -19,7 +19,6 @@ public class PlayerCamara : MonoBehaviour {
 		if (player) {  //Verifica si existe el objeto o no
 			transform.position = player.transform.position + offset; //Si el objeto existe, la camara se moverá con el jugador
 		} else {
-			Debug.Log ("Murio");
 		}
 	}
 

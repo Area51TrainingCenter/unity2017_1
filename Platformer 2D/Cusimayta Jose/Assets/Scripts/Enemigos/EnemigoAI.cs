@@ -3,48 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemigoAI : MonoBehaviour {
-	public float rayLength=0.03f;
-	public float speedX = 10f;
-	private Rigidbody _rigidbody;
-	GameObject Player;
-	int h = 1;
+    public float rayLength = 0.03f;
+    public LayerMask _mask;
+    private bool _goToTheRight;
+    private Rigidbody2D _rigidbody;
+    
 	// Use this for initialization
 	void Start () {
-		_rigidbody = GetComponent<Rigidbody> ();
-		Player = GameObject.FindGameObjectWithTag ("Player");
+        _rigidbody = GetComponent<Rigidbody2D>();
 	}
 	
 
 	void FixedUpdate () {
-		Vector3 moveVector = new Vector3 (0, 0, 0);
-		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z) * 0.99f;
-		RaycastHit hitinfoUP;
-		RaycastHit hitinfoLEFT;
-		RaycastHit hitinfoRIGHT;
-		bool hitUp = Physics.BoxCast (transform.position, boxSize / 2, Vector3.up, out hitinfoUP, Quaternion.identity, rayLength);
-		bool hitLeft = Physics.BoxCast (transform.position, boxSize / 2, Vector3.left, out hitinfoLEFT, Quaternion.identity, rayLength);
-		bool hitRigth = Physics.BoxCast (transform.position, boxSize / 2, Vector3.right, out hitinfoRIGHT, Quaternion.identity, rayLength);
+        Vector3 boxSize = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        boxSize = boxSize * 0.99f;
+        RaycastHit2D hitInfo;
+        hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.up, rayLength, _mask.value);
+       
+        if (hitInfo.collider != null)
+        {
+            if (hitInfo.collider.gameObject.CompareTag("Player"))
+            {
+                Destroy(hitInfo.collider.gameObject);
+            }
+        }
 
-		if (hitUp) {
-			if (hitinfoUP.collider.gameObject.CompareTag ("Player")) {
-				Destroy (gameObject);
-			}
-		}
-		if (hitLeft) {
-			if (hitinfoLEFT.collider.gameObject.CompareTag ("Player")) {	
-				Destroy (Player.gameObject);
-			} else {
-				h = 1;
-			}
-		}
-		if (hitRigth) {
-			if (hitinfoRIGHT.collider.gameObject.CompareTag ("Player")) {
-				Destroy (Player.gameObject);
-			} else {
-				h = -1;
-			}
-		}
-		moveVector.x = h * speedX;
-		_rigidbody.velocity = moveVector;
-	}
+        hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.right, rayLength, _mask.value);
+        
+        if (hitInfo.collider != null)
+        {
+            if (hitInfo.collider.gameObject.CompareTag("Player"))
+            {
+                Destroy(hitInfo.collider.gameObject);
+            }
+            else
+            {
+                _goToTheRight = !_goToTheRight;
+            }
+        }
+
+        hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, Vector2.left, rayLength, _mask.value);
+        
+        if (hitInfo.collider != null)
+        {
+            if (hitInfo.collider.gameObject.CompareTag("Player"))
+            {
+                Destroy(hitInfo.collider.gameObject);
+            }
+            else
+            {
+                _goToTheRight = !_goToTheRight;
+            }
+        }
+
+        Vector3 moveVector = new Vector3(-5, 0, 0);
+        if (_goToTheRight)
+        {
+            moveVector *= -1;
+        }
+        _rigidbody.velocity = moveVector;
+    }
 }
