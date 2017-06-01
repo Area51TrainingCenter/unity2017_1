@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
 	public float rayLength = 0.6f;
 
 	public LayerMask _mask;
+
+	public bool canControl = true;
 	private Rigidbody2D _rigidbody;
 	private Animator _animator;
 	private SpriteRenderer _spriteRenderer;
@@ -30,17 +32,22 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update(){
-		//necesitamos leer los inputs en cada frame
-		//por eso es que lo colocamos en Update
-		//y guardamos el resultado en variables globales que 
-		//se usaran en FixedUpdate
-		h = Input.GetAxis ("Horizontal");
+		if (canControl) {
+			//necesitamos leer los inputs en cada frame
+			//por eso es que lo colocamos en Update
+			//y guardamos el resultado en variables globales que 
+			//se usaran en FixedUpdate
+			h = Input.GetAxis ("Horizontal");
 
-		//si presionas espacio pressedJump permanecera en true
-		//hasta que se aplique el salto dentro de FixedUpdate
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			pressedJump = true;	
+			//si presionas espacio pressedJump permanecera en true
+			//hasta que se aplique el salto dentro de FixedUpdate
+			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
+				pressedJump = true;	
+			}
+		} else {
+			h = 0;
 		}
+
 
 
 		if (h<0) {
@@ -56,7 +63,10 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("speed", absH);
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
-		Ataque ();
+
+		if (Input.GetMouseButtonDown(0) && isGrounded) {
+			_animator.SetTrigger ("attack");
+		}
 	}
 
 	//FixedUpdate se ejecuta cada 0.02 segundos
@@ -83,7 +93,6 @@ public class PlayerMovement : MonoBehaviour {
 			isGrounded = true;
 		}
 
-	
 
 		Vector3 up = new Vector3 (0, 1, 0);
 		bool hitUp = false;
@@ -154,14 +163,6 @@ public class PlayerMovement : MonoBehaviour {
 		//transform.Translate (moveVector*Time.deltaTime);
 		//transform.Translate (moveX * Time.deltaTime, 0, 0);
 	}
-
-	void Ataque(){
-
-		if (Input.GetKeyDown (KeyCode.F)) {
-			_animator.SetTrigger ("atack");	
-		}
-	}
-
 
 	void OnDrawGizmos(){
 		if (isGrounded) {

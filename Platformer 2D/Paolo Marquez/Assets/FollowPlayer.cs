@@ -11,7 +11,7 @@ public class FollowPlayer : MonoBehaviour {
 		//despues obtenemos el componente Transform de ese GameObject
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform>();
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
 		//calculamos el vector entre la bala y el player
