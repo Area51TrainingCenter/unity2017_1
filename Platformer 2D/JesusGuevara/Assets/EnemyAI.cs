@@ -9,13 +9,27 @@ public class EnemyAI : MonoBehaviour {
 
 	public float raylength = 0.6f;
 	private bool _goToTheRight;
+	private Health _healthScript;
 
 	public LayerMask _mask;
+
 	// Use this for initialization
+
 	void Start () {
 		_rigibody = GetComponent<Rigidbody2D> ();		
+		_healthScript = GetComponent<Health> ();
 	}
-	
+
+
+	void Update(){
+		
+		// Destruir al enemigo
+		if (_healthScript.health <= 0) {
+			Destroy (gameObject);
+		}
+
+	}
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		
@@ -24,34 +38,33 @@ public class EnemyAI : MonoBehaviour {
 		boxSize = boxSize * 0.99f;
 		RaycastHit2D hitinfo;
 
-		//bool hitUp = Physics2D.BoxCast(transform.position,boxSize,0,Vector3.up,out hitinfo ,Quaternion.identity,raylength); 
 		 hitinfo = Physics2D.BoxCast(transform.position,boxSize,0,Vector3.up,raylength,_mask.value);  
 
 		if(hitinfo.collider != null){			
-			if (hitinfo.collider.gameObject.CompareTag("Player")) {
-				Destroy(hitinfo.collider.gameObject);
+			if (hitinfo.collider.gameObject.CompareTag("Player")) {				
+				hitinfo.collider.GetComponent<Health>().health -= 20;
 			}
 		}
 
 	
-		//bool hitLeft = Physics.BoxCast(transform.position,boxSize/2,Vector3.left,out hitinfo ,Quaternion.identity,raylength); 
 		hitinfo = Physics2D.BoxCast(transform.position,boxSize,0,Vector3.left,raylength,_mask.value);  
 		if(hitinfo.collider != null ){
 
 			if (hitinfo.collider.gameObject.CompareTag("Player")) {
-				Destroy(hitinfo.collider.gameObject);
+				//Destroy(hitinfo.collider.gameObject);
+				hitinfo.collider.GetComponent<Health>().health -= 20;
 			} else {
 				speed = -speed;
 			}
 		}
 
-		//bool hitRight = Physics.BoxCast(transform.position,boxSize/2,Vector3.right,out hitinfo ,Quaternion.identity,raylength); 
 		hitinfo =  Physics2D.BoxCast(transform.position,boxSize,0,Vector3.right,raylength,_mask.value);
 		if(hitinfo.collider != null ){
 				
 		
 			if (hitinfo.collider.gameObject.CompareTag("Player")) {
-				Destroy(hitinfo.collider.gameObject);
+				//Destroy(hitinfo.collider.gameObject);
+				hitinfo.collider.GetComponent<Health>().health -= 20;
 			}else {
 				speed = -speed;
 			}

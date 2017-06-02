@@ -8,6 +8,8 @@ public class PlayerAnimationEvents : MonoBehaviour {
 	public GameObject _boxLeft;
 	public GameObject _boxright;
 
+
+
 	// Use this for initialization
 	void Start () {
 	}
@@ -26,19 +28,21 @@ public class PlayerAnimationEvents : MonoBehaviour {
 		_gameobject.GetComponent<Movimiento> ().controlPlayer = true;	
 	}
 
-	public void enabledBoxLeft(){
-
-		if (_gameobject.GetComponent<Movimiento> ()._spriteRenderer.flipX) {
-			_boxLeft.GetComponent<Collider2D> ().enabled = true;
+	public void EnableHitboxes(){
+		if (_gameobject.GetComponent<Movimiento> ()._spriteRenderer.flipX)
+		{
+			_boxLeft.GetComponent<Collider2D>().enabled = true;
 		}
-
-
+		else
+		{
+			_boxright.GetComponent<Collider2D>().enabled = true;
+		}
 	}
 
-	public void enabledBoxRight(){
-		if (_gameobject.GetComponent<Movimiento> ()._spriteRenderer.flipY) {
-			_boxLeft.GetComponent<Collider2D> ().enabled = true;
-		}
+	public void DisableHitboxes(){
+		_boxright.GetComponent<Collider2D> ().enabled = false;
+		_boxLeft.GetComponent<Collider2D> ().enabled = false;
+
 	}
 
 }
