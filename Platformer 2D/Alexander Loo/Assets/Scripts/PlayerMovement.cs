@@ -17,45 +17,28 @@ public class PlayerMovement : MonoBehaviour {
 	public bool controlPlayer;
 	private float h;
 	private bool jump;
+	public float layerTime;
+
 	public LayerMask _mask;
 	private Animator _animator;
 	public SpriteRenderer _spriteRenderer;
+
+	private Health health;
+	private float previousHealth;
 
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
 		_animator = GetComponentInChildren<Animator> ();
 		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
+		health = GetComponent<Health> ();
 	}
 
 	void Update () {
 
-		if (controlPlayer) {
-			h = Input.GetAxis ("Horizontal");
-			if (isGrounded) {
-				if (Input.GetKeyDown (KeyCode.Space)) {
-					jump = true;
-				}
-			}
-		} else {
-			h = 0;
-		}
-		if (h < 0) {
-			_spriteRenderer.flipX = true;
-		}
-		if(h > 0){
-			_spriteRenderer.flipX = false;
-		}
-		if (Input.GetMouseButtonDown (0)) {
-			if (isGrounded) {
-				//Trigger en el animator es como un boleano con la diferencia que se desactiva sola
-				_animator.SetTrigger ("attack");
-			}
-		}
-		_animator.SetFloat ("speed", Mathf.Abs (h));
-		_animator.SetFloat ("verticalSpeed", verticalSpeed);
-		_animator.SetBool ("isGrounded", isGrounded);
-
-		
+		ReceiveInputs ();
+		Hurt ();
+		ManageFlipping ();
+		ManageAnimations ();
 	}
 	//FixedUpdate se ejecuta cada 0.02 segundos
 	//Es útil para usar física
@@ -156,5 +139,55 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		Gizmos.DrawWireCube (transform.position, boxSize * 0.99f);
 		Gizmos.DrawWireCube (transform.position + (down * rayleght), boxSize * 0.99f);
+	}
+
+	void ManageAnimations(){
+
+		if (Input.GetMouseButtonDown (0) && isGrounded) {
+
+			//Trigger en el animator es como un boleano con la diferencia que se desactiva sola
+			_animator.SetTrigger ("attack");
+		}
+		_animator.SetFloat ("speed", Mathf.Abs (h));
+		_animator.SetFloat ("verticalSpeed", verticalSpeed);
+		_animator.SetBool ("isGrounded", isGrounded);
+	}
+
+	void ReceiveInputs(){
+
+		if (controlPlayer) {
+			h = Input.GetAxis ("Horizontal");
+			if (isGrounded) {
+				if (Input.GetKeyDown (KeyCode.Space)) {
+					jump = true;
+				}
+			}
+		} else {
+			h = 0;
+		}
+	}
+
+	void ManageFlipping(){
+
+		if (h < 0) {
+			_spriteRenderer.flipX = true;
+		}
+		if(h > 0){
+			_spriteRenderer.flipX = false;
+		}
+	}
+
+	void Hurt(){
+
+		if (health.health < previousHealth) {
+			//layer 10 es la capa Invulnerable
+			gameObject.layer = 10;
+			Invoke ("MakePlayerVulnerable",layerTime);
+		}
+		previousHealth = health.health;
+	}
+
+	void MakePlayerVulnerable(){
+		gameObject.layer = 8;
 	}
 }

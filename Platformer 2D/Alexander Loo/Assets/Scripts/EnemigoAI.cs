@@ -8,10 +8,20 @@ public class EnemigoAI : MonoBehaviour {
 	public float rayLenght = 0.03f;
 	public float speed;
 	public LayerMask _mask;
+	private Health health;
 
 	void Start(){
 
 		_rigidbody = GetComponent<Rigidbody2D> ();
+		health = GetComponent<Health> ();
+	}
+
+	void Update(){
+
+		if (health.health <= 0) {
+
+			Destroy (gameObject);
+		}
 	}
 
 	void FixedUpdate(){
@@ -24,14 +34,15 @@ public class EnemigoAI : MonoBehaviour {
 		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, Vector3.up, rayLenght,_mask.value);
 		if(hitInfo.collider != null){
 			if (hitInfo.collider.CompareTag ("Player")) {
-				Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health> ().health -= 20;
 			}
 		}
 		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, Vector3.left, rayLenght,_mask.value);
 		if (hitInfo.collider != null) {
 			
 			if (hitInfo.collider.CompareTag ("Player")) {
-				Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health> ().health -= 20;
+
 			} else {
 				speed = -speed;
 			}
@@ -40,7 +51,8 @@ public class EnemigoAI : MonoBehaviour {
 		if (hitInfo.collider != null) {
 			
 			if (hitInfo.collider.CompareTag ("Player")) {
-				Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health> ().health -= 20;
+
 			} else {
 				speed = -speed;
 			}
