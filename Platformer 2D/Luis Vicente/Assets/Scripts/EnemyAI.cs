@@ -9,12 +9,20 @@ public class EnemyAI : MonoBehaviour {
 	GameObject player;
 	float h  = 0;
 	public LayerMask Mascara;
+	private  Vida vida;
 	// Use this for initialization
 	void Start () {
 		_rigibody = GetComponent<Rigidbody2D> ();
 		player = GameObject.FindGameObjectWithTag ("Player");
+		vida = GetComponent <Vida> ();
 	}
-	
+
+	void Update () {
+		
+		if (vida.vidaActual <= 0) {
+			Destroy (gameObject);
+		}
+	}
 	// Update is called once per frame
 	void FixedUpdate () {
 		Vector3 MoveVector = new Vector3 (0,0,0);
@@ -28,20 +36,20 @@ public class EnemyAI : MonoBehaviour {
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.up, rayLength, Mascara.value);
 		if (hitInfo.collider != null) {
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
-				Destroy (player.gameObject);
+				hitInfo.collider.GetComponent<Vida> ().vidaActual -= 20;
 			}
 		}
 		hitInfo2 = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.right, rayLength, Mascara.value);
 		if (hitInfo.collider != null) {
 			if (hitInfo2.collider.gameObject.CompareTag ("Player")) {
-				Destroy (player.gameObject);
+				hitInfo2.collider.GetComponent<Vida> ().vidaActual -= 20;
 
 			}
 		}
 		hitInfo3 = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.left, rayLength, Mascara.value);
 		if (hitInfo3.collider != null) {
 			if (hitInfo3.collider.gameObject.CompareTag ("Player")) {
-				Destroy (player.gameObject);
+				hitInfo3.collider.GetComponent<Vida> ().vidaActual -= 20;
 			}
 		}
 		_rigibody.velocity = MoveVector;

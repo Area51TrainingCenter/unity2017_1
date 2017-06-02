@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 271826412}
   - component: {fileID: 271826413}
   - component: {fileID: 271826409}
+  - component: {fileID: 271826414}
   m_Layer: 9
   m_Name: Emenigo
   m_TagString: enemigo
@@ -330,6 +331,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &271826414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 271826407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1722a5b001055347b04cc793b757e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vidaActual: 100
+  vidaMax: 100
 --- !u!1 &341585931
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,6 +355,7 @@ GameObject:
   - component: {fileID: 341585936}
   - component: {fileID: 341585937}
   - component: {fileID: 341585933}
+  - component: {fileID: 341585932}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -348,6 +363,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &341585932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 341585931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1722a5b001055347b04cc793b757e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vidaActual: 100
+  vidaMax: 100
 --- !u!50 &341585933
 Rigidbody2D:
   serializedVersion: 4
@@ -375,7 +403,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 341585931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.37, y: 0.67, z: 0}
+  m_LocalPosition: {x: -8.509, y: 0.519, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1856456460}
@@ -400,7 +428,7 @@ MonoBehaviour:
   rayLength: 0.02
   Mascara:
     serializedVersion: 2
-    m_Bits: 4294967039
+    m_Bits: 4294965503
   canCondicion: 1
 --- !u!61 &341585937
 BoxCollider2D:
@@ -438,7 +466,7 @@ GameObject:
   - component: {fileID: 562695452}
   - component: {fileID: 562695450}
   - component: {fileID: 562695451}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,6 +624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 951727520}
   - component: {fileID: 951727521}
+  - component: {fileID: 951727522}
   m_Layer: 0
   m_Name: RightHitbox
   m_TagString: Untagged
@@ -611,7 +640,7 @@ Transform:
   m_GameObject: {fileID: 951727519}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.763, y: -0.012, z: 0}
-  m_LocalScale: {x: 0.4192617, y: 0.9575069, z: 1}
+  m_LocalScale: {x: 0.461974, y: 0.9575069, z: 1}
   m_Children: []
   m_Father: {fileID: 341585935}
   m_RootOrder: 1
@@ -622,7 +651,7 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 951727519}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -641,6 +670,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &951727522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 951727519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f6547ad60890d4d8044c9173883dcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dano: 20
 --- !u!1 &1169075208
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,6 +691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1169075209}
   - component: {fileID: 1169075210}
+  - component: {fileID: 1169075211}
   m_Layer: 0
   m_Name: LefttHitbox
   m_TagString: Untagged
@@ -664,8 +706,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1169075208}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.752, y: -0.025, z: 0}
-  m_LocalScale: {x: 0.4192617, y: 0.9575069, z: 1}
+  m_LocalPosition: {x: -0.767, y: -0.025, z: 0}
+  m_LocalScale: {x: 0.46118787, y: 0.9575069, z: 1}
   m_Children: []
   m_Father: {fileID: 341585935}
   m_RootOrder: 2
@@ -676,7 +718,7 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1169075208}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -695,6 +737,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1169075211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1169075208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f6547ad60890d4d8044c9173883dcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dano: 20
 --- !u!1 &1409518115
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +760,7 @@ GameObject:
   - component: {fileID: 1409518118}
   - component: {fileID: 1409518116}
   - component: {fileID: 1409518117}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -801,7 +855,7 @@ GameObject:
   - component: {fileID: 1422682301}
   - component: {fileID: 1422682299}
   - component: {fileID: 1422682300}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1050,7 +1104,7 @@ GameObject:
   - component: {fileID: 2085495979}
   - component: {fileID: 2085495977}
   - component: {fileID: 2085495978}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

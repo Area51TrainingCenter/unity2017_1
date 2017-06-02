@@ -19,37 +19,23 @@ public class Movimiento : MonoBehaviour {
 	float h = 0;
 	public bool canCondicion = true;
 	private int Contador = 0; 
+	private Vida _vida;
+	private float vidaPrevia;
+
 	// Use this for initialization
 	void Start () {
 		_rigibody = GetComponent <Rigidbody2D>();
 		_Animacion = GetComponentInChildren <Animator>();
 		_SpriteRenderer = GetComponentInChildren <SpriteRenderer>();
+		_vida = GetComponent <Vida> ();
 	}
 	void Update (){
-		if (canCondicion) {
-			h = Input.GetAxis ("Horizontal");
-			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
-				Salto = true;
-			} 
-		} else {
-			h = 0;
-		}
+
+		Inputs ();
+		RecibirDano ();
+		Flipping ();
+		Animaciones ();
 			
-
-		if (h < 0) {
-			_SpriteRenderer.flipX = true;
-		}
-		if (h > 0) {
-			_SpriteRenderer.flipX = false;
-		}
-		float absH = Mathf.Abs (h);
-		_Animacion.SetFloat ("Speed", absH);
-		_Animacion.SetFloat ("VerticalSpeed", VerticalSpeed);
-		_Animacion.SetBool ("isGrounded", isGrounded);
-		if (Input.GetKeyDown (KeyCode.Z) && isGrounded) {
-			_Animacion.SetTrigger ("Atacar");
-
-		}	
 
 	}
 	// Update is called once per frame
@@ -146,5 +132,50 @@ public class Movimiento : MonoBehaviour {
 			Gizmos.DrawWireCube (transform.position,boxSize);
 			Vector3 down = new Vector3 (0, -1, 0);
 			Gizmos.DrawWireCube (transform.position+ (down * rayLength),boxSize);
+	}
+
+	void Inputs (){
+		if (canCondicion) {
+			h = Input.GetAxis ("Horizontal");
+			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
+				Salto = true;
+			} 
+		} else {
+			h = 0;
+		}
+	}
+
+	void Flipping (){
+		if (h < 0) {
+			_SpriteRenderer.flipX = true;
+		}
+		if (h > 0) {
+			_SpriteRenderer.flipX = false;
+		}
+	}
+
+	void Animaciones (){
+		float absH = Mathf.Abs (h);
+		_Animacion.SetFloat ("Speed", absH);
+		_Animacion.SetFloat ("VerticalSpeed", VerticalSpeed);
+		_Animacion.SetBool ("isGrounded", isGrounded);
+		if (Input.GetKeyDown (KeyCode.Z) && isGrounded && canCondicion) {
+			_Animacion.SetTrigger ("Atacar");
+
+		}	
+	}
+	void RecibirDano (){
+		if (_vida.vidaActual < vidaPrevia) {
+			// layer 10 Es la capa inmortal 
+			gameObject.layer = 10;
+			Invoke ("RestaurarCapa", 2);
+
+		}	
+		vidaPrevia = _vida.vidaActual;
+	}
+
+	void RestaurarCapa(){
+		// La capa 8 es Jugador
+		gameObject.layer = 8;
 	}
 }
