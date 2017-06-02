@@ -166,7 +166,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			//si presionas espacio pressedJump permanecera en true
 			//hasta que se aplique el salto dentro de FixedUpdate
-			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
+			if (Input.GetKeyDown (KeyCode.Space) && isGrounded ) {
 				pressedJump = true;	
 			}
 		} else {
@@ -194,7 +194,7 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
 
-		if (Input.GetMouseButtonDown(0) && isGrounded) {
+		if (Input.GetMouseButtonDown(0) && isGrounded && canControl) {
 			_animator.SetTrigger ("attack");
 		}
 	}		

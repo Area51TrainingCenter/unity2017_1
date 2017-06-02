@@ -29,9 +29,9 @@ public class PlayerAnimationEvents : MonoBehaviour {
 
 	public void EnableHitboxes(){
 		if (_spriteRenderer.flipX) {
-			leftHitbox.GetComponent<Collider2D> ().enabled = false;
+			leftHitbox.GetComponent<Collider2D> ().enabled = true;
 		} else {
-			rightHitbox.GetComponent<Collider2D> ().enabled = false;
+			rightHitbox.GetComponent<Collider2D> ().enabled = true;
 		}
 	}
 
