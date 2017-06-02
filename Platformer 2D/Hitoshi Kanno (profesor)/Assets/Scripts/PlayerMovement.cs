@@ -12,9 +12,15 @@ public class PlayerMovement : MonoBehaviour {
 	public LayerMask _mask;
 
 	public bool canControl = true;
+
+	public float invulnerableTime = 1.5f;
+
 	private Rigidbody2D _rigidbody;
 	private Animator _animator;
 	private SpriteRenderer _spriteRenderer;
+	private Health _healthScript;
+
+	private float previousHealth;
 
 	private float verticalSpeed;
 	private bool isGrounded;
@@ -27,46 +33,20 @@ public class PlayerMovement : MonoBehaviour {
 		//en nuestra variable
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_animator = GetComponentInChildren<Animator> ();
+		_healthScript = GetComponent<Health> ();
 		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
 
 	}
 	// Update is called once per frame
 	void Update(){
-		if (canControl) {
-			//necesitamos leer los inputs en cada frame
-			//por eso es que lo colocamos en Update
-			//y guardamos el resultado en variables globales que 
-			//se usaran en FixedUpdate
-			h = Input.GetAxis ("Horizontal");
 
-			//si presionas espacio pressedJump permanecera en true
-			//hasta que se aplique el salto dentro de FixedUpdate
-			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
-				pressedJump = true;	
-			}
-		} else {
-			h = 0;
-		}
+		ReceiveInputs ();
 
+		Hurt ();
 
+		ManageFlipping ();
 
-		if (h<0) {
-			_spriteRenderer.flipX = true;
-		}
-		if (h>0) {
-			_spriteRenderer.flipX = false;	
-		}
-
-		//le pasamos el valor absoluto de h porque cuando presionas
-		//hacia la izquierda h se vuelve negativo
-		float absH = Mathf.Abs (h);
-		_animator.SetFloat ("speed", absH);
-		_animator.SetFloat ("verticalSpeed", verticalSpeed);
-		_animator.SetBool ("isGrounded", isGrounded);
-
-		if (Input.GetMouseButtonDown(0) && isGrounded) {
-			_animator.SetTrigger ("attack");
-		}
+		ManageAnimations ();
 	}
 
 	//FixedUpdate se ejecuta cada 0.02 segundos
@@ -178,5 +158,63 @@ public class PlayerMovement : MonoBehaviour {
 		Vector3 down = new Vector3 (0, -1, 0);
 		Vector3 pos = transform.position + (down * rayLength);
 		Gizmos.DrawWireCube (pos, boxSize);
+	}
+	//Controla los inputs del teclado y mouse
+	void ReceiveInputs(){
+		if (canControl) {
+			//necesitamos leer los inputs en cada frame
+			//por eso es que lo colocamos en Update
+			//y guardamos el resultado en variables globales que 
+			//se usaran en FixedUpdate
+			h = Input.GetAxis ("Horizontal");
+
+			//si presionas espacio pressedJump permanecera en true
+			//hasta que se aplique el salto dentro de FixedUpdate
+			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
+				pressedJump = true;	
+			}
+		} else {
+			h = 0;
+		}
+	}
+	//se encarga de voltear el SpriteRenderer cuando caminas hacia la izquierda o derecha
+	void ManageFlipping(){
+		if (h<0) {
+			_spriteRenderer.flipX = true;
+		}
+		if (h>0) {
+			_spriteRenderer.flipX = false;	
+		}
+	}
+	//controla los parametros del animator
+	void ManageAnimations(){
+		//le pasamos el valor absoluto de h porque cuando presionas
+		//hacia la izquierda h se vuelve negativo
+		float absH = Mathf.Abs (h);
+		_animator.SetFloat ("speed", absH);
+		_animator.SetFloat ("verticalSpeed", verticalSpeed);
+		_animator.SetBool ("isGrounded", isGrounded);
+
+		if (Input.GetMouseButtonDown(0) && isGrounded && canControl) {
+			_animator.SetTrigger ("attack");
+		}
+	}
+	//esto se encarga de cuando te hacen daño
+	void Hurt(){
+		//si la vida actual es menor a la vida que teniamos antes
+		//significa que hemos recibido daño
+		if (_healthScript.health < previousHealth) {
+			//Layer 10 es la capa Invulnerable
+			gameObject.layer = 10;
+			Invoke ("MakePlayerVulnerable", invulnerableTime);
+		}
+		//despues de hacer el if actualizamos la variable previousHealth
+		previousHealth = _healthScript.health;
+
+	}
+
+	void MakePlayerVulnerable(){
+		//Layer 8 es la capa Jugadores
+		gameObject.layer = 8;
 	}
 }

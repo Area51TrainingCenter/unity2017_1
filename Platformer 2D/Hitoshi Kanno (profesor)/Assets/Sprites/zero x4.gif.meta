@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 704e0017021763b439e13b37a80e282e
-timeCreated: 1495765391
+timeCreated: 1496371254
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -2543,7 +2543,7 @@ TextureImporter:
       name: zero x4_175
       rect:
         serializedVersion: 2
-        x: 166
+        x: 167
         y: 116
         width: 46
         height: 51

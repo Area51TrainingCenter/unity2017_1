@@ -7,11 +7,19 @@ public class EnemyAI : MonoBehaviour {
 	public LayerMask _mask;
 	private bool _goToTheRight;
 	private Rigidbody2D _rigidbody;
+	private Health _healthScript;
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
+		_healthScript = GetComponent<Health> ();
 	}
-	
+
+	void Update(){
+		if (_healthScript.health <= 0) {
+			Destroy (gameObject);
+		}
+	}
+
 	void FixedUpdate () {
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		boxSize = boxSize * 0.99f;
@@ -20,7 +28,7 @@ public class EnemyAI : MonoBehaviour {
 
 		if (hitInfo.collider != null) {
 			if (hitInfo.collider.gameObject.CompareTag("Player")) {
-				Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health> ().health -= 20;
 			}
 		}
 
@@ -28,7 +36,7 @@ public class EnemyAI : MonoBehaviour {
 
 		if (hitInfo.collider != null) {
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
-				Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health> ().health -= 20;
 			} else {
 				_goToTheRight = !_goToTheRight;
 			}
@@ -37,14 +45,14 @@ public class EnemyAI : MonoBehaviour {
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector2.left, rayLength,_mask.value);
 		if (hitInfo.collider !=null) {
 			if (hitInfo.collider.gameObject.CompareTag("Player")) {
-				Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health> ().health -= 20;
 			}
 			else {
 				_goToTheRight = !_goToTheRight;
 			}
 		}
 
-		Vector3 moveVector = new Vector3 (-5, 0, 0);
+		Vector3 moveVector = new Vector3 (-0, 0, 0);
 		if (_goToTheRight) {
 			moveVector *= -1;
 		}
