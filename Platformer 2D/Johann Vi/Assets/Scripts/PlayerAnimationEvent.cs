@@ -20,7 +20,7 @@ public class PlayerAnimationEvent : MonoBehaviour {
 	public void EnablePlayerControl(){
 		Control.GetComponent<PlayerMovement> ().NoControl = false;
 	}
-	public void DisablePlaverControl() {
+	public void DisablePlayerControl() {
 		Control.GetComponent<PlayerMovement> ().NoControl = true;
 	}
 	public void TunOnHitBox()  {

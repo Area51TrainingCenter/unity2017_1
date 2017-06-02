@@ -7,11 +7,18 @@ public class enemyAI : MonoBehaviour {
 	public float rayLength = 0.3f;
 	public LayerMask _mask ;
 	public float speed =  5;
+	private Health health;
+
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent <Rigidbody2D> ();
+		health = GetComponent<Health> ();
 	}
-
+	void Update () {
+		if (health.health <= 0) {
+			Destroy (gameObject);
+		}
+	}
 	// Update is called once per frame
 	void FixedUpdate () {
 
@@ -21,7 +28,7 @@ public class enemyAI : MonoBehaviour {
 		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0,Vector3.up, rayLength,_mask.value);
 		if (hitInfo.collider != null) { 
 			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
-				Destroy (gameObject);
+				hitInfo.collider.GetComponent<Health>().health -= -20;
 			}
 		}
 
@@ -29,7 +36,7 @@ public class enemyAI : MonoBehaviour {
 		if (hitInfo.collider != null) { 
 			Debug.Log (hitInfo.collider.name);
 			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
-				Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health>().health -= -20;
 			} else {
 				speed = speed * -1;
 			}
@@ -39,7 +46,7 @@ public class enemyAI : MonoBehaviour {
 		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0,Vector3.right, rayLength,_mask.value);
 		if (hitInfo.collider != null) { 
 			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
-				Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health>().health -= -20;
 					}	
 			else {
 				speed = speed * -1;

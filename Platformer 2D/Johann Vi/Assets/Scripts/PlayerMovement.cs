@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour {
 	private Animator _animator;
 	public bool NoControl = true;
 	public int NumberJumps = 0; 
+	private Health health;
+	private float previusHealth;
 
 
 	private SpriteRenderer _spriterenderer;
@@ -24,53 +26,23 @@ public class PlayerMovement : MonoBehaviour {
 	public bool jump;
 	// Use this for initialization
 	void Start () {
+		
 		//guardamos la referencia la componente Rigidbody 
 		//en nuestra variable
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_animator = GetComponentInChildren<Animator> ();
 		_spriterenderer = GetComponentInChildren<SpriteRenderer>();
+		health = GetComponent<Health> ();
 	}
 	
 	// Update is called once per frame
 	void Update() {
 		
-		if (isGrounded){ if(Input.GetKeyDown (KeyCode.Space)){
-			_animator.SetTrigger ("attack");
-		}
-		}
-
-		if (NoControl) {
-			h = Input.GetAxis ("Horizontal");
-			if (isGrounded){ 
-				if(Input.GetKeyDown (KeyCode.UpArrow)) {
-				jump = true;
-					}
-			} 		 
-
-		} else {
-			h = 0;
-		}
-
-
-		if(h<0){
-			_spriterenderer.flipX = true;
-		}
-		if(h>0){
-			_spriterenderer.flipX = false;
-		}
-		float absH = Mathf.Abs (h);
-		_animator.SetFloat ("speed", absH); 
-	
-		_animator.SetFloat ("verticalSpeed",verticalSpeed ); 
-		_animator.SetBool ("isGrounded", isGrounded ); 
-		 
-		if (true) {
-			
-		}
-	
+		ReceiveInputs ();
+		hurt ();
+		ManageFlipping ();
+		handleAnimations();
 	}
-
-
 
 	void FixedUpdate () {
 		//CUANDO MANIPULAS FISICA O BOX AND RAYCAST
@@ -165,7 +137,17 @@ public class PlayerMovement : MonoBehaviour {
 		_rigidbody.velocity = moveVector;
 		//transform.Translate (moveVector*Time.deltaTime);
 		//transform.Translate (moveX * Time.deltaTime, 0, 0);
+
+	
+		if (Input.GetKeyDown (KeyCode.UpArrow) && isGrounded) {
+			NumberJumps = NumberJumps + 1;
+		} 
+		if (isGrounded) {
+			NumberJumps = 0;
+		}
+
 	}
+
 	void OnDrawGizmos() {
 
 	  	if (isGrounded) {
@@ -183,5 +165,48 @@ public class PlayerMovement : MonoBehaviour {
 		Vector3 pos = transform.position + (down * rayLength);
 		Gizmos.DrawWireCube (pos, boxSize);
 
+	}
+	void RecobrarPostura(){
+		gameObject.layer = 8;
+	}
+	void ReceiveInputs(){
+		if (NoControl) {
+			h = Input.GetAxis ("Horizontal");
+			if (isGrounded){ 
+				if(Input.GetKeyDown (KeyCode.UpArrow)) {
+					jump = true;
+				}
+			} 		 
+
+		} else {
+			h = 0;
+		}
+	}
+	void ManageFlipping(){
+		if(h<0){
+			_spriterenderer.flipX = true;
+		}
+		if(h>0){
+			_spriterenderer.flipX = false;
+		}
+	}
+	void handleAnimations() {
+		if (isGrounded){ if(Input.GetKeyDown (KeyCode.Space)){
+				_animator.SetTrigger ("attack");
+			}
+		}
+
+		float absH = Mathf.Abs (h);
+		_animator.SetFloat ("speed", absH); 
+
+		_animator.SetFloat ("verticalSpeed",verticalSpeed ); 
+		_animator.SetBool ("isGrounded", isGrounded );
+	}
+	void hurt(){
+		if (health.health > previusHealth) {
+			gameObject.layer = 10;
+			Invoke ("RecobrarPostura", 1);
+		}
+		previusHealth = health.health;
 	}
 }
