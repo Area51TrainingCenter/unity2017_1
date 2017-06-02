@@ -216,13 +216,14 @@ GameObject:
   - component: {fileID: 443211593}
   - component: {fileID: 443211598}
   - component: {fileID: 443211595}
+  - component: {fileID: 443211599}
   m_Layer: 9
   m_Name: Enemigo
-  m_TagString: Untagged
+  m_TagString: enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &443211593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +320,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -335,6 +336,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &443211599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 443211592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dcdc890d9ac05c498b1068b14d5313a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healht: 100
+  maxHealht: 100
 --- !u!1 &722777927
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +358,7 @@ GameObject:
   m_Component:
   - component: {fileID: 722777928}
   - component: {fileID: 722777929}
+  - component: {fileID: 722777930}
   m_Layer: 8
   m_Name: left hitbox
   m_TagString: Untagged
@@ -389,6 +404,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &722777930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 722777927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6215b18f904623249ba38b489cf0c508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
 --- !u!1 &821582684
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +799,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1071429792}
   - component: {fileID: 1071429793}
+  - component: {fileID: 1071429794}
   m_Layer: 8
   m_Name: right hitbox
   m_TagString: Untagged
@@ -817,6 +845,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1071429794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1071429791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6215b18f904623249ba38b489cf0c508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
 --- !u!1001 &1177062588
 Prefab:
   m_ObjectHideFlags: 0
@@ -858,7 +898,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1699214652275660, guid: fbe3c2239ca9cb547970d1c19089e2be, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fbe3c2239ca9cb547970d1c19089e2be, type: 2}
@@ -874,6 +914,7 @@ GameObject:
   - component: {fileID: 1227050600}
   - component: {fileID: 1227050597}
   - component: {fileID: 1227050595}
+  - component: {fileID: 1227050596}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -900,6 +941,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   canControl: 1
+--- !u!114 &1227050596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1227050594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dcdc890d9ac05c498b1068b14d5313a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healht: 100
+  maxHealht: 100
 --- !u!50 &1227050597
 Rigidbody2D:
   serializedVersion: 4

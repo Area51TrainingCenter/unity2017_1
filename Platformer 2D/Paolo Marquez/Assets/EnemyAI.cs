@@ -7,9 +7,19 @@ public class EnemyAI : MonoBehaviour {
 	public LayerMask _mask;
 	private bool _goToTheRight;
 	private Rigidbody2D _rigidbody;
+	private Health health;
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
+		health = GetComponent<Health> ();
+	}
+
+	void Update(){
+		//destruir al enemigo
+		float saludEnemigo=health.healht;
+		if(saludEnemigo<=0){
+			Destroy (gameObject);
+		}	
 	}
 	
 	void FixedUpdate () {
@@ -44,7 +54,7 @@ public class EnemyAI : MonoBehaviour {
 			}
 		}
 
-		Vector3 moveVector = new Vector3 (-5, 0, 0);
+		Vector3 moveVector = new Vector3 (0, 0, 0);
 		if (_goToTheRight) {
 			moveVector *= -1;
 		}
