@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
 	public float rayLength = 0.6f;
 
 	public LayerMask _mask;
+	private Health salud;
+	private float previousHealth;
 
 	public bool canControl = true;
 	private Rigidbody2D _rigidbody;
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private float h;
 	private bool pressedJump;
+	public bool dash;
 	// Use this for initialization
 	void Start () {
 		//guardamos la referencia la componente Rigidbody 
@@ -28,45 +31,16 @@ public class PlayerMovement : MonoBehaviour {
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_animator = GetComponentInChildren<Animator> ();
 		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
+		salud = GetComponent<Health> ();
 
 	}
 	// Update is called once per frame
 	void Update(){
-		if (canControl) {
-			//necesitamos leer los inputs en cada frame
-			//por eso es que lo colocamos en Update
-			//y guardamos el resultado en variables globales que 
-			//se usaran en FixedUpdate
-			h = Input.GetAxis ("Horizontal");
+		ManageInputs ();
+		Hurt ();
+		ManageFliping ();
+		ManageAnimations() ;
 
-			//si presionas espacio pressedJump permanecera en true
-			//hasta que se aplique el salto dentro de FixedUpdate
-			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
-				pressedJump = true;	
-			}
-		} else {
-			h = 0;
-		}
-
-
-
-		if (h<0) {
-			_spriteRenderer.flipX = true;
-		}
-		if (h>0) {
-			_spriteRenderer.flipX = false;	
-		}
-
-		//le pasamos el valor absoluto de h porque cuando presionas
-		//hacia la izquierda h se vuelve negativo
-		float absH = Mathf.Abs (h);
-		_animator.SetFloat ("speed", absH);
-		_animator.SetFloat ("verticalSpeed", verticalSpeed);
-		_animator.SetBool ("isGrounded", isGrounded);
-
-		if (Input.GetMouseButtonDown(0) && isGrounded) {
-			_animator.SetTrigger ("attack");
-		}
 	}
 
 	//FixedUpdate se ejecuta cada 0.02 segundos
@@ -149,6 +123,10 @@ public class PlayerMovement : MonoBehaviour {
 
 		} else {
 			//la gravedad se va aplicando al verticalSpeed
+			if (dash) {
+				transform.Translate (new Vector3 (transform.position.x -1, transform.position.y, 0));
+				dash = false;
+			}
 			verticalSpeed += gravity * Time.deltaTime;
 		}
 
@@ -162,6 +140,70 @@ public class PlayerMovement : MonoBehaviour {
 		_rigidbody.velocity = moveVector;
 		//transform.Translate (moveVector*Time.deltaTime);
 		//transform.Translate (moveX * Time.deltaTime, 0, 0);
+	}
+
+	//gestiona los inputs 
+	void ManageInputs(){
+		if (canControl) {
+			//necesitamos leer los inputs en cada frame
+			//por eso es que lo colocamos en Update
+			//y guardamos el resultado en variables globales que 
+			//se usaran en FixedUpdate
+			h = Input.GetAxis ("Horizontal");
+
+			//si presionas espacio pressedJump permanecera en true
+			//hasta que se aplique el salto dentro de FixedUpdate
+			if (Input.GetKeyDown (KeyCode.Space) ) {
+				pressedJump = true;	
+			}
+			if (Input.GetKeyDown (KeyCode.LeftShift) && isGrounded==false) {
+				dash = true;	
+			}
+		} else {
+			h = 0;
+		}
+
+	}
+
+	//se encarga del flipeo del SpriteRenderer
+	void ManageFliping () {
+		if (h<0) {
+			_spriteRenderer.flipX = true;
+		}
+		if (h>0) {
+			_spriteRenderer.flipX = false;	
+		}
+
+	}
+	//controla los parametros del animator
+	void ManageAnimations() {
+		
+		//le pasamos el valor absoluto de h porque cuando presionas
+		//hacia la izquierda h se vuelve negativo
+		float absH = Mathf.Abs (h);
+		_animator.SetFloat ("speed", absH);
+		_animator.SetFloat ("verticalSpeed", verticalSpeed);
+		_animator.SetBool ("isGrounded", isGrounded);
+
+		if (Input.GetMouseButtonDown(0) && isGrounded) {
+			_animator.SetTrigger ("attack");
+		}
+	}
+
+	//esto se encarga de cuando te hacen daño
+	void Hurt () {
+		//si la vida actual es menor a la vidaque teniamos antes significa que hemos recibido daño
+		if (salud.healht<previousHealth) {
+			//Layer para ser invulnerable
+			gameObject.layer=10;
+			Invoke ("restaurarCapa", 2);
+		}
+		previousHealth = salud.healht;
+	}
+
+
+	void restaurarCapa () {
+		gameObject.layer = 8;
 	}
 
 	void OnDrawGizmos(){
