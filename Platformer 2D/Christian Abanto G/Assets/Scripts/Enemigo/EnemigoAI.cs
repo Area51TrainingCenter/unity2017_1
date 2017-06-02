@@ -10,13 +10,18 @@ public class EnemigoAI : MonoBehaviour {
 
 	public LayerMask _layerMask;
 
+	private Health _currentHealth;
+
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
+		_currentHealth = GetComponent<Health> ();
 	}
 
-	void Update(){
-		
+	void Update(){ 
+		if (_currentHealth.health <= 0 ) {
+			Destroy (gameObject);
+		}		
 	}
 	
 	// Update is called once per frame
@@ -34,7 +39,8 @@ public class EnemigoAI : MonoBehaviour {
 			// verificamos si la colision fue realizada con el player
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
 				//Destroy (gameObject);
-				Destroy (hitInfo.collider.gameObject);
+				//Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health>().health -= 20;
 			}
 		}
 		// COLISION POR DERECHA
@@ -43,7 +49,8 @@ public class EnemigoAI : MonoBehaviour {
 		if ( hitInfo.collider != null ) {
 			// verificamos si la colision fue realizada con el player
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
-				Destroy (hitInfo.collider.gameObject);
+				//Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health>().health -= 20;
 			}
 
 		}
@@ -53,7 +60,8 @@ public class EnemigoAI : MonoBehaviour {
 		if ( hitInfo.collider != null  ) {
 			// verificamos si la colision fue realizada con el player
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
-				Destroy (hitInfo.collider.gameObject);
+				//Destroy (hitInfo.collider.gameObject);
+				hitInfo.collider.GetComponent<Health>().health -= 20;
 			}
 		}
 

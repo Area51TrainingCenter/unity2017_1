@@ -16,7 +16,6 @@ public class Movement : MonoBehaviour {
 	public float jumpForce;
 
 	private bool isGrounded = false;
-
 	public bool canControl;
 
 
@@ -31,57 +30,27 @@ public class Movement : MonoBehaviour {
 	// sprite rendered
 	private SpriteRenderer _spriterender;
 
+
+	private Health _currentHealth;
+	private float previousHealth;
+
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
 		_animator = GetComponentInChildren<Animator> ();
 		_spriterender = GetComponentInChildren<SpriteRenderer> ();
+		_currentHealth = GetComponent<Health> ();
 	}
 
 	void Update(){
 
-		// verificar si puede 
-		if (canControl) {
-			// update, usarlo mas para capturar entradas de input
-			// se ejecuta cada frame
-
-			h = Input.GetAxis ("Horizontal");
-			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
-				// si detecta entrada de input, le asignamos true permanentemente
-				pressedJump = true; 
-				// luego en FixedUpdate aplicamos el salto y resetamos ( ir a code: $RESET pressedJump)
-			}
-		} else {
-			h = 0;
-		}
-
-
-		// manipular cambio de estado -> animator
-			// para caminar ( walk )
-			float absH = Mathf.Abs(h); // sacamos el valor absoluto, osea siempre positivo
-			_animator.SetFloat( "speed", absH );
-
-			if ( h < 0) {
-				_spriterender.flipX = true;
-			} 
-			if (h > 0) {
-				_spriterender.flipX = false;
-			}
-
-
-			// para saltar y caer
-			_animator.SetFloat ("verticalSpeed", VerticalSpeed);
-			_animator.SetBool ("isGrounded", isGrounded);
-
-			if (Input.GetKeyDown (KeyCode.E) && isGrounded == true ) {
-				_animator.SetTrigger ("isAttack");
-			}
-
-
-
-			
+		ReceiveInputs ();
+		Hurt ();
+		ManageFlipping();
+		ManageAnimations ();			
 
 	}
+
 
 	void FixedUpdate () {
 		// FixedUpdate, usarlo mas al trabajar con Rigidbody y Physics
@@ -147,7 +116,7 @@ public class Movement : MonoBehaviour {
 		if (hitLeft) {
 			if (h < 0) {
 				moveVector.x = 0;
-			}			
+			}
 		}
 		/***********************/
 
@@ -223,4 +192,70 @@ public class Movement : MonoBehaviour {
 		Vector3 posUp = transform.position + down * RayLenght;
 		Gizmos.DrawWireCube(posDown, boxSize);
 	}
+
+
+	// ////////////////////////////////////////////////////////>
+
+	// Controla los inputs del teclado y mouse
+	void ReceiveInputs(){
+		// verificar si puede 
+		if (canControl) {
+			// update, usarlo mas para capturar entradas de input
+			// se ejecuta cada frame
+
+			h = Input.GetAxis ("Horizontal");
+			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
+				// si detecta entrada de input, le asignamos true permanentemente
+				pressedJump = true; 
+				// luego en FixedUpdate aplicamos el salto y resetamos ( ir a code: $RESET pressedJump)
+			}
+		} else {
+			h = 0;
+		}
+	}
+
+	// Controla los parametros del Animator
+	void ManageAnimations(){
+		// para saltar y caer
+		_animator.SetFloat ("verticalSpeed", VerticalSpeed);
+		_animator.SetBool ("isGrounded", isGrounded);
+
+		if (Input.GetKeyDown (KeyCode.E) && isGrounded && canControl) {
+			_animator.SetTrigger ("isAttack");
+		}
+	}
+
+	// se encarga de voltear spriteRenderer ( Cuando caminas izq y der )
+	void ManageFlipping(){
+		// manipular cambio de estado -> animator
+		// para caminar ( walk )
+		float absH = Mathf.Abs(h); // sacamos el valor absoluto, osea siempre positivo
+		_animator.SetFloat( "speed", absH );
+
+		if ( h < 0) {
+			_spriterender.flipX = true;
+		} 
+		if (h > 0) {
+			_spriterender.flipX = false;
+		}
+
+	}
+
+	// esto se encarga de cuando te hacen daño
+	void Hurt(){
+		/// si la vida actual es menor a la vida que teniamos antes
+		/// significa que hemos recibido daño
+		if ( _currentHealth.health < previousHealth) {
+			// Layer 10 es la capa Invulnerable
+			gameObject.layer = 10;
+			Invoke ("layerPlayer", 1);
+		}
+		// despues de hacer el if actualizamos la variable previousHealth
+		previousHealth = _currentHealth.health;
+	}
+
+	void layerPlayer(){
+		gameObject.layer = 8;
+	}
+
 }
