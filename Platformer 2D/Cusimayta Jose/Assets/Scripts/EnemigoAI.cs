@@ -7,12 +7,20 @@ public class EnemigoAI : MonoBehaviour {
     public LayerMask _mask;
     private bool _goToTheRight;
     private Rigidbody2D _rigidbody;
-    
+    private Health _healthScript;
 	// Use this for initialization
 	void Start () {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _healthScript = GetComponent<Health>();
 	}
-	
+
+    void Update()
+    {
+        if (_healthScript.health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 	void FixedUpdate () {
         Vector3 boxSize = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);

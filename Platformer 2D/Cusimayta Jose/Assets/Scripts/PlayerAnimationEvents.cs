@@ -2,30 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimationEvents : MonoBehaviour {
+public class PlayerAnimationEvents : MonoBehaviour
+{
 
     public GameObject playerObject;
     public GameObject rightHitbox;
     public GameObject leftHitbox;
     private SpriteRenderer _spriteRenderer;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
     public void EnablePlayerControl()
     {
-        playerObject.GetComponent<Movement>().canControl = true;
+        playerObject.GetComponent<PlayerMovement>().canControl = true;
     }
 
     public void DisablePlayerControl()
     {
-        playerObject.GetComponent<Movement>().canControl = false;
+        playerObject.GetComponent<PlayerMovement>().canControl = false;
     }
 
     public void EnableHitboxes()
