@@ -32,6 +32,7 @@ public class EnemigoAI : MonoBehaviour {
 
 		RaycastHit2D hitInfo; // este obtiene un detalle del objeto
 
+		/*
 		// COLISION POR ARRIBA
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.up, RayLenght, _layerMask.value);
 		// evaluamos si toco por arriba
@@ -40,9 +41,10 @@ public class EnemigoAI : MonoBehaviour {
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
 				//Destroy (gameObject);
 				//Destroy (hitInfo.collider.gameObject);
-				hitInfo.collider.GetComponent<Health>().health -= 20;
+				hitInfo.collider.GetComponent<Health>().changeHealth( 20 );
 			}
 		}
+		*/
 		// COLISION POR DERECHA
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.right, RayLenght, _layerMask.value);
 		// evaluamos si toco por arriba
@@ -50,7 +52,7 @@ public class EnemigoAI : MonoBehaviour {
 			// verificamos si la colision fue realizada con el player
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
 				//Destroy (hitInfo.collider.gameObject);
-				hitInfo.collider.GetComponent<Health>().health -= 20;
+				//hitInfo.collider.GetComponent<Health>().changeHealth( 20 );
 			}
 
 		}
@@ -61,7 +63,7 @@ public class EnemigoAI : MonoBehaviour {
 			// verificamos si la colision fue realizada con el player
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
 				//Destroy (hitInfo.collider.gameObject);
-				hitInfo.collider.GetComponent<Health>().health -= 20;
+				//hitInfo.collider.GetComponent<Health>().changeHealth( 20 );
 			}
 		}
 

@@ -17,6 +17,8 @@ public class Movement : MonoBehaviour {
 
 	private bool isGrounded = false;
 	public bool canControl;
+	private float knockBack;
+	private float targetAlpha;
 
 
 
@@ -46,11 +48,14 @@ public class Movement : MonoBehaviour {
 
 		ReceiveInputs ();
 		Hurt ();
+		HandleKnockBack ();
 		ManageFlipping();
-		ManageAnimations ();			
+		ManageAnimations ();		
+		ManageBlinking ();
 
 	}
 
+	// ////////////////////////////////////////////////////////>
 
 	void FixedUpdate () {
 		// FixedUpdate, usarlo mas al trabajar con Rigidbody y Physics
@@ -58,7 +63,16 @@ public class Movement : MonoBehaviour {
 
 
 		Vector3 moveVector = new Vector3 (0, 0, 0);
-		moveVector.x = h * speedX;
+
+		// el knockback es el empuje que se la hace al player cuando recibre danio
+		if (knockBack > 0) {
+			// simplemente igualamos al knockback
+			moveVector.x = -knockBack;
+		} else {
+			// esto se hace en el estado normal ... mover el player con el input de h
+			moveVector.x = h * speedX;
+		}
+
 
 
 
@@ -192,8 +206,7 @@ public class Movement : MonoBehaviour {
 		Vector3 posUp = transform.position + down * RayLenght;
 		Gizmos.DrawWireCube(posDown, boxSize);
 	}
-
-
+		
 	// ////////////////////////////////////////////////////////>
 
 	// Controla los inputs del teclado y mouse
@@ -223,6 +236,13 @@ public class Movement : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.E) && isGrounded && canControl) {
 			_animator.SetTrigger ("isAttack");
 		}
+
+		if (knockBack > 0) {
+			_animator.SetBool ("isHurt", true);
+		} else {
+			_animator.SetBool ("isHurt", false);
+		}
+
 	}
 
 	// se encarga de voltear spriteRenderer ( Cuando caminas izq y der )
@@ -248,6 +268,13 @@ public class Movement : MonoBehaviour {
 		if ( _currentHealth.health < previousHealth) {
 			// Layer 10 es la capa Invulnerable
 			gameObject.layer = 10;
+			// pierdes el control del personaje
+			canControl = false;
+			// le indicamos cuando valdra knockback
+			knockBack = 3;
+			// bloqueamos temporalmente la elevacion
+			VerticalSpeed = 2;
+			// invocamos para restaurar layer normal
 			Invoke ("layerPlayer", 1);
 		}
 		// despues de hacer el if actualizamos la variable previousHealth
@@ -257,5 +284,33 @@ public class Movement : MonoBehaviour {
 	void layerPlayer(){
 		gameObject.layer = 8;
 	}
+
+	void HandleKnockBack () {
+		if (knockBack > 0) {
+			knockBack -= Time.deltaTime * 2.5f;
+
+			if (knockBack <= 0) {
+				canControl = true;
+			}
+		}
+	}
+
+	// se encarga de parpadear el sprite de zero mientras eres invulnerable
+	void ManageBlinking (){
+		if (gameObject.layer == 10) {
+			Color newColor = _spriterender.color;
+			// hacer cambios graduales en el canal alpha
+			newColor.a = Mathf.Lerp( newColor.a, targetAlpha, Time.deltaTime*30 );
+			// aqui permutamos el valor 0 ó 1
+			if (newColor.a < 0.05f) { targetAlpha = 1; } 
+			if (newColor.a > 0.95f) { targetAlpha = 0; }
+			// lo asignamos al _spriteRendered
+			_spriterender.color = newColor;
+		} else {
+			Color newColor = _spriterender.color;
+			newColor.a = 1;
+			_spriterender.color = newColor;
+		}
+	} 
 
 }

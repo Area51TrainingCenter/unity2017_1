@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour {
 	public float danio = 20;
+	public string targetTag = "enemigo";
 
 	// Use this for initialization
 	void Start () {
@@ -16,8 +17,8 @@ public class Damage : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D( Collider2D other ){
-		if (other.CompareTag("enemigo")) {
-			other.GetComponent<Health>().health -= danio; 
+		if (other.CompareTag(targetTag)) {
+			other.GetComponent<Health>().changeHealth( danio ); 
 		}
 	}
 }
