@@ -12,9 +12,12 @@ public class PlayerMovement : MonoBehaviour {
 	public float rayLength = 0.6f;
 	private Animator _animator;
 	public bool NoControl = true;
-	public int NumberJumps = 0; 
+	public int Jumps = 0; 
+	public bool isDoubleJump;
 	private Health health;
 	private float previusHealth;
+	private float knockback;
+	private float targetAlpha;
 
 
 	private SpriteRenderer _spriterenderer;
@@ -39,17 +42,23 @@ public class PlayerMovement : MonoBehaviour {
 	void Update() {
 		
 		ReceiveInputs ();
+		handleKnockback ();
 		hurt ();
 		ManageFlipping ();
+		ManageBlinking ();
 		handleAnimations();
+
 	}
 
 	void FixedUpdate () {
 		//CUANDO MANIPULAS FISICA O BOX AND RAYCAST
 		//creamos un Vector3 que comienza en zero
 		Vector3 moveVector = new Vector3(0,0,0);
-
+		if (knockback > 0) {
+			moveVector.x = -knockback; 
+		} else {
 		moveVector.x = h*speedX;
+		}
 
 		RaycastHit2D hitInfo;
 
@@ -114,20 +123,24 @@ public class PlayerMovement : MonoBehaviour {
 			//asegurarnos que el player toque el piso
 			//y no impida el movernos de lado a lado
 			verticalSpeed = -0.1f;
+			Jumps = 0;
+			isDoubleJump = false;
 			if (jump) {
+				Jumps++;
 				verticalSpeed = jumpForce;
 				jump = false;
+			} 
+
+		} else {
+			if (jump) {
+				Jumps++;
+				verticalSpeed = jumpForce;
+				isDoubleJump = true;
+				jump = false;
 			}
-
-		} 
-			
-
-		else {
 			//la gravedad se va aplicando al verticalSpeed
 			verticalSpeed += gravity * Time.deltaTime;
 		}
-
-
 		moveVector += new Vector3 (0, verticalSpeed, 0);
 
 		//en lugar de pasarle los 3 numeros por separado
@@ -137,15 +150,6 @@ public class PlayerMovement : MonoBehaviour {
 		_rigidbody.velocity = moveVector;
 		//transform.Translate (moveVector*Time.deltaTime);
 		//transform.Translate (moveX * Time.deltaTime, 0, 0);
-
-	
-		if (Input.GetKeyDown (KeyCode.UpArrow) && isGrounded) {
-			NumberJumps = NumberJumps + 1;
-		} 
-		if (isGrounded) {
-			NumberJumps = 0;
-		}
-
 	}
 
 	void OnDrawGizmos() {
@@ -172,11 +176,11 @@ public class PlayerMovement : MonoBehaviour {
 	void ReceiveInputs(){
 		if (NoControl) {
 			h = Input.GetAxis ("Horizontal");
-			if (isGrounded){ 
-				if(Input.GetKeyDown (KeyCode.UpArrow)) {
+
+				if(Input.GetKeyDown (KeyCode.UpArrow) && isGrounded ||Input.GetKeyDown (KeyCode.UpArrow) && Jumps <= 1 ) {
 					jump = true;
 				}
-			} 		 
+			 		 
 
 		} else {
 			h = 0;
@@ -198,15 +202,51 @@ public class PlayerMovement : MonoBehaviour {
 
 		float absH = Mathf.Abs (h);
 		_animator.SetFloat ("speed", absH); 
-
 		_animator.SetFloat ("verticalSpeed",verticalSpeed ); 
 		_animator.SetBool ("isGrounded", isGrounded );
+		if (knockback > 0) {
+			_animator.SetBool ("hurt", true);
+		} else {
+			_animator.SetBool ("hurt", false);
+		}
 	}
 	void hurt(){
-		if (health.health > previusHealth) {
+		if (health.health < previusHealth) {
 			gameObject.layer = 10;
 			Invoke ("RecobrarPostura", 1);
+			NoControl = false;
+			knockback = 2;
+			verticalSpeed = -1f;
 		}
+
 		previusHealth = health.health;
+		if (health.health == 0) {
+		Destroy (gameObject);
+		}
 	}
+	void handleKnockback () {
+		if (knockback > 0) {
+			knockback -= Time.deltaTime * 3f;
+		}
+		if (knockback <= 0) {
+			NoControl = true;
+		}
+	}
+	void	ManageBlinking() {
+		if (gameObject.layer == 10 ) {
+			Color newColor = _spriterenderer.color;
+			newColor.a = Mathf.Lerp (newColor.a, targetAlpha, Time.deltaTime * 20);
+			if (newColor.a <= 0.05) {
+				targetAlpha = 1;
+			}
+			if (newColor.a >= 0.95) {
+				targetAlpha = 0;
+			}
+			_spriterenderer.color = newColor;
+		} else {
+			Color newColor = _spriterenderer.color;
+			newColor.a= 1;
+			_spriterenderer.color = newColor;
+		}
+	} 
 }

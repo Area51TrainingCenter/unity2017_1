@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour {
 	public float damage = 20;
+	public string targetTag = "enemigo";
 	// Use this for initialization
 	void Start () {
 		
 	}
 	void OnTriggerEnter2D(Collider2D other){
-		if (other.CompareTag("enemigo")) {
-			other.GetComponent<Health> ().health -= damage;
+		if (other.CompareTag(targetTag)) {
+			other.GetComponent<Health> ().Changehealth(damage);
 		}
 	}
 	// Update is called once per frame

@@ -26,27 +26,26 @@ public class enemyAI : MonoBehaviour {
 		boxSize = boxSize * 0.99f;
 		RaycastHit2D hitInfo;
 		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0,Vector3.up, rayLength,_mask.value);
-		if (hitInfo.collider != null) { 
-			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
-				hitInfo.collider.GetComponent<Health>().health -= -20;
-			}
-		}
+		//if (hitInfo.collider != null) { 
+		//	if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
+		//		hitInfo.collider.GetComponent<Health>().Changehealth(20);
+		//	}
+		//}
 
 		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0,Vector3.left, rayLength,_mask.value);
 		if (hitInfo.collider != null) { 
 			Debug.Log (hitInfo.collider.name);
 			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
-				hitInfo.collider.GetComponent<Health>().health -= -20;
+			//	hitInfo.collider.GetComponent<Health>().Changehealth(20);
 			} else {
 				speed = speed * -1;
 			}
-
 
 		}
 		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0,Vector3.right, rayLength,_mask.value);
 		if (hitInfo.collider != null) { 
 			if(hitInfo.collider.gameObject.CompareTag("Player")) 	{
-				hitInfo.collider.GetComponent<Health>().health -= -20;
+			//	hitInfo.collider.GetComponent<Health>().Changehealth(20);
 					}	
 			else {
 				speed = speed * -1;

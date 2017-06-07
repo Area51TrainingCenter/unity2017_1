@@ -11,7 +11,14 @@ public class Health : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	public void Changehealth (float damage) {
+		health -= damage;
+		if (health > maxHealth) {
+			health = maxHealth;
+		}  
+		if (health < 0 ) {
+			health = 0;
+		}
+			
 	}
 }
