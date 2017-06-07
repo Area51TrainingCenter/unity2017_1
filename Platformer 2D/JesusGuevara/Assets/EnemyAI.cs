@@ -40,11 +40,11 @@ public class EnemyAI : MonoBehaviour {
 
 		 hitinfo = Physics2D.BoxCast(transform.position,boxSize,0,Vector3.up,raylength,_mask.value);  
 
-		if(hitinfo.collider != null){			
+		/*if(hitinfo.collider != null){			
 			if (hitinfo.collider.gameObject.CompareTag("Player")) {				
-				hitinfo.collider.GetComponent<Health>().health -= 20;
+				hitinfo.collider.GetComponent<Health>().ChangeHealth(20) ;
 			}
-		}
+		}*/
 
 	
 		hitinfo = Physics2D.BoxCast(transform.position,boxSize,0,Vector3.left,raylength,_mask.value);  
@@ -52,7 +52,7 @@ public class EnemyAI : MonoBehaviour {
 
 			if (hitinfo.collider.gameObject.CompareTag("Player")) {
 				//Destroy(hitinfo.collider.gameObject);
-				hitinfo.collider.GetComponent<Health>().health -= 20;
+				//hitinfo.collider.GetComponent<Health>().ChangeHealth(20);
 			} else {
 				speed = -speed;
 			}
@@ -64,7 +64,7 @@ public class EnemyAI : MonoBehaviour {
 		
 			if (hitinfo.collider.gameObject.CompareTag("Player")) {
 				//Destroy(hitinfo.collider.gameObject);
-				hitinfo.collider.GetComponent<Health>().health -= 20;
+				//hitinfo.collider.GetComponent<Health>().ChangeHealth(20);
 			}else {
 				speed = -speed;
 			}
@@ -72,7 +72,6 @@ public class EnemyAI : MonoBehaviour {
 
 
 		_rigibody.velocity = new Vector3 (speed, 0, 0);
-
 
 	}
 

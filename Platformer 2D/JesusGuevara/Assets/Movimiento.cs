@@ -29,6 +29,11 @@ public class Movimiento : MonoBehaviour {
 	public LayerMask _mask;
 
 	public bool controlPlayer = true;
+	public float invulnerableTime = 1.5f;
+
+	private float knockback;
+	private float targetAlpha; 
+
 	// Use this for initialization
 	void Start () {
 		// Guardamos la referencia la componente RigiBody
@@ -42,14 +47,11 @@ public class Movimiento : MonoBehaviour {
 	void Update () {
 
 		ReceiveInputs ();
-	
+		HandleKnockback ();
 		Hurt ();
-
-		ManageFlipping ();
-
-	
+		ManageFlipping ();	
 		ManageAnimation ();
-
+		ManageDlinking ();		
 	}
 
 
@@ -58,7 +60,16 @@ public class Movimiento : MonoBehaviour {
 	void FixedUpdate() {
 		
 		Vector3 moveVector = new Vector3(0,0,0);
-		moveVector.x = h * speedX;	
+
+		// el knockback es el empuje envie que se le hace al player cuando recibe daño
+		// en el update se reduce gradualmente el knockback hasta que sea cero o menos
+		if(knockback > 0){
+			moveVector.x = -knockback;
+		}else{
+			// esto se hace en el estado normal.. mover el player con el input de h
+			moveVector.x = h * speedX;			
+		}
+	
 
 		Vector3 down   = new Vector3(0,-1,0);// direccion hacia abajo
 		Vector3 up     = new Vector3(0,1,0);// direccion hacia arriba
@@ -203,6 +214,34 @@ public class Movimiento : MonoBehaviour {
 			
 	}
 
+	// se encarga de 
+	void ManageDlinking (){
+
+		if (gameObject.layer == 10) {
+
+			Color newColor = _spriteRenderer.color;
+			newColor.a = Mathf.Lerp (newColor.a, targetAlpha, Time.deltaTime * 20);
+
+			if (newColor.a < 0.05f) {
+				targetAlpha = 1;
+			}
+
+			if (newColor.a > 0.95f) {
+				targetAlpha = 0;
+			}
+				
+			_spriteRenderer.color = newColor;
+
+		}else{
+
+			Color newColor = _spriteRenderer.color;
+			newColor.a = 1;
+			_spriteRenderer.color = newColor;
+		}
+
+
+	}
+
 	// controla los parametros del anterior 
 	void ManageAnimation(){
 		
@@ -217,6 +256,25 @@ public class Movimiento : MonoBehaviour {
 			_animator.SetTrigger ("isAttack");
 		}
 
+
+		if (knockback > 0) {			
+			_animator.SetBool ("hurt", true);
+		}else{
+			_animator.SetBool ("hurt", false);
+		}
+			
+	}
+
+
+	void HandleKnockback (){
+		
+		if(knockback > 0){
+			knockback -= Time.deltaTime * 2.5f; 	
+			if(knockback <= 0){
+				controlPlayer = true;
+			}
+		}
+
 	}
 
 	// esto se encarga de cuando te hacen daño
@@ -225,10 +283,15 @@ public class Movimiento : MonoBehaviour {
 		// vida..... 
 		// si la vida actual es menor a la vida que teniamos antes 
 		// significa que hemos recibido daño 
-		if (_healthScript.health <previousHealth) {
+		if (_healthScript.health < previousHealth) {
 			// 
 			gameObject.layer = 10; 
-			Invoke ("restorePlayer", 1);
+			// pierdes el control del personaje
+			controlPlayer = false;
+			knockback = 3;
+			verticalSpeed = 1;// salto
+
+			Invoke ("restorePlayer", invulnerableTime);
 		}
 		//  despues de hacer el if actualmente la variable previousHealth
 		previousHealth = _healthScript.health; // vida actual
