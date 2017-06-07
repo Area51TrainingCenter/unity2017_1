@@ -14,4 +14,14 @@ public class Health : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	public void ChangeHealth(float damage){
+		healht -= damage;
+		if (healht>maxHealht) {
+			healht = maxHealht;
+		}
+		if (healht<0) {
+			healht = 0;
+		}
+	}
 }

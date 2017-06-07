@@ -22,8 +22,11 @@ public class PlayerMovement : MonoBehaviour {
 	private bool isGrounded;
 
 	private float h;
+	private float knockback;
+	private float targetAlpha;
+	private float dash;
 	private bool pressedJump;
-	public bool dash;
+
 	// Use this for initialization
 	void Start () {
 		//guardamos la referencia la componente Rigidbody 
@@ -37,6 +40,9 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update(){
 		ManageInputs ();
+		HandleKnockBack ();
+		HandleDash ();
+		ManageBlinking ();
 		Hurt ();
 		ManageFliping ();
 		ManageAnimations() ;
@@ -49,7 +55,17 @@ public class PlayerMovement : MonoBehaviour {
 		//creamos un Vector3 que comienza en zero
 		Vector3 moveVector = new Vector3(0,0,0);
 
-		moveVector.x = h*speedX;
+		//el knock back es el empuje que se le hace al player cuando recibe daño
+		if (knockback>0) {
+			moveVector.x = -knockback;
+
+		} else if(dash>0) {
+			if (_spriteRenderer.flipX) {
+				moveVector.x = -dash;
+			}else{	moveVector.x = dash;}
+
+			//dash = 0;
+		}else { moveVector.x = h*speedX;}
 
 		RaycastHit2D hitInfo;
 
@@ -122,11 +138,7 @@ public class PlayerMovement : MonoBehaviour {
 			}
 
 		} else {
-			//la gravedad se va aplicando al verticalSpeed
-			if (dash) {
-				transform.Translate (new Vector3 (transform.position.x -1, transform.position.y, 0));
-				dash = false;
-			}
+			
 			verticalSpeed += gravity * Time.deltaTime;
 		}
 
@@ -157,7 +169,7 @@ public class PlayerMovement : MonoBehaviour {
 				pressedJump = true;	
 			}
 			if (Input.GetKeyDown (KeyCode.LeftShift) && isGrounded==false) {
-				dash = true;	
+				dash = 20;	
 			}
 		} else {
 			h = 0;
@@ -165,6 +177,25 @@ public class PlayerMovement : MonoBehaviour {
 
 	}
 
+	void ManageBlinking(){
+		if (gameObject.layer == 10) {
+			Color newColor = _spriteRenderer.color;
+			newColor.a = Mathf.Lerp (newColor.a,targetAlpha,Time.deltaTime*20);
+			Debug.Log ("newColor.a=" + newColor.a);
+			if (newColor.a>0.9f) {
+				targetAlpha = 0;
+			}else if (newColor.a<0.1f) {
+				targetAlpha = 1;
+			}
+			_spriteRenderer.color = newColor;
+		}
+		if (gameObject.layer != 10) {
+			Color newColor = _spriteRenderer.color;
+			newColor.a = 1;
+			_spriteRenderer.color = newColor;
+		}
+
+	}
 	//se encarga del flipeo del SpriteRenderer
 	void ManageFliping () {
 		if (h<0) {
@@ -185,17 +216,43 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
 
+
 		if (Input.GetMouseButtonDown(0) && isGrounded) {
 			_animator.SetTrigger ("attack");
 		}
+		if (knockback>0) {
+			_animator.SetBool ("hurt", true);
+		}
+		if (knockback<0) {
+			_animator.SetBool ("hurt", false);
+		}
 	}
 
+	void HandleKnockBack(){
+		if (knockback>0) {
+			knockback -= Time.deltaTime * 2.5f;
+			if (knockback<=0) {
+				canControl = true;
+			}
+		}
+	}
+	void HandleDash(){
+		if (dash>0) {
+			dash -= 1;
+			if (dash<=0) {
+				dash = 0;
+			}
+		}
+	}
 	//esto se encarga de cuando te hacen daño
 	void Hurt () {
 		//si la vida actual es menor a la vidaque teniamos antes significa que hemos recibido daño
 		if (salud.healht<previousHealth) {
 			//Layer para ser invulnerable
 			gameObject.layer=10;
+			canControl = false;
+			knockback = 2;
+			verticalSpeed = -1;
 			Invoke ("restaurarCapa", 2);
 		}
 		previousHealth = salud.healht;

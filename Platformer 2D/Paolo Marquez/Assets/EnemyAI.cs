@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour {
 
 		if (hitInfo.collider != null) {
 			if (hitInfo.collider.gameObject.CompareTag("Player")) {
-				hitInfo.collider.GetComponent<Health> ().healht -= 20;
+				//hitInfo.collider.GetComponent<Health> ().ChangeHealth(20);
 				//Destroy (hitInfo.collider.gameObject);
 			}
 		}
@@ -39,7 +39,7 @@ public class EnemyAI : MonoBehaviour {
 
 		if (hitInfo.collider != null) {
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
-				hitInfo.collider.GetComponent<Health> ().healht -= 20;
+				//hitInfo.collider.GetComponent<Health> ().ChangeHealth(20);
 				//Destroy (hitInfo.collider.gameObject);
 			} else {
 				_goToTheRight = !_goToTheRight;
@@ -49,7 +49,7 @@ public class EnemyAI : MonoBehaviour {
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector2.left, rayLength,_mask.value);
 		if (hitInfo.collider !=null) {
 			if (hitInfo.collider.gameObject.CompareTag("Player")) {
-				hitInfo.collider.GetComponent<Health> ().healht -= 20;
+				//hitInfo.collider.GetComponent<Health> ().ChangeHealth(20);
 				//Destroy (hitInfo.collider.gameObject);
 			}
 			else {
