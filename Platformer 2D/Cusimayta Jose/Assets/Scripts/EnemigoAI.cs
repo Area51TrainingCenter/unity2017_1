@@ -7,7 +7,8 @@ public class EnemigoAI : MonoBehaviour {
     public LayerMask _mask;
     private bool _goToTheRight;
     private Rigidbody2D _rigidbody;
-    private Health _healthScript;
+	private Health _healthScript;
+	public float velocidadX=5;
 	// Use this for initialization
 	void Start () {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -32,7 +33,7 @@ public class EnemigoAI : MonoBehaviour {
         {
             if (hitInfo.collider.gameObject.CompareTag("Player"))
             {
-                Destroy(hitInfo.collider.gameObject);
+              
             }
         }
 
@@ -42,7 +43,7 @@ public class EnemigoAI : MonoBehaviour {
         {
             if (hitInfo.collider.gameObject.CompareTag("Player"))
             {
-                Destroy(hitInfo.collider.gameObject);
+                
             }
             else
             {
@@ -56,7 +57,7 @@ public class EnemigoAI : MonoBehaviour {
         {
             if (hitInfo.collider.gameObject.CompareTag("Player"))
             {
-                Destroy(hitInfo.collider.gameObject);
+               
             }
             else
             {
@@ -64,7 +65,7 @@ public class EnemigoAI : MonoBehaviour {
             }
         }
 
-        Vector3 moveVector = new Vector3(-5, 0, 0);
+		Vector3 moveVector = new Vector3(velocidadX, 0, 0);
         if (_goToTheRight)
         {
             moveVector *= -1;

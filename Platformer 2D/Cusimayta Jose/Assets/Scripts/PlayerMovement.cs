@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
+	
+	#region Variables
     public float speedX = 5;
     public float jumpForce = 8;
     public float gravity = -10;
@@ -28,10 +30,14 @@ public class PlayerMovement : MonoBehaviour {
     private float h;
     private bool pressedJump;
 
+	private float knockback;
+	private float targetAlpha=0;
+
 
     //Variables para el salto doble
     public int DoubleJumps = 0; //Contador para saber si ya hizo el doble salto o no
     public bool isDoubleJump;   //Booleano para saber si puede hacer doble Jump o no
+	#endregion
 
 	// Use this for initialization
 	void Start () {
@@ -45,13 +51,18 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        ReceiveInputs();
+		
+		ReceiveInputs ();
 
-        Hurt();
+		ManageKnockBack ();
 
-        ManageFlipping();
+		Hurt ();
 
-        ManageAnimations();
+		ManageFlipping ();
+
+		ManageBlinking ();
+
+		ManageAnimations ();
 	}
     //FixedUpdate se ejecuta cada 0.02 segundos
 	//aqui incluimos todo el codigo que manipule los rigidbodies
@@ -59,7 +70,15 @@ public class PlayerMovement : MonoBehaviour {
 		//creamos un Vector3 que comienza en zero
 		Vector3 moveVector = new Vector3(0,0,0);
 
-		moveVector.x = h*speedX;
+		//Definimos el knockback
+		//Si hay un knockback la velocidad tendra el siguiente valor de "if" y cuando no hay kcnoback, su velocidad será normal, como en "else"
+		if (knockback > 0) {
+			moveVector.x = -knockback;
+		} else {
+			moveVector.x = h * speedX;
+		}
+
+
 
 		RaycastHit2D hitInfo;
 
@@ -173,6 +192,7 @@ public class PlayerMovement : MonoBehaviour {
 		Vector3 pos = transform.position + (down * rayLength);
 		Gizmos.DrawWireCube (pos, boxSize);
 	}
+
 	//Controla los inputs del teclado y mouse
 	void ReceiveInputs(){
 		if (canControl) {
@@ -184,11 +204,10 @@ public class PlayerMovement : MonoBehaviour {
 
 			//si presionas espacio pressedJump permanecera en true
 			//hasta que se aplique el salto dentro de FixedUpdate
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded || Input.GetKeyDown(KeyCode.Space) && DoubleJumps <= 1) // Se aplica otra condición para saber si puede volver a saltar en el aire o no
-            {
-                pressedJump = true; //Cambiamos el bool Jump a true, para que el personaje este apto para saltar, si no se le pone esto, el personaje saltara por si solo
-                _animator.SetTrigger("isDoubleJump"); //Activamos esta opción para saber si esta haciendo el doble salto o no 
-            }
+			if (Input.GetKeyDown (KeyCode.Space) && (isGrounded || DoubleJumps <= 1)) { // Se aplica otra condición para saber si puede volver a saltar en el aire o no
+				pressedJump = true; //Cambiamos el bool Jump a true, para que el personaje este apto para saltar, si no se le pone esto, el personaje saltara por si solo
+				_animator.SetTrigger ("isDoubleJump"); //Activamos esta opción para saber si esta haciendo el doble salto o no 
+			}
 		} else {
 			h = 0;
 		}
@@ -203,7 +222,25 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 	//controla los parametros del animator
-	void ManageAnimations(){
+	void ManageBlinking (){
+		if (gameObject.layer == 10) {
+			Color newColor = _spriteRenderer.color;
+			if (newColor.a <= 0.05) {
+				targetAlpha = 1;
+			} else if (newColor.a >= 0.95) {
+				targetAlpha = 0;
+			}
+			newColor.a = Mathf.Lerp (newColor.a, targetAlpha, Time.deltaTime * 20);
+			_spriteRenderer.color = newColor;
+		} else {
+			Color newColor = _spriteRenderer.color;
+			newColor.a = Mathf.Lerp (newColor.a, 1, Time.deltaTime * 20);
+			_spriteRenderer.color = newColor;
+		}
+	}
+
+	void ManageAnimations ()
+	{
 		//le pasamos el valor absoluto de h porque cuando presionas
 		//hacia la izquierda h se vuelve negativo
 		float absH = Mathf.Abs (h);
@@ -211,10 +248,16 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
 
-		if (Input.GetMouseButtonDown(0) && isGrounded && canControl) {
+		if (Input.GetMouseButtonDown (0) && isGrounded && canControl) {
 			_animator.SetTrigger ("attack");
 		}
+
+		if (knockback > 0)
+			_animator.SetBool ("hurt", true);
+		else
+			_animator.SetBool ("hurt", false);
 	}
+
 	//esto se encarga de cuando te hacen daño
 	void Hurt(){
 		//si la vida actual es menor a la vida que teniamos antes
@@ -222,13 +265,23 @@ public class PlayerMovement : MonoBehaviour {
 		if (_healthScript.health < previousHealth) {
 			//Layer 10 es la capa Invulnerable
 			gameObject.layer = 10;
+			canControl = false; //Hacemos que el jugador no tenga control del personaje
+			knockback=3;
+			verticalSpeed = 0.1f;
 			Invoke ("MakePlayerVulnerable", invulnerableTime);
 		}
 		//despues de hacer el if actualizamos la variable previousHealth
 		previousHealth = _healthScript.health;
 
 	}
-
+	void ManageKnockBack (){
+		if (knockback > 0) {
+			knockback -= Time.deltaTime*2.5f;
+			if (knockback <= 0) {
+				canControl = true;
+			}
+		}
+	}
 	void MakePlayerVulnerable(){
 		//Layer 8 es la capa Jugadores
 		gameObject.layer = 8;

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Damage : MonoBehaviour {
-    public float damage = 20;
+	public float damage = 20;
+	public string TargetTag="enemigo";
     // Use this for initialization
     void Start()
     {
@@ -12,9 +13,8 @@ public class Damage : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("enemigo"))
-        {
-            other.GetComponent<Health>().health -= damage;
-        }
+		if (other.CompareTag(TargetTag)) {
+			other.GetComponent<Health> ().ChangeHealth (damage);
+		}
     }
 }
