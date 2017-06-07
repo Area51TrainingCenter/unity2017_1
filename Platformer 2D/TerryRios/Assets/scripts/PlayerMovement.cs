@@ -15,10 +15,10 @@ public class PlayerMovement : MonoBehaviour {
 	private Rigidbody2D _rigidbody;
 	private Animator _animator;
 	private SpriteRenderer _spriteRenderer;
-
+	private float knockback;
 	private float verticalSpeed;
 	private bool isGrounded;
-
+	private float targetalpha;
 	private float h;
 	private bool pressedJump;
 	// Use this for initialization
@@ -36,9 +36,13 @@ public class PlayerMovement : MonoBehaviour {
 		
 		ReceiveInputs ();
 
+		Handleknockback ();
+
 		Hurt ();
 
 		Handleflipping ();
+
+		handleblinking ();
 
 		HandleAnimations ();
 
@@ -50,7 +54,16 @@ public class PlayerMovement : MonoBehaviour {
 		//creamos un Vector3 que comienza en zero
 		Vector3 moveVector = new Vector3(0,0,0);
 
-		moveVector.x = h*speedX;
+		if (knockback > 0) 
+		{
+			moveVector.x = -knockback;
+		} 
+		else 
+		{
+			moveVector.x = h*speedX;	
+		}
+
+
 
 		RaycastHit2D hitInfo;
 
@@ -174,6 +187,21 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	void Handleknockback ()
+	{
+		if (knockback > 0) 
+		{
+			knockback -= Time.deltaTime * 2.5f;
+			if (knockback <= 0) 
+			{
+				canControl = true;
+			}
+
+		}
+
+
+	}
+
 	void Handleflipping()
 	{
 		if (h<0) {
@@ -183,6 +211,30 @@ public class PlayerMovement : MonoBehaviour {
 			_spriteRenderer.flipX = false;	
 		}
 	}
+
+	void handleblinking()
+	{
+		if (gameObject.layer == 10) 
+		{
+			Color newColor = _spriteRenderer.color;
+			newColor.a = Mathf.Lerp (newColor.a, targetalpha, Time.deltaTime * 5);
+			_spriteRenderer.color = newColor;
+			if (newColor.a <=0.1f) {
+				targetalpha = 1;
+			}
+			if (newColor.a >=0.99) {
+				targetalpha = 0;
+			}
+		} 
+		else
+		{
+			Color newColor = _spriteRenderer.color;
+			newColor.a = 1;
+			_spriteRenderer.color = newColor;
+		}
+
+	}
+
 
 
 	void HandleAnimations()
@@ -197,6 +249,12 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0) && isGrounded && canControl) {
 			_animator.SetTrigger ("attack");
 		}
+
+		if (knockback > 0) {
+			_animator.SetBool ("Hurt", true);
+		} else {
+			_animator.SetBool ("Hurt", false);
+		}
 	}		
 
 	void Hurt()
@@ -205,6 +263,13 @@ public class PlayerMovement : MonoBehaviour {
 		if (_healthscript.Health < _previoushealth) 
 		{
 			gameObject.layer = 10;
+
+			canControl = false;
+
+			knockback = 2;
+
+			verticalSpeed = 2;
+
 			Invoke ("Makeplayervulnerable",_restoreplayer);
 		}
 
