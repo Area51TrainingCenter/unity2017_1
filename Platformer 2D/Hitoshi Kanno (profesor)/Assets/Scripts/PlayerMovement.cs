@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour {
 	private float verticalSpeed;
 	private bool isGrounded;
 
+	private float knockback;
+	private float targetAlpha;
+
 	private float h;
 	private bool pressedJump;
 	// Use this for initialization
@@ -42,9 +45,13 @@ public class PlayerMovement : MonoBehaviour {
 
 		ReceiveInputs ();
 
+		ManageKnockback ();
+
 		Hurt ();
 
 		ManageFlipping ();
+
+		ManageBlinking ();
 
 		ManageAnimations ();
 	}
@@ -55,7 +62,17 @@ public class PlayerMovement : MonoBehaviour {
 		//creamos un Vector3 que comienza en zero
 		Vector3 moveVector = new Vector3(0,0,0);
 
-		moveVector.x = h*speedX;
+		//el knockback es el empuje que se la hace al player cuando recibe danio
+		//en el update se reduce gradualmente el knockback hasta que sea cero o menos		
+		if (knockback > 0) {
+			//aplicamos el knockback al movimiento del player
+			moveVector.x = -knockback;
+		} else {
+			//esto se hace en el estado normal ... mover el player con el input de h
+			moveVector.x = h*speedX;
+		}
+
+
 
 		RaycastHit2D hitInfo;
 
@@ -186,6 +203,25 @@ public class PlayerMovement : MonoBehaviour {
 			_spriteRenderer.flipX = false;	
 		}
 	}
+	//se encarga de parpadear el sprite de zero mientras eres invulnerable
+	void ManageBlinking(){
+		if (gameObject.layer == 10) {
+			Color newColor = _spriteRenderer.color;
+			newColor.a = Mathf.Lerp (newColor.a, targetAlpha, Time.deltaTime * 20);
+			if (newColor.a < 0.05f) {
+				targetAlpha = 1;
+			}
+			if (newColor.a > 0.95f) {
+				targetAlpha = 0;
+			}
+			_spriteRenderer.color = newColor;
+		} else {
+			Color newColor = _spriteRenderer.color;
+			newColor.a = 1;
+			_spriteRenderer.color = newColor;
+		}	
+	}
+
 	//controla los parametros del animator
 	void ManageAnimations(){
 		//le pasamos el valor absoluto de h porque cuando presionas
@@ -198,7 +234,23 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0) && isGrounded && canControl) {
 			_animator.SetTrigger ("attack");
 		}
+
+		if (knockback > 0) {
+			_animator.SetBool ("hurt", true);
+		} else {
+			_animator.SetBool ("hurt", false);
+		}
 	}
+
+	void ManageKnockback(){
+		if (knockback > 0) {
+			knockback -= Time.deltaTime * 2.5f;
+			if (knockback <= 0) {
+				canControl = true;
+			}
+		}
+	}
+
 	//esto se encarga de cuando te hacen daño
 	void Hurt(){
 		//si la vida actual es menor a la vida que teniamos antes
@@ -206,6 +258,12 @@ public class PlayerMovement : MonoBehaviour {
 		if (_healthScript.health < previousHealth) {
 			//Layer 10 es la capa Invulnerable
 			gameObject.layer = 10;
+			//pierdes el control del personaje
+			canControl = false;
+			//comienza el empuje
+			knockback = 1.5f;
+			//reducimos el verticalSpeed por si es que estabas saltando y asì ya no sigas elevandote
+			verticalSpeed = 2;
 			Invoke ("MakePlayerVulnerable", invulnerableTime);
 		}
 		//despues de hacer el if actualizamos la variable previousHealth
