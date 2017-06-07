@@ -34,14 +34,14 @@ public class EnemigoAI : MonoBehaviour {
 		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, Vector3.up, rayLenght,_mask.value);
 		if(hitInfo.collider != null){
 			if (hitInfo.collider.CompareTag ("Player")) {
-				hitInfo.collider.GetComponent<Health> ().health -= 20;
+				//hitInfo.collider.GetComponent<Health> ().health -= 20;
 			}
 		}
 		hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, Vector3.left, rayLenght,_mask.value);
 		if (hitInfo.collider != null) {
 			
 			if (hitInfo.collider.CompareTag ("Player")) {
-				hitInfo.collider.GetComponent<Health> ().health -= 20;
+				//hitInfo.collider.GetComponent<Health> ().health -= 20;
 
 			} else {
 				speed = -speed;
@@ -51,7 +51,7 @@ public class EnemigoAI : MonoBehaviour {
 		if (hitInfo.collider != null) {
 			
 			if (hitInfo.collider.CompareTag ("Player")) {
-				hitInfo.collider.GetComponent<Health> ().health -= 20;
+				//hitInfo.collider.GetComponent<Health> ().health -= 20;
 
 			} else {
 				speed = -speed;

@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour {
 	private float h;
 	private bool jump;
 	public float layerTime;
+	public float knockBack;
+	private bool hurt;
+
+	private float targetAlpha;
 
 	public LayerMask _mask;
 	private Animator _animator;
@@ -36,7 +40,9 @@ public class PlayerMovement : MonoBehaviour {
 	void Update () {
 
 		ReceiveInputs ();
+		HandleKnockBack ();
 		Hurt ();
+		ManageBlinking ();
 		ManageFlipping ();
 		ManageAnimations ();
 	}
@@ -50,7 +56,13 @@ public class PlayerMovement : MonoBehaviour {
 		Vector3 left = new Vector3 (-1, 0, 0);
 		Vector3 right = new Vector3 (1, 0, 0);
 
-		moveVector.x = h * speedX;
+		if (knockBack > 0) {
+			moveVector.x = -knockBack;
+			hurt = true;
+		} else {
+			moveVector.x = h * speedX;
+			hurt = false;
+		}
 		//Physics.Raycast genera un rayo invisible
 		//que te devuelve true si el rayo toca algo
 		//y false si el rayo no toca nada
@@ -151,6 +163,7 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("speed", Mathf.Abs (h));
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
+		_animator.SetBool ("hurt", hurt);
 	}
 
 	void ReceiveInputs(){
@@ -176,12 +189,39 @@ public class PlayerMovement : MonoBehaviour {
 			_spriteRenderer.flipX = false;
 		}
 	}
+	void HandleKnockBack(){
+		if (knockBack > 0) {
+			knockBack -= Time.deltaTime * 10f;
+			verticalSpeed = -5;
+		}
+		if (knockBack <= 0) {
+			controlPlayer = true;
+		}
+	}
+	void ManageBlinking(){
+
+		if(gameObject.layer == 10){
+			Color newColor = _spriteRenderer.color;
+			//Mathf.Lerp sirve para recorrer de forma gradual
+			//Mathf.Lerp(origen,destino,velocidad)
+			newColor.a = Mathf.Lerp (newColor.a, targetAlpha, Time.deltaTime * 20);
+			if (newColor.a < 0.05f) {
+				targetAlpha = 1;
+			}
+			if (newColor.a > 0.95f) {
+				targetAlpha = 0;
+			}
+			_spriteRenderer.color = newColor;
+		}
+	}
 
 	void Hurt(){
 
 		if (health.health < previousHealth) {
 			//layer 10 es la capa Invulnerable
 			gameObject.layer = 10;
+			controlPlayer = false;
+			knockBack = 5;
 			Invoke ("MakePlayerVulnerable",layerTime);
 		}
 		previousHealth = health.health;
@@ -189,5 +229,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	void MakePlayerVulnerable(){
 		gameObject.layer = 8;
+		Color newColor = _spriteRenderer.color;
+		newColor.a = 1;
+		_spriteRenderer.color = newColor;
+		//Unity no te permite hacer esto _spriteRenderer.color.a = 1; (exepciones)
 	}
 }
