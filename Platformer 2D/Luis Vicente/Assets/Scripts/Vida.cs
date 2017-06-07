@@ -11,7 +11,13 @@ public class Vida : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	public void CanbiarSalud (float Danno) {
+		vidaActual -= Danno;
+		if (vidaActual > vidaMax ) {
+			vidaActual = vidaMax;
+		}
+		if (vidaActual < 0) {
+			vidaActual = 0;
+		}
 	}
 }

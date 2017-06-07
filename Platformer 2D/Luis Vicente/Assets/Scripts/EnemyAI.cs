@@ -29,29 +29,29 @@ public class EnemyAI : MonoBehaviour {
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z) * 0.99f;
 		MoveVector.x = h * speed;
 		RaycastHit2D hitInfo;
-		RaycastHit2D hitInfo2;
-		RaycastHit2D hitInfo3;
+
 
 		 
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.up, rayLength, Mascara.value);
 		if (hitInfo.collider != null) {
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
-				hitInfo.collider.GetComponent<Vida> ().vidaActual -= 20;
+	//			hitInfo.collider.GetComponent<Vida> ().CanbiarSalud(20);
 			}
 		}
-		hitInfo2 = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.right, rayLength, Mascara.value);
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.right, rayLength, Mascara.value);
 		if (hitInfo.collider != null) {
-			if (hitInfo2.collider.gameObject.CompareTag ("Player")) {
-				hitInfo2.collider.GetComponent<Vida> ().vidaActual -= 20;
+			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
+	//			hitInfo2.collider.GetComponent<Vida> ().CanbiarSalud(20);
 
 			}
 		}
-		hitInfo3 = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.left, rayLength, Mascara.value);
-		if (hitInfo3.collider != null) {
-			if (hitInfo3.collider.gameObject.CompareTag ("Player")) {
-				hitInfo3.collider.GetComponent<Vida> ().vidaActual -= 20;
+		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector3.left, rayLength, Mascara.value);
+		if (hitInfo.collider != null) {
+			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
+		//		hitInfo3.collider.GetComponent<Vida> ().CanbiarSalud(20);
 			}
-		}
+
 		_rigibody.velocity = MoveVector;
+		}
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Dano : MonoBehaviour {
 	public float dano = 20;
+	public string targetTag = "enemigo";
 	// Use this for initialization
 	void Start () {
 		
@@ -11,8 +12,8 @@ public class Dano : MonoBehaviour {
 	
 	// Update is called once per frame
 	void OnTriggerEnter2D (Collider2D other) {
-		if (other.CompareTag("enemigo")) {
-			other.GetComponent<Vida>().vidaActual -= dano;
+		if (other.CompareTag(targetTag)) {
+			other.GetComponent<Vida>().CanbiarSalud(dano);
 		}
 	}
 }

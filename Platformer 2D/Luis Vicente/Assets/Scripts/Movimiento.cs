@@ -21,7 +21,8 @@ public class Movimiento : MonoBehaviour {
 	private int Contador = 0; 
 	private Vida _vida;
 	private float vidaPrevia;
-
+	private float knockBack;
+	private float TargetAlpha;
 	// Use this for initialization
 	void Start () {
 		_rigibody = GetComponent <Rigidbody2D>();
@@ -32,8 +33,10 @@ public class Movimiento : MonoBehaviour {
 	void Update (){
 
 		Inputs ();
+		HandleKnockback ();
 		RecibirDano ();
 		Flipping ();
+		ManageBlinking ();
 		Animaciones ();
 			
 
@@ -46,7 +49,13 @@ public class Movimiento : MonoBehaviour {
 		Vector3 up = new Vector3 (0, 1, 0);
 		Vector3 right = new Vector3 (1, 0, 0);
 		Vector3 left = new Vector3 (-1, 0, 0);
-		MoveVector.x = h * SpeddX;
+		if (knockBack > 0) {
+			MoveVector.x = -knockBack;
+		} else {
+			MoveVector.x = h * SpeddX;
+
+		}					
+	
 
 		RaycastHit2D hitInfo;
 		//bool isGrounded = Physics.Raycast (transform.position,down,rayLength);
@@ -153,7 +162,19 @@ public class Movimiento : MonoBehaviour {
 			_SpriteRenderer.flipX = false;
 		}
 	}
+	void ManageBlinking (){
 
+		if (gameObject.layer == 10) {
+			Color newColor = _SpriteRenderer.color;
+			newColor.a = Mathf.Lerp (newColor.a, TargetAlpha, Time.deltaTime * 20);
+			if (newColor.a <= 0.5f) {
+				TargetAlpha = 1;
+			}if(newColor.a > 0.5){
+				TargetAlpha = 0;
+			}
+			_SpriteRenderer.color = newColor;
+		}
+	}
 	void Animaciones (){
 		float absH = Mathf.Abs (h);
 		_Animacion.SetFloat ("Speed", absH);
@@ -161,13 +182,30 @@ public class Movimiento : MonoBehaviour {
 		_Animacion.SetBool ("isGrounded", isGrounded);
 		if (Input.GetKeyDown (KeyCode.Z) && isGrounded && canCondicion) {
 			_Animacion.SetTrigger ("Atacar");
-
-		}	
+		}
+		if (knockBack > 0) {
+			_Animacion.SetBool ("Danno", true);
+		}
+		if (knockBack <= 0) {
+			_Animacion.SetBool ("Danno", false);
+		}
+	}
+	void HandleKnockback(){
+		if (knockBack > 0) {
+			knockBack -= Time.deltaTime * 2.5f;
+			if (knockBack <= 0) {
+				canCondicion = true;
+			}
+		}
+	
 	}
 	void RecibirDano (){
 		if (_vida.vidaActual < vidaPrevia) {
 			// layer 10 Es la capa inmortal 
 			gameObject.layer = 10;
+			knockBack = 3;
+			VerticalSpeed = 3;
+			canCondicion = false;
 			Invoke ("RestaurarCapa", 2);
 
 		}	
