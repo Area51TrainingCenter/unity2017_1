@@ -8,18 +8,31 @@ public class EnemyAI : MonoBehaviour {
 	private bool _goToTheRight;
 	private Rigidbody2D _rigidbody;
 	private Health health;
+	private float vidaPrevia;
+	private MeshRenderer _mesh;
 	// Use this for initialization
 	void Start () {
+		
 		_rigidbody = GetComponent<Rigidbody2D> ();
 		health = GetComponent<Health> ();
+		_mesh = GetComponent<MeshRenderer> ();
+		vidaPrevia = health.healht;
 	}
 
 	void Update(){
+		
 		//destruir al enemigo
 		float saludEnemigo=health.healht;
+		if (saludEnemigo<vidaPrevia) {
+			_mesh.material.color = new Color (1,1,1);
+		}
+
+		Color finalColor=Color.Lerp (_mesh.material.color, new Color (1, 0, 0),Time.deltaTime);
+		_mesh.material.color = finalColor;
 		if(saludEnemigo<=0){
 			Destroy (gameObject);
-		}	
+		}
+		vidaPrevia = health.healht;
 	}
 	
 	void FixedUpdate () {

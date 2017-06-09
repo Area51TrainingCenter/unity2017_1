@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour {
 	private float previousHealth;
 
 	public bool canControl = true;
+	public bool canAttack = true;
 	private Rigidbody2D _rigidbody;
 	private Animator _animator;
 	private SpriteRenderer _spriteRenderer;
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private float h;
 	private float knockback;
+	private bool knockbackToRight;
 	private float targetAlpha;
 	private float dash;
 	private bool pressedJump;
@@ -57,7 +59,10 @@ public class PlayerMovement : MonoBehaviour {
 
 		//el knock back es el empuje que se le hace al player cuando recibe daño
 		if (knockback>0) {
-			moveVector.x = -knockback;
+			if (knockbackToRight) {
+				moveVector.x = knockback;
+			}
+			else moveVector.x = -knockback;
 
 		} else if(dash>0) {
 			if (_spriteRenderer.flipX) {
@@ -105,7 +110,9 @@ public class PlayerMovement : MonoBehaviour {
 		if (hitLeft) {
 			if (h < 0) {
 				moveVector.x = 0;
-			}
+				}
+
+
 		}
 		/*****************/
 
@@ -217,8 +224,9 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetBool ("isGrounded", isGrounded);
 
 
-		if (Input.GetMouseButtonDown(0) && isGrounded) {
+		if (Input.GetMouseButtonDown(0) && isGrounded && canAttack) {
 			_animator.SetTrigger ("attack");
+			canAttack = false;
 		}
 		if (knockback>0) {
 			_animator.SetBool ("hurt", true);
@@ -253,6 +261,11 @@ public class PlayerMovement : MonoBehaviour {
 			canControl = false;
 			knockback = 2;
 			verticalSpeed = -1;
+			if (transform.position.x<salud.lastAttacker.transform.position.x) {
+				knockbackToRight = false;
+			}
+			else knockbackToRight = true;
+
 			Invoke ("restaurarCapa", 2);
 		}
 		previousHealth = salud.healht;

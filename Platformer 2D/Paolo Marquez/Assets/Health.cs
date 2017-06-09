@@ -5,6 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour {
 	public float healht=100;
 	public float maxHealht=100;
+	public GameObject lastAttacker;
 	// Use this for initialization
 	void Start () {
 		
@@ -15,7 +16,7 @@ public class Health : MonoBehaviour {
 		
 	}
 
-	public void ChangeHealth(float damage){
+	public void ChangeHealth(float damage,GameObject attacker){
 		healht -= damage;
 		if (healht>maxHealht) {
 			healht = maxHealht;
@@ -23,5 +24,6 @@ public class Health : MonoBehaviour {
 		if (healht<0) {
 			healht = 0;
 		}
+		lastAttacker = attacker;
 	}
 }
