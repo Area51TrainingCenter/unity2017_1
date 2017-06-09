@@ -5,11 +5,11 @@ using UnityEngine;
 public class Damage : MonoBehaviour {
 
 	public float damage = 20;
-	public string targetTag;
+	public string targetTag = "enemigo";
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == targetTag) {
-			other.GetComponent<Health> ().ChangeHealth(damage);
+			other.GetComponent<Health> ().ChangeHealth(damage,gameObject);
 		}
 	}
 }

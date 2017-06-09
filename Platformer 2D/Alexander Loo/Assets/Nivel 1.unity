@@ -189,9 +189,79 @@ Prefab:
       propertyPath: _mask.m_Bits
       value: 4294965759
       objectReference: {fileID: 0}
+    - target: {fileID: 23439814379560502, guid: 6b9e9cb809313f94b9b5ec24e82cd72a,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e218e0ea333ec446ba0da28b79f2fc1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b9e9cb809313f94b9b5ec24e82cd72a, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &553999546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 553999548}
+  - component: {fileID: 553999547}
+  m_Layer: 0
+  m_Name: Directional light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &553999547
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 553999546}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &553999548
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 553999546}
+  m_LocalRotation: {x: -0.02690295, y: -0.020763667, z: -0.978796, w: -0.20199911}
+  m_LocalPosition: {x: -8.685282, y: -0.9380701, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: -1.7060001, y: 363.502, z: 156.626}
 --- !u!1 &627219595
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,6 +774,7 @@ MonoBehaviour:
   controlPlayer: 1
   layerTime: 2
   knockBack: 0
+  canAttack: 1
   _mask:
     serializedVersion: 2
     m_Bits: 4294965503
@@ -740,7 +811,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300028, guid: 5d88226a519928548ad8526593858541, type: 3}
+  m_Sprite: {fileID: 21300032, guid: 5d88226a519928548ad8526593858541, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -816,7 +887,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.86, y: 0.94}
+    oldSize: {x: 0.84, y: 0.96}
     newSize: {x: 0.43, y: 0.47}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -852,6 +923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+  lastAttacker: {fileID: 0}
 --- !u!1 &1608218914
 GameObject:
   m_ObjectHideFlags: 0

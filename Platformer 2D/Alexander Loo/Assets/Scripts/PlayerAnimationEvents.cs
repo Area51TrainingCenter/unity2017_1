@@ -16,6 +16,7 @@ public class PlayerAnimationEvents : MonoBehaviour {
 	public void DisablePlayerControl(){
 
 		playercontrol.controlPlayer = false;
+		Debug.Log (playercontrol.controlPlayer);
 	}
 
 	public void EnableCollider(){
@@ -31,5 +32,9 @@ public class PlayerAnimationEvents : MonoBehaviour {
 
 		_colliderLeft.enabled = false;
 		_colliderRight.enabled = false;
+	}
+
+	public void CanAttack(){
+		playercontrol.canAttack = true;
 	}
 }

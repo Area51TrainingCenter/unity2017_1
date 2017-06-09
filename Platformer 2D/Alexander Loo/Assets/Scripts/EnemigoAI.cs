@@ -9,19 +9,32 @@ public class EnemigoAI : MonoBehaviour {
 	public float speed;
 	public LayerMask _mask;
 	private Health health;
+	private float previousHealth;
+	private MeshRenderer meshRenderer;
 
 	void Start(){
 
+
 		_rigidbody = GetComponent<Rigidbody2D> ();
 		health = GetComponent<Health> ();
+		meshRenderer = GetComponent<MeshRenderer> ();
+		previousHealth = health.health;
 	}
 
 	void Update(){
-
+		
+		//Color.Lerp sirve para cambio gradual del color y sólo hace el cálculo no lo transforma
+		Color finalColor = Color.Lerp (meshRenderer.material.color, Color.red, Time.deltaTime * 10);
+		meshRenderer.material.color = finalColor;
+		if (health.health < previousHealth) {
+			//new color(R,G,B) en el script los valores rgb no son de 0-255, sino de 0-1
+			//new color(1,1,1) = rgb(255,255,255) = Color.white
+			meshRenderer.material.color = new Color (1, 1, 1);
+		}
 		if (health.health <= 0) {
-
 			Destroy (gameObject);
 		}
+		previousHealth = health.health;
 	}
 
 	void FixedUpdate(){
@@ -59,4 +72,7 @@ public class EnemigoAI : MonoBehaviour {
 		}
 		_rigidbody.velocity = new Vector3 (speed, 0, 0);
 	}
+
+
+		
 }

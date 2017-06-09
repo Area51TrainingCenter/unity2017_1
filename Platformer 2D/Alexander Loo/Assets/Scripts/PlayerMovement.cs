@@ -19,7 +19,9 @@ public class PlayerMovement : MonoBehaviour {
 	private bool jump;
 	public float layerTime;
 	public float knockBack;
+	private bool KnockBackToRight;
 	private bool hurt;
+	public bool canAttack = true;
 
 	private float targetAlpha;
 
@@ -57,11 +59,13 @@ public class PlayerMovement : MonoBehaviour {
 		Vector3 right = new Vector3 (1, 0, 0);
 
 		if (knockBack > 0) {
-			moveVector.x = -knockBack;
-			hurt = true;
-		} else {
+			if (KnockBackToRight) {
+				moveVector.x = knockBack;
+			} else {
+				moveVector.x = -knockBack;
+			}
+		}else {
 			moveVector.x = h * speedX;
-			hurt = false;
 		}
 		//Physics.Raycast genera un rayo invisible
 		//que te devuelve true si el rayo toca algo
@@ -151,21 +155,19 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		Gizmos.DrawWireCube (transform.position, boxSize * 0.99f);
 		Gizmos.DrawWireCube (transform.position + (down * rayleght), boxSize * 0.99f);
-	}
-
+  	}
 	void ManageAnimations(){
 
-		if (Input.GetMouseButtonDown (0) && isGrounded) {
-
+		if (Input.GetMouseButtonDown (0) && isGrounded && canAttack) {
 			//Trigger en el animator es como un boleano con la diferencia que se desactiva sola
 			_animator.SetTrigger ("attack");
+			canAttack = false;
 		}
 		_animator.SetFloat ("speed", Mathf.Abs (h));
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
 		_animator.SetBool ("hurt", hurt);
-	}
-
+  	}
 	void ReceiveInputs(){
 
 		if (controlPlayer) {
@@ -178,8 +180,7 @@ public class PlayerMovement : MonoBehaviour {
 		} else {
 			h = 0;
 		}
-	}
-
+  	}
 	void ManageFlipping(){
 
 		if (h < 0) {
@@ -193,10 +194,11 @@ public class PlayerMovement : MonoBehaviour {
 		if (knockBack > 0) {
 			knockBack -= Time.deltaTime * 10f;
 			verticalSpeed = -5;
+			if (knockBack <= 0) {
+				controlPlayer = true;
+			}
 		}
-		if (knockBack <= 0) {
-			controlPlayer = true;
-		}
+
 	}
 	void ManageBlinking(){
 
@@ -213,20 +215,23 @@ public class PlayerMovement : MonoBehaviour {
 			}
 			_spriteRenderer.color = newColor;
 		}
-	}
-
+  	}
 	void Hurt(){
-
 		if (health.health < previousHealth) {
 			//layer 10 es la capa Invulnerable
 			gameObject.layer = 10;
 			controlPlayer = false;
 			knockBack = 5;
+			// si el player esta a la izquierda del enemigo
+			if (transform.position.x < health.lastAttacker.transform.position.x) {
+				KnockBackToRight = false;
+			} else {
+				KnockBackToRight = true;
+			}
 			Invoke ("MakePlayerVulnerable",layerTime);
 		}
 		previousHealth = health.health;
-	}
-
+  	}
 	void MakePlayerVulnerable(){
 		gameObject.layer = 8;
 		Color newColor = _spriteRenderer.color;
