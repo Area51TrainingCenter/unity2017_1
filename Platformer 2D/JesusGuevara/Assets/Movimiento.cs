@@ -29,10 +29,15 @@ public class Movimiento : MonoBehaviour {
 	public LayerMask _mask;
 
 	public bool controlPlayer = true;
+	public bool canAttack = true;
+
 	public float invulnerableTime = 1.5f;
 
 	private float knockback;
+	private bool knockbackToRight; // para si saber golpear a la derecha o izquierda
+
 	private float targetAlpha; 
+
 
 	// Use this for initialization
 	void Start () {
@@ -64,7 +69,14 @@ public class Movimiento : MonoBehaviour {
 		// el knockback es el empuje envie que se le hace al player cuando recibe daño
 		// en el update se reduce gradualmente el knockback hasta que sea cero o menos
 		if(knockback > 0){
-			moveVector.x = -knockback;
+
+			// aplicamos el knockback al movimiento del player
+			if (knockbackToRight) {
+				moveVector.x = knockback;
+			} else {
+				moveVector.x = -knockback;
+			}
+
 		}else{
 			// esto se hace en el estado normal.. mover el player con el input de h
 			moveVector.x = h * speedX;			
@@ -252,8 +264,9 @@ public class Movimiento : MonoBehaviour {
 		_animator.SetBool ("isGrounded", isGrounded);
 
 
-		if (Input.GetMouseButtonDown (0) && isGrounded && controlPlayer) {
+		if (Input.GetMouseButtonDown (0) && isGrounded && canAttack) {
 			_animator.SetTrigger ("isAttack");
+			canAttack = false;
 		}
 
 
@@ -288,7 +301,16 @@ public class Movimiento : MonoBehaviour {
 			gameObject.layer = 10; 
 			// pierdes el control del personaje
 			controlPlayer = false;
+			// 
 			knockback = 3;
+
+
+			if (transform.position.x < _healthScript.lastAttacker.transform.position.x) {
+				knockbackToRight = false;
+			} else {
+				knockbackToRight = true;
+			}
+
 			verticalSpeed = 1;// salto
 
 			Invoke ("restorePlayer", invulnerableTime);

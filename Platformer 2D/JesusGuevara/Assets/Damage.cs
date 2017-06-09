@@ -6,7 +6,7 @@ public class Damage : MonoBehaviour {
 
 	public float damage = 20;
 	public string targetTag = "enemigo";
-	//public GameObject explosionMuerte;
+//	public GameObject explosionMuerte;
 	// Use this for initialization
 	void Start () {
 		
@@ -20,8 +20,8 @@ public class Damage : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		
 		if(other.CompareTag(targetTag)){
-			other.GetComponent<Health>().ChangeHealth(damage); 
-			//Instantiate(explosionMuerte, other.transform.position, other.transform.rotation);
+			other.GetComponent<Health>().ChangeHealth(damage,gameObject); //gameObject hace referencia a un mismo objeto
+//			Instantiate(explosionMuerte, other.transform.position, other.transform.rotation);
 		}
 
 	}

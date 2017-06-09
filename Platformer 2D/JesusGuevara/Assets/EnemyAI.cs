@@ -12,17 +12,33 @@ public class EnemyAI : MonoBehaviour {
 	private Health _healthScript;
 
 	public LayerMask _mask;
+	private float previousHealth;// vida anterior
+	private MeshRenderer _renderer;
 
 	// Use this for initialization
 
 	void Start () {
 		_rigibody = GetComponent<Rigidbody2D> ();		
 		_healthScript = GetComponent<Health> ();
+		_renderer = GetComponent<MeshRenderer> ();
 	}
 
 
 	void Update(){
-		
+
+		// vida..
+		if (_healthScript.health < previousHealth) {
+			_renderer.material.color = new Color (1, 1, 1);
+		}
+
+		// gradualmente hacemos que el color vuelve a ser rojo
+		Color finalColor = Color.Lerp (_renderer.material.color, Color.red,Time.deltaTime*10);
+		_renderer.material.color = finalColor;
+
+		//  despues de hacer el if actualmente la variable previousHealth
+		previousHealth = _healthScript.health; // vida actual
+		// vida...
+
 		// Destruir al enemigo
 		if (_healthScript.health <= 0) {
 			Destroy (gameObject);

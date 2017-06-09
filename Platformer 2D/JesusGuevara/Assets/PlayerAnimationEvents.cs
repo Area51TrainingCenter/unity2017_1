@@ -45,4 +45,12 @@ public class PlayerAnimationEvents : MonoBehaviour {
 
 	}
 
+	public void activarCanAttack(){
+		_gameobject.GetComponent<Movimiento> ().canAttack = true;	
+	}
+	public void desactivarCanAttack(){
+		_gameobject.GetComponent<Movimiento> ().canAttack = false;	
+	}
+
+
 }
