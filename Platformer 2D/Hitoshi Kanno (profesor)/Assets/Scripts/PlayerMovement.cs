@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 	public LayerMask _mask;
 
 	public bool canControl = true;
+	public bool canAttack = true;
 
 	public float invulnerableTime = 1.5f;
 
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour {
 	private bool isGrounded;
 
 	private float knockback;
+	private bool knockbackToRight;
 	private float targetAlpha;
 
 	private float h;
@@ -66,7 +68,11 @@ public class PlayerMovement : MonoBehaviour {
 		//en el update se reduce gradualmente el knockback hasta que sea cero o menos		
 		if (knockback > 0) {
 			//aplicamos el knockback al movimiento del player
-			moveVector.x = -knockback;
+			if (knockbackToRight) {
+				moveVector.x = knockback;
+			} else {
+				moveVector.x = -knockback;
+			}
 		} else {
 			//esto se hace en el estado normal ... mover el player con el input de h
 			moveVector.x = h*speedX;
@@ -231,8 +237,9 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
 
-		if (Input.GetMouseButtonDown(0) && isGrounded && canControl) {
+		if (Input.GetMouseButtonDown(0) && isGrounded && canAttack) {
 			_animator.SetTrigger ("attack");
+			canAttack = false;
 		}
 
 		if (knockback > 0) {
@@ -262,6 +269,13 @@ public class PlayerMovement : MonoBehaviour {
 			canControl = false;
 			//comienza el empuje
 			knockback = 1.5f;
+
+			if (transform.position.x < _healthScript.lastAttacker.transform.position.x) {
+				knockbackToRight = false;
+			}else{
+				knockbackToRight = true;
+			}
+
 			//reducimos el verticalSpeed por si es que estabas saltando y asì ya no sigas elevandote
 			verticalSpeed = 2;
 			Invoke ("MakePlayerVulnerable", invulnerableTime);

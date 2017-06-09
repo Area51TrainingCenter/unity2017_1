@@ -40,4 +40,8 @@ public class PlayerAnimationEvents : MonoBehaviour {
 		leftHitbox.GetComponent<Collider2D> ().enabled = false;
 
 	}
+
+	public void EnableCanAttack(){
+		playerObject.GetComponent<PlayerMovement> ().canAttack = true;
+	}
 }
