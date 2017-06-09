@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour {
 	private float targetalpha;
 	private float h;
 	private bool pressedJump;
+	private bool knockbacktoright;
+	public bool canAttack = true;
 	// Use this for initialization
 	void Start () {
 		//guardamos la referencia la componente Rigidbody 
@@ -56,7 +58,15 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (knockback > 0) 
 		{
-			moveVector.x = -knockback;
+			if (knockbacktoright) 
+			{
+				moveVector.x = knockback;
+			} 
+			else 
+			{
+				moveVector.x = -knockback;
+			}					
+
 		} 
 		else 
 		{
@@ -191,7 +201,12 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		if (knockback > 0) 
 		{
-			knockback -= Time.deltaTime * 2.5f;
+			if (knockbacktoright) {
+				knockback = Time.deltaTime * 2.5f;
+			} else {
+				knockback -= Time.deltaTime * 2.5f;
+			}
+
 			if (knockback <= 0) 
 			{
 				canControl = true;
@@ -246,8 +261,9 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
 
-		if (Input.GetMouseButtonDown(0) && isGrounded && canControl) {
+		if (Input.GetMouseButtonDown(0) && isGrounded && canAttack) {
 			_animator.SetTrigger ("attack");
+			canAttack = false;
 		}
 
 		if (knockback > 0) {
@@ -267,6 +283,11 @@ public class PlayerMovement : MonoBehaviour {
 			canControl = false;
 
 			knockback = 2;
+
+			if (transform.position.x <_healthscript.lastAttacker.transform.position.x) 
+			{
+				knockbacktoright = false;
+			}
 
 			verticalSpeed = 2;
 
