@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour {
     public LayerMask _mask;
 
     public bool canControl = true;
+	public bool canAttack = true;
 
     public float invulnerableTime = 1.5f;
 
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour {
     private bool pressedJump;
 
 	private float knockback;
+	private bool knockbackToRight;
 	private float targetAlpha=0;
 
 
@@ -73,18 +75,18 @@ public class PlayerMovement : MonoBehaviour {
 		//Definimos el knockback
 		//Si hay un knockback la velocidad tendra el siguiente valor de "if" y cuando no hay kcnoback, su velocidad será normal, como en "else"
 		if (knockback > 0) {
-			moveVector.x = -knockback;
+			if (knockbackToRight) {
+				moveVector.x = knockback;
+			} else {
+				moveVector.x = -knockback;
+			}
 		} else {
 			moveVector.x = h * speedX;
 		}
 
-
-
 		RaycastHit2D hitInfo;
 
-
 		Vector3 down = new Vector3 (0, -1, 0);
-
 
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		boxSize = boxSize * 0.99f;
@@ -95,8 +97,7 @@ public class PlayerMovement : MonoBehaviour {
 		} else {
 			isGrounded = true;
 		}
-
-
+			
 		Vector3 up = new Vector3 (0, 1, 0);
 		bool hitUp = false;
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, up, rayLength,_mask.value);
@@ -106,8 +107,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (hitUp) {
 			verticalSpeed = -1;
 		}
-
-
+			
 		Vector3 left = new Vector3 (-1, 0, 0);
 		bool hitLeft = false;
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, left, rayLength,_mask.value);
@@ -121,8 +121,6 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 		/*****************/
-
-
 
 		Vector3 right = new Vector3 (1, 0, 0);
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, right, rayLength,_mask.value);
@@ -164,7 +162,6 @@ public class PlayerMovement : MonoBehaviour {
 			//la gravedad se va aplicando al verticalSpeed
 			verticalSpeed += gravity * Time.deltaTime;
 		}
-
 
 		moveVector += new Vector3 (0, verticalSpeed, 0);
 
@@ -248,8 +245,9 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
 
-		if (Input.GetMouseButtonDown (0) && isGrounded && canControl) {
+		if (Input.GetMouseButtonDown (0) && isGrounded && canAttack) {
 			_animator.SetTrigger ("attack");
+			canAttack = false;
 		}
 
 		if (knockback > 0)
@@ -268,6 +266,11 @@ public class PlayerMovement : MonoBehaviour {
 			canControl = false; //Hacemos que el jugador no tenga control del personaje
 			knockback=3;
 			verticalSpeed = 0.1f;
+			if (transform.position.x < _healthScript.lastAttacker.transform.position.x) {
+				knockbackToRight = false;
+			} else {
+				knockbackToRight = true;
+			}
 			Invoke ("MakePlayerVulnerable", invulnerableTime);
 		}
 		//despues de hacer el if actualizamos la variable previousHealth

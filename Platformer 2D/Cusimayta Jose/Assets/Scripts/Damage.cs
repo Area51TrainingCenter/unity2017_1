@@ -14,7 +14,7 @@ public class Damage : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
 		if (other.CompareTag(TargetTag)) {
-			other.GetComponent<Health> ().ChangeHealth (damage);
+			other.GetComponent<Health> ().ChangeHealth (damage, gameObject);
 		}
     }
 }

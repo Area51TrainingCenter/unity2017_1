@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6733484eef7f543a9c652d6abfc4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
+  damage: 20
   TargetTag: enemigo
 --- !u!1 &246185856
 GameObject:
@@ -475,6 +475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+  lastAttacker: {fileID: 0}
 --- !u!114 &980721190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6733484eef7f543a9c652d6abfc4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
+  damage: 20
   TargetTag: enemigo
 --- !u!1 &1302876386
 GameObject:
@@ -741,7 +742,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1307263644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.51, y: -3.38, z: 0}
+  m_LocalPosition: {x: 5, y: -3.38, z: 0}
   m_LocalScale: {x: 0.7546874, y: 0.7312504, z: 1}
   m_Children:
   - {fileID: 1353063668}
@@ -797,6 +798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+  lastAttacker: {fileID: 0}
 --- !u!1 &1353063667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,7 +1352,7 @@ MonoBehaviour:
   speedX: 5
   jumpForce: 8
   gravity: -10
-  rayLength: 0.03
+  rayLength: 0.06
   _mask:
     serializedVersion: 2
     m_Bits: 4294965503
@@ -1371,6 +1373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+  lastAttacker: {fileID: 0}
 --- !u!61 &1859374765
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1403,7 +1406,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1859374762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6, y: 0.78, z: 0}
+  m_LocalPosition: {x: -5.047, y: 0.773, z: 0}
   m_LocalScale: {x: 0.78775793, y: 1, z: 1}
   m_Children:
   - {fileID: 229323118}
