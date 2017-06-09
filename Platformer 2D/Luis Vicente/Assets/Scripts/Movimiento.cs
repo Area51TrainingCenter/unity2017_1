@@ -23,6 +23,8 @@ public class Movimiento : MonoBehaviour {
 	private float vidaPrevia;
 	private float knockBack;
 	private float TargetAlpha;
+	private bool knockBackToRigth;
+	public bool canAtaca = true;
 	// Use this for initialization
 	void Start () {
 		_rigibody = GetComponent <Rigidbody2D>();
@@ -50,7 +52,12 @@ public class Movimiento : MonoBehaviour {
 		Vector3 right = new Vector3 (1, 0, 0);
 		Vector3 left = new Vector3 (-1, 0, 0);
 		if (knockBack > 0) {
-			MoveVector.x = -knockBack;
+			if (knockBackToRigth) {
+				MoveVector.x = knockBack;
+			} else {
+				MoveVector.x = -knockBack;
+			}
+
 		} else {
 			MoveVector.x = h * SpeddX;
 
@@ -169,19 +176,26 @@ public class Movimiento : MonoBehaviour {
 			newColor.a = Mathf.Lerp (newColor.a, TargetAlpha, Time.deltaTime * 20);
 			if (newColor.a <= 0.5f) {
 				TargetAlpha = 1;
-			}if(newColor.a > 0.5){
+			}if (newColor.a > 0.95f) {
 				TargetAlpha = 0;
+			}
+			else {
+				Color newColor1 = _SpriteRenderer.color;
+				newColor.a = Mathf.Lerp (newColor.a, 1, Time.deltaTime * 20);
+				_SpriteRenderer.color = newColor;
 			}
 			_SpriteRenderer.color = newColor;
 		}
+
 	}
 	void Animaciones (){
 		float absH = Mathf.Abs (h);
 		_Animacion.SetFloat ("Speed", absH);
 		_Animacion.SetFloat ("VerticalSpeed", VerticalSpeed);
 		_Animacion.SetBool ("isGrounded", isGrounded);
-		if (Input.GetKeyDown (KeyCode.Z) && isGrounded && canCondicion) {
+		if (Input.GetKeyDown (KeyCode.Z) && isGrounded && canAtaca) {
 			_Animacion.SetTrigger ("Atacar");
+			canAtaca = false;
 		}
 		if (knockBack > 0) {
 			_Animacion.SetBool ("Danno", true);
@@ -203,9 +217,16 @@ public class Movimiento : MonoBehaviour {
 		if (_vida.vidaActual < vidaPrevia) {
 			// layer 10 Es la capa inmortal 
 			gameObject.layer = 10;
-			knockBack = 3;
-			VerticalSpeed = 3;
+			knockBack = 1.5f;
+			VerticalSpeed = 2;
 			canCondicion = false;
+			if (transform.position.x < _vida.LastAttacker.transform.position.x) {
+				knockBackToRigth = false;
+			} else {
+				knockBackToRigth = true;
+
+			}
+
 			Invoke ("RestaurarCapa", 2);
 
 		}	

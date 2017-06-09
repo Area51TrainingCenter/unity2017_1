@@ -10,15 +10,25 @@ public class EnemyAI : MonoBehaviour {
 	float h  = 0;
 	public LayerMask Mascara;
 	private  Vida vida;
+	private float vidaPrevia;
+	private MeshRenderer _renderer;
 	// Use this for initialization
 	void Start () {
 		_rigibody = GetComponent<Rigidbody2D> ();
 		player = GameObject.FindGameObjectWithTag ("Player");
 		vida = GetComponent <Vida> ();
+		_renderer = GetComponent <MeshRenderer> ();
 	}
 
 	void Update () {
-		
+			
+		if (vida.vidaActual < vidaPrevia) {
+			_renderer.material.color = new Color (1, 1, 1);
+		}
+		Color FinalColor = Color.Lerp (_renderer.material.color, Color.red, Time.deltaTime * 10);
+		_renderer.material.color = FinalColor;
+			vidaPrevia = vida.vidaActual;
+
 		if (vida.vidaActual <= 0) {
 			Destroy (gameObject);
 		}

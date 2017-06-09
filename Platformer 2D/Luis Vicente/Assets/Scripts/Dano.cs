@@ -13,7 +13,7 @@ public class Dano : MonoBehaviour {
 	// Update is called once per frame
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.CompareTag(targetTag)) {
-			other.GetComponent<Vida>().CanbiarSalud(dano);
+			other.GetComponent<Vida>().CanbiarSalud(dano,gameObject);
 		}
 	}
 }

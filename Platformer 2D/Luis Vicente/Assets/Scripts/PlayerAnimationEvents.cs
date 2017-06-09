@@ -6,10 +6,11 @@ public class PlayerAnimationEvents : MonoBehaviour {
 	public GameObject Padre;
 	public GameObject Right;
 	public GameObject left;
+
 	public SpriteRenderer _SpriteRenderer;
 	// Use this for initialization
 	void Start () {
-		
+		_SpriteRenderer = GetComponent <SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
@@ -37,5 +38,13 @@ public class PlayerAnimationEvents : MonoBehaviour {
 			left.GetComponent <Collider2D> ().enabled = false;
 			
 	}
+	public void EnablePlayerAtaca (){
+		Padre.GetComponent <Movimiento>().canAtaca = true;
+
+	}
+	public void DisablePlayerAtaca (){
+		Padre.GetComponent <Movimiento>().canAtaca = false;
+	}
+
 }
 
