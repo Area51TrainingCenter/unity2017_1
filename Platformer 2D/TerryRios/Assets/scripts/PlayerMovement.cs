@@ -201,11 +201,8 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		if (knockback > 0) 
 		{
-			if (knockbacktoright) {
-				knockback = Time.deltaTime * 2.5f;
-			} else {
-				knockback -= Time.deltaTime * 2.5f;
-			}
+			knockback -= Time.deltaTime * 2.5f;
+			
 
 			if (knockback <= 0) 
 			{
