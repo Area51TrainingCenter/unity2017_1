@@ -11,13 +11,15 @@ public class PlayerMovement : MonoBehaviour {
 	private bool isGroundedRight;
 	public float rayLength = 0.6f;
 	private Animator _animator;
-	public bool NoControl = true;
+	public bool canControl = true;
+	public bool canAttack = true;
 	public int Jumps = 0; 
 	public bool isDoubleJump;
 	private Health health;
 	private float previusHealth;
 	private float knockback;
 	private float targetAlpha;
+	private bool rightKnockback;
 
 
 	private SpriteRenderer _spriterenderer;
@@ -54,9 +56,16 @@ public class PlayerMovement : MonoBehaviour {
 		//CUANDO MANIPULAS FISICA O BOX AND RAYCAST
 		//creamos un Vector3 que comienza en zero
 		Vector3 moveVector = new Vector3(0,0,0);
+
 		if (knockback > 0) {
+			if (rightKnockback) {
+			moveVector.x = knockback; 
+			}
+		 	else {
 			moveVector.x = -knockback; 
-		} else {
+			} 
+		}
+		else {
 		moveVector.x = h*speedX;
 		}
 
@@ -174,7 +183,7 @@ public class PlayerMovement : MonoBehaviour {
 		gameObject.layer = 8;
 	}
 	void ReceiveInputs(){
-		if (NoControl) {
+		if (canControl ) {
 			h = Input.GetAxis ("Horizontal");
 
 				if(Input.GetKeyDown (KeyCode.UpArrow) && isGrounded ||Input.GetKeyDown (KeyCode.UpArrow) && Jumps <= 1 ) {
@@ -195,9 +204,11 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 	void handleAnimations() {
-		if (isGrounded){ if(Input.GetKeyDown (KeyCode.Space)){
+		if (isGrounded && Input.GetKeyDown (KeyCode.Space) && canAttack){ 
+				
 				_animator.SetTrigger ("attack");
-			}
+			canAttack = false;
+
 		}
 
 		float absH = Mathf.Abs (h);
@@ -214,9 +225,14 @@ public class PlayerMovement : MonoBehaviour {
 		if (health.health < previusHealth) {
 			gameObject.layer = 10;
 			Invoke ("RecobrarPostura", 1);
-			NoControl = false;
+			canControl = false;
 			knockback = 2;
 			verticalSpeed = -1f;
+			if (health.lastAttacker.transform.position.x > transform.position.x ) {
+				rightKnockback = false; 
+			} else {
+				rightKnockback = true;
+			}
 		}
 
 		previusHealth = health.health;
@@ -227,9 +243,10 @@ public class PlayerMovement : MonoBehaviour {
 	void handleKnockback () {
 		if (knockback > 0) {
 			knockback -= Time.deltaTime * 3f;
-		}
+		
 		if (knockback <= 0) {
-			NoControl = true;
+			canControl = true;
+			}
 		}
 	}
 	void	ManageBlinking() {

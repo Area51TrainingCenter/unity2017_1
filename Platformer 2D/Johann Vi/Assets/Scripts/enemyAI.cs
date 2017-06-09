@@ -8,16 +8,28 @@ public class enemyAI : MonoBehaviour {
 	public LayerMask _mask ;
 	public float speed =  5;
 	private Health health;
+	private float previusHealth;
+	private SpriteRenderer _spriterenderer;
+	private MeshRenderer _renderer;
 
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent <Rigidbody2D> ();
 		health = GetComponent<Health> ();
+		_renderer = GetComponent<MeshRenderer> ();
 	}
 	void Update () {
+		if (health.health < previusHealth){
+			//Cambiamos del 
+			_renderer.material.color = new Color (1, 1, 1);
+		}
+		Color finalColor = Color.Lerp (_renderer.material.color, Color.red, Time.deltaTime * 7);
+		_renderer.material.color = finalColor;
+
 		if (health.health <= 0) {
 			Destroy (gameObject);
 		}
+		previusHealth = health.health;
 	}
 	// Update is called once per frame
 	void FixedUpdate () {

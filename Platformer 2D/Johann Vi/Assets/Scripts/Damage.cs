@@ -11,7 +11,7 @@ public class Damage : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.CompareTag(targetTag)) {
-			other.GetComponent<Health> ().Changehealth(damage);
+			other.GetComponent<Health> ().Changehealth(damage,gameObject);
 		}
 	}
 	// Update is called once per frame
