@@ -234,7 +234,7 @@ public class PlayerMovement : MonoBehaviour {
 			if (newColor.a <=0.1f) {
 				targetalpha = 1;
 			}
-			if (newColor.a >=0.99) {
+			if (newColor.a >=0.95) {
 				targetalpha = 0;
 			}
 		} 

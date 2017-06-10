@@ -128,29 +128,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5833333
-    functionName: DisableHitboxes
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.9166667
+  - time: 0.25
     functionName: canattack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1666666
-    functionName: EnablePlayerControl
+  - time: 0.6666667
+    functionName: DisableHitboxes
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1666666
-    functionName: cannotattack
+  - time: 0.6666667
+    functionName: EnablePlayerControl
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -31,9 +31,7 @@ public class PlayerAnimationEvents : MonoBehaviour {
 		playerObject.GetComponent<PlayerMovement> ().canAttack = true;
 	}
 
-	public void cannotattack(){
-		playerObject.GetComponent<PlayerMovement> ().canAttack = false;
-	}
+
 
 	public void EnableHitboxes(){
 		if (_spriteRenderer.flipX) {
