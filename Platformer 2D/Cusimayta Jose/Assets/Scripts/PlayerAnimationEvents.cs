@@ -13,48 +13,46 @@ public class PlayerAnimationEvents : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();                   //inicializamos la variable del spriteRenderer
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void EnablePlayerControl()
     {
-        playerObject.GetComponent<PlayerMovement>().canControl = true;
+        playerObject.GetComponent<PlayerMovement>().canControl = true;      //Habilitamos el control del jugador
     }
 
     public void DisablePlayerControl()
     {
-        playerObject.GetComponent<PlayerMovement>().canControl = false;
+        playerObject.GetComponent<PlayerMovement>().canControl = false;     //Deshabilitamos el control del jugador
     }
 
     public void EnableHitboxes()
     {
+        //Ponemos la condicion para saber que caja de daño del jugador activaremos
+        //La condicion es si el personaje ha sido girado en el eje X o no (flipX)
         if (_spriteRenderer.flipX)
         {
-            leftHitbox.GetComponent<Collider2D>().enabled = true;
+            leftHitbox.GetComponent<Collider2D>().enabled = true;           //Habilitamos las cajas de daño del jugador de la derecha
         }
         else
         {
-            rightHitbox.GetComponent<Collider2D>().enabled = true;
+            rightHitbox.GetComponent<Collider2D>().enabled = true;          //Habilitamos las cajas de daño del jugador de la izquierda
         }
     }
 
     public void DisableHitboxes()
     {
+        //Deshabilitamos las cajas de daño del jugador
         rightHitbox.GetComponent<Collider2D>().enabled = false;
         leftHitbox.GetComponent<Collider2D>().enabled = false;
 
     }
 
 	public void EnableCanAttack(){
-		playerObject.GetComponent<PlayerMovement> ().canAttack = true;	
+		playerObject.GetComponent<PlayerMovement> ().canAttack = true;	    //Habilitamos el ataque del jugador
 	}
 
 	public void DisableCanAttack(){
-		playerObject.GetComponent<PlayerMovement> ().canAttack = false;
+        playerObject.GetComponent<PlayerMovement>().canAttack = false;     //Deshabilitamos el ataque del jugador
 	}
 }
