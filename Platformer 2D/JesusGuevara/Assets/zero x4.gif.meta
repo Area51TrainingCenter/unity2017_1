@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 90a1e0eb72a15c046b6a7793813c324f
-timeCreated: 1496971539
+timeCreated: 1497399470
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -1299,8 +1299,8 @@ TextureImporter:
         y: 865
         width: 46
         height: 50
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.53531796, y: 0.41064575}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1312,8 +1312,8 @@ TextureImporter:
         y: 864
         width: 47
         height: 50
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.6652926, y: 0.41943604}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1325,8 +1325,8 @@ TextureImporter:
         y: 864
         width: 54
         height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.71313447, y: 0.3341892}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1338,8 +1338,8 @@ TextureImporter:
         y: 864
         width: 96
         height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.34520754, y: 0.27375984}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1351,8 +1351,8 @@ TextureImporter:
         y: 856
         width: 103
         height: 71
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.35345873, y: 0.35292763}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1364,8 +1364,8 @@ TextureImporter:
         y: 855
         width: 104
         height: 66
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.34888282, y: 0.40539458}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1377,8 +1377,8 @@ TextureImporter:
         y: 788
         width: 104
         height: 70
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.35156286, y: 0.36313912}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1390,8 +1390,8 @@ TextureImporter:
         y: 788
         width: 72
         height: 67
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5025421, y: 0.37718907}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1403,8 +1403,8 @@ TextureImporter:
         y: 788
         width: 58
         height: 55
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.61913115, y: 0.48283246}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1416,8 +1416,8 @@ TextureImporter:
         y: 792
         width: 53
         height: 43
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.6765217, y: 0.5112248}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1429,8 +1429,8 @@ TextureImporter:
         y: 795
         width: 51
         height: 40
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.71762264, y: 0.4638092}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1442,8 +1442,8 @@ TextureImporter:
         y: 796
         width: 51
         height: 39
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.6964949, y: 0.4581878}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1455,8 +1455,8 @@ TextureImporter:
         y: 796
         width: 51
         height: 39
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.66810936, y: 0.4672554}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -1468,8 +1468,8 @@ TextureImporter:
         y: 796
         width: 41
         height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.64914906, y: 0.40271413}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
