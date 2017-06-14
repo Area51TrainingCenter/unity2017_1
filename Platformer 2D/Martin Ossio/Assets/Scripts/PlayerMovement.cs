@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 	public LayerMask _mask;
 
 	public bool canControl = true;
+	public bool canAttack = true;
 
 	public float invulnerableTime = 1.5f;
 
@@ -25,9 +26,8 @@ public class PlayerMovement : MonoBehaviour {
 	private float verticalSpeed;
 	private bool isGrounded;
 
-	private bool hurt;
-
 	private float knockback;
+	private bool knockbackToRight;
 	private float targetAlpha;
 
 	private float h;
@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour {
 		_animator = GetComponentInChildren<Animator> ();
 		_healthScript = GetComponent<Health> ();
 		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
-		targetAlpha = 0;
 
 	}
 	// Update is called once per frame
@@ -48,15 +47,15 @@ public class PlayerMovement : MonoBehaviour {
 
 		ReceiveInputs ();
 
+		ManageKnockback ();
+
 		Hurt ();
 
 		ManageFlipping ();
 
-		ManageAnimations ();
-
-		HandleKnockback ();
-
 		ManageBlinking ();
+
+		ManageAnimations ();
 	}
 
 	//FixedUpdate se ejecuta cada 0.02 segundos
@@ -65,14 +64,18 @@ public class PlayerMovement : MonoBehaviour {
 		//creamos un Vector3 que comienza en zero
 		Vector3 moveVector = new Vector3(0,0,0);
 
-
-
-		// el knockback es el empuje que se la hace al player cuando recibe daño
+		//el knockback es el empuje que se la hace al player cuando recibe danio
+		//en el update se reduce gradualmente el knockback hasta que sea cero o menos		
 		if (knockback > 0) {
-			moveVector.x = -knockback;
+			//aplicamos el knockback al movimiento del player
+			if (knockbackToRight) {
+				moveVector.x = knockback;
+			} else {
+				moveVector.x = -knockback;
+			}
 		} else {
-			// esto se hace en el estado normal.. mover el player con el input de h
-			moveVector.x = h * speedX;
+			//esto se hace en el estado normal ... mover el player con el input de h
+			moveVector.x = h*speedX;
 		}
 
 
@@ -206,9 +209,7 @@ public class PlayerMovement : MonoBehaviour {
 			_spriteRenderer.flipX = false;	
 		}
 	}
-
-
-
+	//se encarga de parpadear el sprite de zero mientras eres invulnerable
 	void ManageBlinking(){
 		if (gameObject.layer == 10) {
 			Color newColor = _spriteRenderer.color;
@@ -216,7 +217,7 @@ public class PlayerMovement : MonoBehaviour {
 			if (newColor.a < 0.05f) {
 				targetAlpha = 1;
 			}
-			if (newColor.a > 0.95) {
+			if (newColor.a > 0.95f) {
 				targetAlpha = 0;
 			}
 			_spriteRenderer.color = newColor;
@@ -224,10 +225,8 @@ public class PlayerMovement : MonoBehaviour {
 			Color newColor = _spriteRenderer.color;
 			newColor.a = 1;
 			_spriteRenderer.color = newColor;
-
-		}
+		}	
 	}
-
 
 	//controla los parametros del animator
 	void ManageAnimations(){
@@ -237,21 +236,20 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("speed", absH);
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
-		_animator.SetBool ("hurt", hurt);
 
-		if (Input.GetMouseButtonDown(0) && isGrounded && canControl) {
+		if (Input.GetMouseButtonDown(0) && isGrounded && canAttack) {
 			_animator.SetTrigger ("attack");
+			canAttack = false;
 		}
 
 		if (knockback > 0) {
-			hurt = true;
+			_animator.SetBool ("hurt", true);
 		} else {
-			hurt = false;
-
+			_animator.SetBool ("hurt", false);
 		}
 	}
 
-	void HandleKnockback(){
+	void ManageKnockback(){
 		if (knockback > 0) {
 			knockback -= Time.deltaTime * 2.5f;
 			if (knockback <= 0) {
@@ -267,11 +265,19 @@ public class PlayerMovement : MonoBehaviour {
 		if (_healthScript.health < previousHealth) {
 			//Layer 10 es la capa Invulnerable
 			gameObject.layer = 10;
-
+			//pierdes el control del personaje
 			canControl = false;
+			//comienza el empuje
 			knockback = 1.5f;
-			verticalSpeed = 0.2f;
 
+			if (transform.position.x < _healthScript.lastAttacker.transform.position.x) {
+				knockbackToRight = false;
+			}else{
+				knockbackToRight = true;
+			}
+
+			//reducimos el verticalSpeed por si es que estabas saltando y asì ya no sigas elevandote
+			verticalSpeed = 2;
 			Invoke ("MakePlayerVulnerable", invulnerableTime);
 		}
 		//despues de hacer el if actualizamos la variable previousHealth
