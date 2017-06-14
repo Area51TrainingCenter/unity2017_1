@@ -44,4 +44,28 @@ public class PlayerAnimationEvents : MonoBehaviour {
 	public void EnableCanAttack(){
 		playerObject.GetComponent<PlayerMovement> ().canAttack = true;
 	}
+
+	public void SetAttack1HitboxSize(){
+		rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.024f, 1);
+		rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.0123f, 1);
+
+		leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.024f, 1);
+		leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.0123f, 1);
+	}
+
+	public void SetAttack2HitboxSize(){
+		rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.43f, 1);
+		rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.19f, 1);
+
+		leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.024f, 1);
+		leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.25f, 1);
+	}
+
+	public void SetAttack3HitboxSize(){
+		rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (0.99f, 1);
+		rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.05f, 1);
+
+		leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (0.99f, 1);
+		leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.01f, 1);
+	}
 }

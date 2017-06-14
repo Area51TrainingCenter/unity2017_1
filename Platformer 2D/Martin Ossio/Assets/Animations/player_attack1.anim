@@ -63,11 +63,10 @@ AnimationClip:
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
     genericBindings:
-    - serializedVersion: 2
-      path: 0
+    - path: 0
       attribute: 0
       script: {fileID: 0}
-      typeID: 212
+      classID: 212
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
@@ -113,7 +112,15 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
+  m_IsEmpty: 0
   m_Events:
+  - time: 0.083333336
+    functionName: SetAttack1HitboxSize
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.16666667
     functionName: DisablePlayerControl
     data: 
@@ -137,13 +144,6 @@ AnimationClip:
     messageOptions: 0
   - time: 0.5833333
     functionName: DisableHitboxes
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.1666666
-    functionName: EnablePlayerControl
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
