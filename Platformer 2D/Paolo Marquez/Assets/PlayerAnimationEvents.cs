@@ -41,6 +41,8 @@ public class PlayerAnimationEvents : MonoBehaviour {
 
 	}
 
+
+
 	public void EnablePlayerCanControl(){
 		playerObject.GetComponent<PlayerMovement> ().canAttack = true;
 	}
@@ -48,4 +50,40 @@ public class PlayerAnimationEvents : MonoBehaviour {
 	public void DisablePlayerCanControl(){
 		playerObject.GetComponent<PlayerMovement> ().canAttack = false;
 	}
+
+	public void SetAttack1_HitBoxesSize(){
+
+		if (_spriteRenderer.flipX==false) {
+			rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2(1.437286f,1);
+			rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2(0.2186431f,0);
+		} else {
+			leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2(0.9502258f,1.202816f);
+			leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2(-0.04147813f,0.1014079f);
+		}
+
+	}
+
+	public void SetAttack2_HitBoxesSize(){
+		if (_spriteRenderer.flipX==false) {
+			rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2(2.412771f,0.5692301f);
+			rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2(0.7063857f,-0.01958036f);
+		} else {
+			leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2(1.597287f,0.6040268f);
+			leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2(-0.3650087f,0.02414489f);
+		}
+
+	}
+
+	public void SetAttack3_HitBoxesSize(){
+		if (_spriteRenderer.flipX==false) {
+			rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2(2.782783f,1);
+			rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2(0.8913916f,0);
+		} else {
+			leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2(2.244348f,1.492552f);
+			leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2(-0.6885393f,0.07243443f);
+		}
+
+	}
+
+
 }
