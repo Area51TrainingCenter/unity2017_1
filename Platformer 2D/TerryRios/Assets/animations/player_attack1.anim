@@ -121,15 +121,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.25
+  - time: 0.33333334
+    functionName: canattack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.41666666
     functionName: EnableHitboxes
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.25
-    functionName: canattack
+  - time: 0.41666666
+    functionName: setattack1hitboxsize
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
