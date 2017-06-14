@@ -12,7 +12,6 @@ public class EnemigoAI : MonoBehaviour
     public float velocidadX = 5;
     private float previousHealth;
     private Renderer _renderer;
-    private float targetR = 0;
     public Transform Player;
     private SpriteRenderer _spriteRenderer;
     // Use this for initialization

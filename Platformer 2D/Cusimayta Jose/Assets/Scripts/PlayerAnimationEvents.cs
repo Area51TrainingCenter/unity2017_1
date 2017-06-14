@@ -55,4 +55,31 @@ public class PlayerAnimationEvents : MonoBehaviour
 	public void DisableCanAttack(){
         playerObject.GetComponent<PlayerMovement>().canAttack = false;     //Deshabilitamos el ataque del jugador
 	}
+	public void ModificarHitBoxAttack1(){
+		if (_spriteRenderer.flipX) {
+			leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.1f, 0);
+			leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.2f, 1);
+		} else {
+			rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.1f, 0);
+			rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.2f, 1);
+		}
+	}
+	public void ModificarHitBoxAttack2(){
+		if (_spriteRenderer.flipX) {
+			leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.4f, -0.02f);
+			leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.8f	, 0.3f);
+		} else {
+			rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.4f, -0.02f);
+			rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.8f, 0.3f);
+		}
+	}
+	public void ModificarHitBoxAttack3(){
+		if (_spriteRenderer.flipX) {
+			leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.4f, 0.04f);
+			leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.8f, 1.4f);
+		} else {
+			rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.4f, 0.04f);
+			rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.8f, 1.4f);
+		}
+	}
 }
