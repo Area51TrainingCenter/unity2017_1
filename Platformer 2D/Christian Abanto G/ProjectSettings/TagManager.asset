@@ -14,10 +14,10 @@ TagManager:
   - UI
   - 
   - 
-  - jugadores
-  - enemigo
-  - invunerable
-  - terreno
+  - Player
+  - Enemigos
+  - Invulnerabilidad
+  - 
   - 
   - 
   - 

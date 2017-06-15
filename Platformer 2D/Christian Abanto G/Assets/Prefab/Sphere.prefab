@@ -42,8 +42,10 @@ GameObject:
   - component: {fileID: 4848886189574964}
   - component: {fileID: 135189342349495826}
   - component: {fileID: 114161215397219790}
+  - component: {fileID: 54427971193670484}
+  - component: {fileID: 114219286413297548}
   m_Layer: 0
-  m_Name: Collider_Sphere
+  m_Name: Vision_Bolita
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109231948756538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.52, y: -1.16, z: 0}
+  m_LocalPosition: {x: 8.75, y: -1.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4848886189574964}
@@ -71,7 +73,7 @@ Transform:
   m_GameObject: {fileID: 1684933522629038}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.00000011921, z: 0}
-  m_LocalScale: {x: 1, y: 4.405151, z: 1}
+  m_LocalScale: {x: 7, y: 0, z: 1}
   m_Children: []
   m_Father: {fileID: 4672661933043232}
   m_RootOrder: 0
@@ -130,7 +132,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &54427971193670484
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1684933522629038}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &114161215397219790
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1684933522629038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26aad75dcd5c81d40a484bc41fdd3330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bolita: {fileID: 1109231948756538}
+--- !u!114 &114219286413297548
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -164,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e15d4647d0abd4f8389bc8bf24ee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad_bolita: 5
+  velocidad_bolita: 0
 --- !u!135 &135120660025797434
 SphereCollider:
   m_ObjectHideFlags: 1
