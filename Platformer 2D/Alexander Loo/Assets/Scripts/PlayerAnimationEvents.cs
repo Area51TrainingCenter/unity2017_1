@@ -37,4 +37,31 @@ public class PlayerAnimationEvents : MonoBehaviour {
 	public void CanAttack(){
 		playercontrol.canAttack = true;
 	}
+
+	public void SetAttack1HitboxSize(){
+
+		_colliderRight.size = new Vector2(1.18f,1);
+		_colliderRight.offset = new Vector2 (0.06f, 0);
+		_colliderLeft.size = new Vector2(1.18f,1);
+		_colliderLeft.offset = new Vector2 (0.06f, 0);
+	}
+
+	public void SetAttack2HitboxSize(){
+
+		_colliderRight.size = new Vector2(1.78f,1);
+		_colliderRight.offset = new Vector2 (0.38f, 0);
+		_colliderLeft.size = new Vector2(1.78f,1);
+		_colliderLeft.offset = new Vector2 (0.38f, 0);
+
+	}
+
+	public void SetAttack3HitboxSize(){
+
+		_colliderRight.size = new Vector2 (1.78f, 1.18f);
+		_colliderRight.offset = new Vector2 (0.36f, 0.03f);
+		_colliderLeft.size = new Vector2 (1.78f, 1.18f);
+		_colliderLeft.offset = new Vector2 (0.36f, 0.03f);
+	}
+
+
 }
