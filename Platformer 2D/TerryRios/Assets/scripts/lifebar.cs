@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class lifebar : MonoBehaviour {
 
-	private GameObject _lifezero;
-	private float _actuallifezero;
+	public health _healthscript;
+	private Image _Image;
+
 
 	// Use this for initialization
 	void Start () 
 	{
-		_lifezero.GetComponent<health> ().Health;
+		_Image = GetComponent<Image> ();
 	
 	}
 	
@@ -21,12 +22,7 @@ public class lifebar : MonoBehaviour {
 	{
 
 
-		float _resultado = _lifezero.GetComponent<health>().Health / _lifezero.GetComponent<health>().maxHealth ;
-			
-	   
-
-
-		GetComponent<Image>().fillAmount = _resultado;
+		_Image.fillAmount = _healthscript.Health / _healthscript.maxHealth;
 		
 	}
 }

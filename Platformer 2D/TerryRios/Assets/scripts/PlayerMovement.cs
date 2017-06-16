@@ -273,6 +273,8 @@ public class PlayerMovement : MonoBehaviour {
 	void Hurt()
 	{
 		// se compara el valor actual de health con el posterior
+	
+
 		if (_healthscript.Health < _previoushealth) 
 		{
 			gameObject.layer = 10;
@@ -281,9 +283,13 @@ public class PlayerMovement : MonoBehaviour {
 
 			knockback = 2;
 
+			if(_healthscript.lastAttacker != null){
+
 			if (transform.position.x <_healthscript.lastAttacker.transform.position.x) 
 			{
 				knockbacktoright = false;
+			}
+
 			}
 
 			verticalSpeed = 2;
