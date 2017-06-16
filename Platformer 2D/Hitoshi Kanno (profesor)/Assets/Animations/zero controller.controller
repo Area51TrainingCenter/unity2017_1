@@ -119,7 +119,7 @@ AnimatorStateTransition:
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0.010681272
-  m_TransitionOffset: 0.068535805
+  m_TransitionOffset: 0
   m_ExitTime: 0.97313076
   m_HasExitTime: 1
   m_HasFixedDuration: 1
@@ -698,7 +698,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: player_attack1
-  m_Speed: 2.3
+  m_Speed: 2.6
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101082356349828720}
