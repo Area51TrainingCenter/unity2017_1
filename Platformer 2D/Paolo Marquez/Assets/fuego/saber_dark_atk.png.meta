@@ -1,0 +1,1042 @@
+fileFormatVersion: 2
+guid: 904e21ca074518a4598fe54d55ff1657
+timeCreated: 1497580616
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: saber_dark_atk_0
+    21300002: saber_dark_atk_1
+    21300004: saber_dark_atk_2
+    21300006: saber_dark_atk_3
+    21300008: saber_dark_atk_4
+    21300010: saber_dark_atk_5
+    21300012: saber_dark_atk_6
+    21300014: saber_dark_atk_7
+    21300016: saber_dark_atk_8
+    21300018: saber_dark_atk_9
+    21300020: saber_dark_atk_10
+    21300022: saber_dark_atk_11
+    21300024: saber_dark_atk_12
+    21300026: saber_dark_atk_13
+    21300028: saber_dark_atk_14
+    21300030: saber_dark_atk_15
+    21300032: saber_dark_atk_16
+    21300034: saber_dark_atk_17
+    21300036: saber_dark_atk_18
+    21300038: saber_dark_atk_19
+    21300040: saber_dark_atk_20
+    21300042: saber_dark_atk_21
+    21300044: saber_dark_atk_22
+    21300046: saber_dark_atk_23
+    21300048: saber_dark_atk_24
+    21300050: saber_dark_atk_25
+    21300052: saber_dark_atk_26
+    21300054: saber_dark_atk_27
+    21300056: saber_dark_atk_28
+    21300058: saber_dark_atk_29
+    21300060: saber_dark_atk_30
+    21300062: saber_dark_atk_31
+    21300064: saber_dark_atk_32
+    21300066: saber_dark_atk_33
+    21300068: saber_dark_atk_34
+    21300070: saber_dark_atk_35
+    21300072: saber_dark_atk_36
+    21300074: saber_dark_atk_37
+    21300076: saber_dark_atk_38
+    21300078: saber_dark_atk_39
+    21300080: saber_dark_atk_40
+    21300082: saber_dark_atk_41
+    21300084: saber_dark_atk_42
+    21300086: saber_dark_atk_43
+    21300088: saber_dark_atk_44
+    21300090: saber_dark_atk_45
+    21300092: saber_dark_atk_46
+    21300094: saber_dark_atk_47
+    21300096: saber_dark_atk_48
+    21300098: saber_dark_atk_49
+    21300100: saber_dark_atk_50
+    21300102: saber_dark_atk_51
+    21300104: saber_dark_atk_52
+    21300106: saber_dark_atk_53
+    21300108: saber_dark_atk_54
+    21300110: saber_dark_atk_55
+    21300112: saber_dark_atk_56
+    21300114: saber_dark_atk_57
+    21300116: saber_dark_atk_58
+    21300118: saber_dark_atk_59
+    21300120: saber_dark_atk_60
+    21300122: saber_dark_atk_61
+    21300124: saber_dark_atk_62
+    21300126: saber_dark_atk_63
+    21300128: saber_dark_atk_64
+    21300130: saber_dark_atk_65
+    21300132: saber_dark_atk_66
+    21300134: saber_dark_atk_67
+    21300136: saber_dark_atk_68
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: saber_dark_atk_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 557
+        width: 85
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_1
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 630
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_2
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 587
+        width: 47
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_3
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 608
+        width: 8
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_4
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 608
+        width: 103
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_5
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 608
+        width: 103
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_6
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 485
+        width: 37
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_7
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 483
+        width: 27
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_8
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 556
+        width: 86
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_9
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 531
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_10
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 563
+        width: 11
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_11
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 576
+        width: 105
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_12
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 576
+        width: 105
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_13
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 488
+        width: 37
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_14
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 519
+        width: 79
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_15
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 560
+        width: 49
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_16
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 476
+        width: 34
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_17
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 488
+        width: 44
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_18
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 467
+        width: 87
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_19
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 536
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_20
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 538
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_21
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 468
+        width: 90
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_22
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 535
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_23
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 474
+        width: 57
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_24
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 519
+        width: 8
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_25
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 475
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_26
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 379
+        width: 92
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_27
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 419
+        width: 48
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_28
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 440
+        width: 95
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_29
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 432
+        width: 137
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_30
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 395
+        width: 43
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_31
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 387
+        width: 79
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_32
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 377
+        width: 173
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_33
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 394
+        width: 22
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_34
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 394
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_35
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 299
+        width: 90
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_36
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 371
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_37
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 261
+        width: 92
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_38
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 302
+        width: 13
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_39
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 302
+        width: 13
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_40
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 302
+        width: 6
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_41
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 302
+        width: 13
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_42
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 302
+        width: 13
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_43
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 302
+        width: 6
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_44
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 302
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_45
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 302
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_46
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 302
+        width: 8
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_47
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 260
+        width: 79
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_48
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 200
+        width: 87
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_49
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 269
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_50
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 178
+        width: 79
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_51
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 42
+        width: 131
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_52
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 176
+        width: 90
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_53
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 246
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_54
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 17
+        width: 130
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_55
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 210
+        width: 5
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_56
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 5
+        width: 89
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_57
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 119
+        width: 21
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_58
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 108
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_59
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 117
+        width: 5
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_60
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 56
+        width: 79
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_61
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 67
+        width: 16
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_62
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 87
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_63
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 97
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_64
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 57
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_65
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 35
+        width: 87
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_66
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 53
+        width: 70
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_67
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 41
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_atk_68
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 16
+        width: 70
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -261,10 +261,13 @@ public class PlayerMovement : MonoBehaviour {
 			canControl = false;
 			knockback = 2;
 			verticalSpeed = -1;
-			if (transform.position.x<salud.lastAttacker.transform.position.x) {
-				knockbackToRight = false;
+			if (salud.lastAttacker!=null) {
+				if (transform.position.x<salud.lastAttacker.transform.position.x) {
+					knockbackToRight = false;
+				}
+				else knockbackToRight = true;
 			}
-			else knockbackToRight = true;
+
 
 			Invoke ("restaurarCapa", 2);
 		}
