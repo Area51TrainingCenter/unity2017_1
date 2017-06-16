@@ -304,11 +304,12 @@ public class Movimiento : MonoBehaviour {
 			// 
 			knockback = 3;
 
-
-			if (transform.position.x < _healthScript.lastAttacker.transform.position.x) {
-				knockbackToRight = false;
-			} else {
-				knockbackToRight = true;
+			if (_healthScript.lastAttacker != null ) {// si el ultimo que lo ataca es diferente de vacio 
+				if (transform.position.x < _healthScript.lastAttacker.transform.position.x) {
+					knockbackToRight = false;
+				} else {
+					knockbackToRight = true;
+				}
 			}
 
 			verticalSpeed = 1;// salto
