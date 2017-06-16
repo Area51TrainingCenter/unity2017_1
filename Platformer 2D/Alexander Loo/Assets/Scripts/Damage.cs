@@ -6,10 +6,14 @@ public class Damage : MonoBehaviour {
 
 	public float damage = 20;
 	public string targetTag = "enemigo";
+	public bool destroy = false;
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == targetTag) {
 			other.GetComponent<Health> ().ChangeHealth(damage,gameObject);
+			if (destroy) {
+				Destroy (gameObject);
+			}
 		}
 	}
 }

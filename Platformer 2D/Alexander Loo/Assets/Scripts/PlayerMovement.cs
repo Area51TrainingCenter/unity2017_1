@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour {
 	public float layerTime;
 	public float knockBack;
 	private bool KnockBackToRight;
-	private bool hurt;
 	public bool canAttack = true;
 
 	private float targetAlpha;
@@ -166,7 +165,11 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("speed", Mathf.Abs (h));
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
-		_animator.SetBool ("hurt", hurt);
+		if (knockBack > 0) {
+			_animator.SetBool ("hurt", true);
+		} else {
+			_animator.SetBool ("hurt", false);
+		}
   	}
 	void ReceiveInputs(){
 
@@ -182,7 +185,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
   	}
 	void ManageFlipping(){
-
 		if (h < 0) {
 			_spriteRenderer.flipX = true;
 		}
@@ -222,11 +224,13 @@ public class PlayerMovement : MonoBehaviour {
 			gameObject.layer = 10;
 			controlPlayer = false;
 			knockBack = 5;
-			// si el player esta a la izquierda del enemigo
-			if (transform.position.x < health.lastAttacker.transform.position.x) {
-				KnockBackToRight = false;
-			} else {
-				KnockBackToRight = true;
+			if(health.lastAttacker != null){
+				// si el player esta a la izquierda del enemigo
+				if (transform.position.x < health.lastAttacker.transform.position.x) {
+					KnockBackToRight = false;
+				} else {
+					KnockBackToRight = true;
+				}
 			}
 			Invoke ("MakePlayerVulnerable",layerTime);
 		}
