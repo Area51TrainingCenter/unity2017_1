@@ -108,13 +108,14 @@ public class EnemigoAI : MonoBehaviour
         {
 		//Al ser la posición X de jugador mayor que la de Megaman
 		//Entonces rotaremos a Megaman hacia la derecha
-            _spriteRenderer.flipX = false;
+			transform.rotation=new Quaternion(0,180,0,0);
+
         }
         else
         {
 		//Al ser la posición X de jugador menor que la de Megaman
 		//Entonces rotaremos a Megaman hacia la izquierda
-            _spriteRenderer.flipX = true;
+			transform.rotation=new Quaternion(0,0,0,0);
         }
     }
 }

@@ -338,18 +338,19 @@ public class PlayerMovement : MonoBehaviour
             canControl = false;     //Hacemos que el jugador no tenga control del personaje
             knockback = 3;          //Esta es la velocidad con la cual retrocederas al recibir daño
             //Cambiamos la velocidad de VerticalSpeed por si se recibe daño en el aire, de esta manera, esta velocidad irá disminuyendo por la gravedad, si se le pone negativo, ocasionará que suba el objeto
-            verticalSpeed = 0.1f;   
-            //Aquí averiguamos en donde esta el jugador, si está a la derecha o izquierda del objeto
-            if (transform.position.x < _healthScript.lastAttacker.transform.position.x)
-            {
-                //Si está a la izquierda hacemos que el knockbackToRight sea falso, haciendo que el objeto se vaya a la izquierda
-                knockbackToRight = false;
-            }
-            else
-            {
-                //Si está a la derecha hacemos que el knockbackToRight sea falso, haciendo que el objeto se vaya a la derecha
-                knockbackToRight = true;
-            }
+            verticalSpeed = 0.1f;  
+
+			//Debemos verificar que el LastAttacker exista
+			if (_healthScript.lastAttacker) {
+				//Aquí averiguamos en donde esta el jugador, si está a la derecha o izquierda del objeto
+				if (transform.position.x < _healthScript.lastAttacker.transform.position.x) {
+					//Si está a la izquierda hacemos que el knockbackToRight sea falso, haciendo que el objeto se vaya a la izquierda
+					knockbackToRight = false;
+				} else {
+					//Si está a la derecha hacemos que el knockbackToRight sea falso, haciendo que el objeto se vaya a la derecha
+					knockbackToRight = true;
+				}
+			}
             Invoke("MakePlayerVulnerable", invulnerableTime);   //Invocamos al metodo MakePlayerVulnerable
         }
         //despues de hacer el if actualizamos la variable previousHealth
