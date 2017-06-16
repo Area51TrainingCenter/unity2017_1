@@ -269,13 +269,13 @@ public class PlayerMovement : MonoBehaviour {
 			canControl = false;
 			//comienza el empuje
 			knockback = 1.5f;
-
-			if (transform.position.x < _healthScript.lastAttacker.transform.position.x) {
+			if (_healthScript.lastAttacker != null) {
+				if (transform.position.x < _healthScript.lastAttacker.transform.position.x) {
 				knockbackToRight = false;
-			}else{
-				knockbackToRight = true;
+				}else{
+					knockbackToRight = true;
+				}
 			}
-
 			//reducimos el verticalSpeed por si es que estabas saltando y asì ya no sigas elevandote
 			verticalSpeed = 2;
 			Invoke ("MakePlayerVulnerable", invulnerableTime);
