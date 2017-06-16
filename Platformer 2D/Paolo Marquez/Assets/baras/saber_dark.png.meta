@@ -1,0 +1,930 @@
+fileFormatVersion: 2
+guid: 44b33f79f9574584bbc6f1b9e636b129
+timeCreated: 1497578779
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: saber_dark_0
+    21300002: saber_dark_1
+    21300004: saber_dark_2
+    21300006: saber_dark_3
+    21300008: saber_dark_4
+    21300010: saber_dark_5
+    21300012: saber_dark_6
+    21300014: saber_dark_7
+    21300016: saber_dark_8
+    21300018: saber_dark_9
+    21300020: saber_dark_10
+    21300022: saber_dark_11
+    21300024: saber_dark_12
+    21300026: saber_dark_13
+    21300028: saber_dark_14
+    21300030: saber_dark_15
+    21300032: saber_dark_16
+    21300034: saber_dark_17
+    21300036: saber_dark_18
+    21300038: saber_dark_19
+    21300040: saber_dark_20
+    21300042: saber_dark_21
+    21300044: saber_dark_22
+    21300046: saber_dark_23
+    21300048: saber_dark_24
+    21300050: saber_dark_25
+    21300052: saber_dark_26
+    21300054: saber_dark_27
+    21300056: saber_dark_28
+    21300058: saber_dark_29
+    21300060: saber_dark_30
+    21300062: saber_dark_31
+    21300064: saber_dark_32
+    21300066: saber_dark_33
+    21300068: saber_dark_34
+    21300070: saber_dark_35
+    21300072: saber_dark_36
+    21300074: saber_dark_37
+    21300076: saber_dark_38
+    21300078: saber_dark_39
+    21300080: saber_dark_40
+    21300082: saber_dark_41
+    21300084: saber_dark_42
+    21300086: saber_dark_43
+    21300088: saber_dark_44
+    21300090: saber_dark_45
+    21300092: saber_dark_46
+    21300094: saber_dark_47
+    21300096: saber_dark_48
+    21300098: saber_dark_49
+    21300100: saber_dark_50
+    21300102: saber_dark_51
+    21300104: saber_dark_52
+    21300106: saber_dark_53
+    21300108: saber_dark_54
+    21300110: saber_dark_55
+    21300112: saber_dark_56
+    21300114: saber_dark_57
+    21300116: saber_dark_58
+    21300118: saber_dark_59
+    21300120: saber_dark_60
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: saber_dark_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1118
+        width: 157
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_1
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 1116
+        width: 194
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_2
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 1121
+        width: 161
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_3
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 1156
+        width: 176
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_4
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 949
+        width: 157
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5892329, y: 0.48877424}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_5
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 949
+        width: 165
+        height: 156
+      alignment: 9
+      pivot: {x: 0.6061329, y: 0.45509768}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_6
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 949
+        width: 184
+        height: 156
+      alignment: 9
+      pivot: {x: 0.6237257, y: 0.4550973}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_7
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 949
+        width: 202
+        height: 156
+      alignment: 9
+      pivot: {x: 0.6733858, y: 0.45509768}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_8
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 949
+        width: 203
+        height: 156
+      alignment: 9
+      pivot: {x: 0.68115777, y: 0.47754884}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_9
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 949
+        width: 184
+        height: 156
+      alignment: 9
+      pivot: {x: 0.6713124, y: 0.45509768}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_10
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 934
+        width: 125
+        height: 171
+      alignment: 9
+      pivot: {x: 0.6400957, y: 0.39759085}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_11
+      rect:
+        serializedVersion: 2
+        x: 1229
+        y: 934
+        width: 339
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_12
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 958
+        width: 215
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_13
+      rect:
+        serializedVersion: 2
+        x: 1783
+        y: 958
+        width: 209
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_14
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 787
+        width: 206
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_15
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 787
+        width: 204
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_16
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 736
+        width: 96
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_17
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 716
+        width: 142
+        height: 218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_18
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 788
+        width: 158
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_19
+      rect:
+        serializedVersion: 2
+        x: 814
+        y: 788
+        width: 164
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_20
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 796
+        width: 175
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_21
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 795
+        width: 173
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_22
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 786
+        width: 163
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_23
+      rect:
+        serializedVersion: 2
+        x: 1489
+        y: 785
+        width: 163
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_24
+      rect:
+        serializedVersion: 2
+        x: 1652
+        y: 785
+        width: 163
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_25
+      rect:
+        serializedVersion: 2
+        x: 1815
+        y: 785
+        width: 163
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_26
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 552
+        width: 163
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_27
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 553
+        width: 166
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_28
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 555
+        width: 150
+        height: 230
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_29
+      rect:
+        serializedVersion: 2
+        x: 813
+        y: 615
+        width: 165
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_30
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 616
+        width: 188
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_31
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 612
+        width: 193
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_32
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 628
+        width: 181
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_33
+      rect:
+        serializedVersion: 2
+        x: 1540
+        y: 554
+        width: 129
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_34
+      rect:
+        serializedVersion: 2
+        x: 1669
+        y: 696
+        width: 67
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_35
+      rect:
+        serializedVersion: 2
+        x: 1736
+        y: 695
+        width: 75
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_36
+      rect:
+        serializedVersion: 2
+        x: 1811
+        y: 695
+        width: 72
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_37
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 384
+        width: 157
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_38
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 401
+        width: 123
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_39
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 408
+        width: 132
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_40
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 420
+        width: 141
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_41
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 416
+        width: 152
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_42
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 401
+        width: 155
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_43
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 410
+        width: 146
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_44
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 418
+        width: 147
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_45
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 416
+        width: 153
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_46
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 242
+        width: 170
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_47
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 235
+        width: 160
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_48
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 234
+        width: 159
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_49
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 236
+        width: 160
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_50
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 231
+        width: 166
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_51
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 236
+        width: 179
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_52
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 72
+        width: 242
+        height: 312
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_53
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 107
+        width: 184
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_54
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 82
+        width: 159
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_55
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 43
+        width: 185
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_56
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 113
+        width: 160
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_57
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 66
+        width: 177
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_58
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 70
+        width: 171
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_59
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 9
+        width: 159
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: saber_dark_60
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 9
+        width: 159
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
