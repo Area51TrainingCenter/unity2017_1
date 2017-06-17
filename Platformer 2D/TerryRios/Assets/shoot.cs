@@ -9,7 +9,7 @@ public class shoot : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		InvokeRepeating ("shootbullet", 0, 2);
+		InvokeRepeating ("shootbullet", 0, 3);
 
 
 	}
