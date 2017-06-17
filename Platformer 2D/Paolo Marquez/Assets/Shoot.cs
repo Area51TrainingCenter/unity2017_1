@@ -8,7 +8,8 @@ public class Shoot : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating ("creaBala",0,shootRate);
+       
+        InvokeRepeating ("creaBala",0,shootRate);
 	}
 	
 	// Update is called once per frame
@@ -17,6 +18,7 @@ public class Shoot : MonoBehaviour {
 	}
 
 	void creaBala(){
-		Instantiate (bulletPrefab, transform.position, Quaternion.identity);
+       
+		Instantiate (bulletPrefab, transform.position,Quaternion.identity);
 	}
 }

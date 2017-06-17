@@ -8,8 +8,9 @@ public class Bullet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        transform.Rotate(0, 0, -90);
 		_rigidBody = GetComponent<Rigidbody2D> ();
-		_rigidBody.velocity = -transform.up*velocidad;
+		_rigidBody.velocity =- transform.up*velocidad;
 	}
 	
 	// Update is called once per frame
