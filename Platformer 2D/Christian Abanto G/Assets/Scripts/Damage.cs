@@ -5,6 +5,8 @@ using UnityEngine;
 public class Damage : MonoBehaviour {
 	public float damage = 20;  //Definir el daño el arma
 	public string TargetTag="enemigo";  //Definir a quien le va a hacer daño
+	public bool destroyOnTouch = false;
+
     // Use this for initialization
     void Start()
     {
@@ -17,6 +19,10 @@ public class Damage : MonoBehaviour {
 		if (other.CompareTag(TargetTag)) {
             //Operación para disminuir la vida de objetivo en base al daño de arma (damage)
 			other.GetComponent<Health> ().ChangeHealth (damage, gameObject); 
+
+			if (destroyOnTouch) {
+				Destroy (gameObject);
+			}
 		}
     }
 }
