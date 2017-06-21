@@ -13,6 +13,8 @@ public class Shoot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void ShootBullet () {
-		Instantiate (bulletPrefab, transform.position, Quaternion.identity);
+		GameObject newBullet = Instantiate (bulletPrefab, transform.position, Quaternion.identity);
+		//por ser transform no ponemos get component
+		newBullet.transform.rotation = transform.rotation;
 	}
 }
