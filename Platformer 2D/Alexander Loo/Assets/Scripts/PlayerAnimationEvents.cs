@@ -16,7 +16,7 @@ public class PlayerAnimationEvents : MonoBehaviour {
 	public void DisablePlayerControl(){
 
 		playercontrol.controlPlayer = false;
-		Debug.Log (playercontrol.controlPlayer);
+		//Debug.Log (playercontrol.controlPlayer);
 	}
 
 	public void EnableCollider(){

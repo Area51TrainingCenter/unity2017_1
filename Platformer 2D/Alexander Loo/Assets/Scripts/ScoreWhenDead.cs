@@ -5,17 +5,17 @@ using UnityEngine;
 public class ScoreWhenDead : MonoBehaviour {
 
 	private ScoreManager _scoreManager;
-	private Health _heatlh;
+	private Health _health;
 	public int score = 100;
 
 	void Start(){
 		//busca el nombre del objeto -->GameObject.Find("nombre del objeto")
 		_scoreManager = GameObject.Find ("Score Manager").GetComponent<ScoreManager>();
-		_heatlh = GetComponent<Health> ();
+		_health = GetComponent<Health> ();
 	}
 	void Update(){
 
-		if (_heatlh.health <= 0) {
+		if (_health.health <= 0) {
 			_scoreManager.score += score;
 		}
 	}

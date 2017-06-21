@@ -12,6 +12,8 @@ public class shoot : MonoBehaviour {
 	}
 
 	void Shooting(){
-		Instantiate (bulletPrefab, transform.position, Quaternion.identity);
+		//Al guardar el Instantiate en una variable igual se llama la función
+		GameObject newBullet = Instantiate (bulletPrefab, transform.position, Quaternion.identity);
+		newBullet.transform.rotation = transform.rotation;
 	}
 }
