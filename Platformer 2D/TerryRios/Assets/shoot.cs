@@ -9,7 +9,7 @@ public class shoot : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		InvokeRepeating ("shootbullet", 0, 3);
+		InvokeRepeating ("shootbullet", 0, 3.0f);
 
 
 	}
@@ -21,7 +21,9 @@ public class shoot : MonoBehaviour {
 
 	void shootbullet()
 	{
-		Instantiate (bulletprefab, transform.position, Quaternion.identity); 
+		GameObject newBullet = Instantiate (bulletprefab, transform.position, Quaternion.identity); 
+
+		newBullet.transform.rotation = transform.rotation;
 
 	}
 
