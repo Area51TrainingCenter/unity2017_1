@@ -11,6 +11,7 @@ public class Shoot : MonoBehaviour {
 	}
 	
 	void ShootBullet () {
-		Instantiate (bulletPrefab, transform.position, Quaternion.identity);
+		GameObject newBullet = Instantiate (bulletPrefab, transform.position, Quaternion.identity);
+		newBullet.transform.rotation = transform.rotation;
 	}
 }
