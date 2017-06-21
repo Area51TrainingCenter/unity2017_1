@@ -17,10 +17,8 @@ public class Shoot : MonoBehaviour {
 	}
 
 	void Disparar(){
-		Instantiate (bulletPrefab, transform.position, transform.rotation);
+		GameObject newBullet= Instantiate (bulletPrefab, transform.position, transform.rotation);
+		newBullet.transform.rotation = transform.rotation;
 
 	}
-
-
-
 }

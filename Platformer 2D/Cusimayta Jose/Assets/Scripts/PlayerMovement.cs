@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private float previousHealth;
 
     private float verticalSpeed;
-    private bool isGrounded;
+	public bool isGrounded;
 
     private float h;
     private bool pressedJump;
@@ -320,7 +320,8 @@ public class PlayerMovement : MonoBehaviour
             canAttack = false;
         }
 
-        if (knockback > 0)
+        
+		if (knockback > 0)
             _animator.SetBool("hurt", true);
         else
             _animator.SetBool("hurt", false);

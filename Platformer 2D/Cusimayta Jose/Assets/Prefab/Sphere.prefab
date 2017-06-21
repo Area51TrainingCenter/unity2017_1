@@ -22,16 +22,17 @@ GameObject:
   - component: {fileID: 33317645384121754}
   - component: {fileID: 135120660025797434}
   - component: {fileID: 23986526714148378}
-  - component: {fileID: 114354221063191144}
   - component: {fileID: 54201055899700882}
-  - component: {fileID: 114385213186280956}
+  - component: {fileID: 114880852485667060}
+  - component: {fileID: 114858811156791522}
+  - component: {fileID: 114972927278089890}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1684933522629038
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,9 +42,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4848886189574964}
   - component: {fileID: 135189342349495826}
-  - component: {fileID: 114161215397219790}
   - component: {fileID: 54427971193670484}
-  - component: {fileID: 114219286413297548}
+  - component: {fileID: 114161306954268298}
   m_Layer: 0
   m_Name: Vision_Bolita
   m_TagString: Untagged
@@ -147,7 +147,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114161215397219790
+--- !u!114 &114161306954268298
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -155,23 +155,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1684933522629038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26aad75dcd5c81d40a484bc41fdd3330, type: 3}
+  m_Script: {fileID: 11500000, guid: 72a2ca74cb42ec24ca53b84791f4481d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bolita: {fileID: 1109231948756538}
---- !u!114 &114219286413297548
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1684933522629038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26aad75dcd5c81d40a484bc41fdd3330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bolita: {fileID: 1109231948756538}
---- !u!114 &114354221063191144
+  bullet: {fileID: 1109231948756538}
+--- !u!114 &114858811156791522
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -179,10 +167,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1109231948756538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65d8daef878b1c4499dea03a81efd124, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c719015dc6be344bb3b963eb83cff06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114385213186280956
+  health: 100
+  maxHealth: 100
+  lastAttacker: {fileID: 0}
+--- !u!114 &114880852485667060
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -193,7 +184,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e15d4647d0abd4f8389bc8bf24ee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad_bolita: 0
+  player: {fileID: 0}
+  speed: 5
+--- !u!114 &114972927278089890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109231948756538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf618307cba3c794aa0052f0fab7fdff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135120660025797434
 SphereCollider:
   m_ObjectHideFlags: 1

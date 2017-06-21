@@ -13,14 +13,12 @@ public class EnemigoAI : MonoBehaviour
     private float previousHealth;
     private Renderer _renderer;
     public Transform Player;
-    private SpriteRenderer _spriteRenderer;
     // Use this for initialization
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _healthScript = GetComponent<Health>();
         _renderer = GetComponent<MeshRenderer>();
-        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
