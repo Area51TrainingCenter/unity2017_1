@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour {
 	public bool canControl = true;
 	public bool canAttack = true;
 	private Rigidbody2D _rigidbody;
-	private Animator _animator;
+	public Animator _animator;
 	private SpriteRenderer _spriteRenderer;
 
 	private float verticalSpeed;
@@ -28,6 +28,9 @@ public class PlayerMovement : MonoBehaviour {
 	private float targetAlpha;
 	private float dash;
 	private bool pressedJump;
+
+	//para salir del nivel
+
 
 	// Use this for initialization
 	void Start () {
@@ -234,6 +237,8 @@ public class PlayerMovement : MonoBehaviour {
 		if (knockback<0) {
 			_animator.SetBool ("hurt", false);
 		}
+
+
 	}
 
 	void HandleKnockBack(){
