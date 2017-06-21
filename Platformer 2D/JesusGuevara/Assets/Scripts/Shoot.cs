@@ -8,12 +8,13 @@ public class Shoot : MonoBehaviour {
 	public float shooRate=3.0f;
 
 	void Start () {
-		InvokeRepeating ("bullet()",0,shooRate);
+		InvokeRepeating ("bullet",0,shooRate);
 	}
 	
 
 	void bullet () {
-		Instantiate (bulletPrefab, transform.position, Quaternion.identity);
+		GameObject newBullet =  Instantiate (bulletPrefab, transform.position, Quaternion.identity);
+		newBullet.transform.rotation = transform.rotation;
 	}
 
 
