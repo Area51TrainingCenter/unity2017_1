@@ -1,28 +1,20 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//importar cosas que no estan por defecto
+//importamos el codigo de los elementos de
+//UI (por defecto no esta disponible)
 using UnityEngine.UI;
 
-public class lifebar : MonoBehaviour {
-
-	public health _healthscript;
-	private Image _Image;
-
-
+public class Lifebar : MonoBehaviour {
+	public Health _healthScript;
+	private Image _image;
 	// Use this for initialization
-	void Start () 
-	{
-		_Image = GetComponent<Image> ();
-	
+	void Start () {
+		_image = GetComponent<Image> ();
 	}
 	
 	// Update is called once per frame
-	void Update () 
-	{
-
-
-		_Image.fillAmount = _healthscript.Health / _healthscript.maxHealth;
-		
+	void Update () {
+		_image.fillAmount = _healthScript.health / _healthScript.maxHealth;
 	}
 }

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//importamos el codigo para manejo de escenas
 using UnityEngine.SceneManagement;
-
-public class winmenu : MonoBehaviour {
+public class WinMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -15,9 +15,7 @@ public class winmenu : MonoBehaviour {
 		
 	}
 
-	public void changescene(string scenename){
-
-		SceneManager.LoadScene(scenename);
-		
+	public void ChangeScene(string sceneName){
+		SceneManager.LoadScene (sceneName);
 	}
 }

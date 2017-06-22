@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class damage : MonoBehaviour {
-	public float Damage = 20;
-	public string targettag = "enemigo";
-
+public class Damage : MonoBehaviour {
+	public float damage = 20;
+	public string targetTag = "enemigo";
+	public bool destroyOnTouch = false;
 	// Use this for initialization
 	void Start () {
 		
 	}
-
-	// Update is called once per frame
-	void OnTriggerEnter2D (Collider2D other) {
-		if (other.CompareTag(targettag)) 
-		{
-			other.GetComponent<health> ().ChangeHealth(Damage,gameObject);
+	
+	void OnTriggerEnter2D(Collider2D other){
+		if (other.CompareTag(targetTag)) {
+			other.GetComponent<Health> ().ChangeHealth(damage,gameObject);
+			if (destroyOnTouch) {
+				Destroy (gameObject);
+			}
 		}
-		
 	}
-
 }

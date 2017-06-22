@@ -7,34 +7,34 @@ public class EnemyAI : MonoBehaviour {
 	public LayerMask _mask;
 	private bool _goToTheRight;
 	private Rigidbody2D _rigidbody;
-	private health _healthscript;
-	private float _previoushealth;
+	private Health _healthScript;
 	private MeshRenderer _renderer;
+
+	private float previousHealth;
 	// Use this for initialization
 	void Start () {
 		_rigidbody = GetComponent<Rigidbody2D> ();
-		_healthscript = GetComponent<health> ();
+		_healthScript = GetComponent<Health> ();
 		_renderer = GetComponent<MeshRenderer> ();
 	}
+
 	void Update(){
-
-		if (_healthscript.Health < _previoushealth) 
-		{
+		//detectamos cuando han lastimado al enemigo
+		if (_healthScript.health < previousHealth) {
+			//cambiamos el color del material a blanco DE GOLPE
 			_renderer.material.color = new Color (1, 1, 1);
-		} 
+		}
+		//gradualmente hacemos que el color vuelva a ser rojo
+		Color finalColor = Color.Lerp (_renderer.material.color, Color.red, Time.deltaTime * 10);
+		_renderer.material.color = finalColor;
+		previousHealth = _healthScript.health;
 
-		Color finalcolor = Color.Lerp (_renderer.material.color, Color.red, Time.deltaTime * 10);
-
-		_renderer.material.color = finalcolor;
-			
-		_previoushealth = _healthscript.Health;
-		if (_healthscript.Health <= 0) {
+		//matamos al enemigo cuando tenga vida cero
+		if (_healthScript.health <= 0) {
 			Destroy (gameObject);
 		}
-
-
 	}
-	
+
 	void FixedUpdate () {
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		boxSize = boxSize * 0.99f;
@@ -43,15 +43,15 @@ public class EnemyAI : MonoBehaviour {
 
 //		if (hitInfo.collider != null) {
 //			if (hitInfo.collider.gameObject.CompareTag("Player")) {
-//				hitInfo.collider.GetComponent<health>().ChangeHealth(20);
+//				hitInfo.collider.GetComponent<Health> ().ChangeHealth(20);
 //			}
 //		}
-
+//
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector2.right, rayLength,_mask.value);
 
 		if (hitInfo.collider != null) {
 			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
-//				hitInfo.collider.GetComponent<health>().ChangeHealth(20);
+			//	hitInfo.collider.GetComponent<Health> ().ChangeHealth(20);
 			} else {
 				_goToTheRight = !_goToTheRight;
 			}
@@ -59,15 +59,15 @@ public class EnemyAI : MonoBehaviour {
 
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, Vector2.left, rayLength,_mask.value);
 		if (hitInfo.collider !=null) {
-			if (hitInfo.collider.gameObject.CompareTag("Player")) {
-//				hitInfo.collider.GetComponent<health>().ChangeHealth(20);
+			if (hitInfo.collider.gameObject.CompareTag ("Player")) {
+			//	hitInfo.collider.GetComponent<Health> ().ChangeHealth (20);
 			}
 			else {
 				_goToTheRight = !_goToTheRight;
 			}
 		}
 
-		Vector3 moveVector = new Vector3 (-5, 0, 0);
+		Vector3 moveVector = new Vector3 (-0, 0, 0);
 		if (_goToTheRight) {
 			moveVector *= -1;
 		}

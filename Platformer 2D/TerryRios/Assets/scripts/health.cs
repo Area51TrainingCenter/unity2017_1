@@ -2,31 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class health : MonoBehaviour {
-	public float Health = 100;
+public class Health : MonoBehaviour {
+	public float health = 100;
 	public float maxHealth = 100;
+	//quien fue el ultimo agresor que te hizo dano
 	public GameObject lastAttacker;
-
 	// Use this for initialization
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
-	public void ChangeHealth (float Damage,GameObject attacker) 
-	{
-		Health -= Damage;
-		if (Health > maxHealth) 
-		{
-			Health = maxHealth;
+	public void ChangeHealth (float damage,GameObject attacker) {
+		health -= damage;
+		if (health > maxHealth) {
+			health = maxHealth;
 		}
-		if (Health < 0) 
-		{
-			Health = 0;
+		if (health < 0) {
+			health = 0;
 		}
 
 		lastAttacker = attacker;
-
-
 	}
 }

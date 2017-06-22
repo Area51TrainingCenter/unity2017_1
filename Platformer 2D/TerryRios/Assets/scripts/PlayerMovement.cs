@@ -6,48 +6,56 @@ public class PlayerMovement : MonoBehaviour {
 	public float speedX = 5;
 	public float jumpForce = 8;
 	public float gravity = -10;
-	private health _healthscript;
+
 	public float rayLength = 0.6f;
-	private float _previoushealth;
+
 	public LayerMask _mask;
-	public float _restoreplayer = 1.5f;
+
 	public bool canControl = true;
+	public bool canAttack = true;
+
+	public float invulnerableTime = 1.5f;
+
 	private Rigidbody2D _rigidbody;
 	private Animator _animator;
 	private SpriteRenderer _spriteRenderer;
-	private float knockback;
+	private Health _healthScript;
+
+	private float previousHealth;
+
 	private float verticalSpeed;
 	private bool isGrounded;
-	private float targetalpha;
+
+	private float knockback;
+	private bool knockbackToRight;
+	private float targetAlpha;
+
 	private float h;
 	private bool pressedJump;
-	private bool knockbacktoright;
-	public bool canAttack = true;
 	// Use this for initialization
 	void Start () {
 		//guardamos la referencia la componente Rigidbody 
 		//en nuestra variable
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_animator = GetComponentInChildren<Animator> ();
+		_healthScript = GetComponent<Health> ();
 		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
-		_healthscript = GetComponent<health> ();
 
 	}
 	// Update is called once per frame
 	void Update(){
-		
+
 		ReceiveInputs ();
 
-		Handleknockback ();
+		ManageKnockback ();
 
 		Hurt ();
 
-		Handleflipping ();
+		ManageFlipping ();
 
-		handleblinking ();
+		ManageBlinking ();
 
-		HandleAnimations ();
-
+		ManageAnimations ();
 	}
 
 	//FixedUpdate se ejecuta cada 0.02 segundos
@@ -56,21 +64,18 @@ public class PlayerMovement : MonoBehaviour {
 		//creamos un Vector3 que comienza en zero
 		Vector3 moveVector = new Vector3(0,0,0);
 
-		if (knockback > 0) 
-		{
-			if (knockbacktoright) 
-			{
+		//el knockback es el empuje que se la hace al player cuando recibe danio
+		//en el update se reduce gradualmente el knockback hasta que sea cero o menos		
+		if (knockback > 0) {
+			//aplicamos el knockback al movimiento del player
+			if (knockbackToRight) {
 				moveVector.x = knockback;
-			} 
-			else 
-			{
+			} else {
 				moveVector.x = -knockback;
-			}					
-
-		} 
-		else 
-		{
-			moveVector.x = h*speedX;	
+			}
+		} else {
+			//esto se hace en el estado normal ... mover el player con el input de h
+			moveVector.x = h*speedX;
 		}
 
 
@@ -177,9 +182,8 @@ public class PlayerMovement : MonoBehaviour {
 		Vector3 pos = transform.position + (down * rayLength);
 		Gizmos.DrawWireCube (pos, boxSize);
 	}
-
-	void ReceiveInputs()
-	{
+	//Controla los inputs del teclado y mouse
+	void ReceiveInputs(){
 		if (canControl) {
 			//necesitamos leer los inputs en cada frame
 			//por eso es que lo colocamos en Update
@@ -189,33 +193,15 @@ public class PlayerMovement : MonoBehaviour {
 
 			//si presionas espacio pressedJump permanecera en true
 			//hasta que se aplique el salto dentro de FixedUpdate
-			if (Input.GetKeyDown (KeyCode.Space) && isGrounded ) {
+			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
 				pressedJump = true;	
 			}
 		} else {
 			h = 0;
 		}
 	}
-
-	void Handleknockback ()
-	{
-		if (knockback > 0) 
-		{
-			knockback -= Time.deltaTime * 2.5f;
-			
-
-			if (knockback <= 0) 
-			{
-				canControl = true;
-			}
-
-		}
-
-
-	}
-
-	void Handleflipping()
-	{
+	//se encarga de voltear el SpriteRenderer cuando caminas hacia la izquierda o derecha
+	void ManageFlipping(){
 		if (h<0) {
 			_spriteRenderer.flipX = true;
 		}
@@ -223,34 +209,27 @@ public class PlayerMovement : MonoBehaviour {
 			_spriteRenderer.flipX = false;	
 		}
 	}
-
-	void handleblinking()
-	{
-		if (gameObject.layer == 10) 
-		{
+	//se encarga de parpadear el sprite de zero mientras eres invulnerable
+	void ManageBlinking(){
+		if (gameObject.layer == 10) {
 			Color newColor = _spriteRenderer.color;
-			newColor.a = Mathf.Lerp (newColor.a, targetalpha, Time.deltaTime * 5);
+			newColor.a = Mathf.Lerp (newColor.a, targetAlpha, Time.deltaTime * 20);
+			if (newColor.a < 0.05f) {
+				targetAlpha = 1;
+			}
+			if (newColor.a > 0.95f) {
+				targetAlpha = 0;
+			}
 			_spriteRenderer.color = newColor;
-			if (newColor.a <=0.1f) {
-				targetalpha = 1;
-			}
-			if (newColor.a >=0.95) {
-				targetalpha = 0;
-			}
-		} 
-		else
-		{
+		} else {
 			Color newColor = _spriteRenderer.color;
 			newColor.a = 1;
 			_spriteRenderer.color = newColor;
-		}
-
+		}	
 	}
 
-
-
-	void HandleAnimations()
-	{
+	//controla los parametros del animator
+	void ManageAnimations(){
 		//le pasamos el valor absoluto de h porque cuando presionas
 		//hacia la izquierda h se vuelve negativo
 		float absH = Mathf.Abs (h);
@@ -264,48 +243,53 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (knockback > 0) {
-			_animator.SetBool ("Hurt", true);
+			_animator.SetBool ("hurt", true);
 		} else {
-			_animator.SetBool ("Hurt", false);
+			_animator.SetBool ("hurt", false);
 		}
-	}		
+	}
 
-	void Hurt()
-	{
-		// se compara el valor actual de health con el posterior
-	
+	void ManageKnockback(){
+		if (knockback > 0) {
+			knockback -= Time.deltaTime * 2.5f;
+			if (knockback <= 0) {
+				canControl = true;
+			}
+		}
+	}
 
-		if (_healthscript.Health < _previoushealth) 
-		{
+	//esto se encarga de cuando te hacen daño
+	void Hurt(){
+		//si la vida actual es menor a la vida que teniamos antes
+		//significa que hemos recibido daño
+		if (_healthScript.health < previousHealth) {
+			//Layer 10 es la capa Invulnerable
 			gameObject.layer = 10;
-
+			//pierdes el control del personaje
 			canControl = false;
+			//comienza el empuje
+			knockback = 1.5f;
 
-			knockback = 2;
-
-			if(_healthscript.lastAttacker != null){
-
-			if (transform.position.x <_healthscript.lastAttacker.transform.position.x) 
-			{
-				knockbacktoright = false;
+			if (_healthScript.lastAttacker != null) {
+				if (transform.position.x < _healthScript.lastAttacker.transform.position.x) {
+					knockbackToRight = false;
+				}else{
+					knockbackToRight = true;
+				}
 			}
 
-			}
 
+			//reducimos el verticalSpeed por si es que estabas saltando y asì ya no sigas elevandote
 			verticalSpeed = 2;
-
-			Invoke ("Makeplayervulnerable",_restoreplayer);
+			Invoke ("MakePlayerVulnerable", invulnerableTime);
 		}
-
-		//luego se actualiza
-
-		_previoushealth = _healthscript.Health;
-
+		//despues de hacer el if actualizamos la variable previousHealth
+		previousHealth = _healthScript.health;
 
 	}
 
-	void Makeplayervulnerable()
-	{
+	void MakePlayerVulnerable(){
+		//Layer 8 es la capa Jugadores
 		gameObject.layer = 8;
 	}
 }

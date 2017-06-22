@@ -9,49 +9,48 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1348643725250328}
+  m_RootGameObject: {fileID: 1691946999474594}
   m_IsPrefabParent: 1
---- !u!1 &1348643725250328
+--- !u!1 &1691946999474594
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4280601896081748}
-  - component: {fileID: 212563827420661816}
-  - component: {fileID: 61044939245731076}
-  - component: {fileID: 50412888424820576}
-  - component: {fileID: 114053460584778494}
-  - component: {fileID: 114113931909375624}
-  - component: {fileID: 114863577812891638}
+  - component: {fileID: 4431751908148774}
+  - component: {fileID: 212739641120788022}
+  - component: {fileID: 61022500787156286}
+  - component: {fileID: 50006535927373098}
+  - component: {fileID: 114681817376379254}
+  - component: {fileID: 114221495805663340}
   m_Layer: 9
-  m_Name: bullet
+  m_Name: enemy bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4280601896081748
+--- !u!4 &4431751908148774
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348643725250328}
+  m_GameObject: {fileID: 1691946999474594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.39293373, y: -1.0419455, z: 0}
+  m_LocalPosition: {x: 1.93, y: -2.863, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50412888424820576
+--- !u!50 &50006535927373098
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348643725250328}
+  m_GameObject: {fileID: 1691946999474594}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -59,18 +58,18 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61044939245731076
+--- !u!61 &61022500787156286
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348643725250328}
+  m_GameObject: {fileID: 1691946999474594}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -90,48 +89,38 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.12}
   m_EdgeRadius: 0
---- !u!114 &114053460584778494
+--- !u!114 &114221495805663340
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348643725250328}
+  m_GameObject: {fileID: 1691946999474594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3b71bc8d819e1b41af9194ede9a5f9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damage: 20
-  targettag: Player
---- !u!114 &114113931909375624
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348643725250328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9edd08722375c64a9be4c119c3e5aec, type: 3}
+  m_Script: {fileID: 11500000, guid: afdc450905f55af418763b20a27e1a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
---- !u!114 &114863577812891638
+--- !u!114 &114681817376379254
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348643725250328}
+  m_GameObject: {fileID: 1691946999474594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338eb7a44051f1042b09910210a3fce4, type: 3}
+  m_Script: {fileID: 11500000, guid: f800791da87402a44a0520ed69f873f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!212 &212563827420661816
+  damage: 20
+  targetTag: Player
+  destroyOnTouch: 1
+--- !u!212 &212739641120788022
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348643725250328}
+  m_GameObject: {fileID: 1691946999474594}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
