@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour {
 	private float previousHealth;
 
 	private float verticalSpeed;
-	private bool isGrounded;
+	public bool isGrounded;
 
 	private float knockback;
 	private bool knockbackToRight;
