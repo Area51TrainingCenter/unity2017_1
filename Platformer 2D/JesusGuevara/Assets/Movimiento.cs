@@ -18,7 +18,7 @@ public class Movimiento : MonoBehaviour {
 	private float previousHealth;
 
 	private float verticalSpeed;
-	private bool isGrounded; // abajo
+	public bool isGrounded; // abajo
 	private bool isGrounded2; // arriba
 	private bool isGrounded3;// izquierda
 	private bool isGrounded4;// derecha

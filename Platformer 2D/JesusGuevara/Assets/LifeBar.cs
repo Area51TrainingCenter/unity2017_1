@@ -4,9 +4,10 @@ using UnityEngine;
 
 // importamos el codigo de los elementos de UI
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 // barra de vida
 public class LifeBar : MonoBehaviour {
-
+	// hipercan
 	public GameObject _gameobject;
 	private Image image;
 
@@ -26,6 +27,9 @@ public class LifeBar : MonoBehaviour {
 		float vidamaxima =  _gameobject.GetComponent<Health> ().maxHealth;
 		image.fillAmount = vidaactual/vidamaxima ;
 
+		if(vidaactual == 0){
+			SceneManager.LoadScene ("gameOver");
+		}
 
 	}
 

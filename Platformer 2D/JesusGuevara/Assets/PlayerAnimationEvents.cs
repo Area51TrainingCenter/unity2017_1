@@ -77,5 +77,14 @@ public class PlayerAnimationEvents : MonoBehaviour {
 	public void SetAttack3HitboxSize(){
 	}
 
+	public void StopAnimatorExit(){
+
+		_gameobject.GetComponentInChildren<Animator> ().speed = 0;
+		Invoke ("PlayAnimatorExit",0.4f);
+	}
+
+	public void PlayAnimatorExit(){
+		_gameobject.GetComponentInChildren<Animator> ().speed = 1;
+	}
 
 }
