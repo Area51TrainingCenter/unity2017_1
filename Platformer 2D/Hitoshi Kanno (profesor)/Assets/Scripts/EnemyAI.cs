@@ -31,7 +31,10 @@ public class EnemyAI : MonoBehaviour {
 
 		//matamos al enemigo cuando tenga vida cero
 		if (_healthScript.health <= 0) {
-			Destroy (gameObject);
+			//le damos un pequeño retraso al Destroy para que
+			//el script ScoreWhenDead tenga tiempo de subir el score
+			//antes que el enemigo se destruya
+			Destroy (gameObject,0.1f);
 		}
 	}
 

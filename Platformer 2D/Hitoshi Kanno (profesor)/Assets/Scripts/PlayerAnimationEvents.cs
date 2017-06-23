@@ -71,4 +71,13 @@ public class PlayerAnimationEvents : MonoBehaviour {
 		leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (3.24f, 1.49f);
 
 	}
+
+	public void StopAnimator(){
+		GetComponent<Animator> ().speed = 0;
+		Invoke ("RestoreAnimatorSpeed", 1.0f);
+	}
+
+	void RestoreAnimatorSpeed(){
+		GetComponent<Animator> ().speed = 1;
+	}
 }

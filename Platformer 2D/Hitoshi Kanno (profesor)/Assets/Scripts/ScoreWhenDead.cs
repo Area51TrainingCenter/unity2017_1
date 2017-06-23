@@ -19,6 +19,9 @@ public class ScoreWhenDead : MonoBehaviour {
 	void Update () {
 		if (_healthScript.health <= 0) {
 			_scoreManager.score += score;
+			//lo apagamos el script para que no vuelvas
+			//a ganar score
+			this.enabled = false;
 		}
 	}
 }
