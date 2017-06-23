@@ -34,8 +34,8 @@ public class Exit : MonoBehaviour {
 			Player.GetComponent<PlayerMovement> ().enabled = false;
 			//new Vector2 (0, 0) = VEctor2.zero
 			Player.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
-			Invoke ("Salidaaa", 0.9f); 
-			Invoke ("changeScene", 1.5f);
+			Invoke ("Salidaaa", 1.9f); 
+			Invoke ("changeScene", 2.5f);
 			touchedTrigger = false;
 		}
 
@@ -49,6 +49,7 @@ public class Exit : MonoBehaviour {
 		_exit = true;
 	}	
 	void  changeScene (){
+		PlayerPrefs.SetInt ("playerScore", GameObject.Find ("Score manager").GetComponent<ScoreManager>().Score );
 		SceneManager.LoadScene ("winScreen");
 	}	
 }

@@ -31,7 +31,7 @@ public class EnemyAI : MonoBehaviour {
 
 		//matamos al enemigo cuando tenga vida cero
 		if (_healthScript.health <= 0) {
-			Destroy (gameObject);
+			Destroy (gameObject,0.1f);
 		}
 	}
 

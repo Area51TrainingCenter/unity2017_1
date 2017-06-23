@@ -44,6 +44,11 @@ public class PlayerAnimationEvents : MonoBehaviour {
 	public void EnableCanAttack(){
 		playerObject.GetComponent<PlayerMovement> ().canAttack = true;
 	}
-
-
-}
+	public void CongelarAnimacionyDescongelar(){
+		GetComponent<Animator> ().speed = 0;
+		Invoke ("descongelar", 1f);
+	}
+	public void descongelar (){
+	GetComponent<Animator> ().speed = 1;
+		}
+	}

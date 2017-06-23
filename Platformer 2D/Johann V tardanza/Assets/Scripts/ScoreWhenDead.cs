@@ -20,6 +20,7 @@ public class ScoreWhenDead : MonoBehaviour {
 	void Update () {
 		if (_healtScript.health <= 0) {
 			_scoreManager.Score += score;
+			this.enabled = false;
 		}
 	}
 }
