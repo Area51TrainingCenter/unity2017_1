@@ -9,11 +9,12 @@ public class PlayerAnimationEvents : MonoBehaviour
     public GameObject rightHitbox;
     public GameObject leftHitbox;
     private SpriteRenderer _spriteRenderer;
-
+	public Animator playerAnimation;
     // Use this for initialization
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();                   //inicializamos la variable del spriteRenderer
+		playerAnimation=GetComponent<Animator>();
     }
 
     public void EnablePlayerControl()
@@ -81,5 +82,12 @@ public class PlayerAnimationEvents : MonoBehaviour
 			rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.4f, 0.04f);
 			rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.8f, 1.4f);
 		}
+	}
+	public void PauseAnimationExit(){
+		playerAnimation.speed = 0;
+		Invoke ("ReturnAnimationExit",1);
+	}
+	public void ReturnAnimationExit(){
+		playerAnimation.speed = 1;
 	}
 }

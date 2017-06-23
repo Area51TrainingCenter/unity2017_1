@@ -22,12 +22,12 @@ public class EnemigoAI : MonoBehaviour
     }
 
     void Update()
-    {
+	{
+		if (_healthScript.health <= 0)
+		{
+			Destroy(gameObject,0.1f);
+		}
         Hurt();
-        if (_healthScript.health <= 0)
-        {
-            Destroy(gameObject);
-        }
         FollowPlayer();
     }
 

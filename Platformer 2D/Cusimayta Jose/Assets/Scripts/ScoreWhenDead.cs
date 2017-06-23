@@ -16,6 +16,7 @@ public class ScoreWhenDead : MonoBehaviour {
 	void Update () {
 		if (_health.health <= 0) {
 			_scoreManager.AumentarScore (score);
+			this.enabled = false;
 		}
 	}
 }

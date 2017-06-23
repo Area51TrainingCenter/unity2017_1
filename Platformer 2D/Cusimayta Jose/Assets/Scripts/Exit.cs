@@ -11,45 +11,50 @@ public class Exit : MonoBehaviour {
 	public bool _elevar;
 	public bool _animar;
 	public Camera _camera;
+	ScoreManager _scoreManager;
 	// Use this for initialization
 	void Start () {	
-		_camera.GetComponent<PlayerCamara> ().enabled = false;
+		_scoreManager = GameObject.Find ("Score Manager").GetComponent<ScoreManager> ();;
 	}
 
 	
 	// Update is called once per frame
 	void Update () {
 		if (_elevar) {
-			Invoke ("Elevar", 1);
+			Invoke ("Elevar", 2);
 		}
-		if(_animar){
+		if (_animar) {
 			if (_playerMovement.isGrounded) {
-				IniciarAnimacion();
+				IniciarAnimacion ();
 			}
 		}
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{		
-		_playerTransform = other.GetComponent<Transform> ();
-		_playerRigidBody2D = other.GetComponent<Rigidbody2D> ();
-		_playerMovement=other.GetComponent<PlayerMovement>();	
-		_playerAnimator = other.GetComponentInChildren<Animator> ();
-		_playerMovement.canControl = false;
-		_animar = true;
+		if (other.CompareTag ("Player")) {
+			_playerTransform = other.GetComponent<Transform> ();
+			_playerRigidBody2D = other.GetComponent<Rigidbody2D> ();
+			_playerMovement = other.GetComponent<PlayerMovement> ();	
+			_playerAnimator = other.GetComponentInChildren<Animator> ();
+			_playerMovement.canControl = false;
+			_animar = true;
+		}
 	}
 	void IniciarAnimacion(){
-		_playerRigidBody2D.velocity=new Vector2(0,0);
+		_camera.GetComponent<PlayerCamara> ().enabled = false;
+		_playerRigidBody2D.velocity = new Vector2 (0, 0);
 		_playerMovement.enabled = false;
 		_playerAnimator.SetTrigger ("exit");
 		_elevar = true;
 		_animar = false;
 	}
 	void Elevar(){
-		Vector3 moveVector = new Vector3(0, 5, 0);
-		_playerTransform.Translate(moveVector*Time.deltaTime);
-		Invoke ("ChangeScene", 1.5f);
+		Vector3 moveVector = new Vector3 (0, 20, 0);
+		_playerTransform.Translate (moveVector * Time.deltaTime);
+		Invoke ("ChangeScene", 1);
 	}
 	public void ChangeScene(){
+		PlayerPrefs.SetInt ("playerScore", _scoreManager.score);
 		SceneManager.LoadScene ("WinScene");
 	}
 }
