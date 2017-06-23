@@ -7,17 +7,30 @@ public class PlayerAnimationEvents : MonoBehaviour {
 
 	public GameObject rightHitbox;
 	public GameObject leftHitbox;
+	public Animator playerAnimation;
 
 	private SpriteRenderer _spriteRenderer;
 	// Use this for initialization
 	void Start () {
 		_spriteRenderer = GetComponent<SpriteRenderer> ();
+		playerAnimation = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+	public void PauseAnimation() {
+		playerAnimation.speed = 0f;
+		Invoke ("ResumeAnimation", 0.8f);
+	
+	}
+
+	public void ResumeAnimation() {
+		playerAnimation.speed = 1f;
+	}
+
 
 	public void EnablePlayerControl(){
 		playerObject.GetComponent<PlayerMovement> ().canControl = true;
@@ -47,25 +60,28 @@ public class PlayerAnimationEvents : MonoBehaviour {
 
 	public void SetAttack1HitboxSize(){
 		rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.024f, 1);
-		rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.0123f, 1);
+		rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.0123f, 0);
 
 		leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.024f, 1);
-		leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.0123f, 1);
+		leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.0123f, 0);
+
 	}
 
 	public void SetAttack2HitboxSize(){
-		rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.43f, 1);
-		rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.19f, 1);
+		rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.127f, 0.05f);
+		rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.3f, 0.5f);
 
-		leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.024f, 1);
-		leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.25f, 1);
+		leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.002f, 0.05f);
+		leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (1.55f, 0.5f);
+
 	}
 
 	public void SetAttack3HitboxSize(){
-		rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (0.99f, 1);
-		rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.05f, 1);
+		rightHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.64f, 0.107f);
+		rightHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (3.24f, 1.49f);
 
-		leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (0.99f, 1);
-		leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.01f, 1);
+		leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (0.58f, 0.107f);
+		leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (3.24f, 1.49f);
+
 	}
 }
