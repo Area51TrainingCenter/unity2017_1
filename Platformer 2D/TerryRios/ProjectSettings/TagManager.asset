@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - enemigo
-  - scoremanager
   layers:
   - Default
   - TransparentFX
@@ -17,8 +16,8 @@ TagManager:
   - 
   - Jugadores
   - Enemigos
-  - Invulnerable
-  - Terreno
+  - inmortal
+  - terreno
   - 
   - 
   - 

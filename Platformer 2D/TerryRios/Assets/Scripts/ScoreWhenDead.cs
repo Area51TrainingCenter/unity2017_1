@@ -19,7 +19,6 @@ public class ScoreWhenDead : MonoBehaviour {
 	void Update () {
 		if (_healthScript.health <= 0) {
 			_scoreManager.score += score;
-			this.enabled = false;
 		}
 	}
 }
