@@ -8,6 +8,8 @@ TagManager:
   - ScoreManager
   - curador
   - exit
+  - Pausa
+  - Boton
   layers:
   - Default
   - TransparentFX
