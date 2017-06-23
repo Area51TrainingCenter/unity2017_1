@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour {
 	private SpriteRenderer _spriteRenderer;
 
 	private float verticalSpeed;
-	private bool isGrounded;
+	public bool isGrounded;
 
 	private float h;
 	private float knockback;

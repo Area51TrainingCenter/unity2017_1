@@ -9,14 +9,26 @@ public class PlayerAnimationEvents : MonoBehaviour {
 	public GameObject leftHitbox;
 
 	private SpriteRenderer _spriteRenderer;
+	private Animator _animator;
 	// Use this for initialization
 	void Start () {
 		_spriteRenderer = GetComponent<SpriteRenderer> ();
+		_animator = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public void EnableAnimator(){
+		_animator.speed = 1;
+	}
+
+	public void DisableAnimator(){
+		_animator.speed = 0;
+
+		Invoke ("EnableAnimator", 1);
 	}
 
 	public void EnablePlayerControl(){

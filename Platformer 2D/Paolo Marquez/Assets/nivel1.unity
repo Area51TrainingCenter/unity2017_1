@@ -1738,6 +1738,7 @@ MonoBehaviour:
   canControl: 1
   canAttack: 1
   _animator: {fileID: 0}
+  isGrounded: 0
 --- !u!114 &1227050596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1905,7 +1906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce859e623a073646ad8551e898c6115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
+  score: 1000
 --- !u!4 &1379139995
 Transform:
   m_ObjectHideFlags: 0

@@ -12,8 +12,9 @@ public class ScoreWhenDeath : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GetComponent<Health>().healht==0) {
+		if (GetComponent<Health>().healht<=0) {
 			_scoreManager.score += score;
+			this.enabled = false;
 		}
 	}
 }

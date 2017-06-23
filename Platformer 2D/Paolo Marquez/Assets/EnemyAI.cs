@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour {
 		Color finalColor=Color.Lerp (_mesh.material.color, new Color (1, 0, 0),Time.deltaTime);
 		_mesh.material.color = finalColor;
 		if(saludEnemigo<=0){
-			Destroy (gameObject);
+			Destroy (gameObject,0.1f);
 		}
 		vidaPrevia = health.healht;
 	}
