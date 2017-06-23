@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Exit : MonoBehaviour {
-	public GameObject player;
-	public bool meVoy;
+	private GameObject player;
+	private bool meVoy = false;
+	private bool touchedTrigger = false;
+
 	//public string TargetTag="Player";  //Definir a quien le va a hacer daño
 
 	/*
@@ -25,16 +27,27 @@ public class Exit : MonoBehaviour {
 		if (meVoy) {
 			player.transform.Translate(0,Time.deltaTime*15,0);
 		}
-	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		if (other.CompareTag ("Player")) {
+		if (player.GetComponent<PlayerMovement>().isGrounded && touchedTrigger) {
 			player.GetComponent<PlayerMovement> ().enabled = false;
 			player.GetComponent<Rigidbody2D> ().velocity = Vector2.zero; // lo mismo que -> new Vector2(0,0)
 			// empezar animacion
 			player.GetComponentInChildren<Animator>().SetTrigger ("exit");
-			Invoke ("exitUp", 1);
-			Invoke ("cambiarEscena", 2);
+			Invoke ("exitUp", 2+1);
+			Invoke ("cambiarEscena", 2+2);
+			// apagamos el touched Trigger
+			touchedTrigger = false;
+		} 
+
+	}
+
+
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.CompareTag ("Player")) {
+			// hacemos esto para que el layerya no se pueda mover
+			// en horizontal y para permitir que caiga al piso
+			player.GetComponent<PlayerMovement> ().canControl = false; // apagamos sus movientos
+			touchedTrigger = true;
 		}
 	}
 
@@ -46,6 +59,9 @@ public class Exit : MonoBehaviour {
 	}
 
 	void cambiarEscena(){
+		// guardar datos en el dispositivo ()
+		PlayerPrefs.SetInt("playerScore", GameObject.Find("Score Manager").GetComponent<ScoreManager>().score);
+		// guardar datos en el dispositivo (
 		SceneManager.LoadScene ("winScreen");
 	}
 

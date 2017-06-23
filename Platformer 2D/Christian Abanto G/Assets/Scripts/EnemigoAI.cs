@@ -29,7 +29,7 @@ public class EnemigoAI : MonoBehaviour
         Hurt();
         if (_healthScript.health <= 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject,0.1f);
         }
         FollowPlayer();
     }

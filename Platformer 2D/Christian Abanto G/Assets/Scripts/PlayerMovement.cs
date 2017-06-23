@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private float previousHealth;
 
     private float verticalSpeed;
-    private bool isGrounded;
+    public bool isGrounded;
 
     private float h;
     private bool pressedJump;
