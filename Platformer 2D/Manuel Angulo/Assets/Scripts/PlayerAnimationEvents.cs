@@ -45,5 +45,12 @@ public class PlayerAnimationEvents : MonoBehaviour {
 		playerObject.GetComponent<PlayerMovement> ().canAttack = true;
 	}
 
+	public void ExitAnimation () {
+		GetComponent<Animator> ().speed = 0;
+		Invoke ("stopExit", 0.5f);
+	}	
+	public void stopExit () {
+		GetComponent<Animator> ().speed = 1;
+	}
 
 }
