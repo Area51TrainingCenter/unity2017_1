@@ -32,7 +32,7 @@ public class EnemigoAI : MonoBehaviour {
 			meshRenderer.material.color = new Color (1, 1, 1);
 		}
 		if (health.health <= 0) {
-			Destroy (gameObject);
+			Destroy (gameObject,0.01f);
 		}
 		previousHealth = health.health;
 	}

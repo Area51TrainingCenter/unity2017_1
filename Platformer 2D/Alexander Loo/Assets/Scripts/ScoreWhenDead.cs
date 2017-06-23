@@ -17,6 +17,8 @@ public class ScoreWhenDead : MonoBehaviour {
 
 		if (_health.health <= 0) {
 			_scoreManager.score += score;
+			//this hace referencia a al mismo script donde se escribe(ScoreManager en este caso)
+			this.enabled = false;
 		}
 	}
 }

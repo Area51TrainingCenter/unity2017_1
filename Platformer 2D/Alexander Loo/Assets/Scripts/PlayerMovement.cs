@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour {
 	private float verticalSpeed;
 	public float gravity = -10;
 	public float rayleght = 1.1f;
-	private bool isGrounded;
+	public bool isGrounded;
 	private bool isCrash;
 	private bool isleftCrash;
 	private bool isrightCrash;
