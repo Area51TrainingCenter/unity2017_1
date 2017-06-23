@@ -29,9 +29,9 @@ public class EnemigoAI : MonoBehaviour
         Hurt();
         if (_healthScript.health <= 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject,0.1f);
         }
-        FollowPlayer();
+  
     }
 
     void FixedUpdate()
@@ -101,21 +101,4 @@ public class EnemigoAI : MonoBehaviour
     }
 
     //Función para ver en dirección hacia el jugador
-    void FollowPlayer()
-    {
-	//Primero, ponemos una condición para saber hacia donde debe mirar Megaman
-	//Con esta comparación obtenemos si Zero está a la derecha o izquierda de Megaman
-        if (transform.position.x < Player.position.x)
-        {
-		//Al ser la posición X de jugador mayor que la de Megaman
-		//Entonces rotaremos a Megaman hacia la derecha
-            _spriteRenderer.flipX = false;
-        }
-        else
-        {
-		//Al ser la posición X de jugador menor que la de Megaman
-		//Entonces rotaremos a Megaman hacia la izquierda
-            _spriteRenderer.flipX = true;
-        }
-    }
 }

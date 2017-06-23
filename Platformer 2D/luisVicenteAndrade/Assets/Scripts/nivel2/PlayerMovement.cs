@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private float previousHealth;
 
     private float verticalSpeed;
-    private bool isGrounded;
+	public bool isGrounded;
 
     private float h;
     private bool pressedJump;
@@ -228,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
             //se usaran en FixedUpdate
             h = Input.GetAxis("Horizontal");
             //Definimos la condición para ejecutar el salto
-            if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || DoubleJumps <= 1))
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded )
             //En esta condición se pregunta si se ha presionado la tecla "Espacio"
             //La otra condición es una combinación de "Si esta en el suelo o si aun no ha realizado el doble salto"
             { 
@@ -336,7 +336,7 @@ public class PlayerMovement : MonoBehaviour
             //Layer 10 es la capa Invulnerable
             gameObject.layer = 10;  //Hacemos que el objeto sea invulnerable para que no vuelva a recibir daño por unos segundos
             canControl = false;     //Hacemos que el jugador no tenga control del personaje
-            knockback = 3;          //Esta es la velocidad con la cual retrocederas al recibir daño
+            knockback = 2;          //Esta es la velocidad con la cual retrocederas al recibir daño
             //Cambiamos la velocidad de VerticalSpeed por si se recibe daño en el aire, de esta manera, esta velocidad irá disminuyendo por la gravedad, si se le pone negativo, ocasionará que suba el objeto
             verticalSpeed = 0.1f;   
             //Aquí averiguamos en donde esta el jugador, si está a la derecha o izquierda del objeto

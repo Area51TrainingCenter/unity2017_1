@@ -79,6 +79,14 @@ public class PlayerAnimationEvents : MonoBehaviour
 		leftHitbox.GetComponent<BoxCollider2D> ().offset = new Vector2 (-0.08456753f, 0);
 		leftHitbox.GetComponent<BoxCollider2D> ().size = new Vector2 (2.134468f, 1);
 	}
+	public void Pausa (){
+		GetComponent <Animator> ().speed = 0;
+		Invoke ("Reanudar", 1);
+	}
+	public void Reanudar(){
+		GetComponent <Animator> ().speed = 1;
+
+	}
 }
 
 
