@@ -25,6 +25,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	private float verticalSpeed;
 	public bool isGrounded;
+	public bool hitLeft;
+	public bool hitRight;
+	public bool isHugingWall;
+	private Vector3 walljumpdirection;
+	private bool iswalljumping;
 
 	private float knockback;
 	private bool knockbackToRight;
@@ -48,6 +53,8 @@ public class PlayerMovement : MonoBehaviour {
 		ReceiveInputs ();
 
 		ManageKnockback ();
+
+		ManageHugwall ();
 
 		Hurt ();
 
@@ -76,6 +83,9 @@ public class PlayerMovement : MonoBehaviour {
 		} else {
 			//esto se hace en el estado normal ... mover el player con el input de h
 			moveVector.x = h*speedX;
+		}
+		if (iswalljumping) {
+			moveVector = walljumpdirection * 5;
 		}
 
 
@@ -109,7 +119,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 		Vector3 left = new Vector3 (-1, 0, 0);
-		bool hitLeft = false;
+		hitLeft = false;
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, left, rayLength,_mask.value);
 		if (hitInfo.collider !=null) {
 			hitLeft = true;
@@ -126,7 +136,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		Vector3 right = new Vector3 (1, 0, 0);
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, right, rayLength,_mask.value);
-		bool hitRight = false;
+		hitRight = false;
 		if (hitInfo.collider != null) {
 			hitRight = true;
 		}
@@ -153,6 +163,28 @@ public class PlayerMovement : MonoBehaviour {
 		} else {
 			//la gravedad se va aplicando al verticalSpeed
 			verticalSpeed += gravity * Time.deltaTime;
+			if (isHugingWall) {
+				verticalSpeed = -2;
+				if (pressedJump) {
+
+					verticalSpeed = jumpForce;
+
+					pressedJump = false;
+
+					if (h < 0) {
+
+						walljumpdirection = Vector3.right;
+						
+					} else {
+
+						walljumpdirection = Vector3.left;
+
+					}
+					moveVector.x = 0;
+					moveVector += walljumpdirection * 5;
+					canControl = false;
+				}
+			}
 		}
 
 
@@ -193,8 +225,10 @@ public class PlayerMovement : MonoBehaviour {
 
 			//si presionas espacio pressedJump permanecera en true
 			//hasta que se aplique el salto dentro de FixedUpdate
-			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if(isGrounded  || isHugingWall){
 				pressedJump = true;	
+				}
 			}
 		} else {
 			h = 0;
@@ -236,6 +270,7 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("speed", absH);
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
+		_animator.SetBool ("hugwall",isHugingWall);
 
 		if (Input.GetMouseButtonDown(0) && isGrounded && canAttack) {
 			_animator.SetTrigger ("attack");
@@ -255,6 +290,29 @@ public class PlayerMovement : MonoBehaviour {
 			if (knockback <= 0) {
 				canControl = true;
 			}
+
+		}
+	}
+
+	void ManageHugwall (){
+		
+		isHugingWall = false;
+		if (!isGrounded) {
+			if (hitRight) {
+				if (h > 0) {
+					isHugingWall = true;				
+				}
+			}
+			if (hitLeft) {
+				if (h<0) {
+					isHugingWall = true;
+				}
+			}				
+		}
+		if (isHugingWall && pressedJump) {
+
+			iswalljumping = true;
+			Invoke ("iswalljumpingfalse", 5);
 		}
 	}
 
@@ -291,5 +349,12 @@ public class PlayerMovement : MonoBehaviour {
 	void MakePlayerVulnerable(){
 		//Layer 8 es la capa Jugadores
 		gameObject.layer = 8;
+	}
+
+	void iswalljumpingfalse(){
+
+		iswalljumping = false;
+		canControl = true;
+
 	}
 }
