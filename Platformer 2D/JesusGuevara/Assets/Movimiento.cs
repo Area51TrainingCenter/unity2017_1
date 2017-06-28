@@ -19,9 +19,9 @@ public class Movimiento : MonoBehaviour {
 
 	private float verticalSpeed;
 	public bool isGrounded; // abajo
-	private bool isGrounded2; // arriba
-	private bool isGrounded3;// izquierda
-	private bool isGrounded4;// derecha
+	public bool isGrounded2; // arriba
+	public bool isGrounded3;// izquierda
+	public bool isGrounded4;// derecha
 
 	public float h;
 	private bool KeySpacePressed;
@@ -38,7 +38,10 @@ public class Movimiento : MonoBehaviour {
 
 	private float targetAlpha; 
 
+	public bool isHuggingWall;
 
+	private Vector3 wallJumpDirection;
+	public bool isInWallJump;
 	// Use this for initialization
 	void Start () {
 		// Guardamos la referencia la componente RigiBody
@@ -53,6 +56,7 @@ public class Movimiento : MonoBehaviour {
 
 		ReceiveInputs ();
 		HandleKnockback ();
+		ManageHugWall ();
 		Hurt ();
 		ManageFlipping ();	
 		ManageAnimation ();
@@ -81,8 +85,13 @@ public class Movimiento : MonoBehaviour {
 			// esto se hace en el estado normal.. mover el player con el input de h
 			moveVector.x = h * speedX;			
 		}
-	
 
+		//--
+		if(isInWallJump){
+			moveVector = wallJumpDirection * 5;
+		}
+		//--
+		RaycastHit2D hitInfo;
 		Vector3 down   = new Vector3(0,-1,0);// direccion hacia abajo
 		Vector3 up     = new Vector3(0,1,0);// direccion hacia arriba
 		Vector3 left   = new Vector3(-1,0,0);// izquierda
@@ -96,7 +105,7 @@ public class Movimiento : MonoBehaviour {
 		Vector3 boxSize = new Vector3 (transform.localScale.x, transform.localScale.y,transform.localScale.z);// tamaño de la caja
 		boxSize = boxSize*0.99f;
 
-		RaycastHit2D hitInfo;
+
 
 		//------ ABAJO DOWN -----//
 		//isGrounded = Physics.BoxCast(transform.position,boxSize/2,down,Quaternion.identity,raylength); //Quaternion.identity => rotacion= 0,0,0 
@@ -166,6 +175,29 @@ public class Movimiento : MonoBehaviour {
 		} else {
 			// la gravedad se va aplicando al verticalspeed
 			verticalSpeed += gravity * Time.deltaTime;
+
+
+			if (isHuggingWall) {
+				verticalSpeed = -2;
+
+				//--
+				if (KeySpacePressed) {
+					verticalSpeed = speedJump;
+					KeySpacePressed = false;
+					if (h < 0) {
+						wallJumpDirection = Vector3.right;
+					} else {
+						wallJumpDirection = Vector3.left;
+					}
+					// resetamos en eje horizontal
+					moveVector.x = 0; 
+					moveVector += wallJumpDirection * 5;
+					// desactivar el cancontrol 
+					controlPlayer = false;
+				}//End IF:KeySpacePressed
+
+
+			}
 		}
 
 
@@ -204,8 +236,11 @@ public class Movimiento : MonoBehaviour {
 
 			h = Input.GetAxis ("Horizontal");
 
-			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
-				KeySpacePressed = true;
+			if (Input.GetKeyDown (KeyCode.Space) ) {
+				if (isGrounded ||  isHuggingWall) {
+					KeySpacePressed = true;
+				}
+
 			}
 
 		} else {
@@ -262,7 +297,7 @@ public class Movimiento : MonoBehaviour {
 		_animator.SetFloat ("speed",absH);
 		_animator.SetFloat ("verticalspeed",verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
-
+		_animator.SetBool ("hugwall", isHuggingWall);
 
 		if (Input.GetMouseButtonDown (0) && isGrounded && canAttack) {
 			_animator.SetTrigger ("isAttack");
@@ -278,6 +313,37 @@ public class Movimiento : MonoBehaviour {
 			
 	}
 
+	void ManageHugWall(){
+		isHuggingWall = false;
+
+		if(!isGrounded){
+			
+			if(isGrounded3){ // ṕared izquierda
+				if (h < 0) {
+					isHuggingWall = true;
+
+				}
+			}	
+
+			if(isGrounded4){ // ṕared derecha
+				if (h > 0) {
+					isHuggingWall = true;
+				}
+			}
+		}
+
+		if (isHuggingWall && KeySpacePressed) {
+			isInWallJump = true;
+			Invoke ("cancelInWallJump", 0.09f);
+		}
+
+	}
+
+	void cancelInWallJump(){
+		isInWallJump = false;
+		controlPlayer = true; 
+
+	}
 
 	void HandleKnockback (){
 		
