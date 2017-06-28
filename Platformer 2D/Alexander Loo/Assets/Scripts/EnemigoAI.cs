@@ -13,8 +13,6 @@ public class EnemigoAI : MonoBehaviour {
 	private MeshRenderer meshRenderer;
 
 	void Start(){
-
-
 		_rigidbody = GetComponent<Rigidbody2D> ();
 		health = GetComponent<Health> ();
 		meshRenderer = GetComponent<MeshRenderer> ();

@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-	public float speedX = 5;
 	private Rigidbody2D _rigidbody;
+	public LayerMask _mask;
+	private Animator _animator;
+	public SpriteRenderer _spriteRenderer;
+	private Health health;
+
+	public float speedX = 5;
 	private float verticalSpeed;
 	public float gravity = -10;
+
 	public float rayleght = 1.1f;
 	public bool isGrounded;
 	private bool isCrash;
@@ -21,14 +27,12 @@ public class PlayerMovement : MonoBehaviour {
 	public float knockBack;
 	private bool KnockBackToRight;
 	public bool canAttack = true;
+	private bool hugWall;
+	private Vector3 wallJumpDirection;
+	private bool isWallJump;
 
 	private float targetAlpha;
 
-	public LayerMask _mask;
-	private Animator _animator;
-	public SpriteRenderer _spriteRenderer;
-
-	private Health health;
 	private float previousHealth;
 
 	void Start () {
@@ -42,6 +46,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		ReceiveInputs ();
 		HandleKnockBack ();
+		ManageHugWall ();
 		Hurt ();
 		ManageBlinking ();
 		ManageFlipping ();
@@ -65,6 +70,9 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}else {
 			moveVector.x = h * speedX;
+		}
+		if (isWallJump) {
+			moveVector = wallJumpDirection * 5;
 		}
 		//Physics.Raycast genera un rayo invisible
 		//que te devuelve true si el rayo toca algo
@@ -125,6 +133,22 @@ public class PlayerMovement : MonoBehaviour {
 		}else {
 			//la gravedad se va aplicando al verticaSpeed
 			verticalSpeed += gravity * Time.deltaTime;
+			if (hugWall) {
+				verticalSpeed = -2;
+				if (jump) {
+					verticalSpeed = jumpForce;
+					jump = false;
+					if (h < 0) {
+						wallJumpDirection = Vector3.right;
+					} else {
+						wallJumpDirection = Vector3.left;
+					}
+					//se pone cero para evitar movimiento con el "h" al momento de hacer walljump
+					moveVector.x = 0;
+					moveVector += wallJumpDirection * 5;
+					controlPlayer = false;
+				}
+			}
 		}
 		//Debug.Log (h);
 		//Debug.Log(moveVector);
@@ -165,6 +189,7 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("speed", Mathf.Abs (h));
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
+		_animator.SetBool ("hugWall", hugWall);
 		if (knockBack > 0) {
 			_animator.SetBool ("hurt", true);
 		} else {
@@ -175,7 +200,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (controlPlayer) {
 			h = Input.GetAxis ("Horizontal");
-			if (isGrounded) {
+			if (isGrounded || hugWall) {
 				if (Input.GetKeyDown (KeyCode.Space)) {
 					jump = true;
 				}
@@ -242,5 +267,35 @@ public class PlayerMovement : MonoBehaviour {
 		newColor.a = 1;
 		_spriteRenderer.color = newColor;
 		//Unity no te permite hacer esto _spriteRenderer.color.a = 1; (exepciones)
+	}
+
+	void ManageHugWall(){
+
+		/*bool hugWall = false;
+
+		if (!isGrounded) {
+			if (isleftCrash) {
+				if (h < 0) {
+					hugWall = true;
+				}
+			}
+			if (isrightCrash) {
+				if (h > 0) {
+					hugWall = true;
+				}
+			}
+		}*/
+		if (!isGrounded && (isleftCrash || isrightCrash) && h != 0) {
+			hugWall = true;
+		}
+		if(hugWall && jump){
+			isWallJump = true;
+			Invoke ("CancelWallJump", 0.3f);
+		}
+	}
+
+	void CancelWallJump(){
+		isWallJump = false;
+		controlPlayer = true;
 	}
 }

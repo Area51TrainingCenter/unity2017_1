@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 
@@ -31,5 +32,11 @@ public class PauseMenu : MonoBehaviour {
 	public void QuitGame(){
 		//esto hace que el juego se cierre(no funciona en el editor)
 		Application.Quit ();
+	}
+
+	public void RestartLevel(){
+		Time.timeScale = 1;
+		//esta función sirve para restaurar la escena(la misma)
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);	
 	}
 }
