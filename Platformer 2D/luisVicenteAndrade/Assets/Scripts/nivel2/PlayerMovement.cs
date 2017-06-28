@@ -9,7 +9,10 @@ public class PlayerMovement : MonoBehaviour
     public float speedX = 5;
     public float jumpForce = 8;
     public float gravity = -10;
-
+	public bool hitRight;
+	public bool hitLeft; 
+	public bool isdesliza;
+	private Vector3 deslizaDirection;
     public float rayLength = 0.6f;
 
     public LayerMask _mask;
@@ -61,6 +64,8 @@ public class PlayerMovement : MonoBehaviour
 
         ManageKnockBack();
 
+		ManageDesliza ();
+
         Hurt();
 
         ManageFlipping();
@@ -93,6 +98,9 @@ public class PlayerMovement : MonoBehaviour
         {
             moveVector.x = h * speedX;
         }
+		if (isInWallJump) {
+			moveVector = deslizaDirection * 5;
+		}
 
         RaycastHit2D hitInfo;
 
@@ -124,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 left = new Vector3(-1, 0, 0);
-        bool hitLeft = false;
+        hitLeft = false;
         hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, left, rayLength, _mask.value);
         if (hitInfo.collider != null)
         {
@@ -142,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 right = new Vector3(1, 0, 0);
         hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, right, rayLength, _mask.value);
-        bool hitRight = false;
+        hitRight = false;
         if (hitInfo.collider != null)
         {
             hitRight = true;
@@ -175,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (pressedJump)                //Ahora estamos en el aire, y el contador de saltos es 1, por lo que segun nuestro if "Input.GetKeyDown(KeyCode.Space) && DoubleJumps <= 1" hace que pressedJump pueda ser Verdadero
+			if (pressedJump && isdesliza == false)                //Ahora estamos en el aire, y el contador de saltos es 1, por lo que segun nuestro if "Input.GetKeyDown(KeyCode.Space) && DoubleJumps <= 1" hace que pressedJump pueda ser Verdadero
             {
                 DoubleJumps++;              //Ahora contamos el segundo salto, diciendole al script que ya estamos saltando dos veces para que no pueda volver a saltar
                 verticalSpeed = jumpForce;  //Cambiamos el valor del VerticalSpeed, le asignamos la fuerza de salto
@@ -183,6 +191,22 @@ public class PlayerMovement : MonoBehaviour
                 pressedJump = false;        //Desactivamos esta variable para que no se ejecute indefinidamente
             }
                 verticalSpeed += gravity * Time.deltaTime;  //la gravedad se va aplicando al verticalSpeed
+			if (isdesliza) {
+				verticalSpeed = -1.5f;
+				if (pressedJump) {
+					verticalSpeed = jumpForce;
+					pressedJump = false;
+
+					if (h < 0) {
+						deslizaDirection = Vector3.right;
+					} else {
+						deslizaDirection = Vector3.left;
+					}
+					moveVector.x = 0;
+					moveVector += deslizaDirection * 5;
+					canControl = false;
+				}
+			}
             
         }
 
@@ -228,13 +252,16 @@ public class PlayerMovement : MonoBehaviour
             //se usaran en FixedUpdate
             h = Input.GetAxis("Horizontal");
             //Definimos la condición para ejecutar el salto
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded )
+			if (Input.GetKeyDown(KeyCode.Space)){
+			if (isGrounded || isdesliza) {
+				pressedJump = true;
+			}
             //En esta condición se pregunta si se ha presionado la tecla "Espacio"
             //La otra condición es una combinación de "Si esta en el suelo o si aun no ha realizado el doble salto"
-            { 
+           
                 //por lo que si esta en el suelo, colocamos en verdadero la variable de PressedJump para saltar
                 //o si está en el aire, pero aun no ha saltado por segunda vez, la variable también se activará                
-                pressedJump = true; //Activamos esta variable para el salto
+                //Activamos esta variable para el salto
             }
         }
         else
@@ -305,6 +332,7 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetFloat("speed", absH);
         _animator.SetFloat("verticalSpeed", verticalSpeed);
         _animator.SetBool("isGrounded", isGrounded);
+		_animator.SetBool ("Desliza",isdesliza);
 
         //Entonces, cuando se haya saltado una vez hacendo que DoubleJumps sea 1 y al presionar el saltar de nuevo mientras se está en el aire
         //Se activarán los siguientes comandos
@@ -320,10 +348,12 @@ public class PlayerMovement : MonoBehaviour
             canAttack = false;
         }
 
-        if (knockback > 0)
-            _animator.SetBool("hurt", true);
-        else
-            _animator.SetBool("hurt", false);
+		if (knockback > 0) {
+			_animator.SetBool ("hurt", true);
+		} else {
+			_animator.SetBool ("hurt", false);
+		}
+
     }
 
     //esto se encarga de cuando te hacen daño
@@ -360,6 +390,37 @@ public class PlayerMovement : MonoBehaviour
 
     }
     //Aquí manejamos el KnockBack
+
+	private bool isInWallJump;
+
+	void ManageDesliza ()
+	{
+		isdesliza = false;
+		if (!isGrounded) {
+			if (hitLeft) {
+				if (h < 0) {
+					isdesliza = true;
+
+				}
+			}
+			if (hitRight) {
+				if (h > 0) {
+					isdesliza = true;
+				
+				}
+			}
+		}
+		if (isdesliza && pressedJump) {
+			isInWallJump = true;
+			Invoke ("cancelWall" ,0.15f);
+		}
+	}
+
+	void cancelWall(){
+		isInWallJump = false;
+		canControl = true;
+	}
+
     void ManageKnockBack()
     {
         //Si knockback tiene valor positivo (arriba le pusimos el valor de 3)

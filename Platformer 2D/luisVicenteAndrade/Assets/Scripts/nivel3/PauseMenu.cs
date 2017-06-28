@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 	public RectTransform _panel ;
@@ -30,6 +31,13 @@ public class PauseMenu : MonoBehaviour {
 		Time.timeScale = 1;
 		_panel.localPosition = new Vector3 (-999,-999,-999);
 	}
+
+	public void Restart(){
+		Time.timeScale = 1;
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+
+	}
+
 	public void QuitGame (){
 		Application.Quit();
 	}
