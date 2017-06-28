@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Para utilizar recursos de Scenas
+using UnityEngine.SceneManagement;
+
 public class PauseMenu : MonoBehaviour {
 	public RectTransform panel;
 	private bool inPause = false;
@@ -34,6 +37,13 @@ public class PauseMenu : MonoBehaviour {
 
 	public void QuitGame () {
 		Application.Quit ();
+	}
+
+	public void Reestart () {
+		// reestablecemos el tiempo
+		Time.timeScale = 1;
+		// recargamos la escena
+		SceneManager.LoadScene (SceneManager.GetActiveScene().name); // SceneManager.GetActiveScene().name, me devuelve la escena actual
 	}
 
 }

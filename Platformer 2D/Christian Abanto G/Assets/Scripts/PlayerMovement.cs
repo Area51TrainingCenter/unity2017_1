@@ -40,6 +40,15 @@ public class PlayerMovement : MonoBehaviour
     //Variables para el salto doble
     public int DoubleJumps = 0; //Contador para saber si ya hizo el doble salto o no
     public bool isDoubleJump;   //Booleano para saber si puede hacer doble Jump o no
+
+	//Variables globales de direccion a donde se mueve el objeto
+	public bool isHuggingWall;
+	private Vector3 wallJumpDirection;
+	private bool hitLeft;
+	private bool hitRight;
+	private bool isInWallJump;
+
+
     #endregion
 
     // Use this for initialization
@@ -62,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
         ManageKnockBack();
 
         Hurt();
+
+		hugWall ();
 
         ManageFlipping();
 
@@ -94,6 +105,12 @@ public class PlayerMovement : MonoBehaviour
             moveVector.x = h * speedX;
         }
 
+		if (isInWallJump) {
+			moveVector = wallJumpDirection * 5;
+		}
+
+
+
         RaycastHit2D hitInfo;
 
         Vector3 down = new Vector3(0, -1, 0);
@@ -124,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 left = new Vector3(-1, 0, 0);
-        bool hitLeft = false;
+        hitLeft = false;
         hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, left, rayLength, _mask.value);
         if (hitInfo.collider != null)
         {
@@ -142,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 right = new Vector3(1, 0, 0);
         hitInfo = Physics2D.BoxCast(transform.position, boxSize, 0, right, rayLength, _mask.value);
-        bool hitRight = false;
+        hitRight = false;
         if (hitInfo.collider != null)
         {
             hitRight = true;
@@ -156,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         /*****************/
-        if (isGrounded)
+		if (isGrounded)
         {
             //si estoy en el piso el verticalSpeed es 
             //un valor negativo pequeño... esto es para 
@@ -175,14 +192,42 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (pressedJump)                //Ahora estamos en el aire, y el contador de saltos es 1, por lo que segun nuestro if "Input.GetKeyDown(KeyCode.Space) && DoubleJumps <= 1" hace que pressedJump pueda ser Verdadero
+
+
+			if (pressedJump && !isHuggingWall)  //Ahora estamos en el aire, y el contador de saltos es 1, por lo que segun nuestro if "Input.GetKeyDown(KeyCode.Space) && DoubleJumps <= 1" hace que pressedJump pueda ser Verdadero
             {
-                DoubleJumps++;              //Ahora contamos el segundo salto, diciendole al script que ya estamos saltando dos veces para que no pueda volver a saltar
-                verticalSpeed = jumpForce;  //Cambiamos el valor del VerticalSpeed, le asignamos la fuerza de salto
-                isDoubleJump = true;        //Activamos la opción del doble salto para que la animación realice el segundo salto
-                pressedJump = false;        //Desactivamos esta variable para que no se ejecute indefinidamente
+               DoubleJumps++;              //Ahora contamos el segundo salto, diciendole al script que ya estamos saltando dos veces para que no pueda volver a saltar
+               verticalSpeed = jumpForce;  //Cambiamos el valor del VerticalSpeed, le asignamos la fuerza de salto
+               isDoubleJump = true;        //Activamos la opción del doble salto para que la animación realice el segundo salto
+               pressedJump = false;        //Desactivamos esta variable para que no se ejecute indefinidamente
             }
-                verticalSpeed += gravity * Time.deltaTime;  //la gravedad se va aplicando al verticalSpeed
+            
+            
+			canControl = true;
+			verticalSpeed += gravity * Time.deltaTime;  //la gravedad se va aplicando al verticalSpeed
+
+			// si estamos abrazando el muro
+			if (isHuggingWall) {
+				verticalSpeed = -2;
+
+				if (pressedJump)
+				{
+					//DoubleJumps++;              //Contamos la cantidad de saltos, en este caso sería 1, dado que es el salto normal (el primer salto)				
+					verticalSpeed = jumpForce;  //Cambiamos el valor del VerticalSpeed, le asignamos la fuerza de salto
+					pressedJump = false;        //ya que hemos aplicado el salto...reseteamos pressedJump
+
+					if (h < 0) {
+						wallJumpDirection = Vector3.right;
+					} else {
+						wallJumpDirection = Vector3.left;
+					}
+
+					moveVector.x = 0;
+					moveVector += wallJumpDirection * 5;
+					//desactivamos el canControl
+					canControl = false;
+				}
+			}
             
         }
 
@@ -228,13 +273,15 @@ public class PlayerMovement : MonoBehaviour
             //se usaran en FixedUpdate
             h = Input.GetAxis("Horizontal");
             //Definimos la condición para ejecutar el salto
-            if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || DoubleJumps <= 1))
+            if (Input.GetKeyDown(KeyCode.Space))
             //En esta condición se pregunta si se ha presionado la tecla "Espacio"
             //La otra condición es una combinación de "Si esta en el suelo o si aun no ha realizado el doble salto"
             { 
-                //por lo que si esta en el suelo, colocamos en verdadero la variable de PressedJump para saltar
-                //o si está en el aire, pero aun no ha saltado por segunda vez, la variable también se activará                
-                pressedJump = true; //Activamos esta variable para el salto
+				if (isGrounded || isHuggingWall || DoubleJumps <= 1) {					
+	                //por lo que si esta en el suelo, colocamos en verdadero la variable de PressedJump para saltar
+	                //o si está en el aire, pero aun no ha saltado por segunda vez, la variable también se activará                
+	                pressedJump = true; //Activamos esta variable para el salto
+				}
             }
         }
         else
@@ -305,6 +352,8 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetFloat("speed", absH);
         _animator.SetFloat("verticalSpeed", verticalSpeed);
         _animator.SetBool("isGrounded", isGrounded);
+		// para reproducir animacion de deslizamiento en pared
+		_animator.SetBool("hugWall", isHuggingWall);
 
         //Entonces, cuando se haya saltado una vez hacendo que DoubleJumps sea 1 y al presionar el saltar de nuevo mientras se está en el aire
         //Se activarán los siguientes comandos
@@ -324,6 +373,8 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetBool("hurt", true);
         else
             _animator.SetBool("hurt", false);
+
+
     }
 
     //esto se encarga de cuando te hacen daño
@@ -359,6 +410,35 @@ public class PlayerMovement : MonoBehaviour
         previousHealth = _healthScript.health;
 
     }
+
+	//
+	void hugWall(){
+		isHuggingWall = false;
+		if (!isGrounded) {
+			if (hitLeft) {
+				if (h < 0) {
+					isHuggingWall = true;
+				}
+			}	
+			if (hitRight) {
+				if (h > 0) {
+					isHuggingWall = true;
+				}
+			}	
+		}
+
+		if ( isHuggingWall && pressedJump) {
+			isInWallJump = true;
+			Invoke ("WallJumpTemporal", 0.15f);
+		}
+	}
+
+	void WallJumpTemporal () {
+		isInWallJump = false;
+	}
+		
+
+
     //Aquí manejamos el KnockBack
     void ManageKnockBack()
     {

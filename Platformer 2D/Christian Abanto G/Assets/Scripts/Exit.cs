@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// Para utilizar recursos de Scenas
 using UnityEngine.SceneManagement;
 
 public class Exit : MonoBehaviour {
@@ -61,7 +62,7 @@ public class Exit : MonoBehaviour {
 	void cambiarEscena(){
 		// guardar datos en el dispositivo ()
 		PlayerPrefs.SetInt("playerScore", GameObject.Find("Score Manager").GetComponent<ScoreManager>().score);
-		// guardar datos en el dispositivo (
+		// cambiamos la escena
 		SceneManager.LoadScene ("winScreen");
 	}
 
