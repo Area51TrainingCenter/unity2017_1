@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float speedX = 5;
 	public float jumpForce = 8;
 	public float gravity = -10;
+	private float gravityAux;
 
 	public float rayLength = 0.6f;
 
@@ -28,7 +29,13 @@ public class PlayerMovement : MonoBehaviour {
 	private float targetAlpha;
 	private float dash;
 	private bool pressedJump;
+	private Vector3 wallJumpDirection;
+	private bool isTrepador;
 
+	//variables que gestionan los boxcast
+	private bool hitLeft;
+	private bool hitRight;
+	public bool isTrepaMuros;
 	//para salir del nivel
 
 
@@ -40,7 +47,8 @@ public class PlayerMovement : MonoBehaviour {
 		_animator = GetComponentInChildren<Animator> ();
 		_spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
 		salud = GetComponent<Health> ();
-
+		//al trepar muros se usara la quinta parte de la gravedad total
+		gravityAux = gravity / 5;
 	}
 	// Update is called once per frame
 	void Update(){
@@ -51,6 +59,7 @@ public class PlayerMovement : MonoBehaviour {
 		Hurt ();
 		ManageFliping ();
 		ManageAnimations() ;
+		ManageTrepaMuros ();
 
 	}
 
@@ -74,6 +83,10 @@ public class PlayerMovement : MonoBehaviour {
 
 			//dash = 0;
 		}else { moveVector.x = h*speedX;}
+
+		if (isTrepador) {
+			moveVector = wallJumpDirection * 5;
+		}
 
 		RaycastHit2D hitInfo;
 
@@ -104,7 +117,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 		Vector3 left = new Vector3 (-1, 0, 0);
-		bool hitLeft = false;
+		hitLeft = false;
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, left, rayLength,_mask.value);
 		if (hitInfo.collider !=null) {
 			hitLeft = true;
@@ -113,17 +126,13 @@ public class PlayerMovement : MonoBehaviour {
 		if (hitLeft) {
 			if (h < 0) {
 				moveVector.x = 0;
-				}
-
-
+			 }
 		}
-		/*****************/
-
 
 
 		Vector3 right = new Vector3 (1, 0, 0);
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, right, rayLength,_mask.value);
-		bool hitRight = false;
+		hitRight = false;
 		if (hitInfo.collider != null) {
 			hitRight = true;
 		}
@@ -148,8 +157,35 @@ public class PlayerMovement : MonoBehaviour {
 			}
 
 		} else {
-			
-			verticalSpeed += gravity * Time.deltaTime;
+			if (isTrepaMuros) {
+				//se emplea la gravedad uniforme
+				verticalSpeed =-gravityAux;
+//				if (h<0) {
+//					wallJumpDirection = Vector3.right;
+//				}
+//				else {
+//					wallJumpDirection = Vector3.left;
+//				}
+//				//reseteamos el movimiento horizontal
+
+				if (pressedJump) {
+					//aplicamos salto haciendo verticalSpeed sea positivo
+					verticalSpeed = jumpForce;
+					//ya que hemos aplicado el salto...reseteamos pressedJump
+					pressedJump = false;
+									if (h<0) {
+										wallJumpDirection = Vector3.right;
+									}
+									else {
+										wallJumpDirection = Vector3.left;
+									}
+									moveVector.x = 0;
+								moveVector += wallJumpDirection * 5;
+					canControl = false;
+				}
+			}
+			else verticalSpeed += gravity * Time.deltaTime;
+			//verticalSpeed += gravity * Time.deltaTime;
 		}
 
 
@@ -176,7 +212,10 @@ public class PlayerMovement : MonoBehaviour {
 			//si presionas espacio pressedJump permanecera en true
 			//hasta que se aplique el salto dentro de FixedUpdate
 			if (Input.GetKeyDown (KeyCode.Space) ) {
-				pressedJump = true;	
+				if (isGrounded || isTrepaMuros) {
+					pressedJump = true;	
+				}
+
 			}
 			if (Input.GetKeyDown (KeyCode.LeftShift) && isGrounded==false) {
 				dash = 20;	
@@ -238,7 +277,7 @@ public class PlayerMovement : MonoBehaviour {
 			_animator.SetBool ("hurt", false);
 		}
 
-
+		_animator.SetBool("trepamuro", isTrepaMuros);
 	}
 
 	void HandleKnockBack(){
@@ -257,6 +296,33 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 	}
+
+	//funcion para gestionar cuando el player trepa los muros
+	public void ManageTrepaMuros () {
+		isTrepaMuros = false;
+		if (!isGrounded) {
+			if (hitLeft && h<0) {
+				isTrepaMuros = true;
+
+			}
+			if (hitRight && h>0) {
+				isTrepaMuros = true;
+
+			}
+		}
+		if (isTrepaMuros && pressedJump) {
+			isTrepador = true;
+			Invoke ("desactivarTrepador", 1);
+		}
+
+	}
+
+	public void desactivarTrepador(){
+		isTrepador = false;
+		canControl = true;
+	}
+
+
 	//esto se encarga de cuando te hacen daño
 	void Hurt () {
 		//si la vida actual es menor a la vidaque teniamos antes significa que hemos recibido daño
