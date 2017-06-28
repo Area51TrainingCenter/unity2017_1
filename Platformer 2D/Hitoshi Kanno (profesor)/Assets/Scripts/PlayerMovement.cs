@@ -30,6 +30,11 @@ public class PlayerMovement : MonoBehaviour {
 	private bool knockbackToRight;
 	private float targetAlpha;
 
+	public bool isHuggingWall;
+	private Vector3 wallJumpDirection;
+	private bool hitLeft;
+	private bool hitRight;
+
 	private float h;
 	private bool pressedJump;
 	// Use this for initialization
@@ -47,7 +52,10 @@ public class PlayerMovement : MonoBehaviour {
 
 		ReceiveInputs ();
 
+		ManageHugWall ();
+
 		ManageKnockback ();
+
 
 		Hurt ();
 
@@ -78,7 +86,9 @@ public class PlayerMovement : MonoBehaviour {
 			moveVector.x = h*speedX;
 		}
 
-
+		if (isInWallJump) {
+			moveVector = wallJumpDirection * 5;
+		}
 
 		RaycastHit2D hitInfo;
 
@@ -109,7 +119,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 		Vector3 left = new Vector3 (-1, 0, 0);
-		bool hitLeft = false;
+		hitLeft = false;
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, left, rayLength,_mask.value);
 		if (hitInfo.collider !=null) {
 			hitLeft = true;
@@ -126,7 +136,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		Vector3 right = new Vector3 (1, 0, 0);
 		hitInfo = Physics2D.BoxCast (transform.position, boxSize, 0, right, rayLength,_mask.value);
-		bool hitRight = false;
+		hitRight = false;
 		if (hitInfo.collider != null) {
 			hitRight = true;
 		}
@@ -153,6 +163,28 @@ public class PlayerMovement : MonoBehaviour {
 		} else {
 			//la gravedad se va aplicando al verticalSpeed
 			verticalSpeed += gravity * Time.deltaTime;
+			//si estamos abrazando el muro... el jugador cae a una velocidad uniforme
+			if (isHuggingWall) {
+				verticalSpeed = -2;
+				//si presionamos salto mientras abrazamos el muro hacemos un walljump
+				if (pressedJump) {
+					//aplicamos salto haciendo verticalSpeed sea positivo
+					verticalSpeed = jumpForce;
+					//ya que hemos aplicado el salto...reseteamos pressedJump
+					pressedJump = false;
+
+					if (h < 0) {
+						wallJumpDirection = Vector3.right;
+					} else {
+						wallJumpDirection = Vector3.left;
+					}
+					moveVector.x = 0;
+					moveVector += wallJumpDirection * 5;
+					//desactivamos el canControl para evitar que 
+					//el isHuggingWall siga activo
+					canControl = false;
+				}
+			}
 		}
 
 
@@ -193,8 +225,10 @@ public class PlayerMovement : MonoBehaviour {
 
 			//si presionas espacio pressedJump permanecera en true
 			//hasta que se aplique el salto dentro de FixedUpdate
-			if (Input.GetKeyDown (KeyCode.Space) && isGrounded) {
-				pressedJump = true;	
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (isGrounded || isHuggingWall) {
+					pressedJump = true;	
+				}
 			}
 		} else {
 			h = 0;
@@ -236,7 +270,6 @@ public class PlayerMovement : MonoBehaviour {
 		_animator.SetFloat ("speed", absH);
 		_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		_animator.SetBool ("isGrounded", isGrounded);
-
 		if (Input.GetMouseButtonDown(0) && isGrounded && canAttack) {
 			_animator.SetTrigger ("attack");
 			canAttack = false;
@@ -247,6 +280,34 @@ public class PlayerMovement : MonoBehaviour {
 		} else {
 			_animator.SetBool ("hurt", false);
 		}
+		_animator.SetBool ("hugWall", isHuggingWall);
+
+	}
+	private bool isInWallJump;
+	void ManageHugWall(){
+		isHuggingWall = false;
+		if (!isGrounded) {
+			if (hitLeft) {
+				if (h<0) {
+					isHuggingWall = true;
+				}
+			}	
+			if (hitRight) {
+				if (h>0) {
+					isHuggingWall = true;
+				}
+			}	
+		}
+
+		if (isHuggingWall && pressedJump) {
+			isInWallJump = true;
+			Invoke ("CancelWallJump", 0.1f);
+		}
+	}
+
+	void CancelWallJump(){
+		isInWallJump = false;
+		canControl = true;
 	}
 
 	void ManageKnockback(){
