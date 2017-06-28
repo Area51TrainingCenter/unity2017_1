@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool canControl = true;
     public bool canAttack = true;
-
     public float invulnerableTime = 1.5f;
 
     private Rigidbody2D _rigidbody;
@@ -36,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
     private bool knockbackToRight;
     private float targetAlpha = 0;
 
+	public bool hugeWall=false;
+	public bool isHugeWallJump=false;
+	public Vector3 hugeWallDirection;
 
     //Variables para el salto doble
     public int DoubleJumps = 0; //Contador para saber si ya hizo el doble salto o no
@@ -72,27 +74,28 @@ public class PlayerMovement : MonoBehaviour
     //FixedUpdate se ejecuta cada 0.02 segundos
     //aqui incluimos todo el codigo que manipule los rigidbodies
     void FixedUpdate()
-    {
+	{hugeWall = false;
         //creamos un Vector3 que comienza en zero
         Vector3 moveVector = new Vector3(0, 0, 0);
 
         //Definimos el knockback
         //Si hay un knockback la velocidad tendra el siguiente valor de "if" y cuando no hay kcnoback, su velocidad será normal, como en "else"
-        if (knockback > 0)
-        {
-            if (knockbackToRight)
-            {
-                moveVector.x = knockback;
-            }
-            else
-            {
-                moveVector.x = -knockback;
-            }
-        }
-        else
-        {
-            moveVector.x = h * speedX;
-        }
+		if (knockback > 0) {
+			if (knockbackToRight) {
+				moveVector.x = knockback;
+			} else {
+				moveVector.x = -knockback;
+			}
+		} else {
+			moveVector.x = h * speedX;
+		}
+
+		 if (isHugeWallJump) {
+			moveVector.x = hugeWallDirection.x * speedX;
+
+
+		} 
+
 
         RaycastHit2D hitInfo;
 
@@ -134,7 +137,8 @@ public class PlayerMovement : MonoBehaviour
         if (hitLeft)
         {
             if (h < 0)
-            {
+			{
+				hugeWall = true;
                 moveVector.x = 0;
             }
         }
@@ -151,7 +155,8 @@ public class PlayerMovement : MonoBehaviour
         if (hitRight)
         {
             if (h > 0)
-            {
+			{
+				hugeWall = true;
                 moveVector.x = 0;
             }
         }
@@ -175,15 +180,33 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (pressedJump)                //Ahora estamos en el aire, y el contador de saltos es 1, por lo que segun nuestro if "Input.GetKeyDown(KeyCode.Space) && DoubleJumps <= 1" hace que pressedJump pueda ser Verdadero
+            if (pressedJump && !hugeWall)                //Ahora estamos en el aire, y el contador de saltos es 1, por lo que segun nuestro if "Input.GetKeyDown(KeyCode.Space) && DoubleJumps <= 1" hace que pressedJump pueda ser Verdadero
             {
                 DoubleJumps++;              //Ahora contamos el segundo salto, diciendole al script que ya estamos saltando dos veces para que no pueda volver a saltar
                 verticalSpeed = jumpForce;  //Cambiamos el valor del VerticalSpeed, le asignamos la fuerza de salto
                 isDoubleJump = true;        //Activamos la opción del doble salto para que la animación realice el segundo salto
                 pressedJump = false;        //Desactivamos esta variable para que no se ejecute indefinidamente
             }
-                verticalSpeed += gravity * Time.deltaTime;  //la gravedad se va aplicando al verticalSpeed
-            
+			verticalSpeed += gravity * Time.deltaTime;  //la gravedad se va aplicando al verticalSpeed
+			if (hugeWall) {
+				verticalSpeed = -2;
+				if (pressedJump) {
+					
+					if (h < 0) {
+						hugeWallDirection = Vector3.right;
+					}
+					if (h > 0) {
+						hugeWallDirection = Vector3.left;
+					}
+					DoubleJumps++;              //Contamos la cantidad de saltos, en este caso sería 1, dado que es el salto normal (el primer salto)				
+					verticalSpeed = jumpForce;  //Cambiamos el valor del VerticalSpeed, le asignamos la fuerza de salto
+					pressedJump = false;        //ya que hemos aplicado el salto...reseteamos pressedJump
+					moveVector.x = 0;
+					moveVector.x += hugeWallDirection.x * 5;
+					isHugeWallJump = true;
+					Invoke ("DisableHugeWallJump", 0.2f);
+				}
+			}
         }
 
         moveVector += new Vector3(0, verticalSpeed, 0);
@@ -196,6 +219,10 @@ public class PlayerMovement : MonoBehaviour
         //transform.Translate (moveVector*Time.deltaTime);
         //transform.Translate (moveX * Time.deltaTime, 0, 0);
     }
+	void DisableHugeWallJump(){
+		isHugeWallJump = false;
+	}
+
 
     void OnDrawGizmos()
     {
@@ -228,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
             //se usaran en FixedUpdate
             h = Input.GetAxis("Horizontal");
             //Definimos la condición para ejecutar el salto
-            if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || DoubleJumps <= 1))
+			if (Input.GetKeyDown(KeyCode.Space) && ((isGrounded || DoubleJumps <= 1) || hugeWall))
             //En esta condición se pregunta si se ha presionado la tecla "Espacio"
             //La otra condición es una combinación de "Si esta en el suelo o si aun no ha realizado el doble salto"
             { 
@@ -305,7 +332,7 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetFloat("speed", absH);
         _animator.SetFloat("verticalSpeed", verticalSpeed);
         _animator.SetBool("isGrounded", isGrounded);
-
+		_animator.SetBool ("hugeWall", hugeWall);
         //Entonces, cuando se haya saltado una vez hacendo que DoubleJumps sea 1 y al presionar el saltar de nuevo mientras se está en el aire
         //Se activarán los siguientes comandos
         if (DoubleJumps <= 1 && pressedJump == true)

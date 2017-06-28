@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour {
 	bool isPaused;				//Variable para saber si el juego esta pausado
 	public RectTransform _Panel;
@@ -48,5 +49,10 @@ public class PauseMenu : MonoBehaviour {
 	public void QuitGame(){
 		//Para salir del juego (solo funciona cuando ha sido compilado, no funciona en las pruebas con Unity)
 		Application.Quit ();
+	}
+	public void RestartGame()
+	{
+		Time.timeScale = 1;
+		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 	}
 }
