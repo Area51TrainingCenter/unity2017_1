@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
 	public bool hitRight;
 	public bool isHugingWall;
 	private Vector3 walljumpdirection;
-	private bool iswalljumping;
+
 
 	private float knockback;
 	private bool knockbackToRight;
@@ -294,7 +294,10 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	private bool iswalljumping;
+
 	void ManageHugwall (){
+		
 		
 		isHugingWall = false;
 		if (!isGrounded) {
@@ -312,7 +315,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (isHugingWall && pressedJump) {
 
 			iswalljumping = true;
-			Invoke ("iswalljumpingfalse", 5);
+			Invoke ("iswalljumpingfalse", 0.1f);
 		}
 	}
 
