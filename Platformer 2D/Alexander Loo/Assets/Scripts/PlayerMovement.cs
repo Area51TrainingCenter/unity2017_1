@@ -287,6 +287,8 @@ public class PlayerMovement : MonoBehaviour {
 		}*/
 		if (!isGrounded && (isleftCrash || isrightCrash) && h != 0) {
 			hugWall = true;
+		} else {
+			hugWall = false;
 		}
 		if(hugWall && jump){
 			isWallJump = true;
