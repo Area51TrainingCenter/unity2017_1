@@ -9,8 +9,8 @@ public class PlayerControl : MonoBehaviour {
 
 	private float v;
 	private float h;
-	public float speed = 5;
-	public float turbo = 15;
+	public float speed;
+	public float turbo;
 	private bool running;
 	private float verticalSpeed = 0;
 	public float gravity = 10;
@@ -38,7 +38,7 @@ public class PlayerControl : MonoBehaviour {
 				speed = turbo;
 				running = true;
 			} else {
-				speed = 5;
+				speed = 2;
 				running = false;
 			}
 		}else{
