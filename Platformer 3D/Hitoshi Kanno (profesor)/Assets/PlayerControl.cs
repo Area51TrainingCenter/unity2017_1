@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour {
 	public float speed = 5;
 	public float runSpeed = 8;
+	public float crouchSpeed = 1;
 	private float verticalSpeed = 0;
 	private CharacterController _controller;
 	private Animator _animator;
@@ -24,15 +25,20 @@ public class PlayerControl : MonoBehaviour {
 		Vector3 moveVector = new Vector3 (h, 0, v);
 		moveVector.Normalize ();
 
-		if (Input.GetKey(KeyCode.LeftShift)) {
-			moveVector *= runSpeed;
-		}else{
-			moveVector *= speed;
+		if (Input.GetButton("Crouch")) {
+			moveVector *= crouchSpeed;
+		} else {
+			
+			if (Input.GetButton("Run")) {
+				moveVector *= runSpeed;
+			}else{
+				moveVector *= speed;
+			}
 		}
 
 		if (_controller.isGrounded) {
 			verticalSpeed = -0.1f;
-			if (Input.GetKeyDown(KeyCode.Space)) {
+			if (Input.GetButtonDown("Jump")) {
 				verticalSpeed = jumpForce;
 			}
 		}else{
@@ -56,7 +62,7 @@ public class PlayerControl : MonoBehaviour {
 		//el valor de destino varía segun estemos moviendonos o no
 		float end;
 		if (h != 0 || v != 0) {
-			if (Input.GetKey (KeyCode.LeftShift)) {
+			if (Input.GetButton("Run")) {
 				end = 2;
 			} else {
 				end = 1;
@@ -72,5 +78,16 @@ public class PlayerControl : MonoBehaviour {
 		//y luego lo aplicamos al parametro speed del animator
 		_animator.SetFloat ("speed", result);
 
+
+		if (!_controller.isGrounded) {
+			_animator.SetFloat ("verticalSpeed", verticalSpeed);	
+		}
+
+		_animator.SetBool ("isGrounded", _controller.isGrounded);
+		if (Input.GetButton("Crouch")) {
+			_animator.SetBool ("crouch", true);
+		} else {
+			_animator.SetBool ("crouch", false);
+		}
 	}
 }
