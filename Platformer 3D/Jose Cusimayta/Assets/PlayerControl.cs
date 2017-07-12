@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
-	public float speed = 5;
-	private float verticalSpeed = 0;
-	private CharacterController _controller;
-	public float gravity = 10;
-	public float jumpForce = 20;
+	public float speed;
+	private float verticalSpeed ;
 	public float runSpeed;
+	public float crouchSpeed;
+	private CharacterController _controller;
+	public float gravity;
+	public float jumpForce;
 	public Animator _animator;
 	// Use this for initialization
 	void Start () {
@@ -21,15 +22,18 @@ public class PlayerControl : MonoBehaviour {
 		float h = Input.GetAxis ("Horizontal");
 		Vector3 moveVector = new Vector3 (h, 0, v);
 		moveVector.Normalize ();
-		if (Input.GetKey (KeyCode.LeftShift) && _controller.isGrounded) {
-			moveVector *= runSpeed;
+		if (Input.GetButton("Crounch")) {
+			moveVector *= crouchSpeed;
 		} else {
-			moveVector *= speed;
+			if (Input.GetButton("Run")) {
+				moveVector *= runSpeed;
+			} else {
+				moveVector *= speed;
+			}
 		}
-
 		if (_controller.isGrounded) {
 			verticalSpeed = -0.1f;
-			if (Input.GetKeyDown(KeyCode.Space)) {
+			if (Input.GetButton("Jump") && !Input.GetButton("Crounch")) {
 				verticalSpeed = jumpForce;
 			}
 		}else{
@@ -44,7 +48,12 @@ public class PlayerControl : MonoBehaviour {
 		_controller.Move (moveVector);
 		moveVector.y = 0;
 		transform.LookAt (transform.position + moveVector);
+		ManageAnimation (v,h);
+
+	}
+	public void ManageAnimation(float v, float h){
 		float end;
+		float endv;
 		if (v != 0 || h!=0) {
 			if (Input.GetKey (KeyCode.LeftShift))
 				end = 2;
@@ -56,5 +65,17 @@ public class PlayerControl : MonoBehaviour {
 		float start = _animator.GetFloat ("movimiento");
 		float result = Mathf.Lerp (start, end, Time.deltaTime * 5);
 		_animator.SetFloat ("movimiento", result);
+
+		if (Input.GetButton("Crounch")) {
+			_animator.SetBool ("isCrouch", true);
+		} else {
+			_animator.SetBool ("isCrouch", false);
+		}
+
+
+		if (!_controller.isGrounded) {
+			_animator.SetFloat ("verticalSpeed", verticalSpeed);
+		}
+		_animator.SetBool ("isGrounded", _controller.isGrounded);
 	}
 }
