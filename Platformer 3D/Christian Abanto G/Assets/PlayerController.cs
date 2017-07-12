@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 	public float speed = 5f;
 	public float runSpeed = 10f;
+	public float crouchSpeed = 1;
 	private CharacterController _controller;
 	private float verticalSpeed;
 	public float gravity;
@@ -21,7 +22,6 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		// 	POSICIONAR
 			//  obtener inputs ( H y V, y SPACE )
 				float ejeH = Input.GetAxis ("Horizontal");
@@ -29,17 +29,23 @@ public class PlayerController : MonoBehaviour {
 			//  definir vector movimiento
 				Vector3 moveVector = new Vector3 (ejeH, 0, ejeV);
 			// 	definir vector gravedad
-				if (!_controller.isGrounded) 
-				{ verticalSpeed -= gravity * Time.deltaTime; }
-				else
-				{ saltar (); }
+				if (!_controller.isGrounded) { 
+					verticalSpeed -= gravity * Time.deltaTime; 
+					//_animator.SetBool ("isGrounded", true);
+				} else { 
+					saltar ();
+					//_animator.SetBool ("isGrounded", false);
+				}
 				Vector3 gravityVector = new Vector3 (0, verticalSpeed , 0);
 			//  normalizar movimiento ( para que siempre sea 1 la direccion )
 				moveVector.Normalize (); 
 			//  actualizar vector ( usando la velocidad y gravedad )
-				moveVector *= Input.GetKey (KeyCode.LeftShift) ? runSpeed : speed; // determinamos velocidad es aumentado o normal
+				//moveVector *= Input.GetKey (KeyCode.LeftShift) ? runSpeed :  speed ; // determinamos velocidad es aumentado o normal
+				moveVector *= Input.GetButton ("Correr") ? runSpeed :  speed ; // determinamos velocidad es aumentado o normal
 				moveVector += gravityVector;
 				moveVector *= Time.deltaTime;
+			//	actualizar vector ( si esta agachado, disminuir velocidad )
+				moveVector = _animator.GetBool ("isCrouch") ? moveVector*crouchSpeed : moveVector;
 			//  aplicar direccion de movimiento
 				//transform.Translate(moveVector, Space.World);
 				_controller.Move (moveVector); // similar a translate, la diferencia es que colisiona ( se detiene si hay un bloque )
@@ -79,10 +85,26 @@ public class PlayerController : MonoBehaviour {
 						// su campo "Threshold" son los valores definidos por nosotros,
 						// si al setear el valor de "speed" concuerda con uno de los valores de "Threshold" 			
 						// entonces cambiara la animación.
+			// ¿esta saltando?
+					// si no toca piso ( animacion Airbone )  
+					_animator.SetBool("isGrounded", _controller.isGrounded );
+					// verificar estado y saltar
+					if (!_controller.isGrounded) {
+						_animator.SetFloat("verticalSpeed", verticalSpeed);
+					}
+		// ¿esta agachado?
+				// agachado
+				if (Input.GetButton ("Agacharse")) {
+					_animator.SetBool ("isCrouch", true);
+				} else {
+					_animator.SetBool ("isCrouch", false);
+				}
+					
+					
 	}
 
 	void saltar(){
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetButton ("Saltar")) {
 			verticalSpeed = jump;
 		} else {
 			verticalSpeed = -0.1f;
