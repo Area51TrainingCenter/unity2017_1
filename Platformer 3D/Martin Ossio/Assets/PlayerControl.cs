@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
 
-	private float Speed = 10f;
+	public float Speed = 10f;
 	private CharacterController _controller;
 	private Animator _animator;
 	private float verticalSpeed = -10;
 	private float multiplier = 1;
+	public float crouchingSpeed = 0.3f;
 	public float gravitySpeed = 50;
 
 
@@ -25,10 +26,17 @@ public class PlayerControl : MonoBehaviour {
 		float h = Input.GetAxis("Horizontal");
 		float v = Input.GetAxis("Vertical");
 
-		if (Input.GetKey(KeyCode.LeftShift) && (_controller.isGrounded)) {
+		if (Input.GetButton("Run") && (_controller.isGrounded)) {
 			multiplier = 4;
 		} else {
 			if (_controller.isGrounded) { multiplier = 1; }
+		}
+
+		if (Input.GetButton("Crouch") && (_controller.isGrounded)) {
+			multiplier = crouchingSpeed;
+			_animator.SetBool ("isCrouching", true);
+		} else {
+			_animator.SetBool ("isCrouching", false);
 		}
 
 		float myDestiny;
@@ -43,7 +51,7 @@ public class PlayerControl : MonoBehaviour {
 
 		float now = _animator.GetFloat ("inTheMove");
 		float inertia = Mathf.Lerp (now, myDestiny, Time.deltaTime * 5);
-		_animator.SetFloat("inTheMove",inertia);
+
 
 
 			
@@ -54,9 +62,9 @@ public class PlayerControl : MonoBehaviour {
 
 
 		if (_controller.isGrounded) {
-			verticalSpeed = -0.10f * Time.deltaTime;
+			verticalSpeed = -0.10f;
 
-			if (Input.GetKey("space")) {
+			if (Input.GetButton("Jump") && !( _animator.GetBool("isCrouching"))) {
 				verticalSpeed = 20;
 			};
 
@@ -65,6 +73,7 @@ public class PlayerControl : MonoBehaviour {
 		}
 
 		Vector3 gravity = new Vector3 (0, verticalSpeed, 0);
+
 
 		moveVector += gravity;
 
@@ -76,7 +85,13 @@ public class PlayerControl : MonoBehaviour {
 
 		transform.LookAt (transform.position + moveVector);
 
+		_animator.SetFloat("inTheMove",inertia);
 
+		if (!_controller.isGrounded) {
+			_animator.SetFloat("verticalSpeed",verticalSpeed);
+		}
+
+		_animator.SetBool ("isGrounded", _controller.isGrounded);
 
 	}
 }
