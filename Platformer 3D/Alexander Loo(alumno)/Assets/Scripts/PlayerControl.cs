@@ -9,8 +9,10 @@ public class PlayerControl : MonoBehaviour {
 
 	private float v;
 	private float h;
+	private bool isCrouch;
 	public float speed;
 	public float turbo;
+	public float crouchSpeed;
 	private bool running;
 	private float verticalSpeed = 0;
 	public float gravity = 10;
@@ -24,21 +26,23 @@ public class PlayerControl : MonoBehaviour {
 	void Update () {
 		 v = Input.GetAxis ("Vertical");
 		 h = Input.GetAxis ("Horizontal");
-
+		isCrouch = Input.GetButton("Crouch");
 		Vector3 moveVector = new Vector3 (h, 0, v);
 		moveVector.Normalize ();
-		moveVector *= speed;
 
 		if (_controller.isGrounded) {
 			verticalSpeed = -0.1f;
 			if (Input.GetKeyDown(KeyCode.Space)) {
 				verticalSpeed = jumpForce;
 			}
-			if (Input.GetKey (KeyCode.LeftShift)) {
-				speed = turbo;
+			if (isCrouch) {
+				moveVector *= crouchSpeed;
+			}
+			else if (Input.GetKey (KeyCode.LeftShift)) {
+				moveVector *= turbo;
 				running = true;
 			} else {
-				speed = 2;
+				moveVector *= speed;
 				running = false;
 			}
 		}else{
@@ -80,5 +84,10 @@ public class PlayerControl : MonoBehaviour {
 		float result = Mathf.Lerp (start, end, Time.deltaTime * 5);
 		//y luego lo aplicamos al parametro speed del animator
 		_animator.SetFloat ("Speed", result);
+		_animator.SetBool ("isGrounded", _controller.isGrounded);
+		if (!_controller.isGrounded) {
+			_animator.SetFloat ("VerticalSpeed", verticalSpeed);
+		}
+		_animator.SetBool ("isCrouch", isCrouch);
 	}
 }
