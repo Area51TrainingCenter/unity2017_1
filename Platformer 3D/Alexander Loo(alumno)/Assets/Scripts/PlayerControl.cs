@@ -14,9 +14,9 @@ public class PlayerControl : MonoBehaviour {
 	public float turbo;
 	public float crouchSpeed;
 	private bool running;
-	private float verticalSpeed = 0;
-	public float gravity = 10;
-	public float jumpForce = 20;
+	private float verticalSpeed;
+	public float gravity;
+	public float jumpForce;
 
 	void Start () {
 		_controller = GetComponent<CharacterController> ();
@@ -30,20 +30,23 @@ public class PlayerControl : MonoBehaviour {
 		Vector3 moveVector = new Vector3 (h, 0, v);
 		moveVector.Normalize ();
 
+		//La velocidad de los lados también actua mientras está en el aire, por eso escribimos las condicionales fuera del "isGrounded"
+		//**********************
+		if (isCrouch) {
+			moveVector *= crouchSpeed;
+		}
+		else if (Input.GetKey (KeyCode.LeftShift)) {
+			moveVector *= turbo;
+			running = true;
+		} else {
+			moveVector *= speed;
+			running = false;
+		}
+		//************************
 		if (_controller.isGrounded) {
 			verticalSpeed = -0.1f;
-			if (Input.GetKeyDown(KeyCode.Space)) {
+			if (Input.GetButton("Jump")) {
 				verticalSpeed = jumpForce;
-			}
-			if (isCrouch) {
-				moveVector *= crouchSpeed;
-			}
-			else if (Input.GetKey (KeyCode.LeftShift)) {
-				moveVector *= turbo;
-				running = true;
-			} else {
-				moveVector *= speed;
-				running = false;
 			}
 		}else{
 			verticalSpeed -= gravity*Time.deltaTime;
@@ -54,6 +57,7 @@ public class PlayerControl : MonoBehaviour {
 		moveVector *= Time.deltaTime;
 		//transform.Translate (moveVector,Space.World);
 		_controller.Move (moveVector);
+		//para que no mire el piso. el Move(moveVector) no se ve afectado ya que la función lo ejecuta antes
 		moveVector.y = 0;
 		//para ver hacia una dirección (posición del objeto + dirección de movimiento)
 		transform.LookAt (transform.position + moveVector);
