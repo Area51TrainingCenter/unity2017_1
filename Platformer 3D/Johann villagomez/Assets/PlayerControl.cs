@@ -10,6 +10,8 @@ public class PlayerControl : MonoBehaviour {
 	public float gravity = 10;
 	public float jumpForce = 20;
 	private Animator _animator; 
+	public float VerticalSpeed;
+	public float crouchSpeed = 1;
 	// Use this for initialization
 	void Start () {
 		_controller = GetComponent<CharacterController> ();	
@@ -26,20 +28,28 @@ public class PlayerControl : MonoBehaviour {
 		Vector3 moveVector = new Vector3 (h, 0, v);
 		moveVector.Normalize ();
 
-		if (Input.GetKey(KeyCode.LeftShift)) {
+		if (Input.GetButton("Crouch") ){
+			moveVector *= crouchSpeed;
+		} else {
+
+			if (Input.GetButton("Run")) {
 			moveVector *= RunningSpeed;
 
-		} else {
+			} else {
 			moveVector *= speed;
+			}
 		}
 		if (_controller.isGrounded) {
+
 			verticalSpeed = -0.1f;
-			if (Input.GetKeyDown(KeyCode.Space)) {
+
+			if (Input.GetButton("Jump")) {
 				verticalSpeed = jumpForce;
-			}
-		}else{
+				}
+			}else{
 			verticalSpeed -= gravity*Time.deltaTime;
-		}
+	
+		} 
 
 
 		Vector3 gravityVector = new Vector3 (0, verticalSpeed, 0); 
@@ -51,9 +61,11 @@ public class PlayerControl : MonoBehaviour {
 		transform.LookAt (transform.position + moveVector);
 
 
+
+
 		if (v != 0 || h != 0 ) {
 			end = 1;
-			if (Input.GetKey(KeyCode.LeftShift)){
+			if (Input.GetButton("Run")){
 				end = 2;
 			}
 		} else {
@@ -63,5 +75,17 @@ public class PlayerControl : MonoBehaviour {
 		float result = Mathf.Lerp (start, end, Time.deltaTime * 5);
 		_animator.SetFloat ("Speed",result);
 
+		if (!_controller.isGrounded) {
+			_animator.SetFloat ("VerticalSpeed",verticalSpeed);
+		}
+
+		_animator.SetBool ("IsGrounded",_controller.isGrounded);
+		if (Input.GetButton("Crouch")) {
+			
+			_animator.SetBool ("IsCrouch",true);
+		} else{
+			_animator.SetBool ("IsCrouch",false);
+		}
 	}
+
 }
