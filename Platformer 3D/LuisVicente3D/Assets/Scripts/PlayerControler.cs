@@ -13,55 +13,74 @@ public class PlayerControler : MonoBehaviour {
 	private float EjeX;
 	private float EjeZ;
 	public float JumpForce;
-	// Use this for initialization
+	private Vector3 moveVector;
+	public LayerMask _layermask;
+	private bool techito;
+	public GameObject Camara;
 	void Start () {
 		_controler = GetComponent <CharacterController> ();
 		_animation = GetComponent <Animator> ();
 	}
-	
-	// Update is called once per frame
 	void Update () {
 			// Hacia los Costados
-
 		EjeX = Input.GetAxis("Horizontal") ;
 			// Hacia Adelante y Atras
 		EjeZ = Input.GetAxis("Vertical") ;
 
-
-		if (!_controler.isGrounded) {
-			verticalSpeed -= gravity * Time.deltaTime;
-		} else {
-			Saltar ();
-		}
-
-		Vector3 Gravedad = new Vector3 (0,verticalSpeed,0);
-		Vector3 moveVector = new Vector3 (EjeX,0,EjeZ);
-		moveVector.Normalize ();
-		if (Input.GetButton("Agachar")) {
-			moveVector *= CrouchSpeed; 
-		} else {
-			if (Input.GetButton("Correr")) {
-				moveVector *= Correr;
-			} else {
-				moveVector *= Speed ;
-			}
-		}
-
-		moveVector += Gravedad;
+		MovimientoSuelo ();
+		Saltar ();
+		Agachar ();
 		moveVector *= Time.deltaTime;
-		//transform.Translate (moveVector,Space.World);
 		_controler.Move (moveVector );
 		moveVector.y = 0;
 		transform.LookAt (transform.position + moveVector);
 		Animaciones ();
 	}
 
-
-	void Saltar(){
-		if (Input.GetButtonDown("Jump")) {
-			verticalSpeed = JumpForce;
+	void FixedUpdate(){
+		bool AgacharS = _animation.GetBool ("Agachar");
+		if (AgacharS) {
+			if (Physics.Raycast (transform.position, Vector3.up, 2.30f, _layermask)) {
+				Debug.DrawRay (transform.position, Vector3.up * 2.30f, Color.red);
+				techito = true;
+			} else {
+				Debug.DrawRay (transform.position, Vector3.up * 2.30f, Color.green);
+				techito = false;
+			}
 		}
 	}
+
+	void Saltar(){
+		if (_controler.isGrounded) {
+			verticalSpeed = -0.1f;
+			if (Input.GetButtonDown("Jump")) {
+				verticalSpeed = JumpForce;
+			}
+		} else {
+			verticalSpeed -= gravity * Time.deltaTime;
+		}
+
+		Vector3 Gravedad = new Vector3 (0,verticalSpeed,0);
+
+
+		moveVector += Gravedad;
+	}
+
+	void Agachar(){
+		bool AgacharS = _animation.GetBool ("Agachar");
+		if (AgacharS) {
+			_controler.height = 1;
+			Vector3 newCenter = _controler.center;
+			newCenter.y = 0.45f;
+			_controler.center = newCenter; 
+		} else {
+			_controler.height = 1.8f;
+			Vector3 newCenter = _controler.center;
+			newCenter.y = 0.85f;
+			_controler.center = newCenter; 
+		}
+	}
+
 	void Animaciones (){
 		float end;
 		float endS;
@@ -83,7 +102,7 @@ public class PlayerControler : MonoBehaviour {
 		}
 		_animation.SetBool ("isGrounded", _controler.isGrounded);
 
-		if (Input.GetButton("Agachar")) {
+		if (Input.GetButton("Agachar") || techito) {
 			_animation.SetBool ("Agachar", true);
 
 		} else {
@@ -91,5 +110,26 @@ public class PlayerControler : MonoBehaviour {
 
 		}
 		
+	}
+	void MovimientoSuelo(){
+
+		//new Vector3 (EjeX,0,EjeZ);
+		Vector3 CamaraRight = Camara.transform.right;
+		CamaraRight.y = 0f;
+		CamaraRight.Normalize ();
+		Vector3 CamaraForward = Camara.transform.forward;
+		CamaraForward.y = 0f;
+		CamaraForward.Normalize ();
+		moveVector = (CamaraRight * EjeX ) + (CamaraForward * EjeZ);
+		moveVector.Normalize ();
+		if (Input.GetButton("Agachar") || techito) {
+			moveVector *= CrouchSpeed;
+		} else {
+			if (Input.GetButton("Correr")) {
+				moveVector *= Correr;
+			} else {
+				moveVector *= Speed ;
+			}
+		}
 	}
 }
