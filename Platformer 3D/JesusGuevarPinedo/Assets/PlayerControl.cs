@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
+	
 	public float speed = 5;
 	public float runSpeed = 8;
 	private float verticalSpeed = 0;
@@ -13,26 +14,87 @@ public class PlayerControl : MonoBehaviour {
 
 	public float crouchSpeed = 1;
 
+	public Vector3 moveVector;
+	public bool isCrouch;
+
+	public LayerMask _mask;
+	// agachadao modificar el collider 
+	public bool isLowColling;// variable para saber el techo esta bajo
+
+	public GameObject _camara;// Camara
 
 	// Use this for initialization
 	void Start () {
 		_controller = GetComponent<CharacterController> ();	
 		_animator = GetComponent<Animator> ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
 		float v = Input.GetAxis ("Vertical");
 		float h = Input.GetAxis ("Horizontal");
 
-		Vector3 moveVector = new Vector3 (h, 0, v);
+		// --- Function Movimiento ---
+		GroundMovement (h,v);
+
+			
+		// --- Function Animacion ---
+		VerticalMovement ();
+
+		moveVector *= Time.deltaTime;
+	
+		//transform.Translate (moveVector,Space.World);
+		_controller.Move (moveVector);
+		moveVector.y = 0;
+		transform.LookAt (transform.position + moveVector);
+
+		// --- Reducir el Collider --
+		Crouch ();
+
+		// --- Function Animacion ---
+		SetAnimatorParameters (h,v);
+
+	}
+
+	void GroundMovement(float h, float v){
+
+		// Tecla control para Agacharse
+		//if (Input.GetKey (KeyCode.LeftControl)) {
+
+		if(Input.GetButton("Agacharse")){	
+			
+				isCrouch = true;
+				_animator.SetBool ("isGrouch", true);			
+
+		} else {
+			
+			if(!isLowColling){
+				isCrouch = false;
+				_animator.SetBool ("isGrouch", false);
+			}	
+		}
+
+
+		Vector3 cameraForward = Camera.main.transform.forward;
+		cameraForward.y = 0;
+		cameraForward.Normalize ();
+
+		Vector3 cameraRight  = Camera.main.transform.right;
+		cameraRight.y = 0;
+		cameraRight.Normalize ();
+
+		moveVector = ( cameraRight * h) + (cameraForward * v);
 		moveVector.Normalize ();
 
 
-		if (Input.GetButton("Agacharse")) {
-			moveVector *= crouchSpeed; 
-		} else {
+		if (Input.GetButton("Agacharse") || isLowColling) {
 			
+				moveVector *= crouchSpeed; 
+
+		} else {
+
 			// Tecla shift	
 			if (Input.GetButton("Correr")) {
 				moveVector *= runSpeed;
@@ -42,42 +104,35 @@ public class PlayerControl : MonoBehaviour {
 
 		}
 
+	}
 
-		// Tecla control para Agacharse
-		//if (Input.GetKey (KeyCode.LeftControl)) {
-
-		if(Input.GetButton("Agacharse")){	
-			_animator.SetBool ("isGrouch", true);
-		} else {
-			_animator.SetBool ("isGrouch", false);
-		}
-			
-
+	void VerticalMovement(){
+		
 		if (_controller.isGrounded) {
 
 			verticalSpeed = -0.1f;
+
 			if (Input.GetKeyDown(KeyCode.Space)) {
 				verticalSpeed = jumpForce;
 			}
+
 		}else{
-			
+
 			verticalSpeed -= gravity*Time.deltaTime;
 		}
-
-
-
 		Vector3 gravityVector = new Vector3 (0, verticalSpeed, 0); 
 		moveVector += gravityVector;
-		moveVector *= Time.deltaTime;
-		//transform.Translate (moveVector,Space.World);
-		_controller.Move (moveVector);
-		moveVector.y = 0;
-		transform.LookAt (transform.position + moveVector);
+		
+	}
 
-		//lerp requiere 3 valores
-		//tu valor inicial
-		//el valor de destino
-		//velocidad con la que quieres llegar al destino
+	void SetAnimatorParameters(float h,float v){
+
+		/*
+		 * 	lerp requiere 3 valores
+		 * tu valor inicial
+		 * el valor de destino
+		 * velocidad con la que quieres llegar al destino
+		*/
 
 		//el valor de destino varía segun estemos moviendonos o no
 		float end;
@@ -105,11 +160,51 @@ public class PlayerControl : MonoBehaviour {
 
 		// ---- animacion para saltar --
 		if(!_controller.isGrounded){
-		_animator.SetFloat ("verticalSpeed", verticalSpeed);
+			_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		}
-		_animator.SetBool ("isGrounded", _controller.isGrounded);
+		_animator.SetBool ("isGrounded", _controller.isGrounded);	
+
+	}
+
+	void FixedUpdate(){
+
+
+		bool isCrouched = _animator.GetBool ("isGrouch");
+		if(isCrouched){
+			//Physics Raycast hace el chequeo del raycast pero no vas a poder	
+			if (Physics.Raycast (transform.position, Vector3.up, 4.0f, _mask)) {
+				// Debug DrawRay dibuja la linea... le damos los mismos parametros que el raycast
+				// al pasarle la direccion lo multiplicamos por la longitud 
+				Debug.DrawRay (transform.position, Vector3.up*4.0f, Color.grey);
+				isLowColling = true;
+			} else {
+				isLowColling = false;
+				Debug.DrawRay (transform.position, Vector3.up*4.0f, Color.red);
+			}
+		}
+		
+	}
+
+	void Crouch(){
+
+		if (isCrouch) { 
 	
-	
+			_controller.height = 1;
+			Vector3 newcenter = _controller.center;
+			newcenter.y = 0.45f;
+			_controller.center = newcenter;
+
+		} else {
+
+			if(!isLowColling){
+				_controller.height = 1.8f;
+				Vector3 newcenter = _controller.center;
+				newcenter.y = 0.85f;
+				_controller.center = newcenter;
+
+
+			}
+		}
 
 	}
 }
