@@ -13,9 +13,12 @@ public class Movimiento : MonoBehaviour {
 	public bool agachado;
 	private CharacterController personajeController;
 	private Animator animacion;
+	public LayerMask _mask;
+	public GameObject Camara;
+	private bool golpeAlTecho;
 	// Use this for initialization
 	void Start () {
-		
+		Camara = GameObject.FindGameObjectWithTag ("MainCamera");
 		personajeController = GetComponent<CharacterController> ();
 		animacion= GetComponent<Animator> ();
 	}
@@ -27,6 +30,21 @@ public class Movimiento : MonoBehaviour {
 		Agacharse ();
 		//correr ();
 		manejarAnimacion ();
+
+	}
+
+	void FixedUpdate () {
+		bool isCrouched=animacion.GetBool("agachado");
+		if (isCrouched) {
+			if (Physics.Raycast(transform.position,Vector3.up,4.0f,_mask)) {
+				Debug.DrawRay(transform.position,Vector3.up*4.0f,Color.green);
+				golpeAlTecho = true;
+			}
+			else{
+				  Debug.DrawRay(transform.position,Vector3.up*4.0f,Color.red);
+				golpeAlTecho = false;
+			}
+		}
 
 	}
 
@@ -43,7 +61,15 @@ public class Movimiento : MonoBehaviour {
 			saltar ();
 		}
 		Vector3 gravedadVector = new Vector3(0,verticalSpeed,0);
-		Vector3 moveVector = new Vector3(h1,0,h2);
+
+		Vector3 cameraForward = Camera.main.transform.forward;
+		cameraForward.Normalize ();
+
+		Vector3 cameraRight = Camera.main.transform.right;
+		cameraRight.Normalize ();
+
+		//Vector3 moveVector = new Vector3(h1,0,h2); Camara.main
+		Vector3 moveVector = h1*cameraRight+h2*cameraForward;
 		moveVector.Normalize ();
 		if (agachado) {
 			Debug.Log ("Estoy agachado");
@@ -68,13 +94,22 @@ public class Movimiento : MonoBehaviour {
 
 	void Agacharse () {
 		if (Input.GetButton("Agachar")) {
-			
+			agachado = true;
+			personajeController.height = 1;
+			Vector3 newCenter = personajeController.center;
+			newCenter.y = 0.45f;
+			personajeController.center = newCenter;
 		}
-//		if (Input.GetKey(KeyCode.LeftControl)) {
-//			agachado = true;
-//
-//		} 
-		else agachado = false;
+
+		else {
+			//si estas bajo un techo, y estas agachado, no podras levantarte hasta que salgas de la zona del techo
+			if (!golpeAlTecho) {
+				agachado = false;
+				personajeController.height = 1.8f;
+				personajeController.center=new Vector3(0,0.85f,0);
+			}
+
+		} 
 	}
 
 	void correr() {
