@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
 
+	/*Las variables globales ocupan espacio en la memoria (por que no se destruyen),
+	 por eso es más eficiente usar la menor cantidad de variables globales*/
+	
 	private CharacterController _controller;
 	private Animator _animator;
 
-	private float v;
-	private float h;
 	private bool isCrouch;
 	public float speed;
 	public float turbo;
@@ -17,6 +18,10 @@ public class PlayerControl : MonoBehaviour {
 	private float verticalSpeed;
 	public float gravity;
 	public float jumpForce;
+	private Vector3 moveVector;
+
+	public LayerMask _mask;
+	private bool isTechito;
 
 	void Start () {
 		_controller = GetComponent<CharacterController> ();
@@ -24,36 +29,14 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void Update () {
-		 v = Input.GetAxis ("Vertical");
-		 h = Input.GetAxis ("Horizontal");
+		 float v = Input.GetAxis ("Vertical");
+		 float h = Input.GetAxis ("Horizontal");
 		isCrouch = Input.GetButton("Crouch");
-		Vector3 moveVector = new Vector3 (h, 0, v);
-		moveVector.Normalize ();
 
-		//La velocidad de los lados también actua mientras está en el aire, por eso escribimos las condicionales fuera del "isGrounded"
-		//**********************
-		if (isCrouch) {
-			moveVector *= crouchSpeed;
-		}
-		else if (Input.GetKey (KeyCode.LeftShift)) {
-			moveVector *= turbo;
-			running = true;
-		} else {
-			moveVector *= speed;
-			running = false;
-		}
-		//************************
-		if (_controller.isGrounded) {
-			verticalSpeed = -0.1f;
-			if (Input.GetButton("Jump")) {
-				verticalSpeed = jumpForce;
-			}
-		}else{
-			verticalSpeed -= gravity*Time.deltaTime;
-		}
+		GroundMovement (h,v);
+		VerticalMovement ();
+		Crouch ();
 
-		Vector3 gravityVector = new Vector3 (0, verticalSpeed, 0); 
-		moveVector += gravityVector;
 		moveVector *= Time.deltaTime;
 		//transform.Translate (moveVector,Space.World);
 		_controller.Move (moveVector);
@@ -61,10 +44,22 @@ public class PlayerControl : MonoBehaviour {
 		moveVector.y = 0;
 		//para ver hacia una dirección (posición del objeto + dirección de movimiento)
 		transform.LookAt (transform.position + moveVector);
-		AnimationsManager ();
+		AnimationsManager (h,v);
 	} 
 
-	void AnimationsManager(){
+	void FixedUpdate(){
+		if (isCrouch) {
+			if (Physics.Raycast(transform.position,Vector3.up,4,_mask)) {
+				Debug.DrawRay (transform.position, Vector3.up * 4, Color.green);
+				isTechito = true;
+			}else{
+				Debug.DrawRay (transform.position, Vector3.up * 4, Color.red);
+				isTechito = false;
+			}
+		}
+	}
+
+	void AnimationsManager(float h,float v){
 
 		/*if (Mathf.Abs (v) > 0 || Mathf.Abs(h) > 0) {
 			_animator.SetBool ("movement", true);
@@ -92,6 +87,66 @@ public class PlayerControl : MonoBehaviour {
 		if (!_controller.isGrounded) {
 			_animator.SetFloat ("VerticalSpeed", verticalSpeed);
 		}
-		_animator.SetBool ("isCrouch", isCrouch);
+		_animator.SetBool ("isCrouch", isCrouch || isTechito);
+	}
+
+	void GroundMovement(float h, float v){
+		
+		//Camera.main es un atajo que busca la cámara principal sin necesidad de crear una variable para buscarla
+		Vector3 cameraForward = Camera.main.transform.forward;
+		cameraForward.y = 0;
+		cameraForward.Normalize ();
+		Vector3 cameraRight = Camera.main.transform.right;
+		cameraRight.y = 0;
+		cameraRight.Normalize ();
+
+		moveVector = cameraRight * h + cameraForward * v; 
+		moveVector.Normalize ();
+
+		//La velocidad de los lados también actua mientras está en el aire, por eso escribimos las condicionales fuera del "isGrounded"
+		if (isCrouch || isTechito) {
+			moveVector *= crouchSpeed;
+		}
+		else if (Input.GetKey (KeyCode.LeftShift)) {
+			moveVector *= turbo;
+			running = true;
+		} else {
+			moveVector *= speed;
+			running = false;
+		}
+	}
+
+	void VerticalMovement(){
+
+		if (_controller.isGrounded) {
+			verticalSpeed = -0.1f;
+			if (Input.GetButton ("Jump")) {
+				verticalSpeed = jumpForce;
+			}
+		} else {
+			verticalSpeed -= gravity * Time.deltaTime;
+		}
+		Vector3 gravityVector = new Vector3 (0, verticalSpeed, 0); 
+		moveVector += gravityVector;
+	}
+
+	void Crouch(){
+
+		if (isCrouch) {
+			_controller.height = 1;
+			//cuando usamos vector3 no podemos modificar sus variables individuales directamente(Controller.center.y = 0.45f)
+			//tenemos que almacenarlo en un nuevo Vector3 para poder hacerlo
+			Vector3 newCenter = _controller.center;
+			newCenter.y = 0.45f;
+			// y lo asignamos para que funcione
+			_controller.center = newCenter;
+		} 
+		else {
+			if (!isTechito) {
+				_controller.height = 1.8f;
+				//otra forma eficiente de hacerlo
+				_controller.center = new Vector3 (0, 0.85f, 0);
+			}
+		}
 	}
 }
