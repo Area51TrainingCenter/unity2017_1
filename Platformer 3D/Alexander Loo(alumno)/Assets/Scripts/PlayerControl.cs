@@ -48,8 +48,11 @@ public class PlayerControl : MonoBehaviour {
 	} 
 
 	void FixedUpdate(){
-		if (isCrouch) {
+
+		bool isCrouched = _animator.GetBool ("isCrouch");
+		if (isCrouched) {
 			if (Physics.Raycast(transform.position,Vector3.up,4,_mask)) {
+				//para poder visualizar el raycast, el tamaño del ray es 1 por defecto, por lo que se multiplica por 4 para que sea mas visible
 				Debug.DrawRay (transform.position, Vector3.up * 4, Color.green);
 				isTechito = true;
 			}else{
@@ -99,7 +102,16 @@ public class PlayerControl : MonoBehaviour {
 		Vector3 cameraRight = Camera.main.transform.right;
 		cameraRight.y = 0;
 		cameraRight.Normalize ();
+		/*
 
+		(h,0,v)
+		(h,0,0) + (0,0,v)
+		h*(1,0,0)   +   v*(0,0,1)
+		h*Vector3.right    +   v*Vector3.forward
+
+		h*camera.transform.right    +   v*camera.transform.forward
+
+		*/
 		moveVector = cameraRight * h + cameraForward * v; 
 		moveVector.Normalize ();
 
@@ -132,7 +144,8 @@ public class PlayerControl : MonoBehaviour {
 
 	void Crouch(){
 
-		if (isCrouch) {
+		bool isCrouched = _animator.GetBool ("isCrouch");
+		if (isCrouched) {
 			_controller.height = 1;
 			//cuando usamos vector3 no podemos modificar sus variables individuales directamente(Controller.center.y = 0.45f)
 			//tenemos que almacenarlo en un nuevo Vector3 para poder hacerlo
