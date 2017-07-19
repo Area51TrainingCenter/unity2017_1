@@ -3,11 +3,12 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    private float verticalSpeed;
+	[System.NonSerialized]
+	public float verticalSpeed;
     public float runSpeed;
     public float crouchSpeed;
     public LayerMask _mask;
-    private CharacterController _controller;
+    public CharacterController _controller;
     public float gravity;
     public float jumpForce;
     public Animator _animator;
@@ -36,17 +37,17 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        bool isCrouched = _animator.GetBool("isCrouch");
-        if (isCrouched)
+        bool isCrounched = _animator.GetBool("isCrounch");
+        if (isCrounched)
         {
-            if (Physics.Raycast(transform.position, Vector3.up, 2f, _mask))
+            if (Physics.Raycast(transform.position, Vector3.up, 6, _mask))
             {
-                Debug.DrawRay(transform.position, Vector3.up * 2f, Color.green);
+                Debug.DrawRay(transform.position, Vector3.up * 6, Color.green);
                 isLowCelling = true;
             }
             else
             {
-                Debug.DrawRay(transform.position, Vector3.up * 2f, Color.red);
+                Debug.DrawRay(transform.position, Vector3.up * 6, Color.red);
                 isLowCelling = false;
             }
         }
@@ -113,13 +114,13 @@ public class Player : MonoBehaviour
         {
             newCenter.y = 0.58f;
             _controller.center = newCenter;
-            _controller.height = 1;
+            _controller.height = 1.5f;
         }
         else if (!isLowCelling)
-        {
-            newCenter.y = 1.09f;
-            _controller.center = newCenter;
-            _controller.height = 2;
+		{
+			newCenter.y = 0.8f;
+			_controller.center = newCenter;
+			_controller.height = 1.7f;
         }
 
     }
@@ -144,13 +145,13 @@ public class Player : MonoBehaviour
 
         if (Input.GetButton("Crounch"))
         {
-            _animator.SetBool("isCrouch", true);
+            _animator.SetBool("isCrounch", true);
         }
         else
         {
             if (!isLowCelling)
             {
-                _animator.SetBool("isCrouch", false);
+                _animator.SetBool("isCrounch", false);
             }
         }
 

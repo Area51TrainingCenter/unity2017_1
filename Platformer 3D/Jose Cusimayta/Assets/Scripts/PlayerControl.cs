@@ -31,13 +31,13 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		bool isCrouched = _animator.GetBool ("isCrouch");
-		if (isCrouched) {
-			if (Physics.Raycast (transform.position, Vector3.up, 2f, _mask)) {
-				Debug.DrawRay (transform.position, Vector3.up * 2f, Color.green);
+		bool isCrounched = _animator.GetBool ("isCrounch");
+		if (isCrounched) {
+			if (Physics.Raycast (transform.position, Vector3.up, 6, _mask)) {
+				Debug.DrawRay (transform.position, Vector3.up * 6, Color.green);
 				isLowCelling = true;
 			} else {
-				Debug.DrawRay (transform.position, Vector3.up*2f, Color.red);
+				Debug.DrawRay (transform.position, Vector3.up*6, Color.red);
 				isLowCelling = false;
 			}
 		}
@@ -89,16 +89,17 @@ public class PlayerControl : MonoBehaviour {
 		moveVector += gravityVector;
 	}
 
-	public void ManageCrouch(){
+	public void ManageCrouch()
+	{
 		Vector3 newCenter = _controller.center;
 		if (Input.GetButton ("Crounch")) {			
-			newCenter.y = 0.58f;
+			newCenter.y = 0.4f;
 			_controller.center = newCenter;
-			_controller.height = 1;
+			_controller.height = 0.95f;
 		} else if(!isLowCelling) {
-			newCenter.y = 1.09f;
+			newCenter.y = 0.8f;
 			_controller.center = newCenter;
-			_controller.height = 2;
+			_controller.height = 1.6f;
 		}
 
 	}
@@ -118,10 +119,10 @@ public class PlayerControl : MonoBehaviour {
 		_animator.SetFloat ("movimiento", result);
 
 		if (Input.GetButton ("Crounch")) {
-			_animator.SetBool ("isCrouch", true);
+			_animator.SetBool ("isCrounch", true);
 		} else {
 			if (!isLowCelling) {
-				_animator.SetBool ("isCrouch", false);
+				_animator.SetBool ("isCrounch", false);
 			}
 		}
 
