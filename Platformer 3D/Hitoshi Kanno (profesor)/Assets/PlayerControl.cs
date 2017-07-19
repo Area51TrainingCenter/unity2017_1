@@ -14,7 +14,10 @@ public class PlayerControl : MonoBehaviour {
 
 	private Vector3 moveVector;
 	private bool isLowCeiling;
-	private float verticalSpeed = 0;
+	//esto sirve para que una variable publica
+	//NO aparezca en el editor
+	[System.NonSerialized]
+	public float verticalSpeed = 0;
 	private CharacterController _controller;
 	private Animator _animator;
 
