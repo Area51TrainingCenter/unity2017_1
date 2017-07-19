@@ -6,7 +6,9 @@ public class PlayerControl : MonoBehaviour {
 	
 	public float speed = 5;
 	public float runSpeed = 8;
-	private float verticalSpeed = 0;
+	// esto sirve para que una variable publica , no aparesca en el editor
+	[System.NonSerialized]
+	public float verticalSpeed = 0;
 	private CharacterController _controller;
 	private Animator _animator;
 	public float gravity = 10;
@@ -120,6 +122,7 @@ public class PlayerControl : MonoBehaviour {
 
 			verticalSpeed -= gravity*Time.deltaTime;
 		}
+
 		Vector3 gravityVector = new Vector3 (0, verticalSpeed, 0); 
 		moveVector += gravityVector;
 		
