@@ -7,7 +7,10 @@ public class PlayerController : MonoBehaviour {
 	public float runSpeed = 10f;
 	public float crouchSpeed = 1;
 	private CharacterController _controller;
-	private float verticalSpeed;
+
+	[System.NonSerialized] 			// esto solo oculta la variable publica para que no figure en el componente "PlayerController"
+	public float verticalSpeed; 	// puedes utilizarlo desde otro codigo
+
 	public float gravity;
 	public float jump = 10;
 	private Vector3 moveVector;
