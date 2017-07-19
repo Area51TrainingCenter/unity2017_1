@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour {
 	public float Speed = 5;
+	[System.NonSerialized]
 	public float verticalSpeed = 0;
 	private CharacterController _controler;
 	public float gravity = 0;

@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCamara : MonoBehaviour {
-	public Transform player;
-	public Vector3 Distancia;
+	public Transform target;
+	public Vector3 offset;
+	public float Distance = 5;
+	public float angle = 0;
+	public float SpeedMouse = 0;
 	// Use this for initialization
 	void Start () {
-		Distancia = transform.position - player.position;
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (player) {
-			transform.position = player.position + Distancia;
-		}
+		float mouseX = Input.GetAxis ("Mouse X" );
+
+		angle += mouseX * SpeedMouse;
+	
+		Quaternion NewRotation = Quaternion.Euler(0, angle ,0);
+		Vector3 Behind = NewRotation * -Vector3.forward;
+		transform.position = target.position + offset + (Behind * Distance);
+		transform.LookAt (target.position + offset);
 	}
 }
