@@ -15,7 +15,9 @@ public class PlayerControl : MonoBehaviour {
 	public float turbo;
 	public float crouchSpeed;
 	private bool running;
-	private float verticalSpeed;
+	//para usar una variable pública sin que se vea en el editor(solo la variable que esta abajo)
+	[System.NonSerialized]
+	public float verticalSpeed;
 	public float gravity;
 	public float jumpForce;
 	private Vector3 moveVector;
