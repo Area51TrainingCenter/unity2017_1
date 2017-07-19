@@ -8,7 +8,9 @@ public class Movimiento : MonoBehaviour {
 	public float caminarAgachado=0.5f;
 	public float velocidad=5f;
 	public float velocidadAlterada=5f;
-	private float verticalSpeed=0;
+	//esto sirve para que las variables publicas no aparescan en el editor
+	[System.NonSerialized]
+	public float verticalSpeed=0;
 	private float acelerador=1;
 	public bool agachado;
 	private CharacterController personajeController;
