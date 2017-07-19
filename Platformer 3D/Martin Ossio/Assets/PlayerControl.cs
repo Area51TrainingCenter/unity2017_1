@@ -7,10 +7,13 @@ public class PlayerControl : MonoBehaviour {
 	public float Speed;
 	private CharacterController _controller;
 	private Animator _animator;
-	private float verticalSpeed = -10;
 	public float multiplier = 1;
 	private float crouchingSpeed = 0.3f;
 	public float gravitySpeed = 50;
+	public float jumpForce = 20;
+
+	[System.NonSerialized]
+	public float verticalSpeed = -10;
 
 	public LayerMask _mask;
 
@@ -31,7 +34,7 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// oldPlayerPosition = 
+		Vector3 oldPlayerPosition = transform.position;
 
 		float h = Input.GetAxis("Horizontal");
 		float v = Input.GetAxis("Vertical");
@@ -51,10 +54,13 @@ public class PlayerControl : MonoBehaviour {
 
 		SetAnimatorParameter (h, v);
 
-		// CamaraMovement (oldPlayerPosition,newPlayerPosition);
+		Vector3 newPlayerPosition = transform.position;
+
+		CamaraMovement (oldPlayerPosition,newPlayerPosition);
 	}
 
-	void CamaraMovement() {
+	void CamaraMovement(Vector3 oldPlayerPosition, Vector3 newPlayerPosition) {
+		Vector3 difference = newPlayerPosition - oldPlayerPosition;
 
 	}
 
@@ -80,7 +86,7 @@ public class PlayerControl : MonoBehaviour {
 			verticalSpeed = -0.10f;
 
 			if (Input.GetButton("Jump") && !( _animator.GetBool("isCrouching"))) {
-				verticalSpeed = 20;
+				verticalSpeed = jumpForce;
 			};
 
 		} else {
