@@ -6,12 +6,16 @@ public class FreeLookCamera : MonoBehaviour {
 	public Transform target;
 	public Vector3 offset;
 	public float distance=5;
+	private float currentDistance;
+	private float targetDistance;
 	public float rotateSpeed = 5;
-	public float angle=45;
+	public float angleX=0;
+	public float angleY=0;
 	public float sensibilidad=5;
+	public LayerMask _mask;
 	// Use this for initialization
 	void Start () {
-		
+		targetDistance = distance;
 	}
 	
 	// Update is called once per frame
@@ -21,12 +25,41 @@ public class FreeLookCamera : MonoBehaviour {
 		} else {
 			offset.y = 4;
 		}
-		float mouseX =  Input.GetAxis ("Mouse X");
-		angle += mouseX;
-		Quaternion newRotation = Quaternion.Euler (0, angle*sensibilidad, 0);
+		float mouseX = Input.GetAxis ("Mouse X");
+		float mouseY = Input.GetAxis ("Mouse Y");
+		float mouseScroll = Input.GetAxis ("Mouse ScrollWheel");
+		angleX += mouseX * sensibilidad;
+		angleY -= mouseY * sensibilidad;
+		currentDistance -= mouseScroll;
+		//angleY = Mathf.Clamp (angleY, -2, 10);
+		if (angleY < -2)
+			angleY = -2;
+		if (angleY > 10)
+			angleY = 10;
+		Quaternion newRotation = Quaternion.Euler (angleY, angleX, 0);
 		Vector3 behind = newRotation * Vector3.back;
-
-		transform.position = target.position + offset+behind*distance;
+		currentDistance = Mathf.Lerp (currentDistance, targetDistance, Time.deltaTime*10);
+		transform.position = target.position + offset + behind * currentDistance;
 		transform.LookAt (target.position + offset);
+	}
+	void FixedUpdate(){
+		Vector3 targetPos = target.position + offset;
+		RaycastHit hitInfo;
+		bool isCameraBehindObstacle = false;
+		Vector3 direction = transform.position - targetPos;
+		if (Physics.Raycast (target.position, direction, out hitInfo, direction.magnitude)) {			
+			Debug.DrawRay (target.position, direction, Color.green);
+			isCameraBehindObstacle = true;
+		} else {
+			Debug.DrawRay (target.position, direction, Color.red);
+		}
+		if (isCameraBehindObstacle) {
+			if(targetDistance>1.3f)
+					targetDistance -= Time.fixedDeltaTime * 15;
+		} else {
+			if (!Physics.Raycast (target.position, direction, out hitInfo, targetDistance + 1) && targetDistance < distance) {
+				targetDistance += Time.fixedDeltaTime * 15;
+			}
+		}
 	}
 }
