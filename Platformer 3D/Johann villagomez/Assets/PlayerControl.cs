@@ -8,17 +8,20 @@ public class PlayerControl : MonoBehaviour {
 	public float crouchSpeed = 1;
 
 	public float gravity = 10;
-
 	public float jumpForce = 20;
 
 	public LayerMask _mask;
 
 	private Vector3 moveVector;
 	private bool isLowCeiling;
+	//esto sirve para que una variable publica
+	//NO aparezca en el editor
 	[System.NonSerialized]
 	public float verticalSpeed = 0;
 	private CharacterController _controller;
 	private Animator _animator;
+	public bool canControl = true;
+	public Collider _weapon;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +34,10 @@ public class PlayerControl : MonoBehaviour {
 		float v = Input.GetAxis ("Vertical");
 		float h = Input.GetAxis ("Horizontal");
 
-		GroundMovement (h, v);
+		if (canControl) {
+			GroundMovement (h, v);
+		}
+
 
 		VerticalMovement ();
 
@@ -60,6 +66,7 @@ public class PlayerControl : MonoBehaviour {
 				isLowCeiling = false;
 			}
 		}
+
 	}
 
 	void GroundMovement(float h, float v){
@@ -107,7 +114,7 @@ public class PlayerControl : MonoBehaviour {
 	void VerticalMovement(){
 		if (_controller.isGrounded) {
 			verticalSpeed = -0.1f;
-			if (Input.GetButtonDown("Jump")) {
+			if (Input.GetButtonDown("Jump")&& canControl) {
 				verticalSpeed = jumpForce;
 			}
 		}else{
@@ -178,5 +185,9 @@ public class PlayerControl : MonoBehaviour {
 		} else {
 			_animator.SetBool ("crouch", false);
 		}
+		if (!_animator.GetBool ("crouch")&&_controller.isGrounded&&Input.GetButton("Atacar")&&canControl) {
+		_animator.SetTrigger ("Atack");
+	
+	}
 	}
 }
