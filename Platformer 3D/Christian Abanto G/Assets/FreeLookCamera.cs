@@ -19,6 +19,8 @@ public class FreeLookCamera : MonoBehaviour {
 	public float angle = 0;
 	public float speedRotation = 0;
 
+	private Vector3 currentVelocity;	
+
 
 	// Use this for initialization
 	void Start () {
@@ -80,7 +82,9 @@ public class FreeLookCamera : MonoBehaviour {
 		Vector3 behind = newRotation * -Vector3.forward; // new Vector3(0,0,-1);
 		// le asignamos la nueva posicion a la camara
 		currentDistance = Mathf.Lerp(currentDistance, targetDistance, Time.deltaTime * 10);
-		transform.position = target.position + offset + ( behind * currentDistance );
+		Vector3 finalPos = target.position + offset + ( behind * currentDistance );
+		// SmoothDamp, genera una demora/deslizamiento de movimiento en la camara ( como una curva de retraso )
+		transform.position = Vector3.SmoothDamp(transform.position, finalPos, ref currentVelocity, 0.1f); // "ref" usa una variable referencia, osea aplica y luego en la siguiente iteracion recupera el valor anterior y lo aplica denuevo
 		// hacemos que la camara mire al player
 		transform.LookAt( target.position + offset );
 	}

@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour {
 	private Vector3 gravityVector;
 	public LayerMask _mask;
 
+	public bool canControl = true;
+
+	public Collider _weapon; // espada
+
 	// variable para saber si hay techo en nuesta cabeza
 	private bool isLowCeiling;
 
@@ -37,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 				float ejeH = Input.GetAxis ("Horizontal");
 				float ejeV = Input.GetAxis ("Vertical");
 				// generar movimiento horizontal y vertical
-				GroundMovement (ejeH, ejeV);
+				GroundMovement (ejeH, ejeV);				
 			// aplicar movimiento (al saltar )
 				VerticalMovement ();
 				moveVector *= Time.deltaTime;
@@ -55,7 +59,7 @@ public class PlayerController : MonoBehaviour {
 
 		//  ANIMATOR 
 			SetAnimatorParameters (ejeH, ejeV);
-					
+	
 	}
 
 	void FixedUpdate(){
@@ -73,8 +77,10 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void saltar(){
-		if (Input.GetButton ("Saltar")) {
-			verticalSpeed = jump;
+		if (Input.GetButton ("Saltar")  ) {
+			if (canControl) {
+				verticalSpeed = jump;
+			}
 		} else {
 			verticalSpeed = -0.1f;
 		}
@@ -126,9 +132,24 @@ public class PlayerController : MonoBehaviour {
 				} else {
 					_animator.SetBool ("isCrouch", false);
 				}
+
+		//  ATAQUE
+		if (canControl) {
+			if ( Input.GetMouseButton(0) ){
+				if ( _controller.isGrounded && !_animator.GetBool ("isCrouch")) {
+					_animator.SetTrigger("isAttack"); 
+					//_animator.applyRootMotion = true;
+				}
+			}
+		}
+
 	}
 
 	void GroundMovement( float ejeH, float ejeV ) {
+
+		if (canControl == false) {
+			return;
+		}
 
 		/* EJEMPLO DESCOMPONER VECTOR para luego enfocarlo con las posiciones de otro objeto
 			( H , 0 , V )
@@ -146,6 +167,7 @@ public class PlayerController : MonoBehaviour {
 			CURIOSIDAD:
 				existe una clase "Camera", la utilizamos asi "Camera.main" y obtengo la camara principal :)
 		*/
+
 
 		// obtenemos la camara
 		GameObject camara = GameObject.Find("Camara");
