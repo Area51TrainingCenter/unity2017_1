@@ -6,7 +6,7 @@ public class PlayerControl : MonoBehaviour {
 	public float speed = 5;
 	public float runSpeed = 8;
 	public float crouchSpeed = 1;
-
+	public bool canControl = true;
 	public float gravity = 10;
 	public float jumpForce = 20;
 
@@ -18,6 +18,8 @@ public class PlayerControl : MonoBehaviour {
 	//NO aparezca en el editor
 	[System.NonSerialized]
 	public float verticalSpeed = 0;
+
+	public Collider _weapon;
 	private CharacterController _controller;
 	private Animator _animator;
 
@@ -64,6 +66,12 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void GroundMovement(float h, float v){
+
+		if (canControl == false) {
+			//return hace que la funcion se salga y ya no se ejecuta lo que esta abajo
+			return;
+		}
+
 		/*
 
 		(h,0,v)
@@ -108,7 +116,7 @@ public class PlayerControl : MonoBehaviour {
 	void VerticalMovement(){
 		if (_controller.isGrounded) {
 			verticalSpeed = -0.1f;
-			if (Input.GetButtonDown("Jump")) {
+			if (Input.GetButtonDown("Jump") && canControl) {
 				verticalSpeed = jumpForce;
 			}
 		}else{
@@ -172,6 +180,16 @@ public class PlayerControl : MonoBehaviour {
 		if (!_controller.isGrounded) {
 			_animator.SetFloat ("verticalSpeed", verticalSpeed);	
 		}
+
+		if (canControl) {
+			if (Input.GetButtonDown("Attack")) {
+				if (_controller.isGrounded && !_animator.GetBool("crouch")) {
+					_animator.SetTrigger ("attack");
+				}
+			}
+		}
+
+
 
 		_animator.SetBool ("isGrounded", _controller.isGrounded);
 		if (Input.GetButton("Crouch") || isLowCeiling) {
