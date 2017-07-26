@@ -21,6 +21,9 @@ public class FreeLookCamera : MonoBehaviour {
 
 	public float distance = 5;
 
+	private Vector3 currentVelocity;
+
+
 	// Use this for initialization
 	void Start () {
 		newCameraOffset = transform.position - target.position;
@@ -28,6 +31,8 @@ public class FreeLookCamera : MonoBehaviour {
 		// newCameraOffsetRotation = transform.rotation - target.rotation;
 
 		currentCameraDistance = distance;
+
+
 
 	}
 
@@ -46,20 +51,23 @@ public class FreeLookCamera : MonoBehaviour {
 		}
 
 		if (isCameraBehindObstacle) {
-			targetDistance -= Time.fixedDeltaTime*20;
+			targetDistance -= Time.fixedDeltaTime*15;
 		} else {
-			if (!(Physics.Raycast (targetPos, direction, out miHitInfo, direction.magnitude + (Time.fixedDeltaTime * 20) ))) {
-				targetDistance += Time.fixedDeltaTime * 20;
+			if (!(Physics.Raycast (targetPos, direction, out miHitInfo, targetDistance + 1 ))) {
+				targetDistance += Time.fixedDeltaTime * 15;
 				if (targetDistance > distance) {
 					targetDistance = distance;
 				}
 			}
 		}
-
 	}
+
+
 
 	// Update is called once per frame
 	void Update () {
+
+
 
 		float mouseX = Input.GetAxis ("Mouse X");
 		angle += mouseX * 6;
@@ -72,7 +80,9 @@ public class FreeLookCamera : MonoBehaviour {
 
 		Vector3 behind = newRotation * -Vector3.forward;
 		currentCameraDistance = Mathf.Lerp (currentCameraDistance, targetDistance, Time.deltaTime*10);
-		transform.position = target.position + newCameraOffset + (behind*currentCameraDistance);
+		Vector3 cameraFinalPosition = target.position + newCameraOffset + (behind*currentCameraDistance);
+
+		transform.position = Vector3.SmoothDamp(transform.position,cameraFinalPosition, ref currentVelocity, 0.1f);
 
 		transform.LookAt (target.position+newCameraOffset);
 	}

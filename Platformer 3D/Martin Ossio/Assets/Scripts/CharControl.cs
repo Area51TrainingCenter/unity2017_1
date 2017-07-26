@@ -20,7 +20,7 @@ public class CharControl : MonoBehaviour {
         for (int i = 0; i < animButton.Length; i++)
         {
             animButton[i] = this.transform.GetChild(i);
-            text[i] = animButton[i].transform.FindChild("Text").GetComponent<Text>();
+            text[i] = animButton[i].transform.Find("Text").GetComponent<Text>();
         }
         for (int i = 0; i < animButton.Length; i++)
         {

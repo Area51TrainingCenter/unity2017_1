@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviour {
 	private float crouchingSpeed = 0.3f;
 	public float gravitySpeed = 50;
 	public float jumpForce = 20;
+	public bool canControl = true;
 
 	[System.NonSerialized]
 	public float verticalSpeed = -10;
@@ -22,17 +23,27 @@ public class PlayerControl : MonoBehaviour {
 
 	public GameObject camara;
 
+	public Collider _weapon;
+
 
 	// Use this for initialization
 	void Start () {
 		_controller = GetComponent<CharacterController> ();
 		_animator = GetComponent<Animator> ();
 
+
 		Speed = 10f;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
+		bool isCrouching = _animator.GetBool ("isCrouching");
+
+		if ( (canControl) && (_controller.isGrounded) && (Input.GetButton("Atacar")) && (!isCrouching) ) {
+			_animator.SetTrigger("Attack");
+		}
 
 		Vector3 oldPlayerPosition = transform.position;
 
@@ -85,7 +96,7 @@ public class PlayerControl : MonoBehaviour {
 		if (_controller.isGrounded) {
 			verticalSpeed = -0.10f;
 
-			if (Input.GetButton("Jump") && !( _animator.GetBool("isCrouching"))) {
+			if (Input.GetButton("Jump") && !( _animator.GetBool("isCrouching")) && canControl ){
 				verticalSpeed = jumpForce;
 			};
 
@@ -113,9 +124,13 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void GroundMovement (float h, float v){
-
+		
 		Vector3 cameraForward = Camera.main.transform.forward;
 		Vector3 cameraRight = Camera.main.transform.right;
+
+		if (!canControl) {
+			return;
+		}
 
 		cameraForward.y = 0;
 		cameraRight.y = 0;
