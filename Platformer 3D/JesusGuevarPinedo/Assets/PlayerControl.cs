@@ -24,6 +24,9 @@ public class PlayerControl : MonoBehaviour {
 	public bool isLowColling;// variable para saber el techo esta bajo
 
 	public GameObject _camara;// Camara
+	public bool canControl = true;
+
+	public Collider _weapon;
 
 	// Use this for initialization
 	void Start () {
@@ -34,25 +37,30 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+
 		float v = Input.GetAxis ("Vertical");
 		float h = Input.GetAxis ("Horizontal");
 
 		// --- Function Movimiento ---
-		GroundMovement (h,v);
+		if(canControl){
+			GroundMovement (h,v);
+
+		}
+		VerticalMovement ();
 
 			
 		// --- Function Animacion ---
-		VerticalMovement ();
 
-		moveVector *= Time.deltaTime;
-	
+
+		moveVector *= Time.deltaTime;	
 		//transform.Translate (moveVector,Space.World);
 		_controller.Move (moveVector);
 		moveVector.y = 0;
 		transform.LookAt (transform.position + moveVector);
 
-		// --- Reducir el Collider --
+
+
 		Crouch ();
 
 		// --- Function Animacion ---
@@ -61,50 +69,55 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void GroundMovement(float h, float v){
+		 // si cantroncol es falso ejecutar
+	
+		// pegar
+		if (canControl) {
+			if (Input.GetMouseButtonDown (0)) {
+				if( _controller.isGrounded && !_animator.GetBool("isGrouch")){
+						
+						_animator.SetTrigger("isAttack");
+					}
+			}
+		}
 
-		// Tecla control para Agacharse
-		//if (Input.GetKey (KeyCode.LeftControl)) {
 
-		if(Input.GetButton("Agacharse")){	
-			
+			// Tecla control para Agacharse para agaracharse
+			if (Input.GetKey (KeyCode.LeftControl) ) {				
 				isCrouch = true;
 				_animator.SetBool ("isGrouch", true);			
-
-		} else {
-			
-			if(!isLowColling){
-				isCrouch = false;
-				_animator.SetBool ("isGrouch", false);
-			}	
-		}
-
-
-		Vector3 cameraForward = Camera.main.transform.forward;
-		cameraForward.y = 0;
-		cameraForward.Normalize ();
-
-		Vector3 cameraRight  = Camera.main.transform.right;
-		cameraRight.y = 0;
-		cameraRight.Normalize ();
-
-		moveVector = ( cameraRight * h) + (cameraForward * v);
-		moveVector.Normalize ();
-
-
-		if (Input.GetButton("Agacharse") || isLowColling) {
-			
-				moveVector *= crouchSpeed; 
-
-		} else {
-
-			// Tecla shift	
-			if (Input.GetButton("Correr")) {
-				moveVector *= runSpeed;
-			}else{
-				moveVector *= speed;
+			} else {			
+				if (!isLowColling) {
+					isCrouch = false;
+					_animator.SetBool ("isGrouch", false);
+				}	
 			}
 
-		}
+			Vector3 cameraForward = Camera.main.transform.forward;
+			cameraForward.y = 0;
+			cameraForward.Normalize ();
+
+			Vector3 cameraRight = Camera.main.transform.right;
+			cameraRight.y = 0;
+			cameraRight.Normalize ();
+
+			moveVector = (cameraRight * h) + (cameraForward * v);
+			moveVector.Normalize ();
+
+
+			if (Input.GetButton ("Agacharse") || isLowColling) {			
+				moveVector *= crouchSpeed; 
+
+			} else {
+
+				// Tecla shift	
+				if (Input.GetButton ("Correr")) {
+					moveVector *= runSpeed;
+				} else {
+					moveVector *= speed;
+				}
+
+			}
 
 	}
 
@@ -113,8 +126,8 @@ public class PlayerControl : MonoBehaviour {
 		if (_controller.isGrounded) {
 
 			verticalSpeed = -0.1f;
-
-			if (Input.GetKeyDown(KeyCode.Space)) {
+			// ---- Saltar ----
+			if (Input.GetKeyDown(KeyCode.Space) && canControl) {
 				verticalSpeed = jumpForce;
 			}
 
@@ -170,7 +183,7 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-
+		//Debug.Log ("canControl: " + canControl);
 
 		bool isCrouched = _animator.GetBool ("isGrouch");
 		if(isCrouched){

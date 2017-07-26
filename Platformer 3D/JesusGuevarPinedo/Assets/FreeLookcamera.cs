@@ -16,9 +16,12 @@ public class FreeLookcamera : MonoBehaviour {
 	public float maxAngle = 45f;
 
 	public float currentDistance;
+	private float targetDistance;
 
+	private Vector3 currentVelocity;
 	// Use this for initialization
 	void Start () {
+		targetDistance = distance;
 		currentDistance = distance;
 		
 	}
@@ -80,7 +83,12 @@ public class FreeLookcamera : MonoBehaviour {
 		Quaternion newRotation = Quaternion.Euler (angle2,angle,0);
 
 		Vector3 behind = newRotation * -Vector3.forward;
-		transform.position = target.position + offset+(behind*currentDistance);
+
+		currentDistance = Mathf.Lerp (currentDistance, targetDistance, Time.deltaTime * 12);
+
+		Vector3 finalPos = transform.position = target.position + offset+(behind*currentDistance);
+		transform.position = Vector3.SmoothDamp (transform.position, finalPos, ref currentVelocity,0.1f);
+
 		transform.LookAt (target.position+ offset);
 	}
 }
