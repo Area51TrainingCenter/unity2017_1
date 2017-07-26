@@ -13,6 +13,8 @@ public class FreeLookCamera : MonoBehaviour {
 	private float angleX, angleY;
 	public float rotationSpeed;
 
+	private Vector3 currentVelocity;
+
 	void Start(){
 		targetDistance = distance;
 	}
@@ -38,7 +40,10 @@ public class FreeLookCamera : MonoBehaviour {
 		 a la rotación...y el vector resultante lo guardamos en la variable behind*/
 		Vector3 behind = newRotation * -Vector3.forward;
 		currentDistance = Mathf.Lerp (currentDistance, targetDistance,Time.deltaTime * 10);
-		transform.position = target.position + offset + (behind * currentDistance);
+		Vector3 finalPos = target.position + offset + (behind * currentDistance);
+		 //para suavizar el movimiento de la camara, al igual que lerp solo hace le calculo no lo ejecuta por eso lo almacenamos en una variable
+		//en este caso lo guardamos en transform.position para que lo ejecute
+		transform.position = Vector3.SmoothDamp (transform.position, finalPos, ref currentVelocity, 0.1f);
 		//para asegurarnos que siempre mire al objetivo
 		transform.LookAt (target.position + offset);
 	}

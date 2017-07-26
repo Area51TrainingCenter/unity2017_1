@@ -11,9 +11,7 @@ public class PlayerControl : MonoBehaviour {
 	private Animator _animator;
 
 	private bool isCrouch;
-	public float speed;
-	public float turbo;
-	public float crouchSpeed;
+	public float speed, turbo, crouchSpeed;
 	private bool running;
 	//para usar una variable pública sin que se vea en el editor(solo la variable que esta abajo)
 	[System.NonSerialized]
@@ -25,6 +23,9 @@ public class PlayerControl : MonoBehaviour {
 	public LayerMask _mask;
 	private bool isTechito;
 
+	public bool canControl = true;
+	public Collider weapon;
+
 	void Start () {
 		_controller = GetComponent<CharacterController> ();
 		_animator = GetComponent<Animator> ();
@@ -35,7 +36,9 @@ public class PlayerControl : MonoBehaviour {
 		 float h = Input.GetAxis ("Horizontal");
 		isCrouch = Input.GetButton("Crouch");
 
-		GroundMovement (h,v);
+		if (canControl) {
+			GroundMovement (h, v);
+		}
 		VerticalMovement ();
 		Crouch ();
 
@@ -93,10 +96,17 @@ public class PlayerControl : MonoBehaviour {
 			_animator.SetFloat ("VerticalSpeed", verticalSpeed);
 		}
 		_animator.SetBool ("isCrouch", isCrouch || isTechito);
+		if (Input.GetButtonDown ("Fire1") && _controller.isGrounded && !isCrouch && canControl) {
+			_animator.SetTrigger ("Attack1");
+		}
 	}
 
 	void GroundMovement(float h, float v){
-		
+		/* Si canControl es falso no se ejecuta la función
+		if (!canControl) {
+			return;
+		}*/
+
 		//Camera.main es un atajo que busca la cámara principal sin necesidad de crear una variable para buscarla
 		Vector3 cameraForward = Camera.main.transform.forward;
 		cameraForward.y = 0;
@@ -134,7 +144,7 @@ public class PlayerControl : MonoBehaviour {
 
 		if (_controller.isGrounded) {
 			verticalSpeed = -0.1f;
-			if (Input.GetButton ("Jump")) {
+			if (Input.GetButton ("Jump") && canControl) {
 				verticalSpeed = jumpForce;
 			}
 		} else {
