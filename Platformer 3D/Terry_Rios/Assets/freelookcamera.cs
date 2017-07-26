@@ -2,87 +2,86 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class freelookcamera : MonoBehaviour {
+public class FreeLookCamera : MonoBehaviour {
+	public Transform target;
+	public Vector3 offset;
+	public float distance = 5;
 
-	public Transform _target;
-	public Vector3 _offset;
-	private float x;
-	private float y;
-	private float targetdistance;
-	private float currentdistance;
-	public float _distance = 5;
+	private float targetDistance;
+	private float currentDistance;
+	private Vector3 currentvelocity;
+	private float angleX = 0;
+	private float angleY = 0;
 
+	public float minYAngle = -26;
+	public float maxYAngle = 70;
+	public float sensitivity = 6;
 	// Use this for initialization
 	void Start () {
-
-
-		targetdistance = _distance;
-		currentdistance = _distance;
-		
+		targetDistance = distance;
+		currentDistance = distance;
 	}
 
 	void FixedUpdate(){
-
-		Vector3 targetpos =_target.position + _offset;
-		RaycastHit hitinfo;
+		Vector3 targetPos = target.position + offset;
+		RaycastHit hitInfo;
 		bool isCameraBehindObstacle = false;
-		Vector3 direction = transform.position - targetpos;
-		if (Physics.Raycast (targetpos, direction, out hitinfo, direction.magnitude)) {
-												
-			Debug.DrawRay (targetpos, direction, Color.green);
-
-		   isCameraBehindObstacle = true;		
-		} 
-		else 
-		{
-			Debug.DrawRay (targetpos, direction, Color.red);
+		//para calcular el vector entre dos puntos 
+		//restas las coordenadas de ambos puntos 
+		//tomando en cuenta que es:  destino-origen
+		Vector3 direction = transform.position - targetPos;
+		//hacemos un raycast desde la camara hacia el player
+		if (Physics.Raycast (targetPos, direction, out hitInfo, direction.magnitude)) {
+			Debug.DrawRay (targetPos, direction, Color.green);
+			isCameraBehindObstacle = true;
+		} else {
+			Debug.DrawRay (targetPos, direction, Color.red);
 		}
 
+
 		if (isCameraBehindObstacle) {
-
-			targetdistance -= Time.fixedDeltaTime*5;			
-		} 
-		else 
-		{
-			if (Physics.Raycast (targetpos, direction, out hitinfo,targetdistance+1)) {
-				
-				targetdistance += Time.fixedDeltaTime * 5;
-
-				if (targetdistance >= _distance) {
-					
-					targetdistance = _distance;
+			targetDistance -= Time.fixedDeltaTime*15;
+		} else {
+			if (!Physics.Raycast (targetPos, direction, out hitInfo, targetDistance+1)) {
+				targetDistance += Time.fixedDeltaTime*15;
+				if (targetDistance > distance) {
+					targetDistance = distance;
 				}
-				
 			}
-		}				
+		}
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
-		float mouseX = Input.GetAxis("Mouse X");
-		float mouseY = Input.GetAxis("Mouse Y");
+		float mouseX = Input.GetAxis ("Mouse X");
+		float mouseY = Input.GetAxis ("Mouse Y");
+		angleX += mouseX * sensitivity;
+		angleY += mouseY * sensitivity;
 
-		x += mouseX * 6;
-		y += mouseY * 6;
-
-		if (y >= 89) {
-			y = 89;
-			
+		if (angleY < minYAngle) {
+			angleY = minYAngle;
 		}
-		if (y<= -20) {
-			y = -20;
+		if (angleY > maxYAngle) {
+			angleY = maxYAngle;
 		}
 
-		//y = Mathf.Clamp ();
+		//clamp restringe un valor entre un minimo y un maximo
+	//	angleY = Mathf.Clamp (angleY, minYAngle, maxYAngle);
 
-		Quaternion newRotation = Quaternion.Euler (y,x,0);
-
+		//el Euler te permite crear un Quaternion en base a 
+		//valores x,y,z
+		Quaternion newRotation = Quaternion.Euler (angleY, angleX, 0);
+		//cuando multiplicas una rotacion por un vector
+		//lo que estas haciendo es rotar el vector en base a la
+		//rotacion... y el vector resultante lo guardamos en
+		//la variable behind
 		Vector3 behind = newRotation * -Vector3.forward;
-		 
-		transform.position = _target.position+_offset+(behind*currentdistance);
+		currentDistance = Mathf.Lerp (currentDistance, targetDistance, Time.deltaTime * 12);
+		Vector3 finalpos  = target.position+offset+(behind*currentDistance);
+		transform.position = Vector3.SmoothDamp (transform.position, finalpos, ref currentvelocity, 0.1f);
 
-		transform.LookAt (_target.position + _offset);
-		
+		transform.LookAt (target.position+offset);
 	}
 }

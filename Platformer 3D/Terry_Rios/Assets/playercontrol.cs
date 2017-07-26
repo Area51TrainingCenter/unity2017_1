@@ -6,7 +6,7 @@ public class PlayerControl : MonoBehaviour {
 	public float speed = 5;
 	public float runSpeed = 8;
 	public float crouchSpeed = 1;
-
+	public bool cancontrol = true;
 	public float gravity = 10;
 	public float jumpForce = 20;
 
@@ -14,8 +14,12 @@ public class PlayerControl : MonoBehaviour {
 
 	private Vector3 moveVector;
 	private bool isLowCeiling;
+	private bool iscrouched;
+	//esto sirve para que una variable publica
+	//NO aparezca en el editor
 	[System.NonSerialized]
 	public float verticalSpeed = 0;
+	public Collider _weapon;
 	private CharacterController _controller;
 	private Animator _animator;
 
@@ -62,7 +66,10 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void GroundMovement(float h, float v){
-		/*
+
+		if (cancontrol == true) {
+
+			/*
 
 		(h,0,v)
 		(h,0,0) + (0,0,v)
@@ -73,32 +80,33 @@ public class PlayerControl : MonoBehaviour {
 
 		*/
 
-		//le quitamos el componente "y" a los vectores de la camara
-		//para que el player no quiera irse hacia arriba o hacia abajo
-		//despues de eso normalizamos el vector para asegurarnos que tenga longitud = 1
-		Vector3 cameraForward = Camera.main.transform.forward;
-		cameraForward.y = 0;
-		cameraForward.Normalize ();
+			//le quitamos el componente "y" a los vectores de la camara
+			//para que el player no quiera irse hacia arriba o hacia abajo
+			//despues de eso normalizamos el vector para asegurarnos que tenga longitud = 1
+			Vector3 cameraForward = Camera.main.transform.forward;
+			cameraForward.y = 0;
+			cameraForward.Normalize ();
 
-		Vector3 cameraRight = Camera.main.transform.right;
-		cameraRight.y = 0;
-		cameraRight.Normalize ();
+			Vector3 cameraRight = Camera.main.transform.right;
+			cameraRight.y = 0;
+			cameraRight.Normalize ();
 
 
-		//Camera.main te devuelve la camara principal de la escena
-		//ahora el movimiento del personaje esta en funcion a la camara y no a
-		//los ejes globales
-		moveVector = (cameraRight * h) + (cameraForward * v);
-		moveVector.Normalize ();
+			//Camera.main te devuelve la camara principal de la escena
+			//ahora el movimiento del personaje esta en funcion a la camara y no a
+			//los ejes globales
+			moveVector = (cameraRight * h) + (cameraForward * v);
+			moveVector.Normalize ();
 
-		if (Input.GetButton("Crouch") || isLowCeiling) {
-			moveVector *= crouchSpeed;
-		} else {
+			if (Input.GetButton("Crouch") || isLowCeiling) {
+				moveVector *= crouchSpeed;
+			} else {
 
-			if (Input.GetButton("Run")) {
-				moveVector *= runSpeed;
-			}else{
-				moveVector *= speed;
+				if (Input.GetButton("Run")) {
+					moveVector *= runSpeed;
+				}else{
+					moveVector *= speed;
+				}
 			}
 		}
 	}
@@ -106,7 +114,7 @@ public class PlayerControl : MonoBehaviour {
 	void VerticalMovement(){
 		if (_controller.isGrounded) {
 			verticalSpeed = -0.1f;
-			if (Input.GetButtonDown("Jump")) {
+			if (Input.GetButtonDown("Jump")&&cancontrol == true) {
 				verticalSpeed = jumpForce;
 			}
 		}else{
@@ -171,11 +179,19 @@ public class PlayerControl : MonoBehaviour {
 			_animator.SetFloat ("verticalSpeed", verticalSpeed);	
 		}
 
+		if (Input.GetButtonDown ("attack")&&_controller.isGrounded&&cancontrol == true&&iscrouched == false) {
+
+			_animator.SetTrigger ("attack");
+
+		} 
+
 		_animator.SetBool ("isGrounded", _controller.isGrounded);
 		if (Input.GetButton("Crouch") || isLowCeiling) {
 			_animator.SetBool ("crouch", true);
+			iscrouched = true;
 		} else {
 			_animator.SetBool ("crouch", false);
+			iscrouched = false;
 		}
 	}
 }
