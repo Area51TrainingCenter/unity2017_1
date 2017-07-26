@@ -15,6 +15,8 @@ public class FreeLookCamera : MonoBehaviour {
 	public float minYAngle = -26;
 	public float maxYAngle = 70;
 	public float sensitivity = 6;
+
+	private Vector3 currentVelocity;
 	// Use this for initialization
 	void Start () {
 		targetDistance = distance;
@@ -78,8 +80,8 @@ public class FreeLookCamera : MonoBehaviour {
 		//la variable behind
 		Vector3 behind = newRotation * -Vector3.forward;
 		currentDistance = Mathf.Lerp (currentDistance, targetDistance, Time.deltaTime * 12);
-		transform.position = target.position+offset+(behind*currentDistance);
-
+		Vector3 finalPos = target.position+offset+(behind*currentDistance);
+		transform.position = Vector3.SmoothDamp (transform.position, finalPos, ref currentVelocity, 0.1f);
 		transform.LookAt (target.position+offset);
 	}
 }
