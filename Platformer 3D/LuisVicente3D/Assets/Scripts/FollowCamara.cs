@@ -16,6 +16,8 @@ public class FollowCamara : MonoBehaviour {
 	public float maxYAngle = 70;
 	public float sensitivity = 6;
 
+	private Vector3 currentVelocity;
+
 	//public float angle = 0;
 	//public float SpeedMouse = 0;
 	// Use this for initialization
@@ -67,7 +69,8 @@ public class FollowCamara : MonoBehaviour {
 		Quaternion NewRotation = Quaternion.Euler(angleY, angleX ,0);
 		Vector3 Behind = NewRotation * -Vector3.forward;
 		currentDistance = Mathf.Lerp (currentDistance, targetDistance, Time.deltaTime * 12);
-		transform.position = target.position+offset+(Behind*currentDistance);
+		Vector3 finalPos = target.position+offset+(Behind*currentDistance);
+		transform.position = Vector3.SmoothDamp (transform.position, finalPos, ref currentVelocity, 0.1f);
 		transform.LookAt (target.position+offset);
 
 		//transform.position = target.position + offset + (Behind * Distance);

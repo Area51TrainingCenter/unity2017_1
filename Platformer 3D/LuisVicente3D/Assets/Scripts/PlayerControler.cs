@@ -18,6 +18,9 @@ public class PlayerControler : MonoBehaviour {
 	public LayerMask _layermask;
 	private bool techito;
 	public GameObject Camara;
+	public bool canControl = true;
+	public Collider _weapon;
+
 	void Start () {
 		_controler = GetComponent <CharacterController> ();
 		_animation = GetComponent <Animator> ();
@@ -27,10 +30,11 @@ public class PlayerControler : MonoBehaviour {
 		EjeX = Input.GetAxis("Horizontal") ;
 			// Hacia Adelante y Atras
 		EjeZ = Input.GetAxis("Vertical") ;
-
-		MovimientoSuelo ();
-		Saltar ();
-		Agachar ();
+		if (canControl) {
+			MovimientoSuelo ();
+			Saltar ();
+			Agachar ();	
+		}
 		moveVector *= Time.deltaTime;
 		_controler.Move (moveVector );
 		moveVector.y = 0;
@@ -108,29 +112,34 @@ public class PlayerControler : MonoBehaviour {
 
 		} else {
 			_animation.SetBool ("Agachar", false);
-
-		}
-		
-	}
-	void MovimientoSuelo(){
-
-		//new Vector3 (EjeX,0,EjeZ);
-		Vector3 CamaraRight = Camara.transform.right;
-		CamaraRight.y = 0f;
-		CamaraRight.Normalize ();
-		Vector3 CamaraForward = Camara.transform.forward;
-		CamaraForward.y = 0f;
-		CamaraForward.Normalize ();
-		moveVector = (CamaraRight * EjeX ) + (CamaraForward * EjeZ);
-		moveVector.Normalize ();
-		if (Input.GetButton("Agachar") || techito) {
-			moveVector *= CrouchSpeed;
-		} else {
-			if (Input.GetButton("Correr")) {
-				moveVector *= Correr;
-			} else {
-				moveVector *= Speed ;
 			}
-		}
+		if (Input.GetMouseButton (0)) {
+			bool AgacharX = _animation.GetBool ("agachado");
+			if (_controler.isGrounded && !AgacharX && canControl ) {
+				_animation.SetTrigger ("atack");
+			}
+		} 
+	}
+
+
+	void MovimientoSuelo(){
+		
+			Vector3 CamaraRight = Camara.transform.right;
+			CamaraRight.y = 0f;
+			CamaraRight.Normalize ();
+			Vector3 CamaraForward = Camara.transform.forward;
+			CamaraForward.y = 0f;
+			CamaraForward.Normalize ();
+			moveVector = (CamaraRight * EjeX ) + (CamaraForward * EjeZ);
+			moveVector.Normalize ();
+			if (Input.GetButton("Agachar") || techito) {
+				moveVector *= CrouchSpeed;
+			} else {
+				if (Input.GetButton("Correr")) {
+					moveVector *= Correr;
+				} else {
+					moveVector *= Speed ;
+				}
+			}
 	}
 }
