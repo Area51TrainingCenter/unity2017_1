@@ -13,6 +13,7 @@ public class FreeLookCamera : MonoBehaviour {
 	public float anguloVMax=90f;
 	private float currentDistancia;
 	private float targetDistancia;
+	private Vector3 currentVelocity;
 
 	// Use this for initialization
 	void Start () {
@@ -28,8 +29,11 @@ public class FreeLookCamera : MonoBehaviour {
 		Quaternion newRotation = Quaternion.Euler (anguloV,angulo,0);
 		//el vector se rota de acuerdo a la nueva rotacion y se guarda en la variable behind
 		Vector3 behind = newRotation*Vector3.forward;
-		transform.position = target.position +offset+behind*currentDistancia;
+		targetDistancia=Mathf.Lerp(currentDistancia,distancia,Time.deltaTime*10);
+		Vector3 finalPos = target.position +offset+behind*currentDistancia;
+		transform.position = Vector3.SmoothDamp (transform.position,finalPos,ref currentVelocity,0.2f);
 		transform.LookAt (target.position+offset);
+
 	}
 
 	public void rotacionVertical(){
@@ -46,7 +50,8 @@ public class FreeLookCamera : MonoBehaviour {
 			//el vector se rota de acuerdo a la nueva rotacion y se guarda en la variable behind
 			Vector3 behind = newRotation*Vector3.forward;
 		   targetDistancia=Mathf.Lerp(currentDistancia,distancia,Time.deltaTime*10);
-		   transform.position = target.position +offset+behind*targetDistancia;
+			Vector3 finalPos = target.position +offset+behind*currentDistancia;
+			transform.position = Vector3.SmoothDamp (transform.position,finalPos,ref currentVelocity,0.2f);
 			transform.LookAt (target.position+offset);
 	}
 

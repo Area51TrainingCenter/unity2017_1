@@ -18,6 +18,10 @@ public class Movimiento : MonoBehaviour {
 	public LayerMask _mask;
 	public GameObject Camara;
 	private bool golpeAlTecho;
+	public bool canControl=true;
+
+	public Collider _weapon1;
+	public Collider _weapon2;
 	// Use this for initialization
 	void Start () {
 		Camara = GameObject.FindGameObjectWithTag ("MainCamera");
@@ -27,11 +31,15 @@ public class Movimiento : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		movimiento ();
-		Agacharse ();
+		if (canControl) {
+			movimiento ();
+			Agacharse ();
+			saltar ();
+		}
+
 		//correr ();
 		manejarAnimacion ();
+		atacar ();
 
 	}
 
@@ -112,6 +120,20 @@ public class Movimiento : MonoBehaviour {
 			}
 
 		} 
+	}
+
+	void atacar() {
+		if (Input.GetButton("Atacar")) {
+			bool isCrouched=animacion.GetBool("agachado");
+			if (personajeController.isGrounded && !isCrouched && canControl) {
+				Debug.Log ("estoy atacando");
+				//animacion.applyRootMotion = true;
+				animacion.SetTrigger ("attack");
+			}
+
+		}
+		//else animacion.applyRootMotion = false;
+
 	}
 
 	void correr() {
