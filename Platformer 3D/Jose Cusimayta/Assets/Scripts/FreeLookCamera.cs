@@ -13,6 +13,7 @@ public class FreeLookCamera : MonoBehaviour {
 	public float angleY=0;
 	public float sensibilidad=5;
 	public LayerMask _mask;
+	private Vector3 currentVelocity;
 	// Use this for initialization
 	void Start () {
 		targetDistance = distance;
@@ -20,11 +21,11 @@ public class FreeLookCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButton ("Crounch")) {
+		/*if (Input.GetButton ("Crounch")) {
 			offset.y = 3;
 		} else {
 			offset.y = 4;
-		}
+		}*/
 		float mouseX = Input.GetAxis ("Mouse X");
 		float mouseY = Input.GetAxis ("Mouse Y");
 		float mouseScroll = Input.GetAxis ("Mouse ScrollWheel");
@@ -32,14 +33,15 @@ public class FreeLookCamera : MonoBehaviour {
 		angleY -= mouseY * sensibilidad;
 		currentDistance -= mouseScroll;
 		//angleY = Mathf.Clamp (angleY, -2, 10);
-		if (angleY < -2)
-			angleY = -2;
+		if (angleY < 2)
+			angleY = 2;
 		if (angleY > 10)
 			angleY = 10;
 		Quaternion newRotation = Quaternion.Euler (angleY, angleX, 0);
 		Vector3 behind = newRotation * Vector3.back;
 		currentDistance = Mathf.Lerp (currentDistance, targetDistance, Time.deltaTime*10);
-		transform.position = target.position + offset + behind * currentDistance;
+		Vector3 finalPos= target.position + offset + behind * currentDistance;
+		transform.position= Vector3.SmoothDamp (transform.position,finalPos, ref currentVelocity,0.1f);
 		transform.LookAt (target.position + offset);
 	}
 	void FixedUpdate(){

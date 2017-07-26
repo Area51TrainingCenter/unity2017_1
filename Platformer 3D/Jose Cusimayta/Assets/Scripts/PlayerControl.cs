@@ -14,6 +14,8 @@ public class PlayerControl : MonoBehaviour {
 	public Animator _animator;
 	Vector3 moveVector;
 	bool isLowCelling;
+	public bool canControl=true;
+	public Collider _weapon;
 	// Use this for initialization
 	void Start () {
 		_controller = GetComponent<CharacterController> ();	
@@ -24,20 +26,20 @@ public class PlayerControl : MonoBehaviour {
 		float v = Input.GetAxis ("Vertical");
 		float h = Input.GetAxis ("Horizontal");
 		ManageGroundMovement (v, h);
+		ManageCrouch ();
 		ManageJumps ();
 		ManageMovement ();
 		ManageAnimation (v, h);
-		ManageCrouch ();
 	}
 
 	void FixedUpdate(){
-		bool isCrounched = _animator.GetBool ("isCrounch");
-		if (isCrounched) {
+		bool isCrouched = _animator.GetBool ("isCrouch");
+		if (isCrouched) {
 			if (Physics.Raycast (transform.position, Vector3.up, 6, _mask)) {
 				Debug.DrawRay (transform.position, Vector3.up * 6, Color.green);
 				isLowCelling = true;
 			} else {
-				Debug.DrawRay (transform.position, Vector3.up*6, Color.red);
+				Debug.DrawRay (transform.position, Vector3.up * 6, Color.red);
 				isLowCelling = false;
 			}
 		}
@@ -51,7 +53,9 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	public void ManageGroundMovement(float v, float h){
-
+		if (!canControl) {
+			return;
+		}
 		//moveVector = new Vector3 (h, 0, v);
 		Vector3 cameraForward=Camera.main.transform.forward;
 		cameraForward.y = 0;
@@ -77,7 +81,7 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	public void ManageJumps(){
-		if (_controller.isGrounded) {
+		if (_controller.isGrounded && canControl) {
 			verticalSpeed = -0.1f;
 			if (Input.GetButton("Jump") && !Input.GetButton("Crounch")) {
 				verticalSpeed = jumpForce;
@@ -91,6 +95,9 @@ public class PlayerControl : MonoBehaviour {
 
 	public void ManageCrouch()
 	{
+		if (!canControl) {
+			return;
+		}
 		Vector3 newCenter = _controller.center;
 		if (Input.GetButton ("Crounch")) {			
 			newCenter.y = 0.4f;
@@ -119,14 +126,18 @@ public class PlayerControl : MonoBehaviour {
 		_animator.SetFloat ("movimiento", result);
 
 		if (Input.GetButton ("Crounch")) {
-			_animator.SetBool ("isCrounch", true);
+			_animator.SetBool ("isCrouch", true);
 		} else {
 			if (!isLowCelling) {
-				_animator.SetBool ("isCrounch", false);
+				_animator.SetBool ("isCrouch", false);
 			}
 		}
 
 
+
+		if (Input.GetButton("Fire3") && _controller.isGrounded && canControl && !_animator.GetBool("isCrouch")) {
+			_animator.SetTrigger ("atacar");
+		}
 		if (!_controller.isGrounded) {
 			_animator.SetFloat ("verticalSpeed", verticalSpeed);
 		}
