@@ -174,4 +174,14 @@ public class PlayerControl : MonoBehaviour {
 			}
 		}
 	}
+	public void EnableWeaponTrail(){
+		//podemos acceder a cualquier componente desde otro componente(no necesariamente de un gameObject)
+		//la variable weapon es de tipo collider y accedemos al componente TrailRenderer que esta en el hijo del gameObject
+		weapon.GetComponentInChildren<TrailRenderer> ().time = 0.3f;
+	}
+
+	public void DisableWeaponTrail(){
+
+		weapon.GetComponentInChildren<TrailRenderer> ().time = 0;
+	}
 }

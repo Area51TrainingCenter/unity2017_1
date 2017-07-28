@@ -21,6 +21,7 @@ public class AttackBehaviour : StateMachineBehaviour {
 		_playerScript.canControl = false;
 		//applyRootMotion activado sirve para que el modelo 3d se pueda move(En este caso para acomodar bien la animación)
 		animator.applyRootMotion = true;
+		_playerScript.EnableWeaponTrail ();
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -31,8 +32,9 @@ public class AttackBehaviour : StateMachineBehaviour {
 		//si el estado de la animación esta entre el rango de los parámetros...se prende el collider 
 		if (stateInfo.normalizedTime > startTime && stateInfo.normalizedTime < endTime) {
 			//alterar la velocidad del animator(funciona casi igual que el Time.timeScale)
-			animator.speed = 1;
+			animator.speed = 0.8f;
 			_playerScript.weapon.enabled = true;
+
 		} else {
 			
 			animator.speed = 0.3f;
@@ -47,6 +49,7 @@ public class AttackBehaviour : StateMachineBehaviour {
 		animator.applyRootMotion = false;
 		_playerScript.canControl = true;
 		animator.speed = 1;
+		_playerScript.DisableWeaponTrail ();
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
