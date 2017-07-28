@@ -121,7 +121,6 @@ public class PlayerControler : MonoBehaviour {
 		} 
 	}
 
-
 	void MovimientoSuelo(){
 		
 			Vector3 CamaraRight = Camara.transform.right;
@@ -141,5 +140,12 @@ public class PlayerControler : MonoBehaviour {
 					moveVector *= Speed ;
 				}
 			}
+	}
+
+	public void EnableWeaponTrail(){
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.3f;
+	}
+	public void DisableWeaponTrail(){
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0;
 	}
 }
