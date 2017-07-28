@@ -132,6 +132,15 @@ public class Movimiento : MonoBehaviour {
 			}
 
 		}
+		if (Input.GetButton("Atacar2")) {
+			bool isCrouched=animacion.GetBool("agachado");
+			if (personajeController.isGrounded && !isCrouched && canControl) {
+				Debug.Log ("estoy atacando 2");
+				//animacion.applyRootMotion = true;
+				animacion.SetTrigger ("attack2");
+			}
+
+		}
 		//else animacion.applyRootMotion = false;
 
 	}
@@ -193,7 +202,27 @@ public class Movimiento : MonoBehaviour {
 
 	}
 
+	public void EnableWeaponTrail(){
+		Debug.Log("EnableWeaponTrail");
+		_weapon1.GetComponentInChildren<TrailRenderer>().time=0.3f;
+		//_weapon2.GetComponentInChildren<TrailRenderer>().time=0.3f;
+	}
+	public void EnableWeaponTrail2(){
+		Debug.Log("EnableWeaponTrail");
 
+		_weapon2.GetComponentInChildren<TrailRenderer>().time=0.3f;
+	}
+
+	public void DisableWeaponTrail(){
+		Debug.Log("DisableWeaponTrail");
+		_weapon1.GetComponentInChildren<TrailRenderer>().time=0.0f;
+		//_weapon2.GetComponentInChildren<TrailRenderer>().time=0.0f;
+	}
+	public void DisableWeaponTrail2(){
+		Debug.Log("DisableWeaponTrail");
+
+		_weapon2.GetComponentInChildren<TrailRenderer>().time=0.0f;
+	}
 //	void FixedUpdate () {
 //		movimiento ();
 //		Vector3 moveVector = new Vector3(0,0,0);
