@@ -63,5 +63,6 @@ public class FreeLookCamera : MonoBehaviour {
 				targetDistance += Time.fixedDeltaTime * 15;
 			}
 		}
+
 	}
 }
