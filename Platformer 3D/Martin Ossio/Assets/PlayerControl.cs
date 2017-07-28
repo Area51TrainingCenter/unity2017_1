@@ -31,6 +31,7 @@ public class PlayerControl : MonoBehaviour {
 		_controller = GetComponent<CharacterController> ();
 		_animator = GetComponent<Animator> ();
 
+		DisableWeaponTrail();
 
 		Speed = 10f;
 
@@ -191,5 +192,13 @@ public class PlayerControl : MonoBehaviour {
 
 		_animator.SetBool ("isGrounded", _controller.isGrounded);
 
+	}
+
+	public void EnableWeaponTrail() {
+		_weapon.GetComponentInChildren<TrailRenderer>().time = 0.3f;
+	}
+
+	public void DisableWeaponTrail() {
+		_weapon.GetComponentInChildren<TrailRenderer>().time = 0.0f;
 	}
 }
