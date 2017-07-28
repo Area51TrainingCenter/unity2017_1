@@ -16,6 +16,7 @@ public class AttackBehaviour : StateMachineBehaviour {
 		if(_playerScript == null){
 			_playerScript = animator.GetComponent<PlayerControl> ();
 		}
+		_playerScript.EnableweaponTrail ();
 	}
 
 
@@ -34,6 +35,7 @@ public class AttackBehaviour : StateMachineBehaviour {
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		animator.applyRootMotion = false;
 		animator.GetComponent<PlayerControl> ().canControl = true;
+		_playerScript.DisableweaponTrail ();
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

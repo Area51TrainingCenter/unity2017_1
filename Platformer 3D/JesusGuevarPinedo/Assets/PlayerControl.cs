@@ -45,8 +45,8 @@ public class PlayerControl : MonoBehaviour {
 		// --- Function Movimiento ---
 		if(canControl){
 			GroundMovement (h,v);
-
 		}
+
 		VerticalMovement ();
 
 			
@@ -71,13 +71,12 @@ public class PlayerControl : MonoBehaviour {
 	void GroundMovement(float h, float v){
 		 // si cantroncol es falso ejecutar
 	
-		// pegar
+		// PEGAR CON ESPADA
 		if (canControl) {
 			if (Input.GetMouseButtonDown (0)) {
-				if( _controller.isGrounded && !_animator.GetBool("isGrouch")){
-						
+				if( _controller.isGrounded && !_animator.GetBool("isGrouch")){						
 						_animator.SetTrigger("isAttack");
-					}
+				}
 			}
 		}
 
@@ -223,4 +222,16 @@ public class PlayerControl : MonoBehaviour {
 		}
 
 	}
+
+
+	public void EnableweaponTrail(){
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.3f;
+
+	}
+
+	public void DisableweaponTrail(){
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.0f;
+	}
+
+
 }
