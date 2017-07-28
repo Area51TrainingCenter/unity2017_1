@@ -198,4 +198,12 @@ public class PlayerControl : MonoBehaviour {
 			_animator.SetBool ("crouch", false);
 		}
 	}
+
+	public void EnableWeaponTrail(){
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.3f;
+	}
+
+	public void DisableWeaponTrail(){
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.0f;
+	}
 }

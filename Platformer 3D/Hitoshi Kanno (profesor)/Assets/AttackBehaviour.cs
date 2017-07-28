@@ -15,12 +15,15 @@ public class AttackBehaviour : StateMachineBehaviour {
 		if (_playerScript == null) {
 			_playerScript = animator.GetComponent<PlayerControl> ();
 		}
+		_playerScript.EnableWeaponTrail ();
+
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		if (stateInfo.normalizedTime > startTime && stateInfo.normalizedTime < endTime) {
 			_playerScript._weapon.enabled = true;
+
 		} else {
 			_playerScript._weapon.enabled = false;
 		}
@@ -30,6 +33,8 @@ public class AttackBehaviour : StateMachineBehaviour {
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		animator.applyRootMotion = false;
 		animator.GetComponent<PlayerControl> ().canControl = true;
+		_playerScript.DisableWeaponTrail ();
+
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
