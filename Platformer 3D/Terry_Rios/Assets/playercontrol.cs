@@ -69,7 +69,7 @@ public class PlayerControl : MonoBehaviour {
 
 		if (cancontrol == true) {
 
-			/*
+		/*
 
 		(h,0,v)
 		(h,0,0) + (0,0,v)
@@ -131,7 +131,7 @@ public class PlayerControl : MonoBehaviour {
 		bool isCrouched = _animator.GetBool ("crouch");
 		//cuando estamos agachados reducimos el tamaño del CharacterController
 		if (isCrouched) {
-			_controller.height = 1;
+			_controller.height = 0.84f;
 			//no podemos modificar el y de la variable center defrente
 			//para eso creamos una copia local
 			Vector3 newCenter = _controller.center;
@@ -141,9 +141,9 @@ public class PlayerControl : MonoBehaviour {
 			_controller.center = newCenter;
 		} else {
 			if (!isLowCeiling) {
-				_controller.height = 1.8f;
+				_controller.height = 1.60f;
 				Vector3 newCenter = _controller.center;
-				newCenter.y = 0.85f;
+				newCenter.y = 0.83f;
 				_controller.center = newCenter;
 			}
 		}
@@ -194,4 +194,16 @@ public class PlayerControl : MonoBehaviour {
 			iscrouched = false;
 		}
 	}
+
+	public void EnableWeaponTrail(){
+
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.3f;
+	}
+
+	public void DisableWeaponTrail(){
+
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0;
+	}
+
+
 }

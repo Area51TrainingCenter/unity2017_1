@@ -29,9 +29,11 @@ public class AttackBehavior : StateMachineBehaviour {
 		if (stateInfo.normalizedTime > StartTime && stateInfo.normalizedTime < EndTime) {
 
 			_playerscript._weapon.enabled = true;
+			_playerscript.EnableWeaponTrail ();
 		} else {
 
 			_playerscript._weapon.enabled = false;
+			_playerscript.DisableWeaponTrail ();
 
 		}
 
