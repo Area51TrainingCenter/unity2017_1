@@ -26,7 +26,7 @@ public class attackBehaviour : StateMachineBehaviour {
 		if (playerScript==null) {
 			playerScript = animator.GetComponent<Movimiento> ();
 		}
-		Debug.Log("Inicio:"+startTime+" end: "+endTime+ "tiempo normalizado: "+stateInfo.normalizedTime);
+		//Debug.Log("Inicio:"+startTime+" end: "+endTime+ "tiempo normalizado: "+stateInfo.normalizedTime);
 		if (stateInfo.normalizedTime>startTime && stateInfo.normalizedTime<endTime) {
 			playerScript._weapon1.enabled = true;
 			playerScript._weapon2.enabled = true;

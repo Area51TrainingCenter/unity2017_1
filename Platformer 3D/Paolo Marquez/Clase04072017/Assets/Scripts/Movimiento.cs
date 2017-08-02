@@ -82,7 +82,7 @@ public class Movimiento : MonoBehaviour {
 		Vector3 moveVector = h1*cameraRight+h2*cameraForward;
 		moveVector.Normalize ();
 		if (agachado) {
-			Debug.Log ("Estoy agachado");
+			//Debug.Log ("Estoy agachado");
 			moveVector *= caminarAgachado;
 		}
 		else moveVector *= velocidadAlterada;
@@ -126,7 +126,7 @@ public class Movimiento : MonoBehaviour {
 		if (Input.GetButton("Atacar")) {
 			bool isCrouched=animacion.GetBool("agachado");
 			if (personajeController.isGrounded && !isCrouched && canControl) {
-				Debug.Log ("estoy atacando");
+				//Debug.Log ("estoy atacando");
 				//animacion.applyRootMotion = true;
 				animacion.SetTrigger ("attack");
 			}
@@ -135,7 +135,7 @@ public class Movimiento : MonoBehaviour {
 		if (Input.GetButton("Atacar2")) {
 			bool isCrouched=animacion.GetBool("agachado");
 			if (personajeController.isGrounded && !isCrouched && canControl) {
-				Debug.Log ("estoy atacando 2");
+				//Debug.Log ("estoy atacando 2");
 				//animacion.applyRootMotion = true;
 				animacion.SetTrigger ("attack2");
 			}
@@ -203,23 +203,23 @@ public class Movimiento : MonoBehaviour {
 	}
 
 	public void EnableWeaponTrail(){
-		Debug.Log("EnableWeaponTrail");
+		//Debug.Log("EnableWeaponTrail");
 		_weapon1.GetComponentInChildren<TrailRenderer>().time=0.3f;
 		//_weapon2.GetComponentInChildren<TrailRenderer>().time=0.3f;
 	}
 	public void EnableWeaponTrail2(){
-		Debug.Log("EnableWeaponTrail");
+		//Debug.Log("EnableWeaponTrail");
 
 		_weapon2.GetComponentInChildren<TrailRenderer>().time=0.3f;
 	}
 
 	public void DisableWeaponTrail(){
-		Debug.Log("DisableWeaponTrail");
+		//Debug.Log("DisableWeaponTrail");
 		_weapon1.GetComponentInChildren<TrailRenderer>().time=0.0f;
 		//_weapon2.GetComponentInChildren<TrailRenderer>().time=0.0f;
 	}
 	public void DisableWeaponTrail2(){
-		Debug.Log("DisableWeaponTrail");
+		//Debug.Log("DisableWeaponTrail");
 
 		_weapon2.GetComponentInChildren<TrailRenderer>().time=0.0f;
 	}
