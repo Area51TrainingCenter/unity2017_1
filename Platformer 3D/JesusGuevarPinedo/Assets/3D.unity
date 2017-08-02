@@ -721,7 +721,7 @@ Transform:
   m_LocalScale: {x: 7.457957, y: 1.0986873, z: 2.730143}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &944170466
 MonoBehaviour:
@@ -1164,6 +1164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
+  explosion: {fileID: 100008, guid: 5cd612e83713bde4da6e0a059cac6984, type: 2}
+  owner: {fileID: 920709294}
 --- !u!1001 &2080963810
 Prefab:
   m_ObjectHideFlags: 0
@@ -1201,7 +1203,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400168, guid: b235179bd2a63d1468dd430670338c55, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400316, guid: b235179bd2a63d1468dd430670338c55, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1234,7 +1236,7 @@ Prefab:
     - target: {fileID: 9500000, guid: b235179bd2a63d1468dd430670338c55, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 54ef644813a32cb43b13d7950c454aa0, type: 2}
+      objectReference: {fileID: 9100000, guid: a2dc4c254374daa4c9eb7c40088662c6, type: 2}
     - target: {fileID: 400168, guid: b235179bd2a63d1468dd430670338c55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
