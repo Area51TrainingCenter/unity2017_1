@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
+
 	public float speed = 5;
 	public float runSpeed = 8;
 	public float crouchSpeed = 1;
@@ -18,21 +19,30 @@ public class PlayerControl : MonoBehaviour {
 	//NO aparezca en el editor
 	[System.NonSerialized]
 	public float verticalSpeed = 0;
-
+	[Header("REFERENCES")]
 	public Collider _weapon;
+
+
 	private CharacterController _controller;
 	private Animator _animator;
+	private Health _healthScript;
+	private float _previousHealth;
 
 	// Use this for initialization
 	void Start () {
 		_controller = GetComponent<CharacterController> ();	
 		_animator = GetComponent<Animator> ();
+		_healthScript = GetComponent<Health> ();
+		_previousHealth = _healthScript.health;
+	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float v = Input.GetAxis ("Vertical");
 		float h = Input.GetAxis ("Horizontal");
+
+		Die ();
 
 		GroundMovement (h, v);
 
@@ -46,6 +56,7 @@ public class PlayerControl : MonoBehaviour {
 		Crouch ();
 
 		SetAnimatorParameters (h, v);
+		_previousHealth = _healthScript.health;
 	}
 
 	void FixedUpdate(){
@@ -129,6 +140,12 @@ public class PlayerControl : MonoBehaviour {
 
 	}
 
+	void Die(){
+		if (_healthScript.health <= 0) {
+			canControl = false;
+		}
+	}
+
 	void Crouch(){
 		bool isCrouched = _animator.GetBool ("crouch");
 		//cuando estamos agachados reducimos el tamaño del CharacterController
@@ -189,8 +206,14 @@ public class PlayerControl : MonoBehaviour {
 			}
 		}
 
-
-
+		if (_healthScript.health < _previousHealth) {
+			if (_healthScript.health <= 0) {
+				_animator.SetTrigger ("die");
+			} else {
+				_animator.SetTrigger ("hurt");
+			}
+		}
+			
 		_animator.SetBool ("isGrounded", _controller.isGrounded);
 		if (Input.GetButton("Crouch") || isLowCeiling) {
 			_animator.SetBool ("crouch", true);

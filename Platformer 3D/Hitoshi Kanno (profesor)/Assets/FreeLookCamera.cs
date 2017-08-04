@@ -41,10 +41,10 @@ public class FreeLookCamera : MonoBehaviour {
 
 
 		if (isCameraBehindObstacle) {
-			targetDistance -= Time.fixedDeltaTime*15;
+			targetDistance -= Time.fixedDeltaTime*11;
 		} else {
 			if (!Physics.Raycast (targetPos, direction, out hitInfo, targetDistance+1)) {
-				targetDistance += Time.fixedDeltaTime*15;
+				targetDistance += Time.fixedDeltaTime*11;
 				if (targetDistance > distance) {
 					targetDistance = distance;
 				}
