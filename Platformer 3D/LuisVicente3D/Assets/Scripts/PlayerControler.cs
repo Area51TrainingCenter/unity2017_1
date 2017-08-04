@@ -20,10 +20,14 @@ public class PlayerControler : MonoBehaviour {
 	public GameObject Camara;
 	public bool canControl = true;
 	public Collider _weapon;
+	private Vida _vida;
+	private float vidaTemporal;
 
 	void Start () {
 		_controler = GetComponent <CharacterController> ();
 		_animation = GetComponent <Animator> ();
+		_vida = GetComponent<Vida> ();
+		vidaTemporal = _vida.vida;
 	}
 	void Update () {
 			// Hacia los Costados
@@ -40,8 +44,21 @@ public class PlayerControler : MonoBehaviour {
 		moveVector.y = 0;
 		transform.LookAt (transform.position + moveVector);
 		Animaciones ();
+		Morir ();
+		vidaTemporal = _vida.vida;
 	}
+	void Morir(){
 
+		if (_vida.vida < vidaTemporal ) {
+			if (_vida.vida <= 0) {
+				canControl = false;
+				_animation.SetTrigger ("Muerte");
+				this.enabled = false;
+			} else {
+				_animation.SetTrigger ("hurt");
+			}
+		}
+	}
 	void FixedUpdate(){
 		bool AgacharS = _animation.GetBool ("Agachar");
 		if (AgacharS) {

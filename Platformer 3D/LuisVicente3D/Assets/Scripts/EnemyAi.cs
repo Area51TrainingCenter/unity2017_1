@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAi : MonoBehaviour{
-	public Vida _vida;
+	private Vida _vida;
 	private Animator _animator;
 	private float vidaTemporal;
 	private Vector3 _impact;
 	private CharacterController _controler;
+	public float gravedad = 0;
+	public float verticalSpeed;
+	private Vector3 moveVector;
 	// Use this for initialization
 	void Start () {
 		_vida = GetComponent<Vida> ();
@@ -21,6 +24,9 @@ public class EnemyAi : MonoBehaviour{
 		ManageKnockBack ();
 		ManageAnimator ();
 		vidaTemporal = _vida.vida;
+		VerticalMovement ();
+		_controler.Move (moveVector);
+
 	}
 
 	void ManageKnockBack(){
@@ -38,10 +44,23 @@ public class EnemyAi : MonoBehaviour{
 		if (_vida.vida < vidaTemporal ) {
 			if (_vida.vida <= 0) {
 				_animator.SetTrigger ("Muerte");
+				Invoke ("Destruccion", 4);
 				this.enabled = false;
 			} else {
 				_animator.SetTrigger ("hurt");
 			}
 		}
+	}
+	void VerticalMovement(){
+		if (_controler.isGrounded) {
+			verticalSpeed = 0.1f;
+		} else {
+			verticalSpeed -= gravedad * Time.deltaTime;
+		}
+		Vector3 Gravedad = new Vector3 (0,verticalSpeed,0);
+		moveVector += Gravedad;
+	}
+	void Destruccion(){
+		Destroy (gameObject);
 	}
 }

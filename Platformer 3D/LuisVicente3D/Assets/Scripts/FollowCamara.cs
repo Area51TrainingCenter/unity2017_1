@@ -39,10 +39,10 @@ public class FollowCamara : MonoBehaviour {
 		}
 
 		if (isCameraBehindObstacle) {
-			targetDistance -= Time.fixedDeltaTime * 15; 
+			targetDistance -= Time.fixedDeltaTime * 5; 
 		} else {
 			if (!Physics.Raycast (targetPos, direction, out hitInfo, targetDistance+1)) {
-				targetDistance += Time.fixedDeltaTime*15;
+				targetDistance += Time.fixedDeltaTime*5;
 				if (targetDistance > Distance) {
 					targetDistance = Distance;
 				}
@@ -67,7 +67,7 @@ public class FollowCamara : MonoBehaviour {
 		}
 		angleY = Mathf.Clamp (angleY, minYAngle, maxYAngle);
 		Quaternion NewRotation = Quaternion.Euler(angleY, angleX ,0);
-		Vector3 Behind = NewRotation * Vector3.forward;
+		Vector3 Behind = NewRotation * -Vector3.forward;
 		currentDistance = Mathf.Lerp (currentDistance, targetDistance, Time.deltaTime * 12);
 		Vector3 finalPos = target.position+offset+(Behind*currentDistance);
 		transform.position = Vector3.SmoothDamp (transform.position, finalPos, ref currentVelocity, 0.1f);

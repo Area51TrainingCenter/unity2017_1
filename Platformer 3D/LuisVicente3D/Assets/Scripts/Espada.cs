@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EspadaEthan : MonoBehaviour {
+public class Espada : MonoBehaviour {
 	public float ataque = 20;
 	public GameObject efecto;
 	public Transform owner;
 	public float empuje;
+	public string _target = "Enemy";
 
 	// Use this for initialization
 	void Start () {
@@ -20,14 +21,18 @@ public class EspadaEthan : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other){
 		
-		if (other.CompareTag("Enemy")) {
+		if (other.CompareTag(_target)) {
 			other.GetComponent<Vida> ().CambioDeVida ( ataque );
 			Quaternion angulo = Quaternion.Euler(0,0,0); 
 			Instantiate (efecto, transform.position, angulo);
 			Vector3 dir = other.transform.position - owner.transform.position;
 			dir.y = 0;
 			dir.Normalize ();
-			other.GetComponent<EnemyAi> ().AddImpact (dir, empuje);;
+			EnemyAi _EnemyScript = other.GetComponent<EnemyAi> ();
+			if (_EnemyScript != null) {
+				other.GetComponent<EnemyAi> ().AddImpact (dir, empuje);
+			}
+
 		}
 
 	}
