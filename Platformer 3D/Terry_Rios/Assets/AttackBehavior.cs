@@ -18,7 +18,6 @@ public class AttackBehavior : StateMachineBehaviour {
 
 			_playerscript = animator.GetComponent<PlayerControl> ();
 
-
 		}
 
     }

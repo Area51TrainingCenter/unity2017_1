@@ -15,9 +15,6 @@ public class health : MonoBehaviour {
 	public void ChangeHealth (float damage) {
 
 		_health -= damage;
-
-
-	
 		
 	}
 }

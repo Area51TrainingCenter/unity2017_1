@@ -6,6 +6,7 @@ public class Damage : MonoBehaviour {
 	
 	public Transform owner;
 	public float _damage = 20;
+	public string _target = "Enemy";
 	public GameObject _particulas;
 
 
@@ -20,17 +21,25 @@ public class Damage : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.CompareTag("Enemy")) {
+		if (other.CompareTag(_target)) {
 
 			other.GetComponent<health> ().ChangeHealth (_damage);
 			Instantiate (_particulas, transform.position, transform.rotation);
 			Vector3 dir = other.transform.position - owner.transform.position;
 			dir.y = 0;
 			dir.Normalize();
-			other.GetComponent<enemigo_ai> ().AddImpact (dir, 30);
+			enemigo_ai _enemyScript = other.GetComponent<enemigo_ai> ();
+			if (_enemyScript != null) {
+				_enemyScript.AddImpact (dir, 30);
+			}
+
+			PlayerControl _playerScript = other.GetComponent<PlayerControl> ();
+			if (_playerScript != null) {
+
+				_playerScript.AddImpact (dir, 30);
+			}
+				
 		}
-
-
-
+			
 	}
 }

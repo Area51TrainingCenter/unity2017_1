@@ -29,8 +29,6 @@ public class enemigo_ai : MonoBehaviour {
 
 		_previoushealth = _scripthealth._health;
 
-
-
 	}
 
 	void ManageKnockback(){

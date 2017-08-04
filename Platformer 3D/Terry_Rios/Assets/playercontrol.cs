@@ -9,8 +9,11 @@ public class PlayerControl : MonoBehaviour {
 	public bool cancontrol = true;
 	public float gravity = 10;
 	public float jumpForce = 20;
+	private Vector3 _impact;
 
 	public LayerMask _mask;
+	private health _playerhealth;
+	private float _previousHealth;
 
 	private Vector3 moveVector;
 	private bool isLowCeiling;
@@ -27,6 +30,8 @@ public class PlayerControl : MonoBehaviour {
 	void Start () {
 		_controller = GetComponent<CharacterController> ();	
 		_animator = GetComponent<Animator> ();
+		_playerhealth = GetComponent<health> ();
+		_previousHealth = _playerhealth._health;
 	}
 	
 	// Update is called once per frame
@@ -34,7 +39,12 @@ public class PlayerControl : MonoBehaviour {
 		float v = Input.GetAxis ("Vertical");
 		float h = Input.GetAxis ("Horizontal");
 
+
+
 		GroundMovement (h, v);
+
+		ManageKnockback ();
+
 
 		VerticalMovement ();
 
@@ -46,6 +56,11 @@ public class PlayerControl : MonoBehaviour {
 		Crouch ();
 
 		SetAnimatorParameters (h, v);
+
+		canControl ();
+
+
+		_previousHealth = _playerhealth._health;
 	}
 
 	void FixedUpdate(){
@@ -194,6 +209,43 @@ public class PlayerControl : MonoBehaviour {
 			iscrouched = false;
 		}
 	}
+
+	void canControl(){
+
+		if (_playerhealth._health < _previousHealth) {
+
+			if (_playerhealth._health <= 0) {
+
+				cancontrol = false;
+				_animator.SetTrigger ("ded");
+
+			} else {
+
+				_animator.SetTrigger ("hurt");
+
+			} 				
+		} 
+								
+	}
+
+	void ManageKnockback(){
+
+		_impact = Vector3.Lerp (_impact, Vector3.zero, Time.deltaTime * 3);
+		if(_impact.magnitude<2){
+			_impact = Vector3.zero;
+		}
+		moveVector = _impact;
+
+
+
+	}
+
+	public void AddImpact(Vector3 direction,float force){
+
+		_impact = direction * force;
+
+	}
+		
 
 	public void EnableWeaponTrail(){
 
