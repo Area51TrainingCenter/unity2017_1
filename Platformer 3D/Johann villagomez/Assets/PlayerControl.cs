@@ -6,7 +6,7 @@ public class PlayerControl : MonoBehaviour {
 	public float speed = 5;
 	public float runSpeed = 8;
 	public float crouchSpeed = 1;
-
+	public bool canControl = true;
 	public float gravity = 10;
 	public float jumpForce = 20;
 
@@ -18,15 +18,19 @@ public class PlayerControl : MonoBehaviour {
 	//NO aparezca en el editor
 	[System.NonSerialized]
 	public float verticalSpeed = 0;
+
+	public Collider _weapon;
 	private CharacterController _controller;
 	private Animator _animator;
-	public bool canControl = true;
-	public Collider _weapon;
+	private Health _healthScript;
+	private float previousHealth;
 
 	// Use this for initialization
 	void Start () {
 		_controller = GetComponent<CharacterController> ();	
 		_animator = GetComponent<Animator> ();
+		_healthScript = GetComponent<Health> ();
+		previousHealth = _healthScript.health;
 	}
 	
 	// Update is called once per frame
@@ -34,10 +38,7 @@ public class PlayerControl : MonoBehaviour {
 		float v = Input.GetAxis ("Vertical");
 		float h = Input.GetAxis ("Horizontal");
 
-		if (canControl) {
-			GroundMovement (h, v);
-		}
-
+		GroundMovement (h, v);
 
 		VerticalMovement ();
 
@@ -49,7 +50,18 @@ public class PlayerControl : MonoBehaviour {
 		Crouch ();
 
 		SetAnimatorParameters (h, v);
-	}
+
+		if (_healthScript.health < previousHealth) {
+			if (_healthScript.health <= 0) {
+			canControl = false;
+			_animator.SetTrigger ("die");
+			this.enabled = false;
+			} else {
+				_animator.SetTrigger ("hurt");
+			}
+		}
+		previousHealth = _healthScript.health;
+		}
 
 	void FixedUpdate(){
 		bool isCrouched = _animator.GetBool ("crouch");
@@ -66,10 +78,15 @@ public class PlayerControl : MonoBehaviour {
 				isLowCeiling = false;
 			}
 		}
-
 	}
 
 	void GroundMovement(float h, float v){
+
+		if (canControl == false) {
+			//return hace que la funcion se salga y ya no se ejecuta lo que esta abajo
+			return;
+		}
+
 		/*
 
 		(h,0,v)
@@ -114,7 +131,7 @@ public class PlayerControl : MonoBehaviour {
 	void VerticalMovement(){
 		if (_controller.isGrounded) {
 			verticalSpeed = -0.1f;
-			if (Input.GetButtonDown("Jump")&& canControl) {
+			if (Input.GetButtonDown("Jump") && canControl) {
 				verticalSpeed = jumpForce;
 			}
 		}else{
@@ -179,15 +196,29 @@ public class PlayerControl : MonoBehaviour {
 			_animator.SetFloat ("verticalSpeed", verticalSpeed);	
 		}
 
+		if (canControl) {
+			if (Input.GetButtonDown("Attack")) {
+				if (_controller.isGrounded && !_animator.GetBool("crouch")) {
+					_animator.SetTrigger ("attack");
+				}
+			}
+		}
+
+
+
 		_animator.SetBool ("isGrounded", _controller.isGrounded);
 		if (Input.GetButton("Crouch") || isLowCeiling) {
 			_animator.SetBool ("crouch", true);
 		} else {
 			_animator.SetBool ("crouch", false);
 		}
-		if (!_animator.GetBool ("crouch")&&_controller.isGrounded&&Input.GetButton("Atacar")&&canControl) {
-		_animator.SetTrigger ("Atack");
-	
 	}
+
+	public void EnableWeaponTrail(){
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.3f;
+	}
+
+	public void DisableWeaponTrail(){
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.0f;
 	}
 }
