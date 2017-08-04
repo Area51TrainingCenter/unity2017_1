@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour {
 
@@ -9,6 +10,10 @@ public class PlayerControl : MonoBehaviour {
 	
 	private CharacterController _controller;
 	private Animator _animator;
+	private  Health _health;
+	//Header sirve para mostrar un string en el editor arriba de la variable publica(sirve para mayor orden)
+	[Header("Textos")]
+	public Text _text;
 
 	private bool isCrouch;
 	public float speed, turbo, crouchSpeed;
@@ -24,11 +29,13 @@ public class PlayerControl : MonoBehaviour {
 	private bool isTechito;
 
 	public bool canControl = true;
+	[Header("Armas")]
 	public Collider weapon;
 
 	void Start () {
 		_controller = GetComponent<CharacterController> ();
 		_animator = GetComponent<Animator> ();
+		_health = GetComponent<Health> ();
 	}
 
 	void Update () {
@@ -36,12 +43,12 @@ public class PlayerControl : MonoBehaviour {
 		 float h = Input.GetAxis ("Horizontal");
 		isCrouch = Input.GetButton("Crouch");
 
+		HealthManager ();
 		if (canControl) {
 			GroundMovement (h, v);
 		}
 		VerticalMovement ();
 		Crouch ();
-
 		moveVector *= Time.deltaTime;
 		//transform.Translate (moveVector,Space.World);
 		_controller.Move (moveVector);
@@ -168,10 +175,24 @@ public class PlayerControl : MonoBehaviour {
 		} 
 		else {
 			if (!isTechito) {
-				_controller.height = 1.8f;
+				_controller.height = 1.55f;
 				//otra forma eficiente de hacerlo
 				_controller.center = new Vector3 (0, 0.85f, 0);
 			}
+		}
+	}
+
+	void HealthManager(){
+
+		if (_health.health <= 0) {
+			canControl = false;
+			_animator.SetTrigger ("isDead");
+			_text.enabled = true;
+			//Soltar arma jugador
+			weapon.transform.parent = null;
+			weapon.enabled = true;
+			weapon.isTrigger = false;
+			weapon.GetComponent<Rigidbody> ().isKinematic = false;
 		}
 	}
 	public void EnableWeaponTrail(){
