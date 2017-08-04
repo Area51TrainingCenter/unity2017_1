@@ -5,6 +5,7 @@ using UnityEngine;
 public class MeleeDamage : MonoBehaviour {
 	public Transform owner;
 	public float damage=20f;
+	public string target="Enemigo";
 	public GameObject hitEffect;
 	public float impacto;
 	// Use this for initialization
@@ -18,16 +19,18 @@ public class MeleeDamage : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.CompareTag("Enemigo")) {
+		if (other.CompareTag(target)) {
 			other.GetComponent<health> ().changeHealth (damage);
 			Instantiate (hitEffect, transform.position, Quaternion.identity);
 			Vector3 dir = other.transform.position-owner.transform.position;
 			dir.y = 0;
 			dir.Normalize ();
-			other.GetComponent<Enemigo> ().AddImpact (dir,impacto);
-			if (other.GetComponent<health>().saludActual>0) {
-				other.GetComponent<health>().changeHealth(damage);
+			Enemigo _enemigoScript = other.GetComponent<Enemigo> ();
+			if (_enemigoScript!=null) {
+				_enemigoScript.AddImpact (dir,impacto);
 			}
+
+
 		}
 	}
 

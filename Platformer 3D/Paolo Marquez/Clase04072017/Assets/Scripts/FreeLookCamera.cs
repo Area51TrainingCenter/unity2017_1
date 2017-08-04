@@ -70,16 +70,19 @@ public class FreeLookCamera : MonoBehaviour {
 		else Debug.DrawRay(transform.position,direction,Color.red);
 
 		if (camaraChocoPared) {
-			currentDistancia-=Time.fixedDeltaTime;
+			currentDistancia-=Time.fixedDeltaTime*3;
 		} else {
 			if (!Physics.Raycast(targetPos,direction,out colisionInfo,currentDistancia+1)) {
-				currentDistancia+=Time.fixedDeltaTime*5;
+				currentDistancia+=Time.fixedDeltaTime*3;
 				//Debug.DrawRay(transform.position,direction,Color.blue);
 				if (currentDistancia>distancia) {
 					currentDistancia=distancia;
 				}
 			}
-
+			Debug.Log ("currentDistancia=" + currentDistancia);
+//			if (currentDistancia<1) {
+//				currentDistancia = 1;
+//			}
 
 		}
 	}

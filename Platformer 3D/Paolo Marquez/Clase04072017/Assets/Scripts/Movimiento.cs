@@ -22,11 +22,16 @@ public class Movimiento : MonoBehaviour {
 
 	public Collider _weapon1;
 	public Collider _weapon2;
+
+
+	private health salud;
+	private float saludAhora;
 	// Use this for initialization
 	void Start () {
 		Camara = GameObject.FindGameObjectWithTag ("MainCamera");
 		personajeController = GetComponent<CharacterController> ();
 		animacion= GetComponent<Animator> ();
+		salud=GetComponent<health>();
 	}
 	
 	// Update is called once per frame
@@ -40,6 +45,7 @@ public class Movimiento : MonoBehaviour {
 		//correr ();
 		manejarAnimacion ();
 		atacar ();
+		saludAhora = salud.saludActual;
 
 	}
 
@@ -200,6 +206,18 @@ public class Movimiento : MonoBehaviour {
 		animacion.SetBool ("isGrounded", personajeController.isGrounded);
 		animacion.SetBool("agachado", agachado);
 
+		if (salud.saludActual<saludAhora) {
+			if(salud.saludActual<=0){
+				//Instantiate
+				morir();
+			}
+//			else{
+//				//Instantiate
+//				Debug.Log("Enemigo herido");
+//				animacion.SetTrigger("hurt");
+//			}
+		}
+
 	}
 
 	public void EnableWeaponTrail(){
@@ -222,6 +240,12 @@ public class Movimiento : MonoBehaviour {
 		//Debug.Log("DisableWeaponTrail");
 
 		_weapon2.GetComponentInChildren<TrailRenderer>().time=0.0f;
+	}
+
+	public void morir() {
+		animacion.SetTrigger("morir");
+		this.enabled = false;
+		//Destroy(gameObject);
 	}
 //	void FixedUpdate () {
 //		movimiento ();

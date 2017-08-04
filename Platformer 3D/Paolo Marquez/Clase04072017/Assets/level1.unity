@@ -330,7 +330,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400168, guid: b235179bd2a63d1468dd430670338c55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.72
       objectReference: {fileID: 0}
     - target: {fileID: 400168, guid: b235179bd2a63d1468dd430670338c55, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1244,8 +1244,8 @@ MonoBehaviour:
   angulo: 90
   anguloV: 90
   sensibilidadMouse: 5
-  anguloVMin: 170
-  anguloVMax: 260
+  anguloVMin: 180
+  anguloVMax: 240
 --- !u!1 &615166313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,8 +1469,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 1657455149}
   damage: 20
+  target: Enemigo
   hitEffect: {fileID: 100006, guid: 5cd612e83713bde4da6e0a059cac6984, type: 2}
-  impacto: 20
+  impacto: 30
 --- !u!1 &759286951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2333,6 +2334,8 @@ GameObject:
   - component: {fileID: 1580923302}
   - component: {fileID: 1580923304}
   - component: {fileID: 1580923303}
+  - component: {fileID: 1580923305}
+  - component: {fileID: 1580923306}
   m_Layer: 0
   m_Name: 2Handed-Sword
   m_TagString: Untagged
@@ -2395,6 +2398,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1580923301}
   m_Mesh: {fileID: 4300012, guid: 781a15e490c144941adf6440cf6b6cdd, type: 3}
+--- !u!114 &1580923305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1580923301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba087f74d004224db2bd9f1f7f7998a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 1623931140}
+  damage: 20
+  target: Player
+  hitEffect: {fileID: 100008, guid: 5cd612e83713bde4da6e0a059cac6984, type: 2}
+  impacto: 10
+--- !u!65 &1580923306
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1580923301}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8613008, y: 0.20038293, z: 2.7504458}
+  m_Center: {x: -0.405214, y: -0.0023582336, z: 0.9962802}
 --- !u!1 &1581982253
 GameObject:
   m_ObjectHideFlags: 0
@@ -2434,7 +2465,6 @@ GameObject:
   - component: {fileID: 1623931140}
   - component: {fileID: 1623931136}
   - component: {fileID: 1623931138}
-  - component: {fileID: 1623931135}
   - component: {fileID: 1623931137}
   - component: {fileID: 1623931139}
   m_Layer: 0
@@ -2444,19 +2474,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1623931135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1623931134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b719a12f4758b324b95a7fc34e228f73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
-  salud: {fileID: 0}
 --- !u!95 &1623931136
 Animator:
   serializedVersion: 3
@@ -2517,6 +2534,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 1623931136}
+  verticalSpeed: 5
+  gravity: 10
 --- !u!4 &1623931140
 Transform:
   m_ObjectHideFlags: 0
@@ -2623,8 +2642,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   caminarAgachado: 0.5
-  velocidad: 2
-  velocidadAlterada: 2
+  velocidad: 3
+  velocidadAlterada: 3
   agachado: 0
   _mask:
     serializedVersion: 2
@@ -2637,6 +2656,31 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 400168, guid: b235179bd2a63d1468dd430670338c55, type: 3}
   m_PrefabInternal: {fileID: 153959552}
+--- !u!114 &1657455150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1657455145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba692fb6976154445aaedc2421999224, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saludActual: 100
+  saludMaxima: 100
+--- !u!114 &1657455151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1657455145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51846fa0d7d7859428735f82d334ffa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distancia: 5
 --- !u!1 &1680064693
 GameObject:
   m_ObjectHideFlags: 0
@@ -3511,8 +3555,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 1657455149}
   damage: 20
+  target: Enemigo
   hitEffect: {fileID: 100006, guid: 5cd612e83713bde4da6e0a059cac6984, type: 2}
-  impacto: 20
+  impacto: 30
 --- !u!1 &2108923098
 GameObject:
   m_ObjectHideFlags: 0
