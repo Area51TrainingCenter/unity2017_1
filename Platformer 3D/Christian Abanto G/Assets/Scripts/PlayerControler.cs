@@ -21,9 +21,14 @@ public class PlayerControler : MonoBehaviour {
 	public bool canControl = true;
 	public Collider _weapon;
 
+	private Animator _animator;
+	public Vida _vida;
+	private float _vidaTemporal;
+
 	void Start () {
 		_controler = GetComponent <CharacterController> ();
 		_animation = GetComponent <Animator> ();
+		_animator = GetComponent<Animator>();
 	}
 	void Update () {
 			// Hacia los Costados
@@ -40,6 +45,8 @@ public class PlayerControler : MonoBehaviour {
 		moveVector.y = 0;
 		transform.LookAt (transform.position + moveVector);
 		Animaciones ();
+		ManageAnimations();
+		_vidaTemporal = _vida.vida;
 	}
 
 	void FixedUpdate(){
@@ -147,5 +154,19 @@ public class PlayerControler : MonoBehaviour {
 	}
 	public void DisableWeaponTrail(){
 		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0;
+	}
+
+	void ManageAnimations() {
+		if (_vida.vida < _vidaTemporal  ) {			
+			if (_vida.vida <= 0) {			
+				//Destroy (gameObject);
+				_animator.SetTrigger("isDead");
+				this.enabled =false;
+				//canControl = false;
+				Debug.Log("mori");
+			} else {
+				_animator.SetTrigger("isHurt");
+			}
+		}
 	}
 }

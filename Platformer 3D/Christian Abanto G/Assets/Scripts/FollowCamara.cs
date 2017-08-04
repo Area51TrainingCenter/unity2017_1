@@ -5,6 +5,8 @@ using UnityEngine;
 public class FollowCamara : MonoBehaviour {
 	public Transform target;
 	public Vector3 offset;
+
+	[Range(0.0f,10.0f)]
 	public float Distance = 5;
 
 	private float targetDistance;

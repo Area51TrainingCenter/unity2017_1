@@ -9,14 +9,17 @@ public class EnemyAi : MonoBehaviour {
 
 	private Vector3 _impact;
 
-	private CharacterController _controller;
+	private CharacterController _controler;
+	public float verticalSpeed = 0;
+	private Vector3 moveVector;
+	public float gravity = 0;
 
 	// Use this for initialization
 	void Start () {
 		_vida = GetComponent<Vida> ();
 		_vidaTemporal = _vida.vida;
 		_animator = GetComponent<Animator>();
-		_controller = GetComponent<CharacterController>();
+		_controler = GetComponent<CharacterController>();
 	}
 	
 	// Update is called once per frame
@@ -25,8 +28,10 @@ public class EnemyAi : MonoBehaviour {
 		ManageAnimations();
 
 		_vidaTemporal = _vida.vida;
-
 		ManageKnockBack();
+
+		ManageVertical();
+		_controler.Move (moveVector );
 	}
 
 	void ManageKnockBack() {
@@ -36,7 +41,7 @@ public class EnemyAi : MonoBehaviour {
 			_impact = Vector3.zero;
 		}
 
-		_controller.Move(_impact * Time.deltaTime);
+		_controler.Move(_impact * Time.deltaTime);
 	}
 
 	public void AddImpact( Vector3 direction, float force ) {
@@ -53,6 +58,19 @@ public class EnemyAi : MonoBehaviour {
 				_animator.SetTrigger("isHurt");
 			}
 		}
+	}
+
+	void ManageVertical(){
+		if (_controler.isGrounded) {
+			verticalSpeed = -0.1f;
+		} else {
+			verticalSpeed -= gravity * Time.deltaTime;
+		}
+
+		Vector3 Gravedad = new Vector3 (0,verticalSpeed,0);
+
+
+		moveVector += Gravedad;
 	}
 
 }

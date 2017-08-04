@@ -7,6 +7,8 @@ public class EspadaEthan : MonoBehaviour {
 	public GameObject efectoAtaque;
 	public float fuerzaAtaque;
 	public Transform owner;
+
+	public string targetTag = "enemy";
 	// Use this for initialization
 	void Start () {
 		
@@ -18,7 +20,7 @@ public class EspadaEthan : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other){
-		if (other.CompareTag("Enemy")) {
+		if (other.CompareTag(targetTag)) {
 			other.GetComponent<Vida> ().CambioDeVida ( ataque );
 			Quaternion rotacion = Quaternion.Euler(0, 0 ,0);
 			Instantiate(efectoAtaque,transform.position,rotacion);
@@ -28,7 +30,14 @@ public class EspadaEthan : MonoBehaviour {
 			Vector3 dir = other.transform.position - owner.transform.position;
 			dir.y = 0;
 			dir.Normalize(); // solo para normalizar y obtener la direccion del Vector
-			other.GetComponent<EnemyAi>().AddImpact(dir,fuerzaAtaque);
+
+			// como este script sera usado tato por el player como por el enemigo
+			// es posible que _enemyScript sea nulo
+			EnemyAi _enemyScript = other.GetComponent<EnemyAi>();
+			// debido a esto hacemos este chequeo para evitar errores
+			if (_enemyScript != null ){
+				_enemyScript.GetComponent<EnemyAi>().AddImpact(dir,fuerzaAtaque);
+			}
 		
 		}
 
