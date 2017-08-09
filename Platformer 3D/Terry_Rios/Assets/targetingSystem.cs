@@ -8,6 +8,7 @@ public class targetingSystem : MonoBehaviour {
 	public float _distance;
 	[Range(1,180)]
 	public float _angle;
+	public Transform _target;
 
 	// Use this for initialization
 	void Start () {
@@ -24,17 +25,29 @@ public class targetingSystem : MonoBehaviour {
 	void FixedUpdate () {
 
 		Collider[] hits = Physics.OverlapSphere(transform.position, _distance);
+		Transform newtarget = null;
+		float minangle = 999;
 		for (int i = 0; i < hits.Length; i++) {
-
 
 			if (hits[i].CompareTag("Enemy")) {
 
 				Debug.Log (hits [i].name);
-				
-			}
 
+				Vector3 dirtoenemy = hits [i].transform.position - transform.position;
+				dirtoenemy.y = 0;
+				float angle = Vector3.Angle (dirtoenemy, transform.forward);
+				if (angle<=_angle) {
+
+					if (angle < minangle) {
+
+						minangle = angle;
+						newtarget= hits [i].transform;
+					}
+				}				
+			}
 		}
 
+		_target = newtarget;
 		
 	}
 

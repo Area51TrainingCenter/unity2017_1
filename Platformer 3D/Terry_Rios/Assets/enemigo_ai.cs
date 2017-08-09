@@ -5,10 +5,13 @@ using UnityEngine;
 public class enemigo_ai : MonoBehaviour {
 
 	private health _scripthealth;
+	private float gravity = 10;
 	private Animator _Animations;
 	private float _previoushealth;
 	private Vector3 _impact;
 	private CharacterController _charactercontroler;
+	private float _verticalspeed;
+	private Vector3 _moveVector;
 
 	// Use this for initialization
 	void Start () {
@@ -23,13 +26,19 @@ public class enemigo_ai : MonoBehaviour {
 	// Update is called once per frame
 	void Update(){
 
-		ManageAnimatorParameters ();
+		VerticalMovement ();
 
 		ManageKnockback ();
+
+		_charactercontroler.Move (_moveVector*Time.deltaTime);
+
+		ManageAnimatorParameters ();
 
 		_previoushealth = _scripthealth._health;
 
 	}
+
+
 
 	void ManageKnockback(){
 
@@ -37,8 +46,25 @@ public class enemigo_ai : MonoBehaviour {
 			if(_impact.magnitude<2){
 				_impact = Vector3.zero;
 			}
-		_charactercontroler.Move (_impact*Time.deltaTime);
-				
+
+		_moveVector += _impact;		
+	}
+
+	void VerticalMovement (){
+
+		if (_charactercontroler.isGrounded) {
+
+			_verticalspeed = -0.1f;
+		} else {
+
+			_verticalspeed = gravity * Time.deltaTime;
+
+		}
+
+		Vector3 gravityVector = new Vector3 (0, _verticalspeed, 0); 
+		_moveVector = gravityVector;
+
+
 	}
 
 	public void AddImpact(Vector3 direction,float force){

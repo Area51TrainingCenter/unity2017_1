@@ -25,12 +25,14 @@ public class PlayerControl : MonoBehaviour {
 	public Collider _weapon;
 	private CharacterController _controller;
 	private Animator _animator;
+	private targetingSystem _targetingscript;
 
 	// Use this for initialization
 	void Start () {
 		_controller = GetComponent<CharacterController> ();	
 		_animator = GetComponent<Animator> ();
 		_playerhealth = GetComponent<health> ();
+		_targetingscript = GetComponent<targetingSystem> ();
 		_previousHealth = _playerhealth._health;
 	}
 	
@@ -39,11 +41,10 @@ public class PlayerControl : MonoBehaviour {
 		float v = Input.GetAxis ("Vertical");
 		float h = Input.GetAxis ("Horizontal");
 
+		ManageKnockback ();
 
 
 		GroundMovement (h, v);
-
-		ManageKnockback ();
 
 
 		VerticalMovement ();
@@ -51,8 +52,13 @@ public class PlayerControl : MonoBehaviour {
 		moveVector *= Time.deltaTime;
 		_controller.Move (moveVector);
 		moveVector.y = 0;
-		transform.LookAt (transform.position + moveVector);
 
+		AnimatorStateInfo stateinfo = _animator.GetCurrentAnimatorStateInfo (0);
+		if (!stateinfo.IsName("Base Layer.Attack1")) {
+
+			transform.LookAt (transform.position + moveVector);
+		}
+			
 		Crouch ();
 
 		SetAnimatorParameters (h, v);
@@ -255,6 +261,19 @@ public class PlayerControl : MonoBehaviour {
 	public void DisableWeaponTrail(){
 
 		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0;
+	}
+
+	public void FaceTarget(){
+
+		if (_targetingscript._target) {
+
+			Vector3 lookpoint = _targetingscript._target.position;
+			lookpoint.y = transform.position.y;
+			transform.LookAt (lookpoint);
+			
+		}
+
+
 	}
 
 
