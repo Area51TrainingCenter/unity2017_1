@@ -25,11 +25,16 @@ public class PlayerControler : MonoBehaviour {
 	public Vida _vida;
 	private float _vidaTemporal;
 
+	private TargetingSystem _targetingScript;
+
 	void Start () {
 		_controler = GetComponent <CharacterController> ();
 		_animation = GetComponent <Animator> ();
 		_animator = GetComponent<Animator>();
+
+		_targetingScript = GetComponent<TargetingSystem>();
 	}
+
 	void Update () {
 			// Hacia los Costados
 		EjeX = Input.GetAxis("Horizontal") ;
@@ -43,7 +48,13 @@ public class PlayerControler : MonoBehaviour {
 		moveVector *= Time.deltaTime;
 		_controler.Move (moveVector );
 		moveVector.y = 0;
-		transform.LookAt (transform.position + moveVector);
+
+		AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+		if(!stateInfo.IsName("Base Layer.Attack")) {
+			// transform.LookAt (transform.position + moveVector);
+			transform.LookAt (transform.position + moveVector);
+		}
+
 		Animaciones ();
 		ManageAnimations();
 		_vidaTemporal = _vida.vida;
@@ -167,6 +178,16 @@ public class PlayerControler : MonoBehaviour {
 			} else {
 				_animator.SetTrigger("isHurt");
 			}
+		}
+	}
+
+
+	public void FaceTarget(){	
+		if ( _targetingScript._target != null ) {
+			Vector3 miTargeting = _targetingScript._target.transform.position;
+			miTargeting.y = transform.position.y;
+			//_targetingScript._target = miTargeting;
+				transform.LookAt (miTargeting);	
 		}
 	}
 }
