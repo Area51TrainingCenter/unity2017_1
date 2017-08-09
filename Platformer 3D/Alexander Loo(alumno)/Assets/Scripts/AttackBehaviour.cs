@@ -40,6 +40,7 @@ public class AttackBehaviour : StateMachineBehaviour {
 			animator.speed = 0.3f;
 			_playerScript.weapon.enabled = false;
 		}
+		_playerScript.FaceTarget ();
 	}
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state

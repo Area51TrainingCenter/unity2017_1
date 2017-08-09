@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviour {
 	private CharacterController _controller;
 	private Animator _animator;
 	private  Health _health;
+	private TargetingSystem targetingScript;
 	//Header sirve para mostrar un string en el editor arriba de la variable publica(sirve para mayor orden)
 	[Header("Textos")]
 	public Text _text;
@@ -36,6 +37,7 @@ public class PlayerControl : MonoBehaviour {
 		_controller = GetComponent<CharacterController> ();
 		_animator = GetComponent<Animator> ();
 		_health = GetComponent<Health> ();
+		targetingScript = GetComponent<TargetingSystem> ();
 	}
 
 	void Update () {
@@ -54,8 +56,15 @@ public class PlayerControl : MonoBehaviour {
 		_controller.Move (moveVector);
 		//para que no mire el piso. el Move(moveVector) no se ve afectado ya que la función lo ejecuta antes
 		moveVector.y = 0;
-		//para ver hacia una dirección (posición del objeto + dirección de movimiento)
-		transform.LookAt (transform.position + moveVector);
+		//obtenemos el estado actual del animator
+		AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo (0);
+		//Comparamos el nombre del estado del animator que no sea el estado ataque
+		//En el animator también existen capas(layers)..para acceder al nombre del estado...escribimos el nombre del layer seguido del
+		//nombre del estado.
+		if (!stateInfo.IsName("Base Layer.Attack")) {
+			//para ver hacia una dirección (posición del objeto + dirección de movimiento)
+			transform.LookAt (transform.position + moveVector);
+		}
 		AnimationsManager (h,v);
 	} 
 
@@ -204,5 +213,16 @@ public class PlayerControl : MonoBehaviour {
 	public void DisableWeaponTrail(){
 
 		weapon.GetComponentInChildren<TrailRenderer> ().time = 0;
+	}
+
+	//Función para que mire al enemigo mientras ataca
+	public void FaceTarget(){
+
+		if (targetingScript._target != null) {
+			Vector3 enemyTarget = targetingScript._target.position;
+			//le quitamos el eje 'Y' para que no mire al cielo o al piso si hay un desnivel...que este siempre al nivel del player
+			enemyTarget.y = transform.position.y;
+			transform.LookAt (enemyTarget);
+		}
 	}
 }
