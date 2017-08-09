@@ -24,6 +24,7 @@ public class AttackBehaviour : StateMachineBehaviour {
 		} else {
 			_PlayerScript._weapon.enabled = false;
 		}
+		_PlayerScript.faceTarget ();
 	}
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state

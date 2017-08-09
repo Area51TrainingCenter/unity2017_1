@@ -10,7 +10,7 @@ public class PlayerControler : MonoBehaviour {
 	public float gravity = 0;
 	public float Correr = 0;
 	public float CrouchSpeed = 1;
-	public Animator _animation;
+	private Animator _animation;
 	private float EjeX;
 	private float EjeZ;
 	public float JumpForce;
@@ -22,8 +22,10 @@ public class PlayerControler : MonoBehaviour {
 	public Collider _weapon;
 	private Vida _vida;
 	private float vidaTemporal;
+	private TargetingSistem _targetScript;
 
 	void Start () {
+		_targetScript = GetComponent<TargetingSistem> ();
 		_controler = GetComponent <CharacterController> ();
 		_animation = GetComponent <Animator> ();
 		_vida = GetComponent<Vida> ();
@@ -42,7 +44,12 @@ public class PlayerControler : MonoBehaviour {
 		moveVector *= Time.deltaTime;
 		_controler.Move (moveVector );
 		moveVector.y = 0;
-		transform.LookAt (transform.position + moveVector);
+
+		AnimatorStateInfo stateInfo = _animation.GetCurrentAnimatorStateInfo(0);
+		if (!stateInfo.IsName("Base Layer.Attack1")) {
+			transform.LookAt (transform.position + moveVector);
+		}
+
 		Animaciones ();
 		Morir ();
 		vidaTemporal = _vida.vida;
@@ -164,5 +171,14 @@ public class PlayerControler : MonoBehaviour {
 	}
 	public void DisableWeaponTrail(){
 		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0;
+	}
+	public void faceTarget(){
+		//transform.LookAt(transform.position + moveVector);
+		if (_targetScript._target != null) {
+			Vector3 objetive = _targetScript._target.transform.position;
+			objetive.y = transform.position.y;
+			transform.LookAt (objetive);
+
+		}
 	}
 }
