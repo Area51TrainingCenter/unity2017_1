@@ -24,6 +24,7 @@ public class PlayerControl : MonoBehaviour {
 	private Animator _animator;
 	private Health _healthScript;
 	private float previousHealth;
+	private TargetingSystem _targetingScript;
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +32,8 @@ public class PlayerControl : MonoBehaviour {
 		_animator = GetComponent<Animator> ();
 		_healthScript = GetComponent<Health> ();
 		previousHealth = _healthScript.health;
+		_targetingScript = GetComponent<TargetingSystem> ();
+
 	}
 	
 	// Update is called once per frame
@@ -45,7 +48,11 @@ public class PlayerControl : MonoBehaviour {
 		moveVector *= Time.deltaTime;
 		_controller.Move (moveVector);
 		moveVector.y = 0;
-		transform.LookAt (transform.position + moveVector);
+		AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo (0);
+		if (!stateInfo.IsName("Base Layer.Attack")) {
+			transform.LookAt (transform.position + moveVector);
+		}
+			
 
 		Crouch ();
 
@@ -220,5 +227,14 @@ public class PlayerControl : MonoBehaviour {
 
 	public void DisableWeaponTrail(){
 		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.0f;
+	}
+	public void FaceTarget(){
+		AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo (0);
+		if (_targetingScript._target != null) {
+			
+			Vector3 Enemy = _targetingScript._target.position;
+			Enemy.y = transform.position.y; 
+			transform.LookAt (Enemy);
+		}
 	}
 }
