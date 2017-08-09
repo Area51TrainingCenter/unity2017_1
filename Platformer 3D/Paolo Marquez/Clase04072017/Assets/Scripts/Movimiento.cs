@@ -26,12 +26,15 @@ public class Movimiento : MonoBehaviour {
 
 	private health salud;
 	private float saludAhora;
+
+	private TargetSystem _targetScript;
 	// Use this for initialization
 	void Start () {
 		Camara = GameObject.FindGameObjectWithTag ("MainCamera");
 		personajeController = GetComponent<CharacterController> ();
 		animacion= GetComponent<Animator> ();
 		salud=GetComponent<health>();
+		_targetScript = GetComponent<TargetSystem> ();
 	}
 	
 	// Update is called once per frame
@@ -98,7 +101,11 @@ public class Movimiento : MonoBehaviour {
 		//transform.Translate (moveVector*velocidad*Time.deltaTime,Space.World);
 		personajeController.Move (moveVector);
 		moveVector.y = 0;
-		transform.LookAt (transform.position+moveVector);
+		AnimatorStateInfo stateInfo= animacion.GetCurrentAnimatorStateInfo (0);
+		if (!stateInfo.IsName("Base Layer.Attack1") && !stateInfo.IsName("Base Layer.Attack2")) {
+			transform.LookAt (transform.position+moveVector);
+		}
+
 
 	}
 
@@ -247,11 +254,14 @@ public class Movimiento : MonoBehaviour {
 		this.enabled = false;
 		//Destroy(gameObject);
 	}
-//	void FixedUpdate () {
-//		movimiento ();
-//		Vector3 moveVector = new Vector3(0,0,0);
-//		moveVector.x = h1 * velocidad;
-//		moveVector.z = h2 * velocidad;
-//		rigidbody.velocity = moveVector;
-//	}
+
+	public void FaceTarget () {
+		//_targetScript._target
+		if (_targetScript._target!=null) {
+			Vector3 objetivo=_targetScript._target.position;
+			objetivo.y = transform.position.y;
+			transform.LookAt (objetivo);
+		}
+
+	}
 }
