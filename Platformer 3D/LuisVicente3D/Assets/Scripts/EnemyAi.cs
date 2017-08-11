@@ -46,6 +46,7 @@ public class EnemyAi : MonoBehaviour{
 				_animator.SetTrigger ("Muerte");
 				Invoke ("Destruccion", 4);
 				this.enabled = false;
+
 			} else {
 				_animator.SetTrigger ("hurt");
 			}
