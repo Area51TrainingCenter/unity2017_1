@@ -37,9 +37,7 @@ public class enemigo_ai : MonoBehaviour {
 		_previoushealth = _scripthealth._health;
 
 	}
-
-
-
+		
 	void ManageKnockback(){
 
 		_impact = Vector3.Lerp (_impact, Vector3.zero, Time.deltaTime * 3);
@@ -64,7 +62,6 @@ public class enemigo_ai : MonoBehaviour {
 		Vector3 gravityVector = new Vector3 (0, _verticalspeed, 0); 
 		_moveVector = gravityVector;
 
-
 	}
 
 	public void AddImpact(Vector3 direction,float force){
@@ -74,7 +71,6 @@ public class enemigo_ai : MonoBehaviour {
 	}
 
 	void ManageAnimatorParameters(){
-
 
 		if (_scripthealth._health < _previoushealth) {
 
@@ -87,8 +83,7 @@ public class enemigo_ai : MonoBehaviour {
 				_Animations.SetTrigger ("hurt");
 
 			}
-
-
+				
 		}
 
 	}
