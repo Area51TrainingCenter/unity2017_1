@@ -10,6 +10,7 @@ public class Enemigo : MonoBehaviour {
 	private CharacterController enemigoControlador;
 	public float verticalSpeed=5f;
 	public float gravity=10f;
+	public GameObject ball;
 	Vector3 moveVector;
 	// Use this for initialization
 	void Start () {
@@ -70,5 +71,9 @@ public class Enemigo : MonoBehaviour {
 		moveVector += direccion;
 		moveVector*=Time.deltaTime;
 
+	}
+
+	public void createBall() {
+		Instantiate (ball, transform.position, transform.rotation);
 	}
 }
