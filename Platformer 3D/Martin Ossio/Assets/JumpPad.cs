@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class JumpPad : MonoBehaviour {
 	public float jumpForce = 20;
-	private GameObject _victim;
-
+	private GameObject _player;
 	// Use this for initialization
 	void Start () {
-		_victim = GameObject.FindGameObjectWithTag ("Player");
-	}
-		
-	void OnTriggerEnter( Collider whoCrashed ) {
-		if (whoCrashed.CompareTag("Player")) {
-			whoCrashed.transform.Translate (0, 2, 0);
-			Invoke ("JumpPadGo", 0.01f);
-		}
+		_player = GameObject.FindGameObjectWithTag ("Player");
 	}
 
-	void JumpPadGo() {
-		_victim.GetComponent<PlayerControl> ().verticalSpeed = jumpForce;
+	void OnTriggerEnter (Collider other) {
+		if (other.CompareTag("Player")) {
+			_player.transform.Translate (0, 1, 0);
+			Invoke ("SetVerticalSpeed", 0.01f);
+		}	
 	}
 
+	void SetVerticalSpeed(){
+		_player.GetComponent<PlayerControl> ().verticalSpeed = jumpForce;
+	}
 }
+
