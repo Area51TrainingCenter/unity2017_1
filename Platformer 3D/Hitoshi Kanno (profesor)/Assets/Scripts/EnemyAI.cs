@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour {
 	public float gravity = 10;
+	public GameObject _ball;
 	private Health _healthScript;
 	private Animator _animator;
 	private CharacterController _controller;
@@ -76,4 +77,9 @@ public class EnemyAI : MonoBehaviour {
 			}
 		}
 	}
+
+	public void CreateBall(){
+		Instantiate (_ball, transform.position, transform.rotation);
+	}
+
 }
