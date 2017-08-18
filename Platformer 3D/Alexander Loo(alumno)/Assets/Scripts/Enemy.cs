@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour {
 
 	public float gravity;
 
+	public GameObject _ball;
+
 	void Start(){
 
 		health = GetComponent<Health> ();
@@ -88,5 +90,10 @@ public class Enemy : MonoBehaviour {
 		if (health.health <= 20) {
 			finishHimText.enabled = true;
 		}
+	}
+
+	public void CreateBall(){
+		
+		Instantiate (_ball, transform.position, transform.rotation);
 	}
 }
