@@ -14,6 +14,8 @@ public class EnemyAi : MonoBehaviour {
 	private Vector3 moveVector;
 	public float gravity = 0;
 
+	public GameObject _ball;
+
 	// Use this for initialization
 	void Start () {
 		_vida = GetComponent<Vida> ();
@@ -73,4 +75,8 @@ public class EnemyAi : MonoBehaviour {
 		moveVector += Gravedad;
 	}
 
+	public void CreateBall() 
+	{
+		Instantiate	(_ball, transform.position, transform.rotation);
+	}
 }
