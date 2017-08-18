@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour {
 	private CharacterController _controller;
 	[System.NonSerialized]
 	public float verticalSpeed = 0;
+	public GameObject _ball;
 
 	public float gravity = 10;
 	private Vector3 moveVector;
@@ -78,4 +79,8 @@ public class EnemyAI : MonoBehaviour {
 			}
 		}
 	}
+	public void CreateBall()  {
+		Instantiate (_ball, transform.position, transform.rotation);
+	}
+		
 }
