@@ -7,18 +7,16 @@ public class AttackBehaviour : StateMachineBehaviour {
 	public float endTime;
 
 	private PlayerControl _playerScript;
-
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		animator.applyRootMotion = true;
-	
 		animator.GetComponent<PlayerControl> ().canControl = false;
-		if ( _playerScript == null) { 
-			_playerScript = animator.GetComponent<PlayerControl>();
+		//solo es necesario asignar la referencia al script del player una vez
+		if (_playerScript == null) {
+			_playerScript = animator.GetComponent<PlayerControl> ();
 		}
+		_playerScript.EnableWeaponTrail ();
 
-		_playerScript.EnableWeaponTrail();
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,15 +26,16 @@ public class AttackBehaviour : StateMachineBehaviour {
 
 		} else {
 			_playerScript._weapon.enabled = false;
-
 		}
+		_playerScript.FaceTarget ();
 	}
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		animator.applyRootMotion = false;
 		animator.GetComponent<PlayerControl> ().canControl = true;
-		_playerScript.DisableWeaponTrail();
+		_playerScript.DisableWeaponTrail ();
+
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

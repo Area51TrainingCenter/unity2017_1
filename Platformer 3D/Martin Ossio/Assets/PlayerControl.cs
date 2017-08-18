@@ -4,201 +4,244 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
 
-	public float Speed;
-	private CharacterController _controller;
-	private Animator _animator;
-	public float multiplier = 1;
-	private float crouchingSpeed = 0.3f;
-	public float gravitySpeed = 50;
-	public float jumpForce = 20;
+	public float speed = 5;
+	public float runSpeed = 8;
+	public float crouchSpeed = 1;
 	public bool canControl = true;
-
-	[System.NonSerialized]
-	public float verticalSpeed = -10;
+	public float gravity = 10;
+	public float jumpForce = 20;
 
 	public LayerMask _mask;
 
 	private Vector3 moveVector;
-	private bool BadIdeaToStandUp;
-
-	public GameObject camara;
-
+	private bool isLowCeiling;
+	//esto sirve para que una variable publica
+	//NO aparezca en el editor
+	[System.NonSerialized]
+	public float verticalSpeed = 0;
+	[Header("REFERENCES")]
 	public Collider _weapon;
 
+	private TargetingSystem _targetingScript;
+	private CharacterController _controller;
+	private Animator _animator;
+	private Health _healthScript;
+	private float _previousHealth;
 
 	// Use this for initialization
 	void Start () {
-		_controller = GetComponent<CharacterController> ();
+		_targetingScript = GetComponent<TargetingSystem> ();
+		_controller = GetComponent<CharacterController> ();	
 		_animator = GetComponent<Animator> ();
-
-		DisableWeaponTrail();
-
-		Speed = 10f;
-
+		_healthScript = GetComponent<Health> ();
+		_previousHealth = _healthScript.health;
+	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-		bool isCrouching = _animator.GetBool ("isCrouching");
+		float v = Input.GetAxis ("Vertical");
+		float h = Input.GetAxis ("Horizontal");
 
-		if ( (canControl) && (_controller.isGrounded) && (Input.GetButton("Atacar")) && (!isCrouching) ) {
-			_animator.SetTrigger("Attack");
-		}
-
-		Vector3 oldPlayerPosition = transform.position;
-
-		float h = Input.GetAxis("Horizontal");
-		float v = Input.GetAxis("Vertical");
+		Die ();
 
 		GroundMovement (h, v);
 
 		VerticalMovement ();
 
+		moveVector *= Time.deltaTime;
+		_controller.Move (moveVector);
+		moveVector.y = 0;
+
+		AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo (0);
+		//cuando el player NO este en la animacion de atacar...
+		//lo rotamos normalmente
+		if (!stateInfo.IsName("Base Layer.Attack")) {
+			transform.LookAt (transform.position + moveVector);
+		}
+
 		Crouch ();
 
-
-
-		moveVector *= Time.deltaTime;
-		_controller.Move (moveVector);	
-		moveVector.y = 0;
-		transform.LookAt (transform.position + moveVector);
-
-		SetAnimatorParameter (h, v);
-
-		Vector3 newPlayerPosition = transform.position;
-
-		CamaraMovement (oldPlayerPosition,newPlayerPosition);
-	}
-
-	void CamaraMovement(Vector3 oldPlayerPosition, Vector3 newPlayerPosition) {
-		Vector3 difference = newPlayerPosition - oldPlayerPosition;
-
-	}
-
-	void Crouch(){
-		bool isCrouching = _animator.GetBool ("isCrouching");
-	
-		if (isCrouching) {
-			_controller.height = 1;
-			Vector3 newCenter = _controller.center;
-			newCenter.y = 0.45f;
-			_controller.center = newCenter;
-		} else {
-				_controller.height = 1.8f;
-				Vector3 newCenter = _controller.center;
-				newCenter.y = 0.85f;
-				_controller.center = newCenter;
-		}
-	}
-
-	void VerticalMovement () {
-
-		if (_controller.isGrounded) {
-			verticalSpeed = -0.10f;
-
-			if (Input.GetButton("Jump") && !( _animator.GetBool("isCrouching")) && canControl ){
-				verticalSpeed = jumpForce;
-			};
-
-		} else {
-			verticalSpeed -= gravitySpeed * Time.deltaTime;
-		}
-			
-
-		Vector3 gravity = new Vector3 (0, verticalSpeed, 0);
-		moveVector += gravity;
+		SetAnimatorParameters (h, v);
+		_previousHealth = _healthScript.health;
 	}
 
 	void FixedUpdate(){
-		bool isCrouching = _animator.GetBool ("isCrouching");
-
-		if (isCrouching) {
-			if (Physics.Raycast (transform.position, Vector3.up, 7.0f, _mask)) {
-				Debug.DrawRay (transform.position, Vector3.up * 7.0f, Color.green);
-				BadIdeaToStandUp = true;
+		bool isCrouched = _animator.GetBool ("crouch");
+		if (isCrouched) {
+			//Physics.Raycast hace el chequeo del raycast pero no vas a poder
+			//ver el rayo en si
+			if (Physics.Raycast (transform.position, Vector3.up, 4.0f, _mask)) {
+				//Debug.DrawRay dibuja la linea... le damos los mismos parametros que el raycast
+				//al pasarle la direccion lo multiplicamos por la longitud que del rayo
+				Debug.DrawRay (transform.position, Vector3.up * 4.0f, Color.green);
+				isLowCeiling = true;
 			} else {
-				Debug.DrawRay (transform.position, Vector3.up * 7.0f, Color.red);
-				BadIdeaToStandUp = false;
+				Debug.DrawRay (transform.position, Vector3.up * 4.0f, Color.red);
+				isLowCeiling = false;
 			}
 		}
 	}
 
-	void GroundMovement (float h, float v){
-		
-		Vector3 cameraForward = Camera.main.transform.forward;
-		Vector3 cameraRight = Camera.main.transform.right;
+	void GroundMovement(float h, float v){
 
-		if (!canControl) {
+		if (canControl == false) {
+			//return hace que la funcion se salga y ya no se ejecuta lo que esta abajo
 			return;
 		}
 
+		/*
+
+		(h,0,v)
+		(h,0,0) + (0,0,v)
+		h*(1,0,0)   +   v*(0,0,1)
+		h*Vector3.right    +   v*Vector3.forward
+
+		h*camera.transform.right    +   v*camera.transform.forward
+
+		*/
+
+		//le quitamos el componente "y" a los vectores de la camara
+		//para que el player no quiera irse hacia arriba o hacia abajo
+		//despues de eso normalizamos el vector para asegurarnos que tenga longitud = 1
+		Vector3 cameraForward = Camera.main.transform.forward;
 		cameraForward.y = 0;
+		cameraForward.Normalize ();
+
+		Vector3 cameraRight = Camera.main.transform.right;
 		cameraRight.y = 0;
-
-		cameraForward.Normalize();
-		cameraRight.Normalize();
-
-		Vector3 newH = h * cameraRight;
-		Vector3 newV = v * cameraForward;
+		cameraRight.Normalize ();
 
 
-		moveVector = newH + newV;
-		moveVector.y = 0;
+		//Camera.main te devuelve la camara principal de la escena
+		//ahora el movimiento del personaje esta en funcion a la camara y no a
+		//los ejes globales
+		moveVector = (cameraRight * h) + (cameraForward * v);
+		moveVector.Normalize ();
 
-		// moveVector = new Vector3 (h, 0, v);
-		moveVector.Normalize();
-
-
-		if (Input.GetButton("Run") && (_controller.isGrounded)) {
-			multiplier = 4;
+		if (Input.GetButton("Crouch") || isLowCeiling) {
+			moveVector *= crouchSpeed;
 		} else {
-			if (_controller.isGrounded) { multiplier = 1; }
+
+			if (Input.GetButton("Run")) {
+				moveVector *= runSpeed;
+			}else{
+				moveVector *= speed;
+			}
+		}
+	}
+
+	void VerticalMovement(){
+		if (_controller.isGrounded) {
+			verticalSpeed = -0.1f;
+			if (Input.GetButtonDown("Jump") && canControl) {
+				verticalSpeed = jumpForce;
+			}
+		}else{
+			verticalSpeed -= gravity*Time.deltaTime;
 		}
 
 
-		moveVector *= Speed*multiplier;
+		Vector3 gravityVector = new Vector3 (0, verticalSpeed, 0); 
+		moveVector += gravityVector;
 
 	}
 
-	void SetAnimatorParameter(float h, float v){
-
-		float myDestiny;
-
-		if ( (Mathf.Abs (h) + Mathf.Abs (v) ) > 0) {
-			myDestiny = 1 * multiplier;
-		} else {
-			myDestiny = 0;
+	void Die(){
+		if (_healthScript.health <= 0) {
+			canControl = false;
 		}
+	}
 
-
-		float now = _animator.GetFloat ("inTheMove");
-		float inertia = Mathf.Lerp (now, myDestiny, Time.deltaTime * 5);
-
-
-		if ( (Input.GetButton("Crouch") && (_controller.isGrounded) ) || BadIdeaToStandUp) {
-			multiplier = crouchingSpeed;
-			_animator.SetBool ("isCrouching", true);
+	void Crouch(){
+		bool isCrouched = _animator.GetBool ("crouch");
+		//cuando estamos agachados reducimos el tamaño del CharacterController
+		if (isCrouched) {
+			_controller.height = 1;
+			//no podemos modificar el y de la variable center defrente
+			//para eso creamos una copia local
+			Vector3 newCenter = _controller.center;
+			//la modificamos
+			newCenter.y = 0.45f;
+			//y luego la asignamos al center de _controller
+			_controller.center = newCenter;
 		} else {
-			_animator.SetBool ("isCrouching", false);
-		
+			if (!isLowCeiling) {
+				_controller.height = 1.8f;
+				Vector3 newCenter = _controller.center;
+				newCenter.y = 0.85f;
+				_controller.center = newCenter;
+			}
 		}
+	}
 
-		_animator.SetFloat("inTheMove",inertia);
+	void SetAnimatorParameters(float h, float v){
+		//lerp requiere 3 valores
+		//tu valor inicial
+		//el valor de destino
+		//velocidad con la que quieres llegar al destino
+
+		//el valor de destino varía segun estemos moviendonos o no
+		float end;
+		if (h != 0 || v != 0) {
+			if (Input.GetButton("Run")) {
+				end = 2;
+			} else {
+				end = 1;
+			}
+		}else{
+			end = 0;
+		}
+		//el valor inicial es el valor actual del parametro speed
+		float start = _animator.GetFloat ("speed");
+		//la funcion Lerp SOLAMENTE CALCULA EL NUMERO no hace nada con el animator
+		//por lo que almacenamos el resultado de lerp en una variable
+		float result = Mathf.Lerp (start, end, Time.deltaTime * 5);
+		//y luego lo aplicamos al parametro speed del animator
+		_animator.SetFloat ("speed", result);
+
 
 		if (!_controller.isGrounded) {
-			_animator.SetFloat("verticalSpeed",verticalSpeed);
+			_animator.SetFloat ("verticalSpeed", verticalSpeed);	
 		}
 
+		if (canControl) {
+			if (Input.GetButtonDown("Attack")) {
+				if (_controller.isGrounded && !_animator.GetBool("crouch")) {
+					_animator.SetTrigger ("attack");
+				}
+			}
+		}
+
+		if (_healthScript.health < _previousHealth) {
+			if (_healthScript.health <= 0) {
+				_animator.SetTrigger ("die");
+			} else {
+				_animator.SetTrigger ("hurt");
+			}
+		}
+			
 		_animator.SetBool ("isGrounded", _controller.isGrounded);
-
+		if (Input.GetButton("Crouch") || isLowCeiling) {
+			_animator.SetBool ("crouch", true);
+		} else {
+			_animator.SetBool ("crouch", false);
+		}
 	}
 
-	public void EnableWeaponTrail() {
-		_weapon.GetComponentInChildren<TrailRenderer>().time = 0.3f;
+	public void EnableWeaponTrail(){
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.3f;
 	}
 
-	public void DisableWeaponTrail() {
-		_weapon.GetComponentInChildren<TrailRenderer>().time = 0.0f;
+	public void DisableWeaponTrail(){
+		_weapon.GetComponentInChildren<TrailRenderer> ().time = 0.0f;
+	}
+
+	public void FaceTarget(){
+		if (_targetingScript._target) {
+			Vector3 lookPoint = _targetingScript._target.position;
+			lookPoint.y = transform.position.y;
+			transform.LookAt (lookPoint);
+		}
 	}
 }

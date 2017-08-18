@@ -3,87 +3,85 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FreeLookCamera : MonoBehaviour {
-
 	public Transform target;
-	public Vector3 CameraOffset;
-	public Vector3 newCameraOffset;
-	public Vector3 newCameraOffsetRotation;
-
-	private float currentCameraDistance;
-	private float targetDistance;
-
-	[System.NonSerialized]
-	public float angle = 0;
-	[System.NonSerialized]
-	public float angle2 = 0;
-	public float angle2max = 50;
-	public float angle2min = -10;
-
+	public Vector3 offset;
 	public float distance = 5;
 
+	private float targetDistance;
+	private float currentDistance;
+	private float angleX = 0;
+	private float angleY = 0;
+
+	public float minYAngle = -26;
+	public float maxYAngle = 70;
+	public float sensitivity = 6;
+
 	private Vector3 currentVelocity;
-
-
 	// Use this for initialization
 	void Start () {
-		newCameraOffset = transform.position - target.position;
-		newCameraOffset.z = 0;
-		// newCameraOffsetRotation = transform.rotation - target.rotation;
-
-		currentCameraDistance = distance;
-
-
-
+		targetDistance = distance;
+		currentDistance = distance;
 	}
 
-	void FixedUpdate() {
-		Vector3 targetPos = target.position + newCameraOffset;
-		RaycastHit miHitInfo;
+	void FixedUpdate(){
+		Vector3 targetPos = target.position + offset;
+		RaycastHit hitInfo;
 		bool isCameraBehindObstacle = false;
-
-		Vector3 direction =  transform.position - targetPos;
-
-		if (Physics.Raycast (targetPos, direction, out miHitInfo, direction.magnitude)) {
+		//para calcular el vector entre dos puntos 
+		//restas las coordenadas de ambos puntos 
+		//tomando en cuenta que es:  destino-origen
+		Vector3 direction = transform.position - targetPos;
+		//hacemos un raycast desde la camara hacia el player
+		if (Physics.Raycast (targetPos, direction, out hitInfo, direction.magnitude)) {
 			Debug.DrawRay (targetPos, direction, Color.green);
 			isCameraBehindObstacle = true;
 		} else {
 			Debug.DrawRay (targetPos, direction, Color.red);
 		}
 
+
 		if (isCameraBehindObstacle) {
-			targetDistance -= Time.fixedDeltaTime*15;
+			targetDistance -= Time.fixedDeltaTime*11;
 		} else {
-			if (!(Physics.Raycast (targetPos, direction, out miHitInfo, targetDistance + 1 ))) {
-				targetDistance += Time.fixedDeltaTime * 15;
+			if (!Physics.Raycast (targetPos, direction, out hitInfo, targetDistance+1)) {
+				targetDistance += Time.fixedDeltaTime*11;
 				if (targetDistance > distance) {
 					targetDistance = distance;
 				}
 			}
 		}
+
 	}
-
-
 
 	// Update is called once per frame
 	void Update () {
 
-
-
 		float mouseX = Input.GetAxis ("Mouse X");
-		angle += mouseX * 6;
 		float mouseY = Input.GetAxis ("Mouse Y");
-		angle2 += mouseY * 6;
+		angleX += mouseX * sensitivity;
+		angleY += mouseY * sensitivity;
 
-		angle2 = Mathf.Clamp (angle2, angle2min, angle2max);
+		if (angleY < minYAngle) {
+			angleY = minYAngle;
+		}
+		if (angleY > maxYAngle) {
+			angleY = maxYAngle;
+		}
 
-		Quaternion newRotation = Quaternion.Euler (angle2, angle, 0); 
+		//clamp restringe un valor entre un minimo y un maximo
+	//	angleY = Mathf.Clamp (angleY, minYAngle, maxYAngle);
 
+		//el Euler te permite crear un Quaternion en base a 
+		//valores x,y,z
+		Quaternion newRotation = Quaternion.Euler (angleY, angleX, 0);
+		//cuando multiplicas una rotacion por un vector
+		//lo que estas haciendo es rotar el vector en base a la
+		//rotacion... y el vector resultante lo guardamos en
+		//la variable behind
 		Vector3 behind = newRotation * -Vector3.forward;
-		currentCameraDistance = Mathf.Lerp (currentCameraDistance, targetDistance, Time.deltaTime*10);
-		Vector3 cameraFinalPosition = target.position + newCameraOffset + (behind*currentCameraDistance);
-
-		transform.position = Vector3.SmoothDamp(transform.position,cameraFinalPosition, ref currentVelocity, 0.1f);
-
-		transform.LookAt (target.position+newCameraOffset);
+		currentDistance = Mathf.Lerp (currentDistance, targetDistance, Time.deltaTime * 12);
+		Vector3 finalPos = target.position+offset+(behind*currentDistance);
+		transform.position = Vector3.SmoothDamp (transform.position, finalPos, ref currentVelocity, 0.1f);
+		transform.LookAt (target.position+offset);
 	}
 }
