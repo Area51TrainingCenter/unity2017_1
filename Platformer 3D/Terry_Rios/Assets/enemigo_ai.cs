@@ -6,6 +6,7 @@ public class enemigo_ai : MonoBehaviour {
 
 	private health _scripthealth;
 	private float gravity = 10;
+	public GameObject _ball;
 	private Animator _Animations;
 	private float _previoushealth;
 	private Vector3 _impact;
@@ -85,6 +86,12 @@ public class enemigo_ai : MonoBehaviour {
 			}
 				
 		}
+
+	}
+
+	public void createball(){
+
+		Instantiate (_ball, transform.position, transform.rotation);
 
 	}
 		
