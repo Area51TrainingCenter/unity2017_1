@@ -79,7 +79,7 @@ public class FreeLookCamera : MonoBehaviour {
 					currentDistancia=distancia;
 				}
 			}
-			Debug.Log ("currentDistancia=" + currentDistancia);
+			//Debug.Log ("currentDistancia=" + currentDistancia);
 //			if (currentDistancia<1) {
 //				currentDistancia = 1;
 //			}

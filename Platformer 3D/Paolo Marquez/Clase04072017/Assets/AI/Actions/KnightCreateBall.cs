@@ -14,7 +14,7 @@ public class KnightCreateBall : RAINAction
 
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
-		Debug.Log ("Hola soy la accion de la pelota");
+		//Debug.Log ("Hola soy la accion de la pelota");
 		ai.Body.GetComponent<Enemigo> ().createBall ();
         return ActionResult.SUCCESS;
     }

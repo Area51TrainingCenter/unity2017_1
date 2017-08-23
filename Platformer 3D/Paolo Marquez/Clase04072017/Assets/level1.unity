@@ -708,7 +708,8 @@ MonoBehaviour:
       includecustomdata="False"><_visualMode>OnWhenSelected</_visualMode><_useUnityMessages>True</_useUnityMessages><_useFixedUpdate>False</_useFixedUpdate><_ai
       reference="1"><_isActive>True</_isActive><_body sceneobject="93ba0d0c-2f18-42a9-9030-fc42f553fb91"></_body><_workingMemory
       type="RAIN.Memory.BasicMemory" reference="2"><_memoryItems><element0 reference="14"><Key>state</Key><ValueType>System.String</ValueType><Value
-      type="System.String">patrol</Value></element0></_memoryItems></_workingMemory><_mind
+      type="System.String">patrol</Value></element0><element1 reference="15"><Key>isHurt</Key><ValueType>System.Boolean</ValueType><Value
+      type="System.Boolean">False</Value></element1></_memoryItems></_workingMemory><_mind
       type="RAIN.Minds.BasicMind" reference="3"><_behaviorTree object="0"></_behaviorTree><_behaviorTreeBindings></_behaviorTreeBindings></_mind><_motor
       type="RAIN.Motion.BasicMotor" reference="4"><_speed>5</_speed><_rotationSpeed>360</_rotationSpeed><_closeEnoughDistance>0.1</_closeEnoughDistance><_closeEnoughAngle>0.1</_closeEnoughAngle><_faceBeforeMoveAngle>360</_faceBeforeMoveAngle><_maxHeightOffset>1</_maxHeightOffset><_allow3DMovement>False</_allow3DMovement><_allow3DRotation>False</_allow3DRotation><_allowOffGraphMovement>True</_allowOffGraphMovement><_useRootMotion>False</_useRootMotion><_overrideRootRotation>True</_overrideRootRotation><_mecanimParameters></_mecanimParameters></_motor><_animator
       type="RAIN.Animation.BasicAnimator" reference="5"><_showVisual>True</_showVisual><_leftEye
@@ -724,7 +725,7 @@ MonoBehaviour:
       Sensor</_sensorName><_isActive>True</_isActive><_sensorColor>0.6,0.5529412,0.009411765,1</_sensorColor><_mountPoint
       sceneobject="93ba0d0c-2f18-42a9-9030-fc42f553fb91" component="0"></_mountPoint><_positionOffset>0,0,0</_positionOffset><_angleOffset>0,0,0</_angleOffset><_filters></_filters><_range>7.73</_range><_canDetectSelf>False</_canDetectSelf><_horizontalAngle>360</_horizontalAngle><_verticalAngle>180</_verticalAngle><_lineOfSight>False</_lineOfSight><_lineOfSightMask>-5</_lineOfSightMask></element1></_sensors></_senses><_customElements></_customElements></_ai></component>
     _serializedMetaDocument: <meta><element0><key>/component/_ai+_selected</key><value
-      type="System.Int32">2</value></element0></meta>
+      type="System.Int32">1</value></element0></meta>
     _serializedObjects:
     - {fileID: 4900000, guid: bb4ca6b09729bfa44b88068e7b4f014a, type: 3}
     _serializedCustomData: []
@@ -1588,7 +1589,7 @@ BoxCollider:
   m_GameObject: {fileID: 739377895}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.53555125, y: 0.14105527, z: 1.5554333}
   m_Center: {x: -0.29001445, y: -0.0055245506, z: 0.587786}
@@ -2734,6 +2735,7 @@ GameObject:
   - component: {fileID: 1623931138}
   - component: {fileID: 1623931137}
   - component: {fileID: 1623931139}
+  - component: {fileID: 1623931135}
   m_Layer: 0
   m_Name: Enemigo
   m_TagString: Enemigo
@@ -2741,6 +2743,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &1623931135
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1623931134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &1623931136
 Animator:
   serializedVersion: 3
@@ -3858,7 +3872,7 @@ BoxCollider:
   m_GameObject: {fileID: 2105954575}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5355515, y: 0.14105543, z: 1.5554342}
   m_Center: {x: -0.29001456, y: -0.005524289, z: 0.5877866}

@@ -24,7 +24,7 @@ public class TargetSystem : MonoBehaviour {
 
 		for(int i=0;i<hits.Length;i++){
 			if(hits[i].CompareTag("Enemigo")){
-				Debug.Log(hits[i].name);
+				//Debug.Log(hits[i].name);
 				Vector3 dirToEnemy = hits [i].transform.position - transform.position;
 				dirToEnemy.y = 0;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RAIN.Core;
 
 public class Enemigo : MonoBehaviour {
 	public Animator _animator;
@@ -8,6 +9,7 @@ public class Enemigo : MonoBehaviour {
 	private float saludAhora;
 	private Vector3 impact;
 	private CharacterController enemigoControlador;
+	private AIRig _componenteIA;
 	public float verticalSpeed=5f;
 	public float gravity=10f;
 	public GameObject ball;
@@ -17,12 +19,14 @@ public class Enemigo : MonoBehaviour {
 		enemigoControlador = GetComponent<CharacterController> ();
 		salud=GetComponent<health>();
 		moveVector = Vector3.zero;
+		_componenteIA = GetComponentInChildren<AIRig> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		manageAnimatorParameters ();
 		ManageKnockBack ();
+		Hurt ();
 		//verticarSpeed ();
 		saludAhora = salud.saludActual;
 	}
@@ -42,10 +46,30 @@ public class Enemigo : MonoBehaviour {
 
 	}
 
+	void Hurt(){
+		if (salud.saludActual<saludAhora) {
+			if(salud.saludActual<=0){
+				//cuando muere emigo muere
+
+			}
+			else{
+				//cuando el enemigo es dañado
+				Debug.Log("Enemigo herido");
+				_componenteIA.AI.WorkingMemory.SetItem<bool> ("isHurt",true);
+				_componenteIA.AI.WorkingMemory.SetItem<string> ("state","pursue");
+
+			}
+		}
+
+	}
+
+
 	void ManageKnockBack(){
 		impact = Vector3.Lerp (impact, Vector3.zero, Time.deltaTime*3);
 		if (impact.magnitude<2) {
 			impact = Vector3.zero;
+			_componenteIA.AI.WorkingMemory.SetItem<bool> ("isHurt",false);
+
 		}
 		enemigoControlador.Move (impact*Time.deltaTime);
 		moveVector = impact;
@@ -74,6 +98,6 @@ public class Enemigo : MonoBehaviour {
 	}
 
 	public void createBall() {
-		Instantiate (ball, transform.position, transform.rotation);
+		//Instantiate (ball, transform.position, transform.rotation);
 	}
 }

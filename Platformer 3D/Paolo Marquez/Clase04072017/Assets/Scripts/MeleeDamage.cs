@@ -20,6 +20,7 @@ public class MeleeDamage : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		if (other.CompareTag(target)) {
+			//Debug.Log ("Choque con enemigo");
 			other.GetComponent<health> ().changeHealth (damage);
 			Instantiate (hitEffect, transform.position, Quaternion.identity);
 			Vector3 dir = other.transform.position-owner.transform.position;
