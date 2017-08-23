@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RAIN.Core;
 
 public class EnemyAI : MonoBehaviour {
 	public float gravity = 10;
@@ -8,6 +9,7 @@ public class EnemyAI : MonoBehaviour {
 	private Health _healthScript;
 	private Animator _animator;
 	private CharacterController _controller;
+	private AIRig _aiRig;
 	private float previousHealth;
 
 	private Vector3 _moveVector;
@@ -19,6 +21,7 @@ public class EnemyAI : MonoBehaviour {
 		_animator = GetComponent<Animator> ();
 		_healthScript = GetComponent<Health> ();
 		_controller = GetComponent<CharacterController> ();
+		_aiRig = GetComponentInChildren<AIRig> ();
 		previousHealth = _healthScript.health;
 	}
 	
@@ -31,6 +34,7 @@ public class EnemyAI : MonoBehaviour {
 
 		_controller.Move (_moveVector*Time.deltaTime);
 
+		Hurt ();
 
 		ManageAnimatorParameters ();
 
@@ -42,6 +46,8 @@ public class EnemyAI : MonoBehaviour {
 		_impact = Vector3.Lerp (_impact, Vector3.zero, Time.deltaTime * 3);
 		if (_impact.magnitude < 2) {
 			_impact = Vector3.zero;
+			_aiRig.AI.WorkingMemory.SetItem<bool>("isHurt",false);
+
 		}
 		_moveVector = _impact;
 	}
@@ -64,6 +70,19 @@ public class EnemyAI : MonoBehaviour {
 
 	public void AddImpact (Vector3 direction, float force){
 		_impact = direction * force;
+	}
+
+	void Hurt(){
+		if (_healthScript.health < previousHealth) {
+			//enemigo muere
+			if (_healthScript.health <= 0) {
+				
+			} else {//enemigo es dañado
+				_aiRig.AI.WorkingMemory.SetItem<bool>("isHurt",true);
+				_aiRig.AI.WorkingMemory.SetItem<string>("state","pursue");
+
+			}
+		}
 	}
 
 	void ManageAnimatorParameters(){
