@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RAIN.Core;
 
 public class EnemyAi : MonoBehaviour{
 	private Vida _vida;
@@ -12,17 +13,20 @@ public class EnemyAi : MonoBehaviour{
 	public float verticalSpeed;
 	private Vector3 moveVector;
 	public GameObject bola;
+	private AIRig _airing;
 	// Use this for initialization
 	void Start () {
 		_vida = GetComponent<Vida> ();
 		vidaTemporal = _vida.vida;
 		_animator = GetComponent<Animator> ();
 		_controler = GetComponent<CharacterController> ();
+		_airing = GetComponentInChildren <AIRig> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		ManageKnockBack ();
+		Hurt ();
 		ManageAnimator ();
 		vidaTemporal = _vida.vida;
 		VerticalMovement ();
@@ -34,6 +38,7 @@ public class EnemyAi : MonoBehaviour{
 		_impact = Vector3.Lerp (_impact, Vector3.zero, Time.deltaTime * 3);
 		if (_impact.magnitude < 2) {
 			_impact = Vector3.zero;
+			_airing.AI.WorkingMemory.SetItem <bool> ("isHurt", false);
 		}
 		_controler.Move (_impact * Time.deltaTime);
 	}
@@ -41,6 +46,18 @@ public class EnemyAi : MonoBehaviour{
 	public void AddImpact(Vector3 direction, float force){
 		_impact = direction * force;
 	}
+
+	void Hurt(){
+		if (_vida.vida < vidaTemporal ) {
+			if (_vida.vida <= 0) {
+				_airing.AI.WorkingMemory.SetItem <bool> ("isHurt", true);
+			} else {
+				_airing.AI.WorkingMemory.SetItem <bool> ("isHurt", true);
+				_airing.AI.WorkingMemory.SetItem <string> ("State", "Perseguir");
+			}
+		}
+	}
+
 	void ManageAnimator(){
 		if (_vida.vida < vidaTemporal ) {
 			if (_vida.vida <= 0) {
@@ -66,6 +83,6 @@ public class EnemyAi : MonoBehaviour{
 		Destroy (gameObject);
 	}
 	public void CrearBola(){
-		Instantiate (bola, transform.position, transform.rotation);
+		//	Instantiate (bola, transform.position, transform.rotation);
 	}
 }

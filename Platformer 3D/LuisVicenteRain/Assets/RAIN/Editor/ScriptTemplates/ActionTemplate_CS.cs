@@ -1,11 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using RAIN.Action;
 using RAIN.Core;
 
 [RAINAction]
-public class CrearBolaDelEnemy : RAINAction
+public class ActionTemplate_CS : RAINAction
 {
     public override void Start(RAIN.Core.AI ai)
     {
@@ -14,8 +14,6 @@ public class CrearBolaDelEnemy : RAINAction
 
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
-		//ai.Body.GetComponent<EnemyAi> ().CrearBola ();
-
         return ActionResult.SUCCESS;
     }
 

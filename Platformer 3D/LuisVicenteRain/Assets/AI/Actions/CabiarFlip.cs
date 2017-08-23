@@ -5,7 +5,7 @@ using RAIN.Action;
 using RAIN.Core;
 
 [RAINAction]
-public class CrearBolaDelEnemy : RAINAction
+public class CabiarFlip : RAINAction
 {
     public override void Start(RAIN.Core.AI ai)
     {
@@ -14,8 +14,12 @@ public class CrearBolaDelEnemy : RAINAction
 
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
-		//ai.Body.GetComponent<EnemyAi> ().CrearBola ();
-
+		GameObject PlayerGo =  ai.WorkingMemory.GetItem<GameObject> ("Player");
+		if (ai.Body.transform.position.x > PlayerGo.transform.position.x) {
+			ai.Body.GetComponent<SpriteRenderer> ().flipX = true;
+		} else {
+			ai.Body.GetComponent<SpriteRenderer> ().flipX = false;
+		}
         return ActionResult.SUCCESS;
     }
 
