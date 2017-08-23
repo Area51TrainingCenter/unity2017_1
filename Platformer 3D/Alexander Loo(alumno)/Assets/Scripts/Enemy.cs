@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//importar libreria de rain
+using RAIN.Core;
 
 public class Enemy : MonoBehaviour {
 
 	private Health health;
 	private Animator _animator;
 	private CharacterController _controller;
+	private AIRig _aiRig;
 
 	public GameObject enemyWeapon;
 	public Text finishHimText;
@@ -26,6 +29,7 @@ public class Enemy : MonoBehaviour {
 		health = GetComponent<Health> ();
 		_animator = GetComponent<Animator> ();
 		_controller = GetComponent<CharacterController> ();
+		_aiRig = GetComponentInChildren<AIRig> ();
 		previousHealth = health.health;
 	}
 
@@ -35,6 +39,7 @@ public class Enemy : MonoBehaviour {
 		ManageKnockback ();
 		FinishHim ();
 		ManageAnimator ();
+		Hurt ();
 		previousHealth = health.health;
 
 		movement *= Time.deltaTime;
@@ -78,6 +83,7 @@ public class Enemy : MonoBehaviour {
 			_impact = Vector3.zero;
 		}
 		movement += _impact;
+		_aiRig.AI.WorkingMemory.SetItem<bool> ("isHurt", false);
 	}
 
 	public void AddImpact(Vector3 direction, float force){
@@ -95,5 +101,19 @@ public class Enemy : MonoBehaviour {
 	public void CreateBall(){
 		
 		Instantiate (_ball, transform.position, transform.rotation);
+	}
+
+	void Hurt(){
+
+		if (health.health < previousHealth) {
+			//es casi igual cuando accedes a una variable en el animator, solo que pones el tipo de variable en <> 
+			_aiRig.AI.WorkingMemory.SetItem<bool> ("isHurt", true);
+			//después de ser herido pasa al estado de perseguir al jugador, para evitar futuros bugs
+			_aiRig.AI.WorkingMemory.SetItem<string> ("state", "persui");
+
+			if (health.health <= 0) {
+				
+			}
+		}
 	}
 }
