@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour {
 	public bool isTrepaMuros;
 	//para salir del nivel
 
+	private CargarCheckPoint cargarEstado;
+	private ActualizaVida vidaActualizada;
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +51,15 @@ public class PlayerMovement : MonoBehaviour {
 		salud = GetComponent<Health> ();
 		//al trepar muros se usara la quinta parte de la gravedad total
 		gravityAux = gravity / 5;
+
+		cargarEstado = GetComponent<CargarCheckPoint> ();
+		vidaActualizada = GetComponent<ActualizaVida> ();
+
+		if(PlayerPrefs.GetFloat("playerMaxHealth")>0){
+			salud.maxHealht = PlayerPrefs.GetFloat ("playerMaxHealth");
+			salud.healht = PlayerPrefs.GetFloat ("playerMaxHealth");
+		}
+
 	}
 	// Update is called once per frame
 	void Update(){
@@ -230,7 +241,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (gameObject.layer == 10) {
 			Color newColor = _spriteRenderer.color;
 			newColor.a = Mathf.Lerp (newColor.a,targetAlpha,Time.deltaTime*20);
-			Debug.Log ("newColor.a=" + newColor.a);
+			//Debug.Log ("newColor.a=" + newColor.a);
 			if (newColor.a>0.9f) {
 				targetAlpha = 0;
 			}else if (newColor.a<0.1f) {

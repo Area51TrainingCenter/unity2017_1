@@ -23,7 +23,14 @@ public class Health : MonoBehaviour {
 		}
 		if (healht<0) {
 			healht = 0;
+			Destroy (gameObject);
 		}
 		lastAttacker = attacker;
 	}
+
+	public void variarMaxHealth(float massalud){
+		maxHealht += massalud;
+		Debug.Log ("Salud maxima ahora: "+maxHealht);
+	}
+
 }

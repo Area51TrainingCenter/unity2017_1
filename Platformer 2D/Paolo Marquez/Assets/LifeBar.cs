@@ -21,7 +21,7 @@ public class LifeBar : MonoBehaviour {
 	void Update () {
 		//player_salud = GameObject.FindGameObjectWithTag ("Player").GetComponent<Health> ();
 		modificarBarra (player_salud.maxHealht,player_salud.healht);
-		Debug.Log ("Nivel de barra actual=" + nivelActualBarra);
+		//Debug.Log ("Nivel de barra actual=" + nivelActualBarra);
 	}
 
 	void modificarBarra(float saludMaxima,float salu){
