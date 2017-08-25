@@ -8,6 +8,11 @@ public class Health : MonoBehaviour {
 	public float maxHealth = 100;
 	public GameObject lastAttacker;
 
+	void Start(){
+
+		health = maxHealth;
+	}
+
 	public void ChangeHealth(float damage,GameObject attacker){
 		
 		health -= damage;
