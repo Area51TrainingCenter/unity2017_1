@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/PLat 2d Multiplayer.unity
+  isLoaded: 1
+  isActive: 1
