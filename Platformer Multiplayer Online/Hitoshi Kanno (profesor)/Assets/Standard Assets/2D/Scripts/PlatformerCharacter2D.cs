@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
-
+using UnityEngine.Networking;
 namespace UnityStandardAssets._2D
 {
-    public class PlatformerCharacter2D : MonoBehaviour
+    public class PlatformerCharacter2D : NetworkBehaviour
     {
         [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
         [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
@@ -18,7 +18,11 @@ namespace UnityStandardAssets._2D
         const float k_CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
-        private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+        
+		private NetworkTransform _networkTransform;
+		private SpriteRenderer _spriteRenderer;
+
+		private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
         private void Awake()
         {
@@ -27,8 +31,28 @@ namespace UnityStandardAssets._2D
             m_CeilingCheck = transform.Find("CeilingCheck");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+			_networkTransform = GetComponent<NetworkTransform> ();
+			_spriteRenderer = GetComponent<SpriteRenderer> ();
         }
 
+		void Update(){
+			//si este prefab NO le pertenece al cliente... entonces manualmente lo flipeamos
+			if (!isLocalPlayer) {
+				//para esto usamos la velocidad de este personaje recibia del cliente dueño
+				if (_networkTransform.targetSyncVelocity.x > 0) {
+					Vector3 newScale = transform.localScale;
+					newScale.x = Mathf.Abs (transform.localScale.x);
+					transform.localScale = newScale;
+				}
+				if (_networkTransform.targetSyncVelocity.x < 0) {
+					Vector3 newScale = transform.localScale;
+					newScale.x = Mathf.Abs (transform.localScale.x) * -1;
+					transform.localScale = newScale;
+				}
+				// hacemos los mismo para setear el parametro Speed del animator
+				m_Anim.SetFloat("Speed", Mathf.Abs(_networkTransform.targetSyncVelocity.x));
+			}
+		}
 
         private void FixedUpdate()
         {
