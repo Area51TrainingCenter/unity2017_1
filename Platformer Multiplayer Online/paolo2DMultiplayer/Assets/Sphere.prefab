@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50082553899524982}
   - component: {fileID: 114402024044338548}
   - component: {fileID: 114952301501440600}
+  - component: {fileID: 114722936336395864}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -161,6 +162,17 @@ MonoBehaviour:
     i15: 85
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114722936336395864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700245414284740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265add451b00d7b409f856b5769c29ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114952301501440600
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,6 +8,8 @@ public class PlayerController : NetworkBehaviour {
 	public GameObject pelota;
 	public GameObject disparador;
 	public float velocidad=5f;
+	public Health saludPlayer;
+	private float danio;
 	// Use this for initialization
 	void Start () {
 		
@@ -16,6 +18,7 @@ public class PlayerController : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (isLocalPlayer) {
+			
 			if (Input.GetKeyDown(KeyCode.E)) {
 				CmdInvocarPelota ();
 		    }

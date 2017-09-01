@@ -30,19 +30,39 @@ namespace UnityStandardAssets._2D
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-		void Update () {
+//		void Update () {
+//			if (!isLocalPlayer) {
+//				if (GetComponent<NetworkTransform> ().targetSyncVelocity.x>0) {
+//					GetComponent<SpriteRenderer> ().flipX = false;
+//
+//				}
+//				if (GetComponent<NetworkTransform> ().targetSyncVelocity.x<0) {
+//					GetComponent<SpriteRenderer> ().flipX = true;
+//
+//				}
+//				m_Anim.SetFloat("Speed", Mathf.Abs(GetComponent<NetworkTransform> ().targetSyncVelocity.x));
+//			}
+//		}
+
+		void Update(){
+			//si este prefab NO le pertenece al cliente... entonces manualmente lo flipeamos
 			if (!isLocalPlayer) {
-				if (GetComponent<NetworkTransform> ().targetSyncVelocity.x>0) {
-					GetComponent<SpriteRenderer> ().flipX = false;
-
+				//para esto usamos la velocidad de este personaje recibia del cliente dueÃ±o
+				if (GetComponent<NetworkTransform> ().targetSyncVelocity.x > 0) {
+					Vector3 newScale = transform.localScale;
+					newScale.x = Mathf.Abs (transform.localScale.x);
+					transform.localScale = newScale;
 				}
-				if (GetComponent<NetworkTransform> ().targetSyncVelocity.x<0) {
-					GetComponent<SpriteRenderer> ().flipX = true;
-
+				if (GetComponent<NetworkTransform> ().targetSyncVelocity.x < 0) {
+					Vector3 newScale = transform.localScale;
+					newScale.x = Mathf.Abs (transform.localScale.x) * -1;
+					transform.localScale = newScale;
 				}
+				// hacemos los mismo para setear el parametro Speed del animator
 				m_Anim.SetFloat("Speed", Mathf.Abs(GetComponent<NetworkTransform> ().targetSyncVelocity.x));
 			}
 		}
+
 
         private void FixedUpdate()
         {
