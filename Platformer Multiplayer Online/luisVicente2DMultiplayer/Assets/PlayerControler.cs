@@ -23,9 +23,9 @@ public class PlayerControler : NetworkBehaviour {
 		void CmdShoot(){
 		GameObject bala = (GameObject)Instantiate (_Bola, _transfor.position, _transfor.rotation);
 			if (transform.localScale.x > 0) {
-				bala.GetComponent<Rigidbody2D> ().velocity = Vector2.right * 5;
+				bala.GetComponent<Rigidbody2D> ().velocity = Vector2.right * 20;
 			}if(transform.localScale.x < 0){
-				bala.GetComponent<Rigidbody2D> ().velocity = Vector2.left * 5;
+				bala.GetComponent<Rigidbody2D> ().velocity = Vector2.left * 20;
 		}
 		NetworkServer.Spawn (bala);
 	}
