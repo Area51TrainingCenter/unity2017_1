@@ -20,6 +20,7 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+		private NetworkTransform _networkTransform;
 
         private void Awake()
         {
@@ -28,14 +29,20 @@ namespace UnityStandardAssets._2D
             m_CeilingCheck = transform.Find("CeilingCheck");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+			_networkTransform = GetComponent<NetworkTransform>();
+
         }
 		private void Update(){
 			if (!isLocalPlayer) {
-				if (GetComponent<NetworkTransform> ().targetSyncVelocity.x>0) {
-					GetComponent<SpriteRenderer> ().flipX = false;
+				if (_networkTransform.targetSyncVelocity.x > 0) {
+					Vector3 newScale = transform.localScale;
+					newScale.x = Math.Abs (transform.localScale.x);
+					transform.localScale = newScale;
 				}
-				if (GetComponent<NetworkTransform> ().targetSyncVelocity.x<0) {
-					GetComponent<SpriteRenderer> ().flipX = true;
+				if (_networkTransform.targetSyncVelocity.x < 0) {
+					Vector3 newScale = transform.localScale;
+					newScale.x = Math.Abs (transform.localScale.x) * -1;
+					transform.localScale = newScale ;
 				}
 				m_Anim.SetFloat("Speed", Mathf.Abs(GetComponent<NetworkTransform> ().targetSyncVelocity.x));
 			}
