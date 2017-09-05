@@ -41,12 +41,16 @@ namespace UnityStandardAssets._2D
 			if (!isLocalPlayer) {
 
 				if (_networktransform.targetSyncVelocity.x>0) {
-
-					_spriterenderer.flipX = false;										
+					
+					Vector3 newScale = transform.localScale;
+					newScale.x = Mathf.Abs (transform.localScale.x);
+					transform.localScale = newScale;									
 				}
 				if (_networktransform.targetSyncVelocity.x<0) {
-
-					_spriterenderer.flipX = true;					
+					
+					Vector3 newScale = transform.localScale;
+					newScale.x = Mathf.Abs (transform.localScale.x)*-1;
+					transform.localScale = newScale;									
 				}
 				m_Anim.SetFloat("Speed", Mathf.Abs(_networktransform.targetSyncVelocity.x));
 
