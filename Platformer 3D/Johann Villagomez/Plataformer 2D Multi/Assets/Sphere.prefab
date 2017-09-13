@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 33673623835137446}
   - component: {fileID: 23585542413138904}
   - component: {fileID: 58098852310393630}
-  - component: {fileID: 114683139726351090}
   - component: {fileID: 50411748350468090}
   - component: {fileID: 114691973592339442}
   - component: {fileID: 114649464569784612}
+  - component: {fileID: 114334248843840700}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -120,6 +120,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &114334248843840700
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1475564867185068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43b0e17bb260c2840abc28257be2019e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114649464569784612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,17 +152,6 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!114 &114683139726351090
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1475564867185068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86dd0efa007e7c74299a68d77d95c55e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114691973592339442
 MonoBehaviour:
   m_ObjectHideFlags: 1

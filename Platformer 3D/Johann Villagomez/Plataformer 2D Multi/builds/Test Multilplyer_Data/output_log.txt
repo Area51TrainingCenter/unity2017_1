@@ -7,26 +7,31 @@ Direct3D:
     VRAM:     2048 MB
     Driver:   20.19.15.4424
 Begin MonoManager ReloadAssembly
-Platform assembly: D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.Timeline.dll (this message is harmless)
-Loading D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.Timeline.dll into Unity Child Domain
-Platform assembly: D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\System.dll (this message is harmless)
-Platform assembly: D:\CHRISTIAN\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.053 seconds
+Platform assembly: C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.Timeline.dll (this message is harmless)
+Loading C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\UnityEngine.Timeline.dll into Unity Child Domain
+Platform assembly: C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\alumno\Documents\Unity 2017\unity2017_1\Platformer 3D\Johann Villagomez\Plataformer 2D Multi\builds\Test Multilplyer_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.141 seconds
 <RI> Initializing input.
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.177601 ms
+UnloadTime: 2.492155 ms
+Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:7777} time {109267}, last rec time {106783} rtt {11} timeout {2000}
+ClientDisconnected due to error: Timeout
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 28f8 -> priority: 1 
-  Thread -> id: 1630 -> priority: 1 
+  Thread -> id: 1500 -> priority: 1 
+  Thread -> id: 1a2c -> priority: 1 
