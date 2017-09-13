@@ -1,0 +1,32 @@
+Instalar Android Studio y descargar SDK.
+Instalar tambien el JDK
+
+Dentro de Unity:
+Edit->Preferences->External tools
+
+Colocar la ruta donde se instaló el SDK de Android y el JDK
+
+si instalaste el Android Studio el SDK esta en esta ruta
+C:\Users\alumno\AppData\Local\Android\Sdk
+
+En el dispositivo Android , entrar a configuracion -> Acerca del dispositivo 
+y hacer tap 7 veces en "Build number". Esto habilita la sección de "Opciones de desarrollador"
+
+En opciones de desarrollo habilitar las opciones:
+
+-USB Debugging
+-Allow mock locations
+
+
+
+Antes de compilar el proyecto de Unity en Android:
+File->Build Settings->Player Settings
+
+En el Player Settings cambiar:
+-Company Name a cualquier otro nombre.
+-Package Name a "com.[valor de Company Name].[valor de ProductName]
+
+Para compilar:
+File->Build Settings->Build
+
+Esto genera un archivo APK. Copialo al dispositivo Android e instalalo para probar.
