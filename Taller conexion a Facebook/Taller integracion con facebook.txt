@@ -1,0 +1,20 @@
+Entrar a pagina de facebook developers y crear una aplicación:
+https://developers.facebook.com
+
+
+Dentro del dashboard ... entrar a Configuración y setear la Categoría en Juegos
+
+Descargar plugin de Facebook para Unity dentro del Asset Store
+
+Dentro de Unity seleccionar en el menu Facebook->Edit Settings y pegar
+el app id de Facebook. El app id se encuentra dentro de Panel en el dashboard de Facebook developers.
+
+En el dashboard de Facebook Devs... en el menú de Configuración haz click en "Agregar plataforma". Seleccionas Android. Llenar los campos de 
+"Nombre del paquete de Google Play" y "Nombre de la Clase".
+Esta información se encuentra dentro de Unity en el menú Facebook->Edit Settings ... dentro de Android Build Facebook Settings, copia los dos nombres respectivamente
+
+Más información en:
+https://developers.facebook.com/docs/unity
+
+Obtener información del usuario logeado:
+http://answers.unity3d.com/questions/628503/getting-user-name-facebook.html
