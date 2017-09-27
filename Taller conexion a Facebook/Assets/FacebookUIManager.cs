@@ -5,8 +5,23 @@ using UnityEngine.UI;
 using Facebook.Unity;
 public class FacebookUIManager : MonoBehaviour {
 	public Text _debugText;
+
+	public GameObject _prefab;
 	// Use this for initialization
 	void Start () {
+
+
+
+		GameObject copy = (GameObject) Instantiate (_prefab, transform.position, transform.rotation);
+
+
+
+
+
+
+
+
+
 		//inicializamos la conexión a facebook
 		FB.Init (OnFBInit, null, null);
 	}
